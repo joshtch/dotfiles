@@ -1,7 +1,11 @@
-" Clear autocmd settings
+" Clear autocmd settings -- enable to stop vim bogging down over time
 if has("autocmd")
         autocmd!
 endif
+
+" Mapleader needs to be set before it's used
+let mapleader = ","
+let g:mapleader = ","
 
 " NeoBundle plugin setup {{{
 let neobundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
@@ -15,22 +19,32 @@ if has('vim_starting')
         set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
+" Use git protocol
+let g:neobundle#types#git#default_protocol = 'git'
+
 call neobundle#rc(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Original repos on github
-"Add your bundles here
+NeoBundle 'Shougo/vimproc', {
+    \ 'build' : {
+    \       'windows' : 'make -f make_mingw32.mak',
+    \       'cygwin' : 'make -f make_cygwin.mak',
+    \       'mac' : 'make -f make_mac.mak',
+    \       'unix' : 'make -f make_unix.mak'
+    \      },
+    \ }
+
+NeoBundle 'Shougo/unite.vim', { 'depends' : 'Shougo/vimproc' }
+NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 
 "NeoBundle 'FredKSchott/CoVim'
+"NeoBundle 'Valloric/YouCompleteMe'
 "NeoBundle 'junegunn/vim-easy-align'
 "NeoBundle 'ksenoy/vim-signature'
 "NeoBundle 'osyo-manga/vim-over'
 "NeoBundle 'supasorn/vim-easymotion'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc'
-"NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'benmills/vimux'
 NeoBundle 'bling/vim-airline'
@@ -41,7 +55,12 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'jtmkrueger/vim-c-cr'
 NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'liujoey/vim-easymotion'
-NeoBundle 'merlinrebrovic/focus.vim'
+
+NeoBundle 'merlinrebrovic/focus.vim', {
+    \ 'stay_same' : 1,
+    \ 'mappings' : '<Plug>FocusModeToggle'
+    \ }
+
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'spiiph/vim-space'
@@ -118,8 +137,7 @@ function! CleanEmptyBuffers()
                 exe 'bw '.join(buffers, ' ')
         endif
 endfunction
-nmap <leader>fmt <Plug>FocusModeToggle
-nmap <silent> <leader>ceb :call CleanEmptyBuffers()<cr>
+nmap <silent> <leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<cr>
 " }}}
 
 
@@ -247,20 +265,19 @@ set autochdir
 " Unite {{{
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
-nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-nnoremap <leader>u :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
-
-" Custom mappings for the unite buffer {{{
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-        " Enable navigation with control-j and control-k in insert mode
-        "imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-        "imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction
+nnoremap <leader>ut :Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<cr>
+nnoremap <leader>uf :Unite -no-split -buffer-name=files -start-insert file -resume<cr>
+nnoremap <leader>ur :Unite -no-split -buffer-name=mru -start-insert file_mru -resume<cr>
+nnoremap <leader>uo :Unite -no-split -buffer-name=outline -start-insert outline -resume<cr>
+nnoremap <leader>uy :Unite -no-split -buffer-name=yank history/yank -resume<cr>
+nnoremap <leader>ub :Unite -no-split -buffer-name=buffer buffer -resume<cr>
+augroup UniteTags
+        autocmd!
+        autocmd BufEnter *
+                \ if empty(&buftype)
+                \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+                \| endif
+augroup END
 " }}}
 
 " Allow quitting unnamed buffers without confirmation or ! {{{
@@ -282,6 +299,7 @@ set splitright
 " cmdline tab completion settings
 set wildmode=list:longest,full
 set wildmenu
+" Don't try to open archives, swapfiles, or binaries
 set wildignore=*.o,*~,*.pyc,*.obj,*.a,*.lib,*.elf
 
 " Command bar appearance modifications
@@ -290,7 +308,7 @@ set showmode
 set cmdheight=1
 set shortmess=atIfilmnrxoOT
 
-" Highlight screen line of the cursor
+" Highlight screen line of the cursor, but only in current window
 augroup CursorLine
         autocmd!
         au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
@@ -355,7 +373,7 @@ set wildignore+=*.swp,*~,._*
 set nobackup
 set noswapfile
 
-" Indent Guides plugin: alternates coloring of indent levels
+" Indent Guides plugin: alternates coloring of indent levels--this is built-in
 let indent_guides_enable_on_vim_startup = 1
 
 " Smart autoindenting
@@ -458,8 +476,6 @@ set synmaxcol=256
 " Allow redo for insert-mode ^u
 inoremap <C-u> <C-g>u<C-u>
 
-let mapleader = ","
-let g:mapleader = ","
 " Since the ',' operator is actually useful, set it to ',;'
 nnoremap <leader>; ,
 nnoremap <leader>/ :set hlsearch! hlsearch?<CR>
@@ -619,9 +635,13 @@ nnoremap Q @@
 nnoremap K i<cr><esc>k:let _s=@/<cr>:s/\s\+$//e<cr>:let @/=_s<cr>$
 set nojoinspaces
 nnoremap L }
+onoremap L }
 nnoremap H {
+onoremap H {
 nnoremap { ^
+onoremap { ^
 nnoremap } $
+onoremap } $
 
 " Allow expected behavior when traversing wrapped lines
 nnoremap j gj
