@@ -17,6 +17,9 @@ endif
 
 call neobundle#rc(expand('~/.vim/bundle/'))
 
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
 " Original repos on github
 "Add your bundles here
 
@@ -25,10 +28,9 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 "NeoBundle 'ksenoy/vim-signature'
 "NeoBundle 'osyo-manga/vim-over'
 "NeoBundle 'supasorn/vim-easymotion'
-NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc'
-NeoBundle 'Valloric/YouCompleteMe'
+"NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'benmills/vimux'
 NeoBundle 'bling/vim-airline'
@@ -49,6 +51,15 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-scripts/Smooth-Scroll'
 NeoBundle 'vim-scripts/taglist.vim'
+
+"OSX-specific
+if has("unix")
+        let s:uname = system("uname")
+        if s:uname == "Darwin\n"
+                NeoBundle 'Dinduks/vim-holylight'
+                "NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
+        endif
+endif
 
 " Installation check.
 NeoBundleCheck
@@ -90,7 +101,7 @@ let g:syntastic_list_height = 5
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 let g:syntastic_c_check_header = 1
-let g:syntastic_auto_refresh_includes = 1
+"let g:syntastic_auto_refresh_includes = 1
 let g:syntastic_c_compiler = 'gcc'
 " }}}
 
@@ -111,6 +122,7 @@ nmap <leader>fmt <Plug>FocusModeToggle
 nmap <silent> <leader>ceb :call CleanEmptyBuffers()<cr>
 " }}}
 
+
 " vim-space {{{
 "noremap <expr> <silent> <Space> <SID>do_space(0, "<Space>")
 "noremap <expr> <silent> <leader><Space> <SID>do_space(1, "<S-Space>")
@@ -118,12 +130,12 @@ nmap <silent> <leader>ceb :call CleanEmptyBuffers()<cr>
 
 " Tabular.vim {{{
 if exists(":Tabularize")
-        "nmap <leader>a= :Tabularize /=<CR>
-        "xmap <leader>a= :Tabularize /=<CR>
-        "nmap <leader>a: :Tabularize /:\zs<CR>
-        "xmap <leader>a: :Tabularize /:\zs<CR>
-        "nmap <leader>ar :Tabularize /return<cr>
-        "xmap <leader>ar :Tabularize /return<cr>
+        nmap <leader>a= :Tabularize /=<CR>
+        xmap <leader>a= :Tabularize /=<CR>
+        nmap <leader>a: :Tabularize /:\zs<CR>
+        xmap <leader>a: :Tabularize /:\zs<CR>
+
+        " Tabular operator function; do e.g. <leader>tip= to align around '='
         function! s:tabularize_op(type, ...)
                 let c = nr2char(getchar())
                 execute "'[,']Tabularize/".c
@@ -242,20 +254,20 @@ nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outl
 nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
 nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 
-" Custom mappings for the unite buffer
+" Custom mappings for the unite buffer {{{
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
-        " Play nice with supertab
-        let b:SuperTabDisabled=1
         " Enable navigation with control-j and control-k in insert mode
         "imap <buffer> <C-j>   <Plug>(unite_select_next_line)
         "imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
-" Allow quitting unnamed buffers without confirmation or !
+" }}}
+
+" Allow quitting unnamed buffers without confirmation or ! {{{
 nnoremap <leader>q :call QuitIfEmpty()<CR>:q<Cr>
 function! QuitIfEmpty()
-        if empty(bufname('%'))⋅
-                setlocal nomodified⋅
+        if empty(bufname('%'))
+                setlocal nomodified
         endif
 endfunction
 " }}}
@@ -302,7 +314,7 @@ set showmatch    " Show matching parens
 set matchtime=1  " Tenths of a second to show matching paren
 
 " Defines bases for numbers for <c-a> and <c-x>
-set nrformats=octal,hex,alpha
+set nrformats=hex,alpha
 
 " Allow modified buffers to be hidden
 set hidden
@@ -417,16 +429,12 @@ nnoremap <leader>r :set rnu!<CR>
 set autoread
 
 " Automatically save file when focus is lost
-"augroup AutoSave
-        "autocmd!
-        "autocmd FocusLost * bufdo if expand('%') != '' | update | endif
-"augroup END
 set autowrite
 
 " Autoindent imitates indenting of previous line's indent
 set copyindent
 
-" Off to avoid unnecessary security vulnerabilities
+" Off to avoid security vulnerabilities
 set modelines=0
 
 " See :help slow-terminal
@@ -450,13 +458,9 @@ set synmaxcol=256
 " Allow redo for insert-mode ^u
 inoremap <C-u> <C-g>u<C-u>
 
-" Prevent Vim from clearing the scrollback buffer
-" http://www.shallowsky.com/linux/noaltscreen.html
-"set t_ti= t_te=
-
 let mapleader = ","
 let g:mapleader = ","
-" Since the ',' operator is actually useful, we set it to ',;'
+" Since the ',' operator is actually useful, set it to ',;'
 nnoremap <leader>; ,
 nnoremap <leader>/ :set hlsearch! hlsearch?<CR>
 nnoremap <leader>w :w!<cr>
@@ -466,10 +470,6 @@ nnoremap <silent> <leader>sl ^vg_y:execute @@<CR>
 nnoremap <silent> <leader>ea :vsplit ~/.oh-my-zsh/lib/aliases.zsh<CR>
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 
-" Switch buffers with a count: 3! will switch to buffer 3
-" Delete buffers the same way with ~
-nnoremap <expr> ! v:count ? ":<C-u>b<C-r>=v:count<CR><CR>" : "!"
-nnoremap <expr> ~ v:count ? ":<C-u>bd<C-r>=v:count<CR><CR>" : "~"
 " Use the first open window that contains the specified buffer
 set switchbuf=useopen
 
@@ -504,12 +504,6 @@ if has("autocmd")
                 autocmd FileType css setlocal ts=8 sts=4 sw=4 expandtab
                 autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
                 autocmd FileType c setlocal ts=8 sts=8 sw=8 cindent expandtab
-                autocmd FileType c setlocal makeprg=sh\ compile
-
-                " Treat .ums files as UM assembly language
-                autocmd BufNewFile,BufRead *.ums setfiletype ums
-                autocmd BufNewFile,BufRead *.ums nnoremap <buffer> <leader>m :call VimuxRunCommand("sh compile")<cr>
-                autocmd BufNewFile,BufRead *.ums nnoremap <buffer> <silent> <leader>g :call VimuxRunCommand("./um calc40.um")<cr>:VimuxInspectRunner<cr>
 
                 " Treat .rss files as XML
                 autocmd BufNewFile,BufRead *.rss setfiletype xml
@@ -529,26 +523,13 @@ if v:version > 703 || v:version == 703 && has("patch541")
         set formatoptions+=j
 endif
 
-" Easier split switching -- Deprecated by vim-tmux-navigation
-"nnoremap <silent> <C-J> <C-W>j
-"nnoremap <silent> <C-K> <C-W>k
-"nnoremap <silent> <C-H> <C-W>h
-"nnoremap <silent> <C-L> <C-W>l
-
-" Buffer and Quickfix navigation
-"nnoremap <silent> <leader>j :cn<cr>
-"nnoremap <silent> <leader>k :cp<cr>
-"nnoremap <silent> <leader>l :bn<cr>
-"nnoremap <silent> <leader>h :bp<cr>
-
 " Emacs key-binding in vim!
-" Since c-a is actually useful, we set it and <c-x> to + and - respectively
+" Since c-a is actually useful, set it and <c-x> to + and - respectively
 cnoremap <c-a> <home>
 inoremap <C-a> <C-o>0
 inoremap <C-e> <C-o>$
 nnoremap <C-e> $
 nnoremap <C-a> 0
-
 nnoremap + <c-a>
 nnoremap - <c-x>
 
@@ -621,11 +602,11 @@ augroup Resize
         au VimResized * exe "normal! \<c-w>="
 augroup END
 
-" Sets minimum split width
+" Sets minimum split width -- 80 + 5 for side column
 set winwidth=85
 
 " Put visually selected text in the '*' (middleclick/mouse) register and
-" '+' (global clipboard) register
+" '+' (global clipboard) register by default; may not work perfectly on linux
 set clipboard=unnamed
 set clipboard+=autoselect
 set clipboard+=unnamedplus
@@ -642,9 +623,11 @@ nnoremap H {
 nnoremap { ^
 nnoremap } $
 
-" C/C++ programming maps
-nnoremap <leader>m :make<cr>
-"nnoremap <leader>v :!valgrind --leak-check=full -v --show-reachable=yes --track-origins=yes ./
+" Allow expected behavior when traversing wrapped lines
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
 
 " Remove delay after esc + certain commands (e.g. O)
 set noesckeys
