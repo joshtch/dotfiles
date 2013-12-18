@@ -1,10 +1,9 @@
-" Clear autocmd settings -- enable to stop vim bogging down over time
+" Clear autocmd settings -- stop autocommands from bogging down vim over time
 if has("autocmd")
         autocmd!
 endif
 
 " Mapleader needs to be set before it's used
-let mapleader = ","
 let g:mapleader = ","
 
 " NeoBundle plugin setup {{{
@@ -37,14 +36,7 @@ NeoBundle 'Shougo/vimproc', {
     \ }
 
 NeoBundle 'Shougo/unite.vim', { 'depends' : 'Shougo/vimproc' }
-NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 
-"NeoBundle 'FredKSchott/CoVim'
-"NeoBundle 'Valloric/YouCompleteMe'
-"NeoBundle 'junegunn/vim-easy-align'
-"NeoBundle 'ksenoy/vim-signature'
-"NeoBundle 'osyo-manga/vim-over'
-"NeoBundle 'supasorn/vim-easymotion'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'benmills/vimux'
 NeoBundle 'bling/vim-airline'
@@ -54,7 +46,7 @@ NeoBundle 'godlygeek/tabular'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'jtmkrueger/vim-c-cr'
 NeoBundle 'justinmk/vim-sneak'
-NeoBundle 'liujoey/vim-easymotion'
+NeoBundle 'mattdbridges/bufkill.vim'
 
 NeoBundle 'merlinrebrovic/focus.vim', {
     \ 'stay_same' : 1,
@@ -64,12 +56,20 @@ NeoBundle 'merlinrebrovic/focus.vim', {
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'spiiph/vim-space'
+NeoBundle 'supasorn/vim-easymotion', { 'name' : 'supasorn-easymotion' }
 NeoBundle 'tpope/vim-capslock'
-NeoBundle 'tpope/vim-obsession'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'vim-scripts/Smooth-Scroll'
-NeoBundle 'vim-scripts/taglist.vim'
+
+"NeoBundle 'FredKSchott/CoVim'
+"NeoBundle 'Valloric/YouCompleteMe'
+"NeoBundle 'junegunn/vim-easy-align'
+"NeoBundle 'ksenoy/vim-signature'
+"NeoBundle 'liujoey/vim-easymotion', { 'name' : 'liujoey-easymotion' }
+"NeoBundle 'osyo-manga/vim-over'
+"NeoBundle 'tpope/vim-obsession'
 
 "OSX-specific
 if has("unix")
@@ -159,30 +159,6 @@ if exists(":Tabularize")
                 execute "'[,']Tabularize/".c
         endfunction
         nnoremap <silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
-endif
-" }}}
-
-" Taglist {{{
-if exists(':Tlist')
-        nmap <leader>tl :TlistToggle<cr>
-        nmap <leader>tf :ta<space>
-        if filereadable('tags')
-                set tags=tags
-        endif
-        if has("cscope") && filereadable("/usr/bin/cscope")
-                set csprg=/usr/bin/cscope
-                set csto=0
-                set cst
-                set nocsverb
-                " add any database in current directory
-                if filereadable("cscope.out")
-                        cs add cscope.out
-                        " else add database pointed to by environment
-                elseif $CSCOPE_DB != ""
-                        cs add $CSCOPE_DB
-                endif
-                set csverb
-        endif
 endif
 " }}}
 
@@ -278,6 +254,10 @@ augroup UniteTags
                 \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
                 \| endif
 augroup END
+" }}}
+
+" bufkill.vim {{{
+nmap <leader>bc :BD<cr>
 " }}}
 
 " Allow quitting unnamed buffers without confirmation or ! {{{
@@ -680,81 +660,4 @@ function! s:Warn(msg)
         echohl ErrorMsg
         echomsg a:msg
         echohl NONE
-endfunction
-
-" Command ':Bclose' executes ':bd' to delete buffer in current window.
-" The window will show the alternate buffer (Ctrl-^) if it exists,
-" or the previous buffer (:bp), or a blank buffer if no previous.
-" Command ':Bclose!' is the same, but executes ':bd!' (discard changes).
-" An optional argument can specify which buffer to close (name or number).
-function! s:Bclose(bang, buffer)
-        if empty(a:buffer)
-                let btarget = bufnr('%')
-        elseif a:buffer =~ '^\d\+$'
-                let btarget = bufnr(str2nr(a:buffer))
-        else
-                let btarget = bufnr(a:buffer)
-        endif
-        if btarget < 0
-                call s:Warn('No matching buffer for '.a:buffer)
-                return
-        endif
-        if empty(a:bang) && getbufvar(btarget, '&modified')
-                call s:Warn('No write since last change for buffer '.btarget.' (use :Bclose!)')
-                return
-        endif
-        " Numbers of windows that view target buffer which we will delete.
-        let wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == btarget')
-        if !g:bclose_multiple && len(wnums) > 1
-                call s:Warn('Buffer is in multiple windows (use ":let bclose_multiple=1")')
-                return
-        endif
-        let wcurrent = winnr()
-        for w in wnums
-                execute w.'wincmd w'
-                let prevbuf = bufnr('#')
-                if prevbuf > 0 && buflisted(prevbuf) && prevbuf != w
-                        buffer #
-                else
-                        bprevious
-                endif
-                if btarget == bufnr('%')
-                        " Numbers of listed buffers which are not the target to be deleted.
-                        let blisted = filter(range(1, bufnr('$')), 'buflisted(v:val) && v:val != btarget')
-                        " Listed, not target, and not displayed.
-                        let bhidden = filter(copy(blisted), 'bufwinnr(v:val) < 0')
-                        " Take the first buffer, if any (could be more intelligent).
-                        let bjump = (bhidden + blisted + [-1])[0]
-                        if bjump > 0
-                                execute 'buffer '.bjump
-                        else
-                                execute 'enew'.a:bang
-                        endif
-                endif
-        endfor
-        execute 'bdelete'.a:bang.' '.btarget
-        execute wcurrent.'wincmd w'
-endfunction
-command! -bang -complete=buffer -nargs=? Bclose call s:Bclose('<bang>', '<args>')
-nnoremap <silent> <Leader>bc :Bclose<CR>
-" }}}
-
-" Make :lnext and :lprev wrap around
-"nnoremap <Home> :call WrapCommand("up")<CR>
-nnoremap <leader>l  :call WrapCommand("down")<CR>
-
-function! WrapCommand(direction)
-        if a:direction == "up"
-                try
-                        lprevious
-                catch /^Vim\%((\a\+)\)\=:E553/
-                        llast
-                endtry
-        elseif a:direction == "down"
-                try
-                        lnext
-                catch /^Vim\%((\a\+)\)\=:E553/
-                        lfirst
-                endtry
-        endif
 endfunction
