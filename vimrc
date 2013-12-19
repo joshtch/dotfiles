@@ -7,6 +7,8 @@ endif
 let g:mapleader = ","
 
 " NeoBundle plugin setup {{{
+
+" Autoinstall NeoBundle
 let neobundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
 if !filereadable(neobundle_readme)
         echo "Installing NeoBundle.."
@@ -14,11 +16,12 @@ if !filereadable(neobundle_readme)
         silent !mkdir -p ~/.vim/bundle
         silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 endif
+
 if has('vim_starting')
         set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-" Use git protocol
+" Make NeoBudle use git by default
 let g:neobundle#types#git#default_protocol = 'git'
 
 call neobundle#rc(expand('~/.vim/bundle/'))
@@ -26,6 +29,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+" Asynchronous updating
 NeoBundle 'Shougo/vimproc', {
     \ 'build' : {
     \       'windows' : 'make -f make_mingw32.mak',
@@ -35,32 +39,70 @@ NeoBundle 'Shougo/vimproc', {
     \      },
     \ }
 
+" Unified interface for file, buffer, yankstack, etc. management
 NeoBundle 'Shougo/unite.vim', { 'depends' : 'Shougo/vimproc' }
 
+" Solarized colorscheme
 NeoBundle 'altercation/vim-colors-solarized'
+
+" Interact with a tmux split directly from vim's commandline
 NeoBundle 'benmills/vimux'
+
+" Airline statusline
 NeoBundle 'bling/vim-airline'
+
+" Seamlessly navigate vim and tmux splits
 NeoBundle 'christoomey/vim-tmux-navigator'
-NeoBundle 'dbakker/vim-lint'
+
+" Syntax checking for vimscript
+NeoBundle 'dbakker/vim-lint', { 'depends' : 'scrooloose/syntastic' }
+
+" Character alignment
 NeoBundle 'godlygeek/tabular'
-NeoBundle 'h1mesuke/unite-outline'
+
+" Outlining in unite
+NeoBundle 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim' }
+
+" Press <c-cr> on an open brace '([{' to automatically generate a closebrace
 NeoBundle 'jtmkrueger/vim-c-cr'
+
+" f- and t-type navigation over multiple lines, using two chars instead of one
 NeoBundle 'justinmk/vim-sneak'
+
+" Close buffers without closing windows
 NeoBundle 'mattdbridges/bufkill.vim'
 
+" Force display of a single buffer for focused vimming
 NeoBundle 'merlinrebrovic/focus.vim', {
     \ 'stay_same' : 1,
     \ 'mappings' : '<Plug>FocusModeToggle'
     \ }
 
+" Smart commenting plugin
 NeoBundle 'scrooloose/nerdcommenter'
+
+" Real-time syntax checking
 NeoBundle 'scrooloose/syntastic'
+
+" Repeat motions with space
 NeoBundle 'spiiph/vim-space'
+
+" Quick navigation with hotkeys
 NeoBundle 'supasorn/vim-easymotion', { 'name' : 'supasorn-easymotion' }
+
+" Enable capslock for only insert mode using <c-c>
 NeoBundle 'tpope/vim-capslock'
+
+" Enable use of dot operator with certain plugins
 NeoBundle 'tpope/vim-repeat'
+
+" Surround text easily
 NeoBundle 'tpope/vim-surround'
+
+" Tag navigation in unite
 NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
+
+" Scroll window with <c-u>, <c-b>, <c-d>, <c-f> without losing track of position
 NeoBundle 'vim-scripts/Smooth-Scroll'
 
 "NeoBundle 'FredKSchott/CoVim'
@@ -140,19 +182,12 @@ endfunction
 nmap <silent> <leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<cr>
 " }}}
 
-
-" vim-space {{{
-"noremap <expr> <silent> <Space> <SID>do_space(0, "<Space>")
-"noremap <expr> <silent> <leader><Space> <SID>do_space(1, "<S-Space>")
-" }}}
-
 " Tabular.vim {{{
 if exists(":Tabularize")
         nmap <leader>a= :Tabularize /=<CR>
         xmap <leader>a= :Tabularize /=<CR>
         nmap <leader>a: :Tabularize /:\zs<CR>
         xmap <leader>a: :Tabularize /:\zs<CR>
-
         " Tabular operator function; do e.g. <leader>tip= to align around '='
         function! s:tabularize_op(type, ...)
                 let c = nr2char(getchar())
@@ -188,7 +223,7 @@ nmap <leader>vr :VimuxRunLastCommand<cr>
 
 " Autolabel tmux windows
 augroup Tmux
-        au!
+        autocmd!
         autocmd VimEnter,BufNewFile,BufReadPost * call system('tmux rename-window "vim - ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1] . '"')
         autocmd VimLeave * call system('tmux rename-window ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1])
 augroup END
@@ -205,8 +240,8 @@ hi link EasyMotionShade Comment
 cabbrev h <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<cr>
 cabbrev help <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<cr>
 
-" Still havent jumped on the NerdTree bandwagon
 " Toggle Vexplore with Ctrl-E {{{
+" Still haven't jumped on the NerdTree bandwagon
 function! ToggleVExplorer()
         if exists("t:expl_buf_num")
                 let expl_win_num = bufwinnr(t:expl_buf_num)
@@ -367,23 +402,24 @@ filetype plugin indent on
 augroup AnnoyingWhitespace
         autocmd!
         highlight link ExtraWhitespace ErrorMsg
-        match ExtraWhitespace /\v\s+$/
-        autocmd BufWinEnter * match ExtraWhitespace /\v\s+$/
+        match ExtraWhitespace /\s\+$/
+        autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
         autocmd InsertEnter * match ExtraWhitespace /\v\s+%#@<!$/
-        autocmd InsertLeave * match ExtraWhitespace /\v\s+$/
+        autocmd InsertLeave * match ExtraWhitespace /\s\+$/
         autocmd BufWinLeave * call clearmatches()
-        autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\v\s+%#@!$/
-        autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\v\s+$/
+        autocmd InsertEnter *
+                \ syn clear EOLWS | syn match EOLWS excludenl /\v\s+%#@!$/
+        autocmd InsertLeave *
+                \ syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
         highlight link EOLWS ErrorMsg
 augroup END
 
 " Set default shell to use
 set shell=/bin/zsh
 
-" Show whitespace
+" Show tab characters
 set list
-set listchars=
-set listchars+=tab:▶\
+set listchars=tab:▶\
 "set listchars+=trail:·
 
 " Allow use of mouse
