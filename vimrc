@@ -1,3 +1,9 @@
+" Things I'd like to do:
+" Make vim open as many splits as it can when it's opened with filenames in the
+"  command line
+" Add and "append after/insert before text object" operator
+" More textobjects!
+
 " Clear autocmd settings -- stop autocommands from bogging down vim over time
 if has("autocmd")
         autocmd!
@@ -21,7 +27,7 @@ if has('vim_starting')
         set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-" Make NeoBudle use git by default
+" Make NeoBundle use git by default
 let g:neobundle#types#git#default_protocol = 'git'
 
 call neobundle#rc(expand('~/.vim/bundle/'))
@@ -89,6 +95,9 @@ NeoBundle 'spiiph/vim-space'
 
 " Quick navigation with hotkeys
 NeoBundle 'supasorn/vim-easymotion', { 'name' : 'supasorn-easymotion' }
+
+" Awesome git plugin for vim
+NeoBundle 'tpope/vim-fugitive'
 
 " Enable capslock for only insert mode using <c-c>
 NeoBundle 'tpope/vim-capslock'
@@ -184,11 +193,13 @@ nmap <silent> <leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<cr>
 
 " Tabular.vim {{{
 if exists(":Tabularize")
-        nmap <leader>a= :Tabularize /=<CR>
-        xmap <leader>a= :Tabularize /=<CR>
-        nmap <leader>a: :Tabularize /:\zs<CR>
-        xmap <leader>a: :Tabularize /:\zs<CR>
-        " Tabular operator function; do e.g. <leader>tip= to align around '='
+        nmap <leader>a= :Tabularize /=<cr>
+        xmap <leader>a= :Tabularize /=<cr>
+        nmap <leader>a: :Tabularize /:\zs<cr>
+        xmap <leader>a: :Tabularize /:\zs<cr>
+        " Tabular operator function
+        " Operations have the form <mapping> <textobject> <alignment char>
+        " For example, to align a paragraph along '=' chars, do <leader>tip=
         function! s:tabularize_op(type, ...)
                 let c = nr2char(getchar())
                 execute "'[,']Tabularize/".c
@@ -286,17 +297,13 @@ augroup UniteTags
         autocmd!
         autocmd BufEnter *
                 \ if empty(&buftype)
-                \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+                \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<cr>
                 \| endif
 augroup END
 " }}}
 
-" bufkill.vim {{{
-nmap <leader>bc :BD<cr>
-" }}}
-
 " Allow quitting unnamed buffers without confirmation or ! {{{
-nnoremap <leader>q :call QuitIfEmpty()<CR>:q<Cr>
+nnoremap <leader>q :call QuitIfEmpty()<cr>:q<cr>
 function! QuitIfEmpty()
         if empty(bufname('%'))
                 setlocal nomodified
@@ -399,6 +406,7 @@ filetype plugin indent on
 
 " Make trailing whitespace annoyingly highlighted.
 " See: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+" TODO: Turn this off for markdown and other languages that require trailing ws
 augroup AnnoyingWhitespace
         autocmd!
         highlight link ExtraWhitespace ErrorMsg
@@ -419,7 +427,7 @@ set shell=/bin/zsh
 
 " Show tab characters
 set list
-set listchars=tab:▶\
+set listchars=tab:▶\ ,
 "set listchars+=trail:·
 
 " Allow use of mouse
@@ -457,7 +465,7 @@ set nowritebackup
 set number
 
 " Add a relative number toggle
-nnoremap <leader>r :set rnu!<CR>
+nnoremap <leader>r :set rnu!<cr>
 
 " Rereads a file when it is detected to have been modified outside Vim
 set autoread
@@ -494,13 +502,18 @@ inoremap <C-u> <C-g>u<C-u>
 
 " Since the ',' operator is actually useful, set it to ',;'
 nnoremap <leader>; ,
-nnoremap <leader>/ :set hlsearch! hlsearch?<CR>
+nnoremap <leader>/ :set hlsearch! hlsearch?<cr>
 nnoremap <leader>w :w!<cr>
-nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
-nnoremap <silent> <leader>ez :vsplit ~/.zshrc<CR>
-nnoremap <silent> <leader>sl ^vg_y:execute @@<CR>
-nnoremap <silent> <leader>ea :vsplit ~/.oh-my-zsh/lib/aliases.zsh<CR>
-nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
+nnoremap <silent> <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <silent> <leader>ez :vsplit ~/.zshrc<cr>
+nnoremap <silent> <leader>sl ^vg_y:execute @@<cr>
+nnoremap <silent> <leader>ea :vsplit ~/.oh-my-zsh/lib/aliases.zsh<cr>
+nnoremap <silent> <leader>sv :so $MYVIMRC<cr>
+
+" Switch buffers iwth a count: 3! with switch to buffer 3
+" Delete buffers the same way with ~
+nnoremap <expr> ! v:count ? ":<C-u>b<C-r>=v:count<CR><CR>" : "!"
+nnoremap <expr> ~ v:count ? ":<C-u>bd<C-r>=v:count<CR><CR>" : "~"
 
 " Use the first open window that contains the specified buffer
 set switchbuf=useopen
@@ -679,7 +692,7 @@ function! <SID>StripTrailingWhitespace()
         let @/=_s
         call cursor(l, c)
 endfunction
-nmap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
+nmap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<cr>
 
 " Delete buffer while keeping window layout (don't close buffer's windows). {{{
 " Version 2008-11-18 from http://vim.wikia.com/wiki/VimTip165
