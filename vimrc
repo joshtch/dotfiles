@@ -1,8 +1,10 @@
 " Things I'd like to do:
-" Make vim open as many splits as it can when it's opened with filenames in the
+" Make vim open as many vsplits as it can when it's opened with filenames in the
 "  command line
-" Add and "append after/insert before text object" operator
+" Add create "append after/insert before text object" operator
 " More textobjects!
+" Make a branch of focus.vim that removes the annoying mapping and clears
+"  unnamed buffers when focusmode is toggled
 
 " Clear autocmd settings -- stop autocommands from bogging down vim over time
 if has("autocmd")
@@ -15,18 +17,13 @@ let g:mapleader = ","
 " NeoBundle plugin setup {{{
 
 " Autoinstall NeoBundle
-let neobundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
-if !filereadable(neobundle_readme)
-        echo "Installing NeoBundle.."
-        echo ""
-        silent !mkdir -p ~/.vim/bundle
-        silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-endif
-
 if has('vim_starting')
         set runtimepath+=~/.vim/bundle/neobundle.vim/
+        if !isdirectory(expand('~/.vim/bundle/neobundle'))
+                !mkdir -p ~/.vim/bundle/neobundle && git clone 'https://github.com/Shougo/neobundle.vim.git'    ~/.vim/bundle/neobundle
+        endif
 endif
-
+"
 " Make NeoBundle use git by default
 let g:neobundle#types#git#default_protocol = 'git'
 
@@ -80,7 +77,7 @@ NeoBundle 'mattdbridges/bufkill.vim'
 
 " Force display of a single buffer for focused vimming
 NeoBundle 'merlinrebrovic/focus.vim', {
-    \ 'stay_same' : 1,
+    \ 'stay_same' : 0,
     \ 'mappings' : '<Plug>FocusModeToggle'
     \ }
 
@@ -97,7 +94,7 @@ NeoBundle 'spiiph/vim-space'
 NeoBundle 'supasorn/vim-easymotion', { 'name' : 'supasorn-easymotion' }
 
 " Awesome git plugin for vim
-NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
 
 " Enable capslock for only insert mode using <c-c>
 NeoBundle 'tpope/vim-capslock'
@@ -111,27 +108,26 @@ NeoBundle 'tpope/vim-surround'
 " Tag navigation in unite
 NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 
-" Scroll window with <c-u>, <c-b>, <c-d>, <c-f> without losing track of position
-NeoBundle 'vim-scripts/Smooth-Scroll'
+" OSX only: Swap between light and dark colorscheme based on ambient light level
+NeoBundle 'Dinduks/vim-holylight', {
+        \ 'neobundle-options-disabled' :
+        \       '!has("unix") || system("uname") != "Darwin\n"'
+        \ }
 
+" Disabled plugins
 "NeoBundle 'FredKSchott/CoVim'
-"NeoBundle 'Valloric/YouCompleteMe'
+"NeoBundle 'Valloric/YouCompleteMe', {
+        "\ 'neobundle-options-disabled' : !has('python'),
+        "\ 'neobundle-options-vim_version' : 7.3.584'
+        "\ 'build', '~/.vim/bundle/YouCompleteMe/install.sh --clang-completer'
+        "\ }
+
 "NeoBundle 'junegunn/vim-easy-align'
 "NeoBundle 'ksenoy/vim-signature'
-"NeoBundle 'liujoey/vim-easymotion', { 'name' : 'liujoey-easymotion' }
+"NeoBundle 'liujoey/vim-easymotion'
 "NeoBundle 'osyo-manga/vim-over'
 "NeoBundle 'tpope/vim-obsession'
 
-"OSX-specific
-if has("unix")
-        let s:uname = system("uname")
-        if s:uname == "Darwin\n"
-                NeoBundle 'Dinduks/vim-holylight'
-                "NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
-        endif
-endif
-
-" Installation check.
 NeoBundleCheck
 " }}}
 
@@ -647,14 +643,12 @@ augroup Resize
         au VimResized * exe "normal! \<c-w>="
 augroup END
 
-" Sets minimum split width -- 80 + 5 for side column
-set winwidth=85
+" Sets minimum split width -- 80 + 4 for number column
+set winwidth=84
 
 " Put visually selected text in the '*' (middleclick/mouse) register and
 " '+' (global clipboard) register by default; may not work perfectly on linux
-set clipboard=unnamed
-set clipboard+=autoselect
-set clipboard+=unnamedplus
+set clipboard=unnamed,unnamedplus
 
 " Map annoying and useless <F1>, Q and K to more useful things
 " F1 clears search highlighting and refreshes, Q repeats last macro, K splits
@@ -663,20 +657,20 @@ nnoremap <F1> <nop>
 nnoremap Q @@
 nnoremap K i<cr><esc>k:let _s=@/<cr>:s/\s\+$//e<cr>:let @/=_s<cr>$
 set nojoinspaces
-nnoremap L }
-onoremap L }
-nnoremap H {
-onoremap H {
-nnoremap { ^
-onoremap { ^
-nnoremap } $
-onoremap } $
+noremap L }
+noremap H {
+noremap { ^
+noremap } $
+
+" Nice way to scroll page by page
+nnoremap <leader>j z+
+nnoremap <leader>k z^
 
 " Allow expected behavior when traversing wrapped lines
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
+noremap j gj
+noremap k gk
+noremap gj j
+noremap gk k
 
 " Remove delay after esc + certain commands (e.g. O)
 set noesckeys
@@ -693,20 +687,3 @@ function! <SID>StripTrailingWhitespace()
         call cursor(l, c)
 endfunction
 nmap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<cr>
-
-" Delete buffer while keeping window layout (don't close buffer's windows). {{{
-" Version 2008-11-18 from http://vim.wikia.com/wiki/VimTip165
-if v:version < 700 || exists('loaded_bclose') || &cp
-        finish
-endif
-let loaded_bclose = 1
-if !exists('bclose_multiple')
-        let bclose_multiple = 1
-endif
-
-" Display an error message.
-function! s:Warn(msg)
-        echohl ErrorMsg
-        echomsg a:msg
-        echohl NONE
-endfunction
