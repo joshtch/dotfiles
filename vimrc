@@ -5,6 +5,7 @@
 " More textobjects!
 " Make a branch of focus.vim that removes the annoying mapping and clears
 "  unnamed buffers when focusmode is toggled
+" Figure out how to put plugins in separate file to be sourced
 
 " Clear autocmd settings -- stop autocommands from bogging down vim over time
 if has("autocmd")
@@ -19,20 +20,17 @@ let g:mapleader = ","
 " Autoinstall NeoBundle
 if has('vim_starting')
         set runtimepath+=~/.vim/bundle/neobundle.vim/
-        if !isdirectory(expand('~/.vim/bundle/neobundle'))
+        if !isdirectory(expand('~/.vim/bundle/neobundle.vim'))
                 !mkdir -p ~/.vim/bundle/neobundle && git clone 'https://github.com/Shougo/neobundle.vim.git'    ~/.vim/bundle/neobundle
         endif
 endif
-"
-" Make NeoBundle use git by default
-let g:neobundle#types#git#default_protocol = 'git'
 
 call neobundle#rc(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Asynchronous updating
+" Vimproc: Asynchronous updating {{{
 NeoBundle 'Shougo/vimproc', {
     \ 'build' : {
     \       'windows' : 'make -f make_mingw32.mak',
@@ -41,97 +39,29 @@ NeoBundle 'Shougo/vimproc', {
     \       'unix' : 'make -f make_unix.mak'
     \      },
     \ }
-
-" Unified interface for file, buffer, yankstack, etc. management
-NeoBundle 'Shougo/unite.vim', { 'depends' : 'Shougo/vimproc' }
-
-" Solarized colorscheme
-NeoBundle 'altercation/vim-colors-solarized'
-
-" Interact with a tmux split directly from vim's commandline
-NeoBundle 'benmills/vimux'
-
-" Airline statusline
-NeoBundle 'bling/vim-airline'
-
-" Seamlessly navigate vim and tmux splits
-NeoBundle 'christoomey/vim-tmux-navigator'
-
-" Syntax checking for vimscript
-NeoBundle 'dbakker/vim-lint', { 'depends' : 'scrooloose/syntastic' }
-
-" Character alignment
-NeoBundle 'godlygeek/tabular'
-
-" Outlining in unite
-NeoBundle 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim' }
-
-" Press <c-cr> on an open brace '([{' to automatically generate a closebrace
-NeoBundle 'jtmkrueger/vim-c-cr'
-
-" f- and t-type navigation over multiple lines, using two chars instead of one
-NeoBundle 'justinmk/vim-sneak'
-
-" Close buffers without closing windows
-NeoBundle 'mattdbridges/bufkill.vim'
-
-" Force display of a single buffer for focused vimming
-NeoBundle 'merlinrebrovic/focus.vim', {
-    \ 'stay_same' : 0,
-    \ 'mappings' : '<Plug>FocusModeToggle'
-    \ }
-
-" Smart commenting plugin
-NeoBundle 'scrooloose/nerdcommenter'
-
-" Real-time syntax checking
-NeoBundle 'scrooloose/syntastic'
-
-" Repeat motions with space
-NeoBundle 'spiiph/vim-space'
-
-" Quick navigation with hotkeys
-NeoBundle 'supasorn/vim-easymotion', { 'name' : 'supasorn-easymotion' }
-
-" Awesome git plugin for vim
-NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
-
-" Enable capslock for only insert mode using <c-c>
-NeoBundle 'tpope/vim-capslock'
-
-" Enable use of dot operator with certain plugins
-NeoBundle 'tpope/vim-repeat'
-
-" Surround text easily
-NeoBundle 'tpope/vim-surround'
-
-" Tag navigation in unite
-NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
-
-" OSX only: Swap between light and dark colorscheme based on ambient light level
-NeoBundle 'Dinduks/vim-holylight', {
-        \ 'neobundle-options-disabled' :
-        \       '!has("unix") || system("uname") != "Darwin\n"'
-        \ }
-
-" Disabled plugins
-"NeoBundle 'FredKSchott/CoVim'
-"NeoBundle 'Valloric/YouCompleteMe', {
-        "\ 'neobundle-options-disabled' : !has('python'),
-        "\ 'neobundle-options-vim_version' : 7.3.584'
-        "\ 'build', '~/.vim/bundle/YouCompleteMe/install.sh --clang-completer'
-        "\ }
-
-"NeoBundle 'junegunn/vim-easy-align'
-"NeoBundle 'ksenoy/vim-signature'
-"NeoBundle 'liujoey/vim-easymotion'
-"NeoBundle 'osyo-manga/vim-over'
-"NeoBundle 'tpope/vim-obsession'
-
-NeoBundleCheck
 " }}}
 
-" Solarized {{{
+" Unite: Unified interface for file, buffer, yankstack, etc. management {{{
+NeoBundle 'Shougo/unite.vim', { 'depends' : 'Shougo/vimproc' }
+let g:unite_source_history_yank_enable = 1
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <leader>ut :Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<cr>
+nnoremap <leader>uf :Unite -no-split -buffer-name=files -start-insert file -resume<cr>
+nnoremap <leader>ur :Unite -no-split -buffer-name=mru -start-insert file_mru -resume<cr>
+nnoremap <leader>uo :Unite -no-split -buffer-name=outline -start-insert outline -resume<cr>
+nnoremap <leader>uy :Unite -no-split -buffer-name=yank history/yank -resume<cr>
+nnoremap <leader>ub :Unite -no-split -buffer-name=buffer buffer -resume<cr>
+augroup UniteTags
+        autocmd!
+        autocmd BufEnter *
+                \ if empty(&buftype)
+                \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<cr>
+                \| endif
+augroup END
+" }}}
+
+" Solarized: colorscheme {{{
+NeoBundle 'altercation/vim-colors-solarized'
 syntax enable
 colorscheme solarized
 set background=dark
@@ -140,8 +70,17 @@ let g:solarized_termcolors=16
 let g:solarized_termtrans=0
 " }}}
 
-" vim-airline settings {{{
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+" Vimux: Interact with a tmux split directly from vim's commandline {{{
+NeoBundle 'benmills/vimux'
+nmap <leader>vs :call VimuxRunCommand('exec zsh')<cr>:call VimuxRunCommand('clear')<cr>
+nmap <leader>vc :VimuxCloseRunner<cr>
+nmap <leader>vp :VimuxPromptCommand<cr>
+nmap <leader>vr :VimuxRunLastCommand<cr>
+" }}}
+
+" vim-airline statusline {{{
+NeoBundle 'bling/vim-airline'
+silent! set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set lazyredraw
 set t_Co=256
 set ttimeoutlen=50
@@ -157,37 +96,21 @@ let g:airline_theme = 'solarized'
 let g:airline#extensions#tabline#enabled = 1
 " }}}
 
-" Syntastic {{{
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_filetype_map = { 'latex': 'tex' }
-let g:syntastic_stl_format = '[%E{Err: %fe #%e}]'
-let g:syntastic_list_height = 5
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '!'
-let g:syntastic_c_check_header = 1
-"let g:syntastic_auto_refresh_includes = 1
-let g:syntastic_c_compiler = 'gcc'
+" VimTmuxNavigator: Seamlessly navigate vim and tmux splits {{{
+NeoBundle 'christoomey/vim-tmux-navigator'
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <c--> :TmuxNavigatePrevious<cr>
 " }}}
 
-" YouCompleteMe {{{
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_key_detailed_diagnostics = ''
-let g:ycm_register_as_syntastic_checker = 1
-" }}}
+" Vim_lint: Syntax checking for vimscript
+NeoBundle 'dbakker/vim-lint', { 'depends' : 'scrooloose/syntastic' }
 
-" focus.vim {{{
-function! CleanEmptyBuffers()
-        let buffers = filter(range(0, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val)<0')
-        if !empty(buffers)
-                exe 'bw '.join(buffers, ' ')
-        endif
-endfunction
-nmap <silent> <leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<cr>
-" }}}
-
-" Tabular.vim {{{
+" Tabular: Character alignment {{{
+NeoBundle 'godlygeek/tabular'
 if exists(":Tabularize")
         nmap <leader>a= :Tabularize /=<cr>
         xmap <leader>a= :Tabularize /=<cr>
@@ -204,28 +127,157 @@ if exists(":Tabularize")
 endif
 " }}}
 
-" vim-sneak {{{
-hi link SneakPluginTarget ErrorMsg
-hi link SneakPluginScope Comment
-nmap - <Plug>SneakPrevious
-nmap <leader>s <Plug>SneakForward
-nmap <leader>S <Plug>SneakBackward
+" Unite_outline: Outlining in unite
+NeoBundle 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim' }
+
+" Niceblock: Use I and A in all visual modes, not just visual block mode
+NeoBundle 'kana/vim-niceblock', { 'neobundle-options-vim_version' : '7.3' }
+
+" Bufkill: Close buffers without closing windows
+NeoBundle 'mattdbridges/bufkill.vim'
+
+" Signify: Show VCS diff using sign column
+"NeoBundle 'mhinz/vim-signify'
+
+" Focus: Force display of a single buffer for focused editing {{{
+" This mapping is included to keep focus.vim from setting its own
+silent! nmap <leader>f <Plug>FocusModeToggle
+NeoBundle 'merlinrebrovic/focus.vim', {
+    \ 'stay_same' : 0,
+    \ 'mappings' : '<Plug>FocusModeToggle'
+    \ }
+function! CleanEmptyBuffers()
+        let buffers = filter(range(0, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val)<0')
+        if !empty(buffers)
+                exe 'bw '.join(buffers, ' ')
+        endif
+endfunction
+nmap <silent> <leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<cr>
 " }}}
 
-" Vim-tmux-navigator {{{
-let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <c--> :TmuxNavigatePrevious<cr>
+" Syntastic: Real-time syntax checking {{{
+NeoBundle 'scrooloose/syntastic'
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_filetype_map = { 'latex': 'tex' }
+let g:syntastic_stl_format = '[%E{Err: %fe #%e}]'
+let g:syntastic_list_height = 5
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '!'
+let g:syntastic_c_check_header = 1
+"let g:syntastic_auto_refresh_includes = 1
+let g:syntastic_c_compiler = 'gcc'
 " }}}
 
-" Vimux {{{
-nmap <leader>vs :call VimuxRunCommand('exec zsh')<cr>:call VimuxRunCommand('clear')<cr>
-nmap <leader>vc :VimuxCloseRunner<cr>
-nmap <leader>vp :VimuxPromptCommand<cr>
-nmap <leader>vr :VimuxRunLastCommand<cr>
+" NERDCommenter: Smart commenting plugin {{{
+NeoBundle 'scrooloose/nerdcommenter'
+" }}}
+
+" Gundo: Undo tree visualization {{{
+NeoBundle 'sjl/gundo.vim', {
+        \ 'neobundle-options-vim_version' : '7.3',
+        \ 'neobundle-options-disabled' : '!has("python")'
+        \ }
+nmap <leader>g :GundoToggle<cr>
+" }}}
+
+" Vim_space: Repeat motions with space
+NeoBundle 'spiiph/vim-space'
+
+" Easymotion: Quick navigation with hotkeys {{{
+NeoBundle 'supasorn/vim-easymotion'
+let g:EasyMotion_leader_key = '\'
+hi EasyMotionTarget ctermbg=none ctermfg=red
+hi EasyMotionTarget2First ctermbg=none ctermfg=red
+hi link EasyMotionShade Comment
+" }}}
+
+" Fugitive: Awesome git plugin for vim
+NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
+
+" Capslock: Enable capslock for only insert mode using <C-G>c
+NeoBundle 'tpope/vim-capslock'
+
+" Repeat: Enable use of dot operator with certain plugins
+NeoBundle 'tpope/vim-repeat'
+
+" RSI: Readline key bindings for insert and command line modes
+NeoBundle 'tpope/vim-rsi'
+
+" Surround: Surround text easily
+NeoBundle 'tpope/vim-surround'
+
+" Tag: Tag navigation in unite
+NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
+
+" Open Browser: Open a URL in the default browser {{{
+NeoBundle 'tyru/open-browser.vim', {
+        \ 'mappings' : '<Plug>(openbrowser-open),<Plug>(openbrowser-smart-search)'
+        \ }
+map gu <Plug>(openbrowser-open)
+map gs <Plug>(openbrowser-search)
+map go <Plug>(openbrowser-smart-search)
+nmap <leader>ob :OpenBrowserSmartSearch<space>
+" }}}
+
+" UndoCloseWin: Undo closing of tabs and windows {{{
+NeoBundle 'tyru/undoclosewin.vim', {
+        \ 'mappings' : '<Plug>(ucw-restore-window)'
+        \ }
+map <leader>br <Plug>(ucw-restore-window)
+" }}}
+
+
+" YouCompleteMe: Smart autocompletion {{{
+NeoBundle 'Valloric/YouCompleteMe', {
+        \ 'neobundle-options-disabled' : '!has("python") || !has("unix")',
+        \ 'neobundle-options-vim_version' : '7.3.584',
+        \ 'build' : {
+        \       'unix' : '~/.vim/bundle/YouCompleteMe/install.sh',
+        \       'mac' : '~/.vim/bundle/YouCompleteMe/install.sh',
+        \     }
+        \ }
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_key_detailed_diagnostics = ''
+let g:ycm_register_as_syntastic_checker = 1
+" }}}
+
+" Holylight: (OSX only) Autoswap between light and dark colorscheme based on {{{
+" ambient light level
+NeoBundle 'Dinduks/vim-holylight', {
+        \ 'neobundle-options-disabled' :
+        \       '!has("unix") || system("uname") != "Darwin\n"'
+        \ }
+" }}}
+
+" Custom Textobjects: {{{
+NeoBundle 'kana/vim-textobj-user', { 'neobundle-options-vim_version' : '7.0' }
+
+" Column: textobject ('ii', 'ai', 'iI', and 'aI')
+" i vs a: empty lines (not included/included)
+" i vs I: more indents (included/not included)
+NeoBundle 'kana/vim-textobj-indent'
+
+" Full Buffer: textobject ('ie' and 'ae')
+NeoBundle 'kana/vim-textobj-entire', {
+        \ 'neobundle-options-vim_version' : '7.2',
+        \ 'depends' : 'kana/vim-textobj-user'
+        \ }
+
+" Indentation: textobject ('io' and 'ao')
+NeoBundle 'michaeljsmith/vim-indent-object', {
+        \ 'depends' : 'kana/vim-textobj-user'
+        \ }
+" }}}
+
+" Disabled Plugins: {{{
+"NeoBundle 'ksenoy/vim-signature'
+"NeoBundle 'osyo-manga/vim-over'
+"NeoBundle 'tpope/vim-obsession'
+" }}}
+
+NeoBundleCheck
 " }}}
 
 " Autolabel tmux windows
@@ -234,13 +286,6 @@ augroup Tmux
         autocmd VimEnter,BufNewFile,BufReadPost * call system('tmux rename-window "vim - ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1] . '"')
         autocmd VimLeave * call system('tmux rename-window ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1])
 augroup END
-
-" EasyMotion {{{
-let g:EasyMotion_leader_key = '\'
-hi EasyMotionTarget ctermbg=none ctermfg=red
-hi EasyMotionTarget2First ctermbg=none ctermfg=red
-hi link EasyMotionShade Comment
-" }}}
 
 " Open help in a vertical split instead of the default horizontal split
 " " http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev
@@ -278,24 +323,6 @@ let g:netrw_retmap = 1
 let g:netrw_browse_split = 2
 " Change directory to the current buffer when opening files.
 set autochdir
-" }}}
-
-" Unite {{{
-let g:unite_source_history_yank_enable = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>ut :Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<cr>
-nnoremap <leader>uf :Unite -no-split -buffer-name=files -start-insert file -resume<cr>
-nnoremap <leader>ur :Unite -no-split -buffer-name=mru -start-insert file_mru -resume<cr>
-nnoremap <leader>uo :Unite -no-split -buffer-name=outline -start-insert outline -resume<cr>
-nnoremap <leader>uy :Unite -no-split -buffer-name=yank history/yank -resume<cr>
-nnoremap <leader>ub :Unite -no-split -buffer-name=buffer buffer -resume<cr>
-augroup UniteTags
-        autocmd!
-        autocmd BufEnter *
-                \ if empty(&buftype)
-                \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<cr>
-                \| endif
-augroup END
 " }}}
 
 " Allow quitting unnamed buffers without confirmation or ! {{{
@@ -498,13 +525,17 @@ inoremap <C-u> <C-g>u<C-u>
 
 " Since the ',' operator is actually useful, set it to ',;'
 nnoremap <leader>; ,
-nnoremap <leader>/ :set hlsearch! hlsearch?<cr>
+nnoremap <silent> <leader>/ :nohlsearch<cr>
 nnoremap <leader>w :w!<cr>
 nnoremap <silent> <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <silent> <leader>ep :vsplit ~/dotfiles/plugins.vim<cr>
 nnoremap <silent> <leader>ez :vsplit ~/.zshrc<cr>
 nnoremap <silent> <leader>sl ^vg_y:execute @@<cr>
 nnoremap <silent> <leader>ea :vsplit ~/.oh-my-zsh/lib/aliases.zsh<cr>
 nnoremap <silent> <leader>sv :so $MYVIMRC<cr>
+
+" Open a Quickfix window for the last search.
+nnoremap <silent> ,? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Switch buffers iwth a count: 3! with switch to buffer 3
 " Delete buffers the same way with ~
@@ -564,13 +595,7 @@ if v:version > 703 || v:version == 703 && has("patch541")
         set formatoptions+=j
 endif
 
-" Emacs key-binding in vim!
-" Since c-a is actually useful, set it and <c-x> to + and - respectively
-cnoremap <c-a> <home>
-inoremap <C-a> <C-o>0
-inoremap <C-e> <C-o>$
-nnoremap <C-e> $
-nnoremap <C-a> 0
+" Use the more intuitive + and - for incrementing and decrementing numbers
 nnoremap + <c-a>
 nnoremap - <c-x>
 
