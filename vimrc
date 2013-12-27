@@ -108,16 +108,6 @@ nnoremap <silent> <c--> :TmuxNavigatePrevious<cr>
 
 " Vim_lint: Syntax checking for vimscript
 NeoBundle 'dbakker/vim-lint', { 'depends' : 'scrooloose/syntastic' }
-NeoBundle 'http://dactyl.googlecode.com/hg-history/cf86984477989aa1deee8501d79fc2a59c249a70/pentadactyl/contrib/vim/syntax/pentadactyl.vim', {
-                        \ 'name' : 'pentadactyl-syntax',
-                        \ 'type' : 'hg',
-                        \ 'script_type' : 'syntax'
-                        \ }
-NeoBundle 'http://dactyl.googlecode.com/hg-history/cf86984477989aa1deee8501d79fc2a59c249a70/pentadactyl/contrib/vim/ftdetect/pentadactyl.vim', {
-                        \ 'name' : 'pentadactyl-ftdetect',
-                        \ 'type' : 'hg',
-                        \ 'script_type' : 'ftdetect'
-                        \ }
 
 " Tabular: Character alignment {{{
 NeoBundle 'godlygeek/tabular'
