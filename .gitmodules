@@ -1,0 +1,3 @@
+[submodule "pentadactyl-syntax"]
+	path = pentadactyl-syntax
+	url = https://github.com/joshtch/pentadactyl-syntax.git

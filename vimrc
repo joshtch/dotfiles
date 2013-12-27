@@ -108,6 +108,16 @@ nnoremap <silent> <c--> :TmuxNavigatePrevious<cr>
 
 " Vim_lint: Syntax checking for vimscript
 NeoBundle 'dbakker/vim-lint', { 'depends' : 'scrooloose/syntastic' }
+NeoBundle 'http://dactyl.googlecode.com/hg-history/cf86984477989aa1deee8501d79fc2a59c249a70/pentadactyl/contrib/vim/syntax/pentadactyl.vim', {
+                        \ 'name' : 'pentadactyl-syntax',
+                        \ 'type' : 'hg',
+                        \ 'script_type' : 'syntax'
+                        \ }
+NeoBundle 'http://dactyl.googlecode.com/hg-history/cf86984477989aa1deee8501d79fc2a59c249a70/pentadactyl/contrib/vim/ftdetect/pentadactyl.vim', {
+                        \ 'name' : 'pentadactyl-ftdetect',
+                        \ 'type' : 'hg',
+                        \ 'script_type' : 'ftdetect'
+                        \ }
 
 " Tabular: Character alignment {{{
 NeoBundle 'godlygeek/tabular'
@@ -131,7 +141,7 @@ endif
 NeoBundle 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim' }
 
 " Niceblock: Use I and A in all visual modes, not just visual block mode
-NeoBundle 'kana/vim-niceblock', { 'neobundle-options-vim_version' : '7.3' }
+NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
 
 " Bufkill: Close buffers without closing windows
 NeoBundle 'mattdbridges/bufkill.vim'
@@ -176,8 +186,8 @@ NeoBundle 'scrooloose/nerdcommenter'
 
 " Gundo: Undo tree visualization {{{
 NeoBundle 'sjl/gundo.vim', {
-        \ 'neobundle-options-vim_version' : '7.3',
-        \ 'neobundle-options-disabled' : '!has("python")'
+        \ 'vim_version' : '7.3',
+        \ 'disabled' : '!has("python")'
         \ }
 nmap <leader>g :GundoToggle<cr>
 " }}}
@@ -231,8 +241,8 @@ map <leader>br <Plug>(ucw-restore-window)
 
 " YouCompleteMe: Smart autocompletion {{{
 NeoBundle 'Valloric/YouCompleteMe', {
-        \ 'neobundle-options-disabled' : '!has("python") || !has("unix")',
-        \ 'neobundle-options-vim_version' : '7.3.584',
+        \ 'disabled' : '!has("python") || !has("unix")',
+        \ 'vim_version' : '7.3.584',
         \ 'build' : {
         \       'unix' : '~/.vim/bundle/YouCompleteMe/install.sh',
         \       'mac' : '~/.vim/bundle/YouCompleteMe/install.sh',
@@ -246,13 +256,13 @@ let g:ycm_register_as_syntastic_checker = 1
 " Holylight: (OSX only) Autoswap between light and dark colorscheme based on {{{
 " ambient light level
 NeoBundle 'Dinduks/vim-holylight', {
-        \ 'neobundle-options-disabled' :
+        \ 'disabled' :
         \       '!has("unix") || system("uname") != "Darwin\n"'
         \ }
 " }}}
 
 " Custom Textobjects: {{{
-NeoBundle 'kana/vim-textobj-user', { 'neobundle-options-vim_version' : '7.0' }
+NeoBundle 'kana/vim-textobj-user', { 'vim_version' : '7.0' }
 
 " Column: textobject ('ii', 'ai', 'iI', and 'aI')
 " i vs a: empty lines (not included/included)
@@ -261,7 +271,7 @@ NeoBundle 'kana/vim-textobj-indent'
 
 " Full Buffer: textobject ('ie' and 'ae')
 NeoBundle 'kana/vim-textobj-entire', {
-        \ 'neobundle-options-vim_version' : '7.2',
+        \ 'vim_version' : '7.2',
         \ 'depends' : 'kana/vim-textobj-user'
         \ }
 
@@ -333,6 +343,9 @@ function! QuitIfEmpty()
         endif
 endfunction
 " }}}
+
+" Replace 'ddate' with the current date in insert mode
+iab ddate <C-R>=strftime("%m/%d/%y")<CR>
 
 " Allow backspacing anywhere
 set backspace=indent,eol,start
