@@ -27,6 +27,9 @@ Install:
 
 kana/vim-smartinput
 
+(Maybe)  
+https://github.com/troydm/easybuffer.vim
+
 Others from:
 
 http://www.reddit.com/r/vim/comments/1giij9/list_you_favorite_plugins/
