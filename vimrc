@@ -1,23 +1,14 @@
-" Things I'd like to do:
-" Make vim open as many vsplits as it can when it's opened with filenames in the
-"  command line
-" Add create "append after/insert before text object" operator
-" More textobjects!
-" Make a branch of focus.vim that removes the annoying mapping and clears
-"  unnamed buffers when focusmode is toggled
-" Figure out how to put plugins in separate file to be sourced
-
 " Clear autocmd settings -- stop autocommands from bogging down vim over time
 if has("autocmd")
         autocmd!
 endif
 
-" Mapleader needs to be set before it's used
+" Mapleader: needs to be set before it's used
 let g:mapleader = ","
 
 " NeoBundle plugin setup {{{
 
-" Autoinstall NeoBundle
+" Autoinstall NeoBundle:
 if has('vim_starting')
         set runtimepath+=~/.vim/bundle/neobundle.vim/
         if !isdirectory(expand('~/.vim/bundle/neobundle.vim'))
@@ -58,6 +49,10 @@ augroup UniteTags
                 \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<cr>
                 \| endif
 augroup END
+" Use ag if available; ignore files in .gitignore/.hgignore
+if executable('ag')
+        let g:unite_source_rec_async_command='ag --nocolor --nogroup --hidden -g'
+endif
 " }}}
 
 " Solarized: colorscheme {{{
@@ -86,7 +81,7 @@ set t_Co=256
 set ttimeoutlen=50
 let g:airline_powerline_fonts = 1
 let g:airline_enable_synastic = 1
-let g:airline_enable_fugitive = 0
+let g:airline_enable_fugitive = 1
 let g:airline_modified_detection = 1
 "let g:airline_left_sep = '▶'
 "let g:airline_right_sep = '◀'
@@ -208,6 +203,9 @@ NeoBundle 'tpope/vim-rsi'
 " Surround: Surround text easily
 NeoBundle 'tpope/vim-surround'
 
+" Easydir: Automatically create filepaths for :w, :e, etc if they don't exist
+NeoBundle 'dockyard/vim-easydir'
+
 " Tag: Tag navigation in unite
 NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 
@@ -240,7 +238,7 @@ NeoBundle 'Valloric/YouCompleteMe', {
         \ }
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_key_detailed_diagnostics = ''
-let g:ycm_register_as_syntastic_checker = 1
+let g:ycm_register_as_syntastic_checker = 0
 " }}}
 
 " Holylight: (OSX only) Autoswap between light and dark colorscheme based on {{{
@@ -699,9 +697,6 @@ noremap j gj
 noremap k gk
 noremap gj j
 noremap gk k
-
-" Remove delay after esc + certain commands (e.g. O)
-set noesckeys
 
 function! <SID>StripTrailingWhitespace()
         " Preparation: save last search, and cursor position.
