@@ -1,6 +1,8 @@
 dotfiles
 ========
 
+Note: you don't need the last two lines if you don't use pentadactyl. In that case you only need the vimrc.
+
     cd ~
     git clone https://github.com/joshtch/dotfiles.git
     ln -sf dotfiles/vimrc ~/.vimrc
