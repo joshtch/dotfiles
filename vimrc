@@ -59,7 +59,6 @@ endif
 NeoBundle 'altercation/vim-colors-solarized'
 syntax enable
 colorscheme solarized
-set background=dark
 call togglebg#map("<leader>5")
 let g:solarized_termcolors=16
 let g:solarized_termtrans=0
@@ -127,6 +126,11 @@ NeoBundle 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim' }
 
 " Niceblock: Use I and A in all visual modes, not just visual block mode
 NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
+
+" Arpeggio: Chord arbitrary keys (e.g. 'jk' together to esc) {{{
+NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
+Arpeggio inoremap jk <esc>
+" }}}
 
 " Bufkill: Close buffers without closing windows
 NeoBundle 'mattdbridges/bufkill.vim'
@@ -226,7 +230,6 @@ NeoBundle 'tyru/undoclosewin.vim', {
 map <leader>br <Plug>(ucw-restore-window)
 " }}}
 
-
 " YouCompleteMe: Smart autocompletion {{{
 NeoBundle 'Valloric/YouCompleteMe', {
         \ 'disabled' : '!has("python") || !has("unix")',
@@ -241,18 +244,17 @@ let g:ycm_key_detailed_diagnostics = ''
 let g:ycm_register_as_syntastic_checker = 0
 " }}}
 
-" Holylight: (OSX only) Autoswap between light and dark colorscheme based on {{{
-" ambient light level
+" Holylight: (OSX only) Autoswap between light and dark colorscheme {{{
+" based on ambient light level
 NeoBundle 'Dinduks/vim-holylight', {
-        \ 'disabled' :
-        \       '!has("unix") || system("uname") != "Darwin\n"'
+        \ 'disabled' : '!has("unix") || system("uname") != "Darwin\n"'
         \ }
 " }}}
 
 " Custom Textobjects: {{{
 NeoBundle 'kana/vim-textobj-user', { 'vim_version' : '7.0' }
 
-" Column: textobject ('ii', 'ai', 'iI', and 'aI')
+" Indentation: textobject ('ii', 'ai', 'iI', and 'aI')
 " i vs a: empty lines (not included/included)
 " i vs I: more indents (included/not included)
 NeoBundle 'kana/vim-textobj-indent'
@@ -263,10 +265,9 @@ NeoBundle 'kana/vim-textobj-entire', {
         \ 'depends' : 'kana/vim-textobj-user'
         \ }
 
-" Indentation: textobject ('io' and 'ao')
-NeoBundle 'michaeljsmith/vim-indent-object', {
-        \ 'depends' : 'kana/vim-textobj-user'
-        \ }
+" Columns: textobject ('ic'/'ac', and 'iC'/'aC') (difference is word vs WORD)
+NeoBundle 'coderifous/textobj-word-column.vim'
+
 " }}}
 
 " Disabled Plugins: {{{
@@ -333,7 +334,10 @@ endfunction
 " }}}
 
 " Replace 'ddate' with the current date in insert mode
-iab ddate <C-R>=strftime("%m/%d/%y")<CR>
+if exists("*strftime")
+        iab ddate <C-R>=strftime("%m/%d/%Y")<CR>
+        iab ttime <C-R>=strftime("%Y-%m-%d %a %H:%M")<CR>
+endif
 
 " Allow backspacing anywhere
 set backspace=indent,eol,start
