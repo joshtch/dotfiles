@@ -3,10 +3,10 @@ if has("autocmd")
         autocmd!
 endif
 
-" Mapleader: needs to be set before it's used
+" MapLeader: needs to be set before it's used
 let g:mapleader = ","
 
-" NeoBundle plugin setup {{{
+" NeoBundle Plugin Setup: {{{
 
 " Autoinstall NeoBundle:
 if has('vim_starting')
@@ -25,9 +25,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
     \ 'build' : {
     \       'windows' : 'make -f make_mingw32.mak',
-    \       'cygwin' : 'make -f make_cygwin.mak',
-    \       'mac' : 'make -f make_mac.mak',
-    \       'unix' : 'make -f make_unix.mak'
+    \       'cygwin'  : 'make -f make_cygwin.mak',
+    \       'mac'     : 'make -f make_mac.mak',
+    \       'unix'    : 'make -f make_unix.mak'
     \      },
     \ }
 " }}}
@@ -36,20 +36,20 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'Shougo/unite.vim', { 'depends' : 'Shougo/vimproc' }
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>ut :Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<cr>
-nnoremap <leader>uf :Unite -no-split -buffer-name=files -start-insert file -resume<cr>
-nnoremap <leader>ur :Unite -no-split -buffer-name=mru -start-insert file_mru -resume<cr>
-nnoremap <leader>uo :Unite -no-split -buffer-name=outline -start-insert outline -resume<cr>
-nnoremap <leader>uy :Unite -no-split -buffer-name=yank history/yank -resume<cr>
-nnoremap <leader>ub :Unite -no-split -buffer-name=buffer buffer -resume<cr>
+nnoremap <Leader>ut :Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<CR>
+nnoremap <Leader>uf :Unite -no-split -buffer-name=files -start-insert file -resume<CR>
+nnoremap <Leader>ur :Unite -no-split -buffer-name=mru -start-insert file_mru -resume<CR>
+nnoremap <Leader>uo :Unite -no-split -buffer-name=outline -start-insert outline -resume<CR>
+nnoremap <Leader>uy :Unite -no-split -buffer-name=yank history/yank -resume<CR>
+nnoremap <Leader>ub :Unite -no-split -buffer-name=buffer buffer -resume<CR>
 augroup UniteTags
         autocmd!
         autocmd BufEnter *
                 \ if empty(&buftype)
-                \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<cr>
+                \| nnoremap <Buffer> <C-]> :<C-U>UniteWithCursorWord -immediately tag<CR>
                 \| endif
 augroup END
-" Use ag if available; ignore files in .gitignore/.hgignore
+" Use ag if available and ignore files in .gitignore/.hgignore
 if executable('ag')
         let g:unite_source_rec_async_command='ag --nocolor --nogroup --hidden -g'
 endif
@@ -59,22 +59,22 @@ endif
 NeoBundle 'altercation/vim-colors-solarized'
 syntax enable
 colorscheme solarized
-call togglebg#map("<leader>5")
+call togglebg#map("<Leader>5")
 let g:solarized_termcolors=16
 let g:solarized_termtrans=0
 " }}}
 
 " Vimux: Interact with a tmux split directly from vim's commandline {{{
 NeoBundle 'benmills/vimux'
-nmap <leader>vs :call VimuxRunCommand('exec zsh')<cr>:call VimuxRunCommand('clear')<cr>
-nmap <leader>vc :VimuxCloseRunner<cr>
-nmap <leader>vp :VimuxPromptCommand<cr>
-nmap <leader>vr :VimuxRunLastCommand<cr>
+nnoremap <Leader>vs :call VimuxRunCommand('exec zsh')<CR>:call VimuxRunCommand('clear')<CR>
+nnoremap <Leader>vc :VimuxCloseRunner<CR>
+nnoremap <Leader>vp :VimuxPromptCommand<CR>
+nnoremap <Leader>vr :VimuxRunLastCommand<CR>
 " }}}
 
 " vim-airline statusline {{{
 NeoBundle 'bling/vim-airline'
-silent! set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+silent! set guifont=Inconsolata-dz\ for\ Powerline\ 12
 set lazyredraw
 set t_Co=256
 set ttimeoutlen=50
@@ -93,11 +93,11 @@ let g:airline#extensions#tabline#enabled = 1
 " VimTmuxNavigator: Seamlessly navigate vim and tmux splits {{{
 NeoBundle 'christoomey/vim-tmux-navigator'
 let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <c--> :TmuxNavigatePrevious<cr>
+nnoremap <Silent> <C-H> :TmuxNavigateLeft<CR>
+nnoremap <Silent> <C-J> :TmuxNavigateDown<CR>
+nnoremap <Silent> <C-K> :TmuxNavigateUp<CR>
+nnoremap <Silent> <C-L> :TmuxNavigateRight<CR>
+nnoremap <Silent> <C--> :TmuxNavigatePrevious<CR>
 " }}}
 
 " Vim_lint: Syntax checking for vimscript
@@ -106,18 +106,18 @@ NeoBundle 'dbakker/vim-lint', { 'depends' : 'scrooloose/syntastic' }
 " Tabular: Character alignment {{{
 NeoBundle 'godlygeek/tabular'
 if exists(":Tabularize")
-        nmap <leader>a= :Tabularize /=<cr>
-        xmap <leader>a= :Tabularize /=<cr>
-        nmap <leader>a: :Tabularize /:\zs<cr>
-        xmap <leader>a: :Tabularize /:\zs<cr>
+        nnoremap <Leader>a= :Tabularize /=<CR>
+        xnoremap <Leader>a= :Tabularize /=<CR>
+        nnoremap <Leader>a: :Tabularize /:\zs<CR>
+        xnoremap <Leader>a: :Tabularize /:\zs<CR>
         " Tabular operator function
-        " Operations have the form <mapping> <textobject> <alignment char>
-        " For example, to align a paragraph along '=' chars, do <leader>tip=
+        " Operations have the form <MAPPING> <TEXTOBJECT> <ALIGNMENT CHAR>
+        " For example, to align a paragraph along '=' chars, do <Leader>tip=
         function! s:tabularize_op(type, ...)
                 let c = nr2char(getchar())
                 execute "'[,']Tabularize/".c
         endfunction
-        nnoremap <silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
+        nnoremap <Silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
 endif
 " }}}
 
@@ -127,9 +127,9 @@ NeoBundle 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim' }
 " Niceblock: Use I and A in all visual modes, not just visual block mode
 NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
 
-" Arpeggio: Chord arbitrary keys (e.g. 'jk' together to esc) {{{
+" Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc) {{{
 NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
-Arpeggio inoremap jk <esc>
+silent! Arpeggio inoremap jk <Esc>
 " }}}
 
 " Bufkill: Close buffers without closing windows
@@ -140,7 +140,7 @@ NeoBundle 'mattdbridges/bufkill.vim'
 
 " Focus: Force display of a single buffer for focused editing {{{
 " This mapping is included to keep focus.vim from setting its own
-silent! nmap <leader>f <Plug>FocusModeToggle
+silent! nmap <Leader>f <Plug>FocusModeToggle
 NeoBundle 'merlinrebrovic/focus.vim', {
     \ 'stay_same' : 0,
     \ 'mappings' : '<Plug>FocusModeToggle'
@@ -151,7 +151,7 @@ function! CleanEmptyBuffers()
                 exe 'bw '.join(buffers, ' ')
         endif
 endfunction
-nmap <silent> <leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<cr>
+nmap <Silent> <Leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<CR>
 " }}}
 
 " Syntastic: Real-time syntax checking {{{
@@ -178,7 +178,7 @@ NeoBundle 'sjl/gundo.vim', {
         \ 'vim_version' : '7.3',
         \ 'disabled' : '!has("python")'
         \ }
-nmap <leader>g :GundoToggle<cr>
+nnoremap <Leader>g :GundoToggle<CR>
 " }}}
 
 " Vim_space: Repeat motions with space
@@ -220,14 +220,14 @@ NeoBundle 'tyru/open-browser.vim', {
 map gu <Plug>(openbrowser-open)
 map gs <Plug>(openbrowser-search)
 map go <Plug>(openbrowser-smart-search)
-nmap <leader>ob :OpenBrowserSmartSearch<space>
+nnoremap <Leader>ob :OpenBrowserSmartSearch<Space>
 " }}}
 
 " UndoCloseWin: Undo closing of tabs and windows {{{
 NeoBundle 'tyru/undoclosewin.vim', {
         \ 'mappings' : '<Plug>(ucw-restore-window)'
         \ }
-map <leader>br <Plug>(ucw-restore-window)
+map <Leader>br <Plug>(ucw-restore-window)
 " }}}
 
 " YouCompleteMe: Smart autocompletion {{{
@@ -257,7 +257,7 @@ NeoBundle 'kana/vim-textobj-user', { 'vim_version' : '7.0' }
 " Indentation: textobject ('ii', 'ai', 'iI', and 'aI')
 " i vs a: empty lines (not included/included)
 " i vs I: more indents (included/not included)
-NeoBundle 'kana/vim-textobj-indent'
+NeoBundle 'michaeljsmith/vim-indent-object'
 
 " Full Buffer: textobject ('ie' and 'ae')
 NeoBundle 'kana/vim-textobj-entire', {
@@ -288,8 +288,8 @@ augroup END
 
 " Open help in a vertical split instead of the default horizontal split
 " " http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev
-cabbrev h <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<cr>
-cabbrev help <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<cr>
+cabbrev h <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<CR>
+cabbrev help <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
 
 " Toggle Vexplore with Ctrl-E {{{
 " Still haven't jumped on the NerdTree bandwagon
@@ -312,7 +312,7 @@ function! ToggleVExplorer()
                 let t:expl_buf_num = bufnr("%")
         endif
 endfunction
-map <silent> <C-E> :call ToggleVExplorer()<CR>
+noremap <Silent> <C-E> :call ToggleVExplorer()<CR>
 " Hit enter in the file browser to open the selected
 " file with :vsplit to the right of the browser.
 let g:netrw_browse_split = 4
@@ -325,7 +325,7 @@ set autochdir
 " }}}
 
 " Allow quitting unnamed buffers without confirmation or ! {{{
-nnoremap <leader>q :call QuitIfEmpty()<cr>:q<cr>
+nnoremap <Leader>q :call QuitIfEmpty()<CR>:q<CR>
 function! QuitIfEmpty()
         if empty(bufname('%'))
                 setlocal nomodified
@@ -381,7 +381,7 @@ set infercase                    " Infer the case of match
 set showmatch    " Show matching parens
 set matchtime=1  " Tenths of a second to show matching paren
 
-" Defines bases for numbers for <c-a> and <c-x>
+" Defines bases for numbers for <C-A> and <C-X>
 set nrformats=hex,alpha
 
 " Allow modified buffers to be hidden
@@ -493,7 +493,7 @@ set nowritebackup
 set number
 
 " Add a relative number toggle
-nnoremap <leader>r :set rnu!<cr>
+nnoremap <Leader>r :set rnu!<CR>
 
 " Rereads a file when it is detected to have been modified outside Vim
 set autoread
@@ -526,26 +526,26 @@ set synmaxcol=256
 " set scrolljump=2
 
 " Allow redo for insert-mode ^u
-inoremap <C-u> <C-g>u<C-u>
+inoremap <C-U> <C-G>u<C-U>
 
 " Since the ',' operator is actually useful, set it to ',;'
-nnoremap <leader>; ,
-nnoremap <silent> <leader>/ :nohlsearch<cr>
-nnoremap <leader>w :w!<cr>
-nnoremap <silent> <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <silent> <leader>ep :vsplit ~/dotfiles/plugins.vim<cr>
-nnoremap <silent> <leader>ez :vsplit ~/.zshrc<cr>
-nnoremap <silent> <leader>sl ^vg_y:execute @@<cr>
-nnoremap <silent> <leader>ea :vsplit ~/.oh-my-zsh/lib/aliases.zsh<cr>
-nnoremap <silent> <leader>sv :so $MYVIMRC<cr>
+nnoremap <Leader>; ,
+nnoremap <Silent> <Leader>/ :nohlsearch<CR>
+nnoremap <Leader>w :w!<CR>
+nnoremap <Silent> <Leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <Silent> <Leader>ep :vsplit ~/dotfiles/plugins.vim<CR>
+nnoremap <Silent> <Leader>ez :vsplit ~/.zshrc<CR>
+nnoremap <Silent> <Leader>sl ^vg_y:execute @@<CR>
+nnoremap <Silent> <Leader>ea :vsplit ~/.oh-my-zsh/lib/aliases.zsh<CR>
+nnoremap <Silent> <Leader>sv :so $MYVIMRC<CR>
 
 " Open a Quickfix window for the last search.
-nnoremap <silent> ,? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+nnoremap <Silent> ,? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Switch buffers iwth a count: 3! with switch to buffer 3
 " Delete buffers the same way with ~
-nnoremap <expr> ! v:count ? ":<C-u>b<C-r>=v:count<CR><CR>" : "!"
-nnoremap <expr> ~ v:count ? ":<C-u>bd<C-r>=v:count<CR><CR>" : "~"
+nnoremap <expr> ! v:count ? ":<C-U>b<C-R>=v:count<CR><CR>" : "!"
+nnoremap <expr> ~ v:count ? ":<C-U>bd<C-R>=v:count<CR><CR>" : "~"
 
 " Use the first open window that contains the specified buffer
 set switchbuf=useopen
@@ -601,8 +601,8 @@ if v:version > 703 || v:version == 703 && has("patch541")
 endif
 
 " Use the more intuitive + and - for incrementing and decrementing numbers
-nnoremap + <c-a>
-nnoremap - <c-x>
+nnoremap + <C-A>
+nnoremap - <C-X>
 
 " Set Y to match C and D syntax (use yy to yank entire line)
 nnoremap Y y$
@@ -670,7 +670,7 @@ set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 set equalalways
 augroup Resize
         autocmd!
-        au VimResized * exe "normal! \<c-w>="
+        au VimResized * exe "normal! \<C-W>="
 augroup END
 
 " Sets minimum split width -- 80 + 4 for number column
@@ -683,9 +683,9 @@ set clipboard=unnamed,unnamedplus
 " Map annoying and useless <F1>, Q and K to more useful things
 " F1 clears search highlighting and refreshes, Q repeats last macro, K splits
 " the line and removes trailing whitespace (reverse of J/gJ)
-nnoremap <F1> <nop>
+nnoremap <F1> <Nop>
 nnoremap Q @@
-nnoremap K i<cr><esc>k:let _s=@/<cr>:s/\s\+$//e<cr>:let @/=_s<cr>$
+nnoremap K i<CR><Esc>k:let _s=@/<CR>:s/\s\+$//e<CR>:let @/=_s<CR>$
 set nojoinspaces
 noremap L }
 noremap H {
@@ -693,8 +693,8 @@ noremap { ^
 noremap } $
 
 " Nice way to scroll page by page
-nnoremap <leader>j z+
-nnoremap <leader>k z^
+nnoremap <Leader>j z+
+nnoremap <Leader>k z^
 
 " Allow expected behavior when traversing wrapped lines
 noremap j gj
@@ -713,4 +713,4 @@ function! <SID>StripTrailingWhitespace()
         let @/=_s
         call cursor(l, c)
 endfunction
-nmap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<cr>
+nnoremap <Silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
