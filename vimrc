@@ -93,11 +93,11 @@ let g:airline#extensions#tabline#enabled = 1
 " VimTmuxNavigator: Seamlessly navigate vim and tmux splits {{{
 NeoBundle 'christoomey/vim-tmux-navigator'
 let g:tmux_navigator_no_mappings = 1
-nnoremap <Silent> <C-H> :TmuxNavigateLeft<CR>
-nnoremap <Silent> <C-J> :TmuxNavigateDown<CR>
-nnoremap <Silent> <C-K> :TmuxNavigateUp<CR>
-nnoremap <Silent> <C-L> :TmuxNavigateRight<CR>
-nnoremap <Silent> <C--> :TmuxNavigatePrevious<CR>
+nnoremap <silent> <C-H> :TmuxNavigateLeft<CR>
+nnoremap <silent> <C-J> :TmuxNavigateDown<CR>
+nnoremap <silent> <C-K> :TmuxNavigateUp<CR>
+nnoremap <silent> <C-L> :TmuxNavigateRight<CR>
+nnoremap <silent> <C--> :TmuxNavigatePrevious<CR>
 " }}}
 
 " Vim_lint: Syntax checking for vimscript
@@ -117,7 +117,7 @@ if exists(":Tabularize")
                 let c = nr2char(getchar())
                 execute "'[,']Tabularize/".c
         endfunction
-        nnoremap <Silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
+        nnoremap <silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
 endif
 " }}}
 
@@ -151,7 +151,7 @@ function! CleanEmptyBuffers()
                 exe 'bw '.join(buffers, ' ')
         endif
 endfunction
-nmap <Silent> <Leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<CR>
+nmap <silent> <Leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<CR>
 " }}}
 
 " Syntastic: Real-time syntax checking {{{
@@ -312,7 +312,7 @@ function! ToggleVExplorer()
                 let t:expl_buf_num = bufnr("%")
         endif
 endfunction
-noremap <Silent> <C-E> :call ToggleVExplorer()<CR>
+noremap <silent> <C-E> :call ToggleVExplorer()<CR>
 " Hit enter in the file browser to open the selected
 " file with :vsplit to the right of the browser.
 let g:netrw_browse_split = 4
@@ -530,17 +530,17 @@ inoremap <C-U> <C-G>u<C-U>
 
 " Since the ',' operator is actually useful, set it to ',;'
 nnoremap <Leader>; ,
-nnoremap <Silent> <Leader>/ :nohlsearch<CR>
+nnoremap <silent> <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>w :w!<CR>
-nnoremap <Silent> <Leader>ev :vsplit $MYVIMRC<CR>
-nnoremap <Silent> <Leader>ep :vsplit ~/dotfiles/plugins.vim<CR>
-nnoremap <Silent> <Leader>ez :vsplit ~/.zshrc<CR>
-nnoremap <Silent> <Leader>sl ^vg_y:execute @@<CR>
-nnoremap <Silent> <Leader>ea :vsplit ~/.oh-my-zsh/lib/aliases.zsh<CR>
-nnoremap <Silent> <Leader>sv :so $MYVIMRC<CR>
+nnoremap <silent> <Leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <silent> <Leader>ep :vsplit ~/dotfiles/plugins.vim<CR>
+nnoremap <silent> <Leader>ez :vsplit ~/.zshrc<CR>
+nnoremap <silent> <Leader>sl ^vg_y:execute @@<CR>
+nnoremap <silent> <Leader>ea :vsplit ~/.oh-my-zsh/lib/aliases.zsh<CR>
+nnoremap <silent> <Leader>sv :so $MYVIMRC<CR>
 
 " Open a Quickfix window for the last search.
-nnoremap <Silent> ,? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+nnoremap <silent> ,? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Switch buffers iwth a count: 3! with switch to buffer 3
 " Delete buffers the same way with ~
@@ -713,4 +713,4 @@ function! <SID>StripTrailingWhitespace()
         let @/=_s
         call cursor(l, c)
 endfunction
-nnoremap <Silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
+nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
