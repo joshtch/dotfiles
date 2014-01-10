@@ -16,8 +16,6 @@ TODO:
 Make vim open as many vsplits as it can when it's opened with filenames in the
  command line
 
-Add create "append after/insert before text object" operator
-
 More textobjects!
 
 Make a branch of focus.vim that removes the annoying mapping and clears
