@@ -111,6 +111,7 @@ if exists(":Tabularize")
         xnoremap <Leader>a= :Tabularize /=<CR>
         nnoremap <Leader>a: :Tabularize /:\zs<CR>
         xnoremap <Leader>a: :Tabularize /:\zs<CR>
+
         " Tabular operator function
         " Operations have the form <MAPPING> <TEXTOBJECT> <ALIGNMENT CHAR>
         " For example, to align a paragraph along '=' chars, do <Leader>tip=
@@ -139,10 +140,14 @@ NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
 " Operator User: Create your own operators {{{
 NeoBundle 'kana/vim-operator-user', { 'vim_version' : '7.2' }
 
-nmap ( <Plug>(operator-enter-insert)
-nmap ) <Plug>(operator-enter-append)
-call operator#user#define('enter-insert', 'Op_command_insert')
-call operator#user#define('enter-append', 'Op_command_append')
+" Operator Edge: Insert before/append after a text object/visual selection {{{
+" TODO: Make append not clobber the last visual selection
+" TODO: Make this operator work with tpope's repeat.vim
+" TODO: Separate this into its own repository and post on github
+map ( <Plug>(operator-edge-insert)
+map ) <Plug>(operator-edge-append)
+call operator#user#define('edge-insert', 'Op_command_insert')
+call operator#user#define('edge-append', 'Op_command_append')
 function! Op_command_insert(motion_wise)
         normal! `[
         call feedkeys('i', 'n')
@@ -152,6 +157,8 @@ function! Op_command_append(motion_wise)
         execute "normal!" '`]' . v . "\<esc>`>"
         call feedkeys('a', 'n')
 endfunction
+" }}}
+
 " }}}
 
 " SmartInput: Context-aware autobalance open and close braces/brackets/parens
