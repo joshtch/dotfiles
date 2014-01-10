@@ -12,7 +12,7 @@ let g:mapleader = ","
 if has('vim_starting')
         set runtimepath+=~/.vim/bundle/neobundle.vim/
         if !isdirectory(expand('~/.vim/bundle/neobundle.vim'))
-                !mkdir -p ~/.vim/bundle/neobundle && git clone 'https://github.com/Shougo/neobundle.vim.git'    ~/.vim/bundle/neobundle
+                !mkdir -p ~/.vim/bundle/neobundle && git clone 'https://github.com/Shougo/neobundle.vim.git' ~/.vim/bundle/neobundle
         endif
 endif
 
@@ -100,6 +100,7 @@ nnoremap <silent> <C-L> :TmuxNavigateRight<CR>
 nnoremap <silent> <C--> :TmuxNavigatePrevious<CR>
 " }}}
 
+" Allow user to undo with `u` after using <C-U>
 " Vim_lint: Syntax checking for vimscript
 NeoBundle 'dbakker/vim-lint', { 'depends' : 'scrooloose/syntastic' }
 
@@ -124,13 +125,37 @@ endif
 " Unite_outline: Outlining in unite
 NeoBundle 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim' }
 
+" Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc) {{{
+NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
+augroup Arpeggio
+        autocmd!
+        autocmd VimEnter * Arpeggio inoremap jk <Esc>
+augroup END
+" }}}
+
 " Niceblock: Use I and A in all visual modes, not just visual block mode
 NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
 
-" Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc) {{{
-NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
-silent! Arpeggio inoremap jk <Esc>
+" Operator User: Create your own operators {{{
+NeoBundle 'kana/vim-operator-user', { 'vim_version' : '7.2' }
+
+nmap ( <Plug>(operator-enter-insert)
+nmap ) <Plug>(operator-enter-append)
+call operator#user#define('enter-insert', 'Op_command_insert')
+call operator#user#define('enter-append', 'Op_command_append')
+function! Op_command_insert(motion_wise)
+        normal! `[
+        call feedkeys('i', 'n')
+endfunction
+function! Op_command_append(motion_wise)
+        let v = operator#user#visual_command_from_wise_name(a:motion_wise)
+        execute "normal!" '`]' . v . "\<esc>`>"
+        call feedkeys('a', 'n')
+endfunction
 " }}}
+
+" SmartInput: Context-aware autobalance open and close braces/brackets/parens
+NeoBundle 'kana/vim-smartinput', { 'vim_version' : '7.3' }
 
 " Bufkill: Close buffers without closing windows
 NeoBundle 'mattdbridges/bufkill.vim'
