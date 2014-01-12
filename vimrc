@@ -176,9 +176,6 @@ endfunction
 
 " }}}
 
-" SmartInput: Context-aware autobalance open and close braces/brackets/parens
-NeoBundle 'kana/vim-smartinput', { 'vim_version' : '7.3' }
-
 " Bufkill: Close buffers without closing windows
 NeoBundle 'mattdbridges/bufkill.vim'
 
@@ -239,8 +236,15 @@ hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi link EasyMotionShade Comment
 " }}}
 
-" Fugitive: Awesome git plugin for vim
+" Fugitive: Awesome git plugin for vim {{{
 NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gl :Glog<CR>
+nnoremap <Leader>gp :Git push<CR>
+nnoremap <Leader>gs :Git status -sb<CR>
+" }}}
 
 " Capslock: Enable capslock for only insert mode using <C-G>c
 NeoBundle 'tpope/vim-capslock'
@@ -291,6 +295,9 @@ let g:ycm_key_detailed_diagnostics = ''
 let g:ycm_register_as_syntastic_checker = 0
 " }}}
 
+" VimIRC: IRC Client for Vim (yes, really)
+NeoBundle 'vim-scripts/VimIRC.vim'
+
 " Holylight: (OSX only) Autoswap between light and dark colorscheme {{{
 " based on ambient light level
 NeoBundle 'Dinduks/vim-holylight', {
@@ -312,8 +319,23 @@ NeoBundle 'kana/vim-textobj-entire', {
             \ 'depends' : 'kana/vim-textobj-user'
             \ }
 
+" Line: textobject ('il' and 'al')
+NeoBundle 'kana/vim-textobj-entire', {
+            \ 'vim_version' : '7.2',
+            \ 'depends' : 'kana/vim-textobj-user'
+            \ }
+
+" Underscore: textobject ('i_'/'a_') -- for snake_case_objects
+NeoBundle 'coderifous/vim-textobj-underscore', {
+            \ 'vim_version' : '7.2',
+            \ 'depends' : 'kana/vim-textobj-user'
+            \ }
+
 " Columns: textobject ('ic'/'ac', and 'iC'/'aC') (difference is word vs WORD)
-NeoBundle 'coderifous/textobj-word-column.vim'
+NeoBundle 'coderifous/textobj-word-column.vim', {
+            \ 'vim_version' : '7.2',
+            \ 'depends' : 'kana/vim-textobj-user'
+            \ }
 
 " }}}
 
@@ -549,6 +571,7 @@ set copyindent
 
 " Off to avoid security vulnerabilities
 set modelines=0
+set secure
 
 " See :help slow-terminal
 " Optimize for fast terminal connections
@@ -582,8 +605,14 @@ nnoremap <silent> <Leader>sl ^vg_y:execute @@<CR>
 nnoremap <silent> <Leader>ea :vsplit ~/.oh-my-zsh/lib/aliases.zsh<CR>
 nnoremap <silent> <Leader>sv :so $MYVIMRC<CR>
 
+" Toggle paste mode with <Leader>p
+nnoremap <silent> <Leader>p :set paste!<CR>
+
 " Open a Quickfix window for the last search.
-nnoremap <silent> ,? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+nnoremap <silent> <Leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+
+" Delete to black hole register
+nnoremap <silent> <Leader>d "_d
 
 " Switch buffers iwth a count: 3! with switch to buffer 3
 " Delete buffers the same way with ~
