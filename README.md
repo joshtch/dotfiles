@@ -1,14 +1,22 @@
 dotfiles
 ========
 
-Note: you don't need the last two lines if you don't use pentadactyl. In that case you only need the vimrc.
-
     cd ~
     git clone https://github.com/joshtch/dotfiles.git
     ln -sf dotfiles/vimrc ~/.vimrc
-    cp -p dotfiles/syntax/pentadactyl.vim ~/.vim/syntax/
-    cp -p dotfiles/ftdetect/pentadactyl.vim ~/.vim/ftdetect/
+    ln -sf dotfiles/.gitconfig ~/.gitconfig
+    ln -sf dotfiles/.zshrc ~/.zshrc
+    ln -sf dotfiles/.oh-my-zsh ~/.oh-my-zsh
+    ln -sf dotfiles/.tmux ~/.tmux
+    ln -sf dotfiles/.tmux.conf ~/.tmux.conf
 
+These four lines are optional; they're used for syntax highlighting
+pentadactyl scripts.
+
+    mkdir -p ~/.vim/syntax
+    mkdir -p ~/.vim/ftdetect
+    ln -sf dotfiles/syntax/pentadactyl.vim ~/.vim/syntax
+    ln -sf dotfiles/ftdetect/pentadactyl.vim ~/.vim/ftdetect
 
 TODO:
 =====
@@ -21,11 +29,9 @@ More textobjects!
 Make a branch of focus.vim that removes the annoying mapping and clears
  unnamed buffers when focusmode is toggled
 
-Figure out how to put plugins in separate file to be sourced
+Figure out how to put plugins in separate file to be sourced.
 
 Install:
-
-kana/vim-smartinput
 
 (Maybe)  
 https://github.com/troydm/easybuffer.vim

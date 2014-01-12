@@ -1,3 +1,6 @@
 [submodule "pentadactyl-syntax"]
 	path = pentadactyl-syntax
 	url = https://github.com/joshtch/pentadactyl-syntax.git
+[submodule "oh-my-zsh"]
+	path = oh-my-zsh
+	url = http://github.com/robbyrussell/oh-my-zsh.git
