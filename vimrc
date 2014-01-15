@@ -48,6 +48,7 @@ augroup UniteTags
                 \ if empty(&buftype)
                 \| nnoremap <Buffer> <C-]> :<C-U>UniteWithCursorWord -immediately tag<CR>
                 \| endif
+    autocmd FileType unite nmap <buffer> <Esc> <Plug>(unite_exit)
 augroup END
 " Use ag if available and ignore files in .gitignore/.hgignore
 if executable('ag')
@@ -56,7 +57,7 @@ endif
 " }}}
 
 " Solarized: colorscheme {{{
-NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized', { 'vim_version' : '7.3' }
 syntax enable
 colorscheme solarized
 call togglebg#map("<Leader>5")
@@ -126,6 +127,10 @@ endif
 " Unite_outline: Outlining in unite
 NeoBundle 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim' }
 
+" Vim Snippets: Default snippets for various languages
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'MarcWeber/ultisnips'
+
 " Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc) {{{
 NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
 augroup Arpeggio
@@ -143,6 +148,7 @@ NeoBundle 'kana/vim-operator-user', { 'vim_version' : '7.2' }
 " Operator Edge: Insert before/append after a text object/visual selection {{{
 " Note: requires +ex_extra
 " TODO: Make this operator work with tpope's repeat.vim
+"    See https://github.com/tpope/vim-repeat/issues/8
 " TODO: Separate this into its own repository and post on github
 
 map ( <Plug>(operator-edge-insert)
@@ -172,6 +178,9 @@ function! Op_command_append(motion_wise)
         startinsert
     endif
 endfunction
+
+silent! call repeat#set("\<Plug>(operator-edge-insert)",v:count)
+silent! call repeat#set("\<Plug>(operator-edge-append)",v:count)
 " }}}
 
 " }}}
@@ -197,6 +206,9 @@ function! CleanEmptyBuffers()
 endfunction
 nmap <silent> <Leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<CR>
 " }}}
+
+" Ag Vim: Ag plugin for vim
+NeoBundle 'rking/ag.vim'
 
 " Syntastic: Real-time syntax checking {{{
 NeoBundle 'scrooloose/syntastic'
@@ -235,6 +247,12 @@ hi EasyMotionTarget ctermbg=none ctermfg=red
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi link EasyMotionShade Comment
 " }}}
+
+" Capslock: Enable capslock for only insert mode using <C-G>c
+NeoBundle 'tpope/vim-capslock'
+
+" Dispatch: Asyncronous compiling with tmux/screen/iterm
+NeoBundle 'tpope/vim-dispatch'
 
 " Fugitive: Awesome git plugin for vim {{{
 NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
@@ -295,9 +313,6 @@ let g:ycm_key_detailed_diagnostics = ''
 let g:ycm_register_as_syntastic_checker = 0
 " }}}
 
-" VimIRC: IRC Client for Vim (yes, really)
-NeoBundle 'vim-scripts/VimIRC.vim'
-
 " Holylight: (OSX only) Autoswap between light and dark colorscheme {{{
 " based on ambient light level
 NeoBundle 'Dinduks/vim-holylight', {
@@ -320,13 +335,13 @@ NeoBundle 'kana/vim-textobj-entire', {
             \ }
 
 " Line: textobject ('il' and 'al')
-NeoBundle 'kana/vim-textobj-entire', {
+NeoBundle 'kana/vim-textobj-line', {
             \ 'vim_version' : '7.2',
             \ 'depends' : 'kana/vim-textobj-user'
             \ }
 
 " Underscore: textobject ('i_'/'a_') -- for snake_case_objects
-NeoBundle 'coderifous/vim-textobj-underscore', {
+NeoBundle 'kana/vim-textobj-underscore', {
             \ 'vim_version' : '7.2',
             \ 'depends' : 'kana/vim-textobj-user'
             \ }
@@ -594,8 +609,8 @@ set synmaxcol=256
 " Allow redo for insert-mode ^u
 inoremap <C-U> <C-G>u<C-U>
 
-" Since the ',' operator is actually useful, set it to ',;'
-nnoremap <Leader>; ,
+" Since the ',' command is actually useful, set it to ',,'
+nnoremap <Leader>, ,
 nnoremap <silent> <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>w :w!<CR>
 nnoremap <silent> <Leader>ev :vsplit $MYVIMRC<CR>
@@ -614,7 +629,7 @@ nnoremap <silent> <Leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 " Delete to black hole register
 nnoremap <silent> <Leader>d "_d
 
-" Switch buffers iwth a count: 3! with switch to buffer 3
+" Switch buffers with a count: 3! with switch to buffer 3
 " Delete buffers the same way with ~
 nnoremap <expr> ! v:count ? ":<C-U>b<C-R>=v:count<CR><CR>" : "!"
 nnoremap <expr> ~ v:count ? ":<C-U>bd<C-R>=v:count<CR><CR>" : "~"
@@ -756,7 +771,7 @@ set clipboard=unnamed,unnamedplus
 " F1 clears search highlighting and refreshes, Q repeats last macro, K splits
 " the line and removes trailing whitespace (reverse of J/gJ)
 nnoremap <F1> <Nop>
-nnoremap Q @@
+nnoremap Q @q
 nnoremap K i<CR><Esc>k:let _s=@/<CR>:s/\s\+$//e<CR>:let @/=_s<CR>$
 set nojoinspaces
 noremap L }
@@ -786,3 +801,14 @@ function! <SID>StripTrailingWhitespace()
     call cursor(l, c)
 endfunction
 nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
+
+if $TERM_PROGRAM == 'iTerm.app'
+" different cursors for insert vs normal mode
+    if exists('$TMUX')
+        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    else
+        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    endif
+endif
