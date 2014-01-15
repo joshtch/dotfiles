@@ -230,11 +230,12 @@ NeoBundle 'scrooloose/nerdcommenter'
 " }}}
 
 " Gundo: Undo tree visualization {{{
-NeoBundle 'sjl/gundo.vim', {
-            \ 'vim_version' : '7.3',
-            \ 'disabled' : '!has("python")'
-            \ }
-nnoremap <Leader>g :GundoToggle<CR>
+if has("python")
+    NeoBundle 'sjl/gundo.vim', {
+                \ 'vim_version' : '7.3',
+                \ }
+    nnoremap <Leader>g :GundoToggle<CR>
+endif
 " }}}
 
 " Vim_space: Repeat motions with space
@@ -300,24 +301,25 @@ map <Leader>br <Plug>(ucw-restore-window)
 " }}}
 
 " YouCompleteMe: Smart autocompletion {{{
-NeoBundle 'Valloric/YouCompleteMe', {
-            \ 'disabled' : '!has("python") || !has("unix")',
-            \ 'vim_version' : '7.3.584',
-            \ 'build' : {
-            \       'unix' : '~/.vim/bundle/YouCompleteMe/install.sh',
-            \       'mac' : '~/.vim/bundle/YouCompleteMe/install.sh',
-            \     }
-            \ }
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_key_detailed_diagnostics = ''
-let g:ycm_register_as_syntastic_checker = 0
+if has("python") && has("unix")
+    NeoBundle 'Valloric/YouCompleteMe', {
+                \ 'vim_version' : '7.3.584',
+                \ 'build' : {
+                \       'unix' : '~/.vim/bundle/YouCompleteMe/install.sh',
+                \       'mac' : '~/.vim/bundle/YouCompleteMe/install.sh',
+                \     }
+                \ }
+    let g:ycm_confirm_extra_conf = 0
+    let g:ycm_key_detailed_diagnostics = ''
+    let g:ycm_register_as_syntastic_checker = 0
+endif
 " }}}
 
 " Holylight: (OSX only) Autoswap between light and dark colorscheme {{{
 " based on ambient light level
-NeoBundle 'Dinduks/vim-holylight', {
-            \ 'disabled' : '!has("unix") || system("uname") != "Darwin\n"'
-            \ }
+if has("unix") && system("uname") == "Darwin\n"
+    NeoBundle 'Dinduks/vim-holylight'
+endif
 " }}}
 
 " Custom Textobjects: {{{
@@ -803,7 +805,7 @@ endfunction
 nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
 
 if $TERM_PROGRAM == 'iTerm.app'
-" different cursors for insert vs normal mode
+    " different cursors for insert vs normal mode
     if exists('$TMUX')
         let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
         let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
