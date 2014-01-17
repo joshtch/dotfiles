@@ -30,4 +30,3 @@ plugins=(vi-mode osx tmux)
 source $ZSH/oh-my-zsh.sh
 
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/josh/bin
-[[ -s "HOME/.rvm/scripts/rvm" ]] && "$HOME/.rvm/scripts/rvm"
