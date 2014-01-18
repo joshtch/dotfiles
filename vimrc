@@ -75,7 +75,7 @@ nnoremap <Leader>vr :VimuxRunLastCommand<CR>
 
 " vim-airline statusline {{{
 NeoBundle 'bling/vim-airline'
-silent! set guifont=Inconsolata-dz\ for\ Powerline\ 12
+silent! set guifont=Dejavu\ Sans\ Mono\ Bold\ for\ Powerline\ 14
 set lazyredraw
 set t_Co=256
 set ttimeoutlen=50
@@ -205,6 +205,7 @@ function! CleanEmptyBuffers()
     endif
 endfunction
 nmap <silent> <Leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<CR>
+let g:focus_use_default_mapping = 0
 " }}}
 
 " Ag Vim: Ag plugin for vim
@@ -238,15 +239,50 @@ if has("python")
 endif
 " }}}
 
-" Vim_space: Repeat motions with space
-NeoBundle 'spiiph/vim-space'
-
 " Easymotion: Quick navigation with hotkeys {{{
-NeoBundle 'supasorn/vim-easymotion'
-let g:EasyMotion_leader_key = '\'
-hi EasyMotionTarget ctermbg=none ctermfg=red
-hi EasyMotionTarget2First ctermbg=none ctermfg=red
-hi link EasyMotionShade Comment
+NeoBundle 'haya14busa/vim-easymotion'
+
+map <Space> <Plug>(easymotion-prefix)
+let g:EasyMotion_do_mapping = 0 " turn off
+
+" bi-directional find motion
+" - you can jump to anywhere with only three type `s{char}{target}`
+" - `s<CR>` repeat last find motion.
+" - default `s` can be replaced with `cl` but you can mapping any key you like.
+nmap s <Plug>(easymotion-s)
+xmap s <Plug>(easymotion-s)
+omap z <Plug>(easymotion-s) " consider vim-surround mapping.
+
+" provide `t` like motion. It's useful in operator-pending mode. (e.g. `d<Space>z]`)
+omap <Space>t <Plug>(easymotion-t)
+omap <Space>T <Plug>(easymotion-T)
+
+" Extention of `h`, `l`
+" with default JK motion, you can move more easily
+map <Space>h <Plug>(easymotion-linebackward)
+map <Space>l <Plug>(easymotion-lineforward)
+map <Space>j <Plug>(easymotion-j)
+map <Space>k <Plug>(easymotion-k)
+" keep cursor colum JK motion compatibile with default `j`,`k`
+let g:EasyMotion_startofline = 0
+
+" bi-directional word motion or jumptoanywheremotion
+map <Space>w <Plug>(easymotion-bd-w)
+"map <Space><Space> <Plug>(easymotion-jumptoanywhere)
+
+" smartcase in find motion (type `a` and match `a`&`A`)
+let g:EasyMotion_smartcase = 1
+" Smartsign (type `1` and match `1`&`!`)
+let g:EasyMotion_use_smartsign_us = 1
+" Use upper case(show label by upper case and you can type it as lower case. It improves label readability)
+let g:EasyMotion_keys='HKLYUIOPNM,QWERTZXCVBASDGJF;'
+let g:EasyMotion_use_upper = 1
+
+" Type enter and jump to first match.
+" Sample: Type `dz)<CR>` and delete to first `)`
+let g:EasyMotion_enter_jump_first = 1
+
+let g:EasyMotion_do_special_mapping = 1
 " }}}
 
 " Capslock: Enable capslock for only insert mode using <C-G>c
@@ -558,7 +594,7 @@ set fileformats=unix,dos,mac
 set foldmethod=marker
 set foldnestmax=3
 set nofoldenable
-set foldcolumn=1
+set foldcolumn=3
 
 " Scrolling boundaries
 set scrolloff=4

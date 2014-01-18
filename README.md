@@ -4,11 +4,12 @@ dotfiles
     cd ~
     git clone https://github.com/joshtch/dotfiles.git
     ln -sf dotfiles/vimrc ~/.vimrc
-    ln -sf dotfiles/.gitconfig ~/.gitconfig
-    ln -sf dotfiles/.zshrc ~/.zshrc
-    ln -sf dotfiles/.oh-my-zsh ~/.oh-my-zsh
-    ln -sf dotfiles/.tmux ~/.tmux
-    ln -sf dotfiles/.tmux.conf ~/.tmux.conf
+    ln -sf dotfiles/gitconfig ~/.gitconfig
+    ln -sf dotfiles/zshrc ~/.zshrc
+    ln -sf dotfiles/oh-my-zsh ~/.oh-my-zsh
+    ln -sf dotfiles/tmux ~/.tmux
+    ln -sf dotfiles/tmux.conf ~/.tmux.conf
+    ln -sf dotfiles/cask ~/.cask
 
 These four lines are optional; they're used for syntax highlighting
 pentadactyl scripts.
@@ -24,19 +25,9 @@ TODO:
 Make vim open as many vsplits as it can when it's opened with filenames in the
  command line
 
-More textobjects!
-
-Make a branch of focus.vim that removes the annoying mapping and clears
- unnamed buffers when focusmode is toggled
-
 Figure out how to put plugins in separate file to be sourced.
 
 Install:
-
-(Maybe)  
-https://github.com/troydm/easybuffer.vim
-
-Others from:
 
 http://www.reddit.com/r/vim/comments/1giij9/list_you_favorite_plugins/
 

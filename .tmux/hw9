@@ -1,3 +1,0 @@
-new -s hw9 -n terminal z
-split -h -p 80 -t 1 z
-selectp -t 1
