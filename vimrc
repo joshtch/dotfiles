@@ -158,24 +158,19 @@ call operator#user#define('edge-append', 'Op_command_append')
 
 function! Op_command_insert(motion_wise)
     normal! `[
-    if a:motion_wise != "char"
-        normal! O
+    if a:motion_wise == 'char'
+        call feedkeys('i')
+    else
+        call feedkeys('O')
     endif
-    startinsert
 endfunction
 
 function! Op_command_append(motion_wise)
     normal! `]
-    if a:motion_wise != "char"
-        normal! o
-    endif
-    let s:init_col = virtcol(".")
-    normal! l
-    " Since there's no "startappend", we have two cases to check
-    if virtcol(".") == s:init_col
-        startinsert!
+    if a:motion_wise == 'char'
+        call feedkeys('a')
     else
-        startinsert
+        call feedkeys('o')
     endif
 endfunction
 
@@ -192,8 +187,6 @@ NeoBundle 'mattdbridges/bufkill.vim'
 "NeoBundle 'mhinz/vim-signify'
 
 " Focus: Force display of a single buffer for focused editing {{{
-" This mapping is included to keep focus.vim from setting its own
-silent! nmap <Leader>f <Plug>FocusModeToggle
 NeoBundle 'merlinrebrovic/focus.vim', {
             \ 'stay_same' : 0,
             \ 'mappings' : '<Plug>FocusModeToggle'
@@ -263,7 +256,7 @@ map <Space>h <Plug>(easymotion-linebackward)
 map <Space>l <Plug>(easymotion-lineforward)
 map <Space>j <Plug>(easymotion-j)
 map <Space>k <Plug>(easymotion-k)
-" keep cursor colum JK motion compatibile with default `j`,`k`
+" keep cursor column JK motion compatibile with default `j`,`k`
 let g:EasyMotion_startofline = 0
 
 " bi-directional word motion or jumptoanywheremotion
@@ -326,7 +319,7 @@ NeoBundle 'tyru/open-browser.vim', {
 map gu <Plug>(openbrowser-open)
 map gs <Plug>(openbrowser-search)
 map go <Plug>(openbrowser-smart-search)
-nnoremap <Leader>ob :OpenBrowserSmartSearch<Space>
+noremap <Leader>ob :OpenBrowserSmartSearch<Space>
 " }}}
 
 " UndoCloseWin: Undo closing of tabs and windows {{{
@@ -795,7 +788,8 @@ set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 set equalalways
 augroup Resize
     autocmd!
-    au VimResized * exe "normal! \<C-W>="
+    autocmd VimResized * exe "normal! \<C-W>="
+    autocmd BufEnter,BufWinEnter * exe "normal! \<C-W>="
 augroup END
 
 " Sets minimum split width -- 80 + 4 for number column
@@ -803,7 +797,7 @@ set winwidth=84
 
 " Put visually selected text in the '*' (middleclick/mouse) register and
 " '+' (global clipboard) register by default; may not work perfectly on linux
-set clipboard=unnamed,unnamedplus
+set clipboard=
 
 " Map annoying and useless <F1>, Q and K to more useful things
 " F1 clears search highlighting and refreshes, Q repeats last macro, K splits
@@ -817,9 +811,9 @@ noremap H {
 noremap { ^
 noremap } $
 
-" Nice way to scroll page by page
-nnoremap <Leader>j z+
-nnoremap <Leader>k z^
+" Keep context when scrolling page by page
+nnoremap <C-f> z+
+nnoremap <C-b> z^
 
 " Allow expected behavior when traversing wrapped lines
 noremap j gj
