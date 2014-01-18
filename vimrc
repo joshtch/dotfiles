@@ -244,7 +244,7 @@ let g:EasyMotion_do_mapping = 0 " turn off
 " - default `s` can be replaced with `cl` but you can mapping any key you like.
 nmap s <Plug>(easymotion-s)
 xmap s <Plug>(easymotion-s)
-omap z <Plug>(easymotion-s) " consider vim-surround mapping.
+omap z <Plug>(easymotion-s)
 
 " provide `t` like motion. It's useful in operator-pending mode. (e.g. `d<Space>z]`)
 omap <Space>t <Plug>(easymotion-t)
