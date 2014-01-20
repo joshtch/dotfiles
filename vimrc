@@ -184,20 +184,20 @@ silent! call repeat#set("\<Plug>(operator-edge-append)",v:count)
 NeoBundle 'mattdbridges/bufkill.vim'
 
 " Signify: Show VCS diff using sign column
-"NeoBundle 'mhinz/vim-signify'
+NeoBundle 'mhinz/vim-signify'
 
 " Focus: Force display of a single buffer for focused editing {{{
-NeoBundle 'merlinrebrovic/focus.vim', {
-            \ 'stay_same' : 0,
-            \ 'mappings' : '<Plug>FocusModeToggle'
-            \ }
-function! CleanEmptyBuffers()
-    let buffers = filter(range(0, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val)<0')
-    if !empty(buffers)
-        exe 'bw '.join(buffers, ' ')
+NeoBundle 'merlinrebrovic/focus.vim', {'mappings' : '<Plug>FocusModeToggle' }
+function! ToggleFocusMode()
+    if !exists("t:focusmode")
+        autocmd! Resize
+    endif
+    execute "normal \<Plug>FocusModeToggle"
+    if !exists("t:focusmode")
+        call AutoResize()
     endif
 endfunction
-nmap <silent> <Leader>f <Plug>FocusModeToggle:call CleanEmptyBuffers()<CR>
+nmap <silent> <Leader>f :call ToggleFocusMode()<cr>
 let g:focus_use_default_mapping = 0
 " }}}
 
@@ -786,22 +786,20 @@ set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 
 " Makes windows always equal size when resizing
 set equalalways
-augroup Resize
-    autocmd!
-    autocmd VimResized * exe "normal! \<C-W>="
-    autocmd BufEnter,BufWinEnter * exe "normal! \<C-W>="
-augroup END
+function! AutoResize()
+    augroup Resize
+        autocmd!
+        autocmd WinEnter,VimResized * wincmd =
+    augroup END
+endfunction
+call AutoResize()
 
-" Sets minimum split width -- 80 + 4 for number column
-set winwidth=84
-
-" Put visually selected text in the '*' (middleclick/mouse) register and
-" '+' (global clipboard) register by default; may not work perfectly on linux
-set clipboard=
+" Sets minimum split width -- 80 + 6 for number + sign columns
+set winwidth=86
 
 " Map annoying and useless <F1>, Q and K to more useful things
-" F1 clears search highlighting and refreshes, Q repeats last macro, K splits
-" the line and removes trailing whitespace (reverse of J/gJ)
+" Q repeats last macro, K splits the line and removes trailing whitespace
+" (reverse of J/gJ)
 nnoremap <F1> <Nop>
 nnoremap Q @q
 nnoremap K i<CR><Esc>k:let _s=@/<CR>:s/\s\+$//e<CR>:let @/=_s<CR>$
@@ -814,6 +812,8 @@ noremap } $
 " Keep context when scrolling page by page
 nnoremap <C-f> z+
 nnoremap <C-b> z^
+nnoremap <Leader>j z+
+nnoremap <Leader>k z^
 
 " Allow expected behavior when traversing wrapped lines
 noremap j gj
