@@ -12,7 +12,9 @@ let g:mapleader = ","
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
     if !isdirectory(expand('~/.vim/bundle/neobundle.vim'))
-        !mkdir -p ~/.vim/bundle/neobundle && git clone 'https://github.com/Shougo/neobundle.vim.git' ~/.vim/bundle/neobundle
+        !mkdir -p ~/.vim/bundle/neobundle &&
+                \ git clone 'https://github.com/Shougo/neobundle.vim.git'
+                \ ~/.vim/bundle/neobundle
     endif
 endif
 
@@ -33,7 +35,8 @@ NeoBundle 'Shougo/vimproc', {
 " }}}
 
 " Unite: Unified interface for file, buffer, yankstack, etc. management {{{
-NeoBundle 'Shougo/unite.vim', { 'depends' : 'Shougo/vimproc' }
+NeoBundleLazy 'Shougo/unite.vim', { 'depends' : 'Shougo/vimproc',
+            \ 'autoload' : { 'commands' : 'Unite' } }
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <Leader>ut :Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<CR>
@@ -102,11 +105,12 @@ nnoremap <silent> <C--> :TmuxNavigatePrevious<CR>
 " }}}
 
 " Allow user to undo with `u` after using <C-U>
-" Vim_lint: Syntax checking for vimscript
-NeoBundle 'dbakker/vim-lint', { 'depends' : 'scrooloose/syntastic' }
+" Vim Lint: Syntax checking for vimscript
+NeoBundleLazy 'dbakker/vim-lint', { 'autoload' : { 'filetypes' : 'vim' },
+            \ 'depends' : 'scrooloose/syntastic' }
 
 " Tabular: Character alignment {{{
-NeoBundle 'godlygeek/tabular'
+NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
 if exists(":Tabularize")
     nnoremap <Leader>a= :Tabularize /=<CR>
     xnoremap <Leader>a= :Tabularize /=<CR>
@@ -124,12 +128,13 @@ if exists(":Tabularize")
 endif
 " }}}
 
-" Unite_outline: Outlining in unite
-NeoBundle 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim' }
+" Unite Outline: Outlining in unite
+NeoBundleLazy 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim',
+            \ 'autoload' : { 'commands' : 'Unite' } }
 
 " Vim Snippets: Default snippets for various languages
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'MarcWeber/ultisnips'
+NeoBundle 'honza/vim-snippets', { 'disabled' : 1 }
+NeoBundle 'MarcWeber/ultisnips', { 'disabled' : 1 }
 
 " Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc) {{{
 NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
@@ -181,13 +186,18 @@ silent! call repeat#set("\<Plug>(operator-edge-append)",v:count)
 " }}}
 
 " Bufkill: Close buffers without closing windows
-NeoBundle 'mattdbridges/bufkill.vim'
+NeoBundleLazy 'mattdbridges/bufkill.vim', { 'autoload' : {
+            \ 'commands' : [ 'BD', 'BC', 'BW', 'BB', 'BF' ] } }
 
 " Signify: Show VCS diff using sign column
 NeoBundle 'mhinz/vim-signify'
 
 " Focus: Force display of a single buffer for focused editing {{{
-NeoBundle 'joshtch/focus.vim', {'mappings' : '<Plug>FocusModeToggle' }
+NeoBundleLazy 'joshtch/focus.vim', {
+            \ 'autoload' : {
+            \         'mappings' : '<Plug>FocusModeToggle',
+            \     }
+            \ }
 function! ToggleFocusMode()
     if !exists("t:focusmode")
         autocmd! Resize
@@ -220,66 +230,64 @@ let g:syntastic_c_compiler = 'gcc'
 " }}}
 
 " NERDCommenter: Smart commenting plugin
-NeoBundle 'scrooloose/nerdcommenter'
+NeoBundleLazy 'scrooloose/nerdcommenter', { 'autoload' : {
+            \ 'mappings' : [
+            \        '<Plug>NERDCommenterComment',
+            \        '<Plug>NERDCommenterNested',
+            \        '<Plug>NERDCommenterToggle',
+            \        '<Plug>NERDCommenterMinimal',
+            \        '<Plug>NERDCommenterInvert',
+            \        '<Plug>NERDCommenterSexy',
+            \        '<Plug>NERDCommenterYank',
+            \        '<Plug>NERDCommenterToEOL',
+            \        '<Plug>NERDCommenterAppend',
+            \        '<Plug>NERDCommenterInsert',
+            \        '<Plug>NERDCommenterAlignLeft',
+            \        '<Plug>NERDCommenterAlignBoth',
+            \        '<Plug>NERDCommenterUncomment',
+            \     ]
+            \   }
+            \ }
 
 " Gundo: Undo tree visualization {{{
 if has("python")
-    NeoBundle 'sjl/gundo.vim', { 'vim_version' : '7.3' }
+    NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : { 'commands' : 'GundoToggle'},
+                \ 'vim_version' : '7.3' }
     nnoremap <Leader>g :GundoToggle<CR>
 endif
 " }}}
 
-" Easymotion: Quick navigation with hotkeys {{{
+" Easymotion: Quick navigation {{{
 NeoBundle 'haya14busa/vim-easymotion'
 
 map <Space> <Plug>(easymotion-prefix)
 let g:EasyMotion_do_mapping = 0 " turn off
 
-" bi-directional find motion
-" - you can jump to anywhere with only three type `s{char}{target}`
-" - `s<CR>` repeat last find motion.
-" - default `s` can be replaced with `cl` but you can mapping any key you like.
+" Jump to anywhere with only `s{char}{target}`; `s<CR>` repeat last find motion.
 nmap s <Plug>(easymotion-s)
 xmap s <Plug>(easymotion-s)
 omap z <Plug>(easymotion-s)
 
-" provide `t` like motion. It's useful in operator-pending mode. (e.g. `d<Space>z]`)
-omap <Space>t <Plug>(easymotion-t)
-omap <Space>T <Plug>(easymotion-T)
-
-" Extention of `h`, `l`
-" with default JK motion, you can move more easily
-map <Space>h <Plug>(easymotion-linebackward)
-map <Space>l <Plug>(easymotion-lineforward)
-map <Space>j <Plug>(easymotion-j)
-map <Space>k <Plug>(easymotion-k)
-" keep cursor column JK motion compatibile with default `j`,`k`
-let g:EasyMotion_startofline = 0
-
-" bi-directional word motion or jumptoanywheremotion
 map <Space>w <Plug>(easymotion-bd-w)
 "map <Space><Space> <Plug>(easymotion-jumptoanywhere)
 
-" smartcase in find motion (type `a` and match `a`&`A`)
-let g:EasyMotion_smartcase = 1
-" Smartsign (type `1` and match `1`&`!`)
-let g:EasyMotion_use_smartsign_us = 1
-" Use upper case(show label by upper case and you can type it as lower case. It improves label readability)
+let g:EasyMotion_startofline = 0               " Don't force BOL for j+k motions
+let g:EasyMotion_smartcase = 1                      " type `a` and match `a`&`A`
+let g:EasyMotion_use_smartsign_us = 1   " Smartsign (type `1` and match `1`&`!`)
 let g:EasyMotion_keys='HKLYUIOPNM,QWERTZXCVBASDGJF;'
-let g:EasyMotion_use_upper = 1
-
-" Type enter and jump to first match.
-" Sample: Type `dz)<CR>` and delete to first `)`
-let g:EasyMotion_enter_jump_first = 1
-
-let g:EasyMotion_do_special_mapping = 1
+let g:EasyMotion_use_upper = 1                     " Use uppercase target labels
+let g:EasyMotion_enter_jump_first = 1       " Type enter and jump to first match
+let g:EasyMotion_do_special_mapping = 1 " <Space>l to select line, -p for phrase
 " }}}
 
 " Capslock: Enable capslock for only insert mode using <C-G>c
-NeoBundle 'tpope/vim-capslock'
+NeoBundleLazy 'tpope/vim-capslock',
+            \ { 'autoload' : { 'mappings' : '<Plug>CapslockToggle' } }
 
 " Dispatch: Asyncronous compiling with tmux/screen/iterm
-NeoBundle 'tpope/vim-dispatch'
+NeoBundleLazy 'tpope/vim-dispatch', { 'autoload' : { 'commands' : [ 'Make',
+            \ 'Make!', 'Copen', 'Copen!', 'Dispatch', 'Dispatch!',
+            \ 'FocusDispatch', 'FocusDispatch!', 'Start', 'Start!' ] } }
 
 " Fugitive: Awesome git plugin for vim {{{
 NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
@@ -291,9 +299,6 @@ nnoremap <Leader>gp :Git push<CR>
 nnoremap <Leader>gs :Git status -sb<CR>
 " }}}
 
-" Capslock: Enable capslock for only insert mode using <C-G>c
-NeoBundle 'tpope/vim-capslock'
-
 " Repeat: Enable use of dot operator with certain plugins
 NeoBundle 'tpope/vim-repeat'
 
@@ -301,17 +306,36 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-rsi'
 
 " Surround: Surround text easily
-NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-surround', { 'autoload' : { 'mappings' : [
+            \ '<Plug>Dsurround',
+            \ '<Plug>Csurround',
+            \ '<Plug>Ysurround',
+            \ '<Plug>YSurround',
+            \ '<Plug>Yssurround',
+            \ '<Plug>YSsurround',
+            \ '<Plug>YSsurround',
+            \ '<Plug>VSurround',
+            \ '<Plug>VgSurround',
+            \ '<Plug>Isurround',
+            \ '<Plug>ISurround', ]}}
+
 
 " Easydir: Automatically create filepaths for :w, :e, etc if they don't exist
 NeoBundle 'dockyard/vim-easydir'
 
 " Tag: Tag navigation in unite
-NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
+NeoBundleLazy 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim',
+            \ 'autoload' : { 'commands' : 'Unite' } }
 
 " Open Browser: Open a URL in the default browser {{{
-NeoBundle 'tyru/open-browser.vim', {
-            \ 'mappings' : '<Plug>(openbrowser-open),<Plug>(openbrowser-smart-search)'
+NeoBundleLazy 'tyru/open-browser.vim', {
+            \ 'autoload' : {
+            \         'mappings' : [
+            \                 '<Plug>(openbrowser-open)',
+            \                 '<Plug>(openbrowser-search)',
+            \                 '<Plug>(openbrowser-smart-search)'
+            \             ]
+            \      }
             \ }
 map gu <Plug>(openbrowser-open)
 map gs <Plug>(openbrowser-search)
@@ -320,8 +344,8 @@ noremap <Leader>ob :OpenBrowserSmartSearch<Space>
 " }}}
 
 " UndoCloseWin: Undo closing of tabs and windows {{{
-NeoBundle 'tyru/undoclosewin.vim', {
-            \ 'mappings' : '<Plug>(ucw-restore-window)'
+NeoBundleLazy 'tyru/undoclosewin.vim', { 'autoload' : {
+            \ 'mappings' : '<Plug>(ucw-restore-window)' }
             \ }
 map <Leader>br <Plug>(ucw-restore-window)
 " }}}
@@ -329,13 +353,14 @@ map <Leader>br <Plug>(ucw-restore-window)
 " YouCompleteMe: Smart autocompletion {{{
 if has("python") && has("unix")
     NeoBundle 'Valloric/YouCompleteMe', {
-                \ 'vim_version' : '7.3.584',
-                \ 'build' : {
-                \       'unix' : '~/.vim/bundle/YouCompleteMe/install.sh',
-                \       'mac' : '~/.vim/bundle/YouCompleteMe/install.sh',
-                \     }
-                \ }
+            \ 'vim_version' : '7.3.584',
+            \ 'build' : {
+            \       'unix' : '~/.vim/bundle/YouCompleteMe/install.sh',
+            \       'mac' : '~/.vim/bundle/YouCompleteMe/install.sh',
+            \     }
+            \ }
     let g:ycm_confirm_extra_conf = 0
+    let g:ycm_use_ultisnips_completer = 1
     let g:ycm_key_detailed_diagnostics = ''
     let g:ycm_register_as_syntastic_checker = 0
 endif
@@ -567,10 +592,8 @@ set list
 set listchars=tab:▶\ ,
 "set listchars+=trail:·
 
-" Allow use of mouse
-set mouse=a
-" For xterm2 mouse support
-set ttymouse=xterm2
+set mouse=a         " Allow use of mouse
+set ttymouse=xterm2 " For xterm2 mouse support
 
 " Text wrapping
 set nowrap    " Disallow (soft)wrapping of text
@@ -585,7 +608,7 @@ set fileformats=unix,dos,mac
 set foldmethod=marker
 set foldnestmax=3
 set nofoldenable
-set foldcolumn=3
+set foldcolumn=0
 
 " Scrolling boundaries
 set scrolloff=4
@@ -813,6 +836,21 @@ nnoremap <C-b> z^
 nnoremap <Leader>j z+
 nnoremap <Leader>k z^
 
+function! CenteringToggle()
+    if &scrolloff!=99999
+        let g:scrolloff_default_value = &scrolloff
+        set scrolloff=99999
+    else
+        if exists(g:scrolloff_default_value)
+            set scrolloff=g:scrolloff_default_value
+            unlet g:scrolloff_default_value
+        else
+            set scrolloff=0
+        endif
+    endif
+endfunction
+nnoremap <silent> <Leader>z :call CenteringToggle()<CR>
+
 " Allow expected behavior when traversing wrapped lines
 noremap j gj
 noremap k gk
@@ -851,5 +889,7 @@ augroup CommandWindow
     " start command line window in insert mode and no line numbers
     autocmd CmdwinEnter * startinsert
     autocmd CmdwinEnter * set nonumber
-    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+    autocmd BufReadPost *
+                \ if line("'\"") > 0 && line("'\"") <= line("$")
+                \| exe "normal g'\"" | endif
 augroup END
