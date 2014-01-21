@@ -842,3 +842,14 @@ if $TERM_PROGRAM == 'iTerm.app'
         let &t_EI = "\<Esc>]50;CursorShape=0\x7"
     endif
 endif
+
+augroup CommandWindow
+    autocmd!
+    " have <Ctrl-C> leave cmdline-window
+    autocmd CmdwinEnter * nnoremap <silent> <buffer> <C-c> :q<cr>
+    autocmd CmdwinEnter * inoremap <silent> <buffer> <C-c> <esc>:q<cr>
+    " start command line window in insert mode and no line numbers
+    autocmd CmdwinEnter * startinsert
+    autocmd CmdwinEnter * set nonumber
+    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+augroup END
