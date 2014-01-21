@@ -187,7 +187,7 @@ NeoBundle 'mattdbridges/bufkill.vim'
 NeoBundle 'mhinz/vim-signify'
 
 " Focus: Force display of a single buffer for focused editing {{{
-NeoBundle 'merlinrebrovic/focus.vim', {'mappings' : '<Plug>FocusModeToggle' }
+NeoBundle 'joshtch/focus.vim', {'mappings' : '<Plug>FocusModeToggle' }
 function! ToggleFocusMode()
     if !exists("t:focusmode")
         autocmd! Resize
@@ -219,15 +219,12 @@ let g:syntastic_c_check_header = 1
 let g:syntastic_c_compiler = 'gcc'
 " }}}
 
-" NERDCommenter: Smart commenting plugin {{{
+" NERDCommenter: Smart commenting plugin
 NeoBundle 'scrooloose/nerdcommenter'
-" }}}
 
 " Gundo: Undo tree visualization {{{
 if has("python")
-    NeoBundle 'sjl/gundo.vim', {
-                \ 'vim_version' : '7.3',
-                \ }
+    NeoBundle 'sjl/gundo.vim', { 'vim_version' : '7.3' }
     nnoremap <Leader>g :GundoToggle<CR>
 endif
 " }}}
@@ -448,7 +445,7 @@ function! QuitIfEmpty()
 endfunction
 " }}}
 
-" Replace 'ddate' with the current date in insert mode
+" Replace 'ddate' with current date, 'ttime' with current time
 if exists("*strftime")
     iabbrev ddate <C-R>=strftime("%m/%d/%Y")<CR>
     iabbrev ttime <C-R>=strftime("%Y-%m-%d %a %H:%M")<CR>
@@ -510,7 +507,8 @@ set magic     " Use regexp-style search; 'magic' is default
 " Use 'verymagic' when searching. Does not verymagic substitutions; if you
 " want to verymagic your substitutions, add the flag yourself, or use the
 " last search register
-" TODO: Make substitutions automatically verymagic without breaking things
+" TODO: Make substitutions automatically verymagic without breaking things, make
+" using previous search easier (currently: "/<BS><BS>/")
 nnoremap / /\v
 
 " Case matching in search
