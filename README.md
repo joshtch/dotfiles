@@ -10,6 +10,8 @@ dotfiles
     ln -sf dotfiles/tmux ~/.tmux
     ln -sf dotfiles/tmux.conf ~/.tmux.conf
     ln -sf dotfiles/cask ~/.cask
+    ln -sf dotfiles/pentadactylrc ~/.pentadactylrc
+    ln -sf dotfiles/pentadactyl ~/.pentadactyl
 
 These four lines are used for syntax highlighting pentadactyl scripts in vim.
 

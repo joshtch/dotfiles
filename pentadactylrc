@@ -1,0 +1,43 @@
+set titlestring=Mozilla\ Firefox
+set! browser.tabs.closeWindowWithLastTab=true
+set hlfind
+set incfind
+set findcase=smart
+set complete=slb
+set wildmode=list:full
+map , <Leader>
+map <Leader>f F
+map l gt
+map h gT
+nmap -builtin j 15j
+nmap -builtin k 15k
+map <Leader>/ :noh<cr>
+set showtabline=never
+set guioptions=s
+set showstatuslinks='command'
+set hintkeys=oecruvmna;lskdjf
+set editor='/usr/local/bin/mvim -g -f +<line> +"sil! call cursor(0, <column>)" <file>'
+set shell=/bin/zsh
+
+silent qmark r http://www.reddit.com/
+silent qmark m https://mail.google.com/
+silent qmark c https://www.google.com/calendar/
+silent qmark s http://www.reddit.com/r/soccer/
+silent qmark f http://footytube.com/
+silent qmark t https://trunk.tufts.edu/
+silent qmark i http://go.tufts.edu/isis
+silent qmark p https://student.support.tufts.edu/payrails/login/
+silent qmark l https://student.support.tufts.edu/links/
+silent qmark k https://wikis.uit.tufts.edu/confluence/display/CSS/Student+Support/
+silent qmark 4 http://www.cs.tufts.edu/comp/40/calendar.html
+silent qmark w http://www.wiziwig.tv/competition.php?part=sports&discipline=football
+silent qmark T http://tufts.service-now.com/
+silent qmark d http://drive.google.com/
+silent qmark v http://vpn.tufts.edu/
+
+set passkeys=reddit\.com:?\.hkjunUNipP;=-_+[]\"OolLKJsrMmIi<>1234567890\,bB,<C-e>
+set strictfocus='google.com':laissez-faire,*:moderate,'chrome:*':laissez-faire,*:moderate
+set passkeys+=mail\.google\.com:jkv<CR>rau#T[]{}/<space><S-space>?,gi,gl,*u,*i,*n,gi,gc,gl
+:autocmd LocationChange facebook.com :normal! <C-z>
+
+colorscheme solarized-light
