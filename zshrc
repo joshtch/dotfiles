@@ -3,7 +3,7 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
-ZSH_THEME="../custom/nicoulaj-solarized"
+ZSH_THEME="../../custom/nicoulaj-solarized"
 
 # MAC Address spoofing: ifconfig bge0 link 03:a0:04:d3:00:11
 
@@ -23,5 +23,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(vi-mode osx tmux)
 
 source $ZSH/oh-my-zsh.sh
+source ~/dotfiles/custom/aliases.zsh
 
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/josh/bin
