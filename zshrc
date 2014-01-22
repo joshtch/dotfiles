@@ -11,7 +11,7 @@ ZSH_THEME="../../custom/nicoulaj-solarized"
 # MAC Address spoofing: ifconfig bge0 link 03:a0:04:d3:00:11
 
 # Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
