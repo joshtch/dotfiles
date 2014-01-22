@@ -34,9 +34,9 @@ http://www.reddit.com/r/vim/comments/1giij9/list_you_favorite_plugins/
 
 https://github.com/kana/vim-textobj-user/wiki
 
+The number of symlinks is getting out of hand. Possible solutions:  
+https://github.com/RichiH/vcsh
 https://github.com/andsens/homeshick
 
-The number of symlinks is getting out of hand. One solution:  
-https://github.com/RichiH/vcsh
 
 vim:set ft=markdown et tw=80 sw=4:
