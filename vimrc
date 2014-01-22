@@ -78,20 +78,21 @@ nnoremap <Leader>vr :VimuxRunLastCommand<CR>
 
 " vim-airline statusline {{{
 NeoBundle 'bling/vim-airline'
-silent! set guifont=Dejavu\ Sans\ Mono\ Bold\ for\ Powerline\ 14
-set lazyredraw
-set t_Co=256
-set ttimeoutlen=50
-let g:airline_powerline_fonts = 1
-let g:airline_enable_synastic = 1
-let g:airline_enable_fugitive = 1
-let g:airline_modified_detection = 1
-"let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '◀'
-"let g:airline_linecolumn_prefix = '¶'
-"let g:airline_fugitive_prefix = '⎇ '
-let g:airline_theme = 'solarized'
-let g:airline#extensions#tabline#enabled = 1
+if exists(":AirlineTheme")
+    set lazyredraw
+    set t_Co=256
+    set ttimeoutlen=50
+    let g:airline_powerline_fonts = 1
+    let g:airline_enable_synastic = 1
+    let g:airline_enable_fugitive = 1
+    let g:airline_modified_detection = 1
+    "let g:airline_left_sep = '▶'
+    "let g:airline_right_sep = '◀'
+    "let g:airline_linecolumn_prefix = '¶'
+    "let g:airline_fugitive_prefix = '⎇ '
+    let g:airline_theme = 'solarized'
+    let g:airline#extensions#tabline#enabled = 1
+endif
 " }}}
 
 " VimTmuxNavigator: Seamlessly navigate vim and tmux splits {{{
@@ -525,9 +526,21 @@ set nrformats=hex,alpha
 set hidden
 
 " Search settings
-set incsearch " Show results of search immediately
-set hlsearch  " Highlight search results by default
-set magic     " Use regexp-style search; 'magic' is default
+set incsearch       " Show results of search immediately
+set hlsearch        " Highlight search results by default
+set magic           " Use regexp-style search; 'magic' is default
+set matchpairs+=<:> " Match angle brackets with '%'
+
+" These improve the C-style /* comments by wrapping with
+" a ' *' on each line.
+" /*
+" * So that your
+" * multiline comments
+" * look like this
+" */
+set comments-=s1:/*,mb:*,ex:*/
+set comments+=s:/*,mb:\ *,ex:\ */
+set comments+=fb:*
 
 " Use 'verymagic' when searching. Does not verymagic substitutions; if you
 " want to verymagic your substitutions, add the flag yourself, or use the
@@ -571,7 +584,7 @@ filetype plugin indent on
 " TODO: Turn this off for markdown and other languages that require trailing ws
 augroup AnnoyingWhitespace
     autocmd!
-    highlight link ExtraWhitespace ErrorMsg
+    highlight default link ExtraWhitespace ErrorMsg
     match ExtraWhitespace /\s\+$/
     autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
     autocmd InsertEnter * match ExtraWhitespace /\v\s+%#@<!$/
@@ -581,7 +594,9 @@ augroup AnnoyingWhitespace
                 \ syn clear EOLWS | syn match EOLWS excludenl /\v\s+%#@!$/
     autocmd InsertLeave *
                 \ syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
-    highlight link EOLWS ErrorMsg
+    highlight default link EOLWS ErrorMsg
+    highlight link markdownExtraWhitespace NONE
+    highlight link markdownEOLWS NONE
 augroup END
 
 " Set default shell to use
@@ -692,8 +707,8 @@ set switchbuf=useopen
 " Gvim-specific settings
 " This really should go in its own .gvimrc
 if has("gui_running")
-    set guioptions-=T
-    set guioptions+=e
+    set guioptions=cghiP
+    silent! set guifont=Inconsolata-dz\ for\ Powerline:h12
     set guitablabel=%M\ %t
     " Remove small delay between pressing Esc and entering Normal mode.
     set ttimeoutlen=10
@@ -712,14 +727,17 @@ if has("autocmd")
     augroup filetype_commands
         autocmd!
         " Syntax of these languages is fussy over tabs Vs spaces
-        autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-        autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+        au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+        au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
         " Customisations based on house-style (arbitrary)
-        autocmd FileType html setlocal ts=8 sts=4 sw=4 expandtab
-        autocmd FileType css setlocal ts=8 sts=4 sw=4 expandtab
-        autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
-        autocmd FileType c setlocal ts=4 sts=4 sw=4 cindent expandtab
+        au FileType html       setlocal ts=8 sts=4 sw=4 expandtab
+        au FileType css        setlocal ts=8 sts=4 sw=4 expandtab
+        au FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
+        au FileType c          setlocal ts=4 sts=4 sw=4 expandtab
+        au FileType c,cpp,javascript,slang setlocal cindent fo+=ro
+        au FileType bash,coffee,markdown,python,zsh set sw=4 ts=4
+        au FileType javascript,html,xhtml,css,php set sw=2 tw=2 fdm=indent
 
         " Treat .rss files as XML
         autocmd BufNewFile,BufRead *.rss setfiletype xml
@@ -793,6 +811,10 @@ augroup resCur
     autocmd!
     autocmd BufWinEnter * call ResCur()
 augroup END
+
+" Go to last location when using gf and <C-^>
+noremap gf gf`"
+noremap <C-^> <C-^>`"
 
 " Define what to save with :mksession
 " blank - empty windows

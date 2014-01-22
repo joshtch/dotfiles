@@ -29,7 +29,6 @@ silent qmark i http://go.tufts.edu/isis
 silent qmark p https://student.support.tufts.edu/payrails/login/
 silent qmark l https://student.support.tufts.edu/links/
 silent qmark k https://wikis.uit.tufts.edu/confluence/display/CSS/Student+Support/
-silent qmark 4 http://www.cs.tufts.edu/comp/40/calendar.html
 silent qmark w http://www.wiziwig.tv/competition.php?part=sports&discipline=football
 silent qmark T http://tufts.service-now.com/
 silent qmark d http://drive.google.com/
