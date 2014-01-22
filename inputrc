@@ -1,3 +1,6 @@
+# inputrc
+# vim:set ft=readline et tw=80 sw=4:
+
 set completion-ignore-case On
 set bell-style none
 set editing-mode vi

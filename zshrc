@@ -1,3 +1,6 @@
+# zshrc
+# vim:set ft=zsh et ts=4 sw=4:
+
 # Note to self: run 'chsh -s /bin/zsh' next time I'm at Halligan
 
 # Path to your oh-my-zsh configuration.

@@ -1,3 +1,6 @@
+" vimrc
+" vim:set ft=vim tw=80 sw=4 et:
+
 " Clear autocmd settings -- stop autocommands from bogging down vim over time
 if has("autocmd")
     autocmd!
