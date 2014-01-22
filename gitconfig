@@ -2,6 +2,7 @@
 # These settings live in the ~/.gitconfig file.
 [user]
     name = joshtch
+	email = howejosh@gmail.com
 
 [core]
     editor = "vim -f"
