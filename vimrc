@@ -63,20 +63,14 @@ endif
 " }}}
 
 " Solarized: colorscheme {{{
-NeoBundle 'altercation/vim-colors-solarized', { 'vim_version' : '7.3' }
-syntax enable
-colorscheme solarized
-call togglebg#map("<Leader>5")
-let g:solarized_termcolors=16
-let g:solarized_termtrans=0
-" }}}
-
-" Vimux: Interact with a tmux split directly from vim's commandline {{{
-NeoBundle 'benmills/vimux'
-nnoremap <Leader>vs :call VimuxRunCommand('exec zsh')<CR>:call VimuxRunCommand('clear')<CR>
-nnoremap <Leader>vc :VimuxCloseRunner<CR>
-nnoremap <Leader>vp :VimuxPromptCommand<CR>
-nnoremap <Leader>vr :VimuxRunLastCommand<CR>
+if v:version >= 7.2
+    NeoBundle 'altercation/vim-colors-solarized', { 'vim_version' : '7.2' }
+    syntax enable
+    colorscheme solarized
+    call togglebg#map("<Leader>5")
+    let g:solarized_termcolors=16
+    let g:solarized_termtrans=0
+endif
 " }}}
 
 " vim-airline statusline {{{
@@ -98,14 +92,33 @@ if exists(":AirlineTheme")
 endif
 " }}}
 
-" VimTmuxNavigator: Seamlessly navigate vim and tmux splits {{{
-NeoBundle 'christoomey/vim-tmux-navigator'
-let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <C-H> :TmuxNavigateLeft<CR>
-nnoremap <silent> <C-J> :TmuxNavigateDown<CR>
-nnoremap <silent> <C-K> :TmuxNavigateUp<CR>
-nnoremap <silent> <C-L> :TmuxNavigateRight<CR>
-nnoremap <silent> <C--> :TmuxNavigatePrevious<CR>
+" Tmux Settings: {{{
+if executable('tmux')
+    " Autolabel tmux windows
+    augroup Tmux
+        autocmd!
+        autocmd VimEnter,BufNewFile,BufReadPost * call system('tmux rename-window "vim - ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1] . '"')
+        autocmd VimLeave * call system('tmux rename-window ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1])
+    augroup END
+
+    " Vimux: Interact with a tmux split directly from vim's commandline {{{
+    NeoBundle 'benmills/vimux'
+    nnoremap <Leader>vs :call VimuxRunCommand('exec zsh')<CR>:call VimuxRunCommand('clear')<CR>
+    nnoremap <Leader>vc :VimuxCloseRunner<CR>
+    nnoremap <Leader>vp :VimuxPromptCommand<CR>
+    nnoremap <Leader>vr :VimuxRunLastCommand<CR>
+    " }}}
+
+    " VimTmuxNavigator: Seamlessly navigate vim and tmux splits {{{
+    NeoBundle 'christoomey/vim-tmux-navigator'
+    let g:tmux_navigator_no_mappings = 1
+    nnoremap <silent> <C-H> :TmuxNavigateLeft<CR>
+    nnoremap <silent> <C-J> :TmuxNavigateDown<CR>
+    nnoremap <silent> <C-K> :TmuxNavigateUp<CR>
+    nnoremap <silent> <C-L> :TmuxNavigateRight<CR>
+    nnoremap <silent> <C--> :TmuxNavigatePrevious<CR>
+    " }}}
+endif
 " }}}
 
 " Allow user to undo with `u` after using <C-U>
@@ -141,52 +154,58 @@ NeoBundle 'honza/vim-snippets', { 'disabled' : 1 }
 NeoBundle 'MarcWeber/ultisnips', { 'disabled' : 1 }
 
 " Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc) {{{
-NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
-augroup Arpeggio
-    autocmd!
-    autocmd VimEnter * Arpeggio inoremap jk <Esc>
-augroup END
+if v:version >= 7.2
+    NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
+    augroup Arpeggio
+        autocmd!
+        autocmd VimEnter * Arpeggio inoremap jk <Esc>
+    augroup END
+endif
 " }}}
 
 " Niceblock: Use I and A in all visual modes, not just visual block mode
-NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
+if v:version >= 7.3
+    NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
+endif
 
 " Operator User: Create your own operators {{{
-NeoBundle 'kana/vim-operator-user', { 'vim_version' : '7.2' }
+if v:version >= 7.2
+    NeoBundle 'kana/vim-operator-user', { 'vim_version' : '7.2' }
 
-" Operator Edge: Insert before/append after a text object/visual selection {{{
-" Note: requires +ex_extra
-" TODO: Make this operator work with tpope's repeat.vim
-"    See https://github.com/tpope/vim-repeat/issues/8
-" TODO: Separate this into its own repository and post on github
+    " Operator Edge: Insert before/append after a text object/visual selection {{{
+    " Note: requires +ex_extra
+    " TODO: Make this operator work with tpope's repeat.vim
+    "    See https://github.com/tpope/vim-repeat/issues/8
+    " TODO: Separate this into its own repository and post on github
 
-map ( <Plug>(operator-edge-insert)
-map ) <Plug>(operator-edge-append)
-call operator#user#define('edge-insert', 'Op_command_insert')
-call operator#user#define('edge-append', 'Op_command_append')
+    map ( <Plug>(operator-edge-insert)
+    map ) <Plug>(operator-edge-append)
+    call operator#user#define('edge-insert', 'Op_command_insert')
+    call operator#user#define('edge-append', 'Op_command_append')
 
-function! Op_command_insert(motion_wise)
-    normal! `[
-    if a:motion_wise == 'char'
-        call feedkeys('i')
-    else
-        call feedkeys('O')
-    endif
-endfunction
+    function! Op_command_insert(motion_wise)
+        normal! `[
+        if a:motion_wise == 'char'
+            call feedkeys('i')
+        else
+            call feedkeys('O')
+        endif
+    endfunction
 
-function! Op_command_append(motion_wise)
-    normal! `]
-    if a:motion_wise == 'char'
-        call feedkeys('a')
-    else
-        call feedkeys('o')
-    endif
-endfunction
+    function! Op_command_append(motion_wise)
+        normal! `]
+        if a:motion_wise == 'char'
+            call feedkeys('a')
+        else
+            call feedkeys('o')
+        endif
+    endfunction
 
-silent! call repeat#set("\<Plug>(operator-edge-insert)",v:count)
-silent! call repeat#set("\<Plug>(operator-edge-append)",v:count)
-" }}}
+    silent! call repeat#set("\<Plug>(operator-edge-insert)",v:count)
+    silent! call repeat#set("\<Plug>(operator-edge-append)",v:count)
+    " }}}
 
+endif
 " }}}
 
 " Bufkill: Close buffers without closing windows
@@ -197,11 +216,8 @@ NeoBundleLazy 'mattdbridges/bufkill.vim', { 'autoload' : {
 NeoBundle 'mhinz/vim-signify'
 
 " Focus: Force display of a single buffer for focused editing {{{
-NeoBundleLazy 'joshtch/focus.vim', {
-            \ 'autoload' : {
-            \         'mappings' : '<Plug>FocusModeToggle',
-            \     }
-            \ }
+NeoBundleLazy 'joshtch/focus.vim', { 'autoload' : { 'mappings' :
+            \ '<Plug>FocusModeToggle' } }
 function! ToggleFocusMode()
     if !exists("t:focusmode")
         autocmd! Resize
@@ -216,7 +232,9 @@ let g:focus_use_default_mapping = 0
 " }}}
 
 " Ag Vim: Ag plugin for vim
-NeoBundle 'rking/ag.vim'
+if executable('ag')
+    NeoBundle 'rking/ag.vim'
+endif
 
 " Syntastic: Real-time syntax checking {{{
 NeoBundle 'scrooloose/syntastic'
@@ -323,7 +341,6 @@ NeoBundle 'tpope/vim-surround', { 'autoload' : { 'mappings' : [
             \ '<Plug>Isurround',
             \ '<Plug>ISurround', ]}}
 
-
 " Easydir: Automatically create filepaths for :w, :e, etc if they don't exist
 NeoBundle 'dockyard/vim-easydir'
 
@@ -355,7 +372,7 @@ map <Leader>br <Plug>(ucw-restore-window)
 " }}}
 
 " YouCompleteMe: Smart autocompletion {{{
-if has("python") && has("unix")
+if has("python") && has("unix") && v:version >= 7.3.584
     NeoBundle 'Valloric/YouCompleteMe', {
             \ 'vim_version' : '7.3.584',
             \ 'build' : {
@@ -378,7 +395,7 @@ endif
 " }}}
 
 " Custom Textobjects: {{{
-NeoBundle 'kana/vim-textobj-user', { 'vim_version' : '7.0' }
+NeoBundle 'kana/vim-textobj-user'
 
 " Indentation: textobject ('ii', 'ai', 'iI', and 'aI')
 " i vs a: empty lines (not included/included)
@@ -419,13 +436,6 @@ NeoBundle 'coderifous/textobj-word-column.vim', {
 
 NeoBundleCheck
 " }}}
-
-" Autolabel tmux windows
-augroup Tmux
-    autocmd!
-    autocmd VimEnter,BufNewFile,BufReadPost * call system('tmux rename-window "vim - ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1] . '"')
-    autocmd VimLeave * call system('tmux rename-window ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1])
-augroup END
 
 " Open help in a vertical split instead of the default horizontal split
 " " http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev
