@@ -34,4 +34,6 @@ http://www.reddit.com/r/vim/comments/1giij9/list_you_favorite_plugins/
 
 https://github.com/kana/vim-textobj-user/wiki
 
+https://github.com/andsens/homeshick
+
 vim:set ft=markdown et tw=80 sw=4:
