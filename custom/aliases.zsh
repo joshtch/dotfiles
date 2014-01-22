@@ -35,8 +35,6 @@ alias lr='ll -R'           #  Recursive ls.
 alias la='ll -A'           #  Show hidden files.
 alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
-alias afind='ack-grep -il'
-
 if [[ -d ~/dotfiles ]] then
     alias vv='vim ~/dotfiles/vimrc'
     alias bb='vim ~/dotfiles/bashrc; exec bash'
