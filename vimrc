@@ -488,10 +488,11 @@ set splitbelow
 set splitright
 
 " cmdline tab completion settings
-set wildmode=list:longest,full
 set wildmenu
+set wildmode=list:longest,full
 " Don't try to open archives, swapfiles, or binaries
 set wildignore=*.o,*~,*.pyc,*.obj,*.a,*.lib,*.elf
+set complete-=i  " Ignore included files
 
 " Command bar appearance modifications
 set showcmd
@@ -576,9 +577,8 @@ set wildignore+=*.swp,*~,._*
 set nobackup
 set noswapfile
 
-" Smart autoindenting
 set autoindent
-set cindent
+
 "set smartindent " -- Deprecated
 filetype plugin indent on
 
@@ -739,7 +739,7 @@ if has("autocmd")
         au FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
         au FileType c          setlocal ts=4 sts=4 sw=4 expandtab
         au FileType c,cpp,javascript,slang setlocal cindent fo+=ro
-        au FileType bash,coffee,markdown,python,zsh set sw=4 ts=4
+        au FileType bash,coffee,markdown,python,zsh set sw=4 ts=4 expandtab
         au FileType javascript,html,xhtml,css,php set sw=2 tw=2 fdm=indent
 
         " Treat .rss files as XML
