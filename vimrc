@@ -327,7 +327,7 @@ NeoBundle 'tpope/vim-repeat'
 " RSI: Readline key bindings for insert and command line modes
 NeoBundle 'tpope/vim-rsi'
 
-" Surround: Surround text easily
+" Surround: Surround text easily {{{
 NeoBundle 'tpope/vim-surround', { 'autoload' : { 'mappings' : [
             \ '<Plug>Dsurround',
             \ '<Plug>Csurround',
@@ -340,6 +340,15 @@ NeoBundle 'tpope/vim-surround', { 'autoload' : { 'mappings' : [
             \ '<Plug>VgSurround',
             \ '<Plug>Isurround',
             \ '<Plug>ISurround', ]}}
+" }}}
+
+" Vinegar: netrw improvements {{{
+NeoBundleLazy 'tpope/vim-vinegar'
+augroup Vinegar
+    autocmd!
+    autocmd FileType netrw NeoBundleSource 'vim-vinegar'
+augroup END
+" }}}
 
 " Easydir: Automatically create filepaths for :w, :e, etc if they don't exist
 NeoBundle 'dockyard/vim-easydir'
@@ -446,6 +455,8 @@ cabbrev help <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
 " Still haven't jumped on the NerdTree bandwagon
 function! ToggleVExplorer()
     if exists("t:expl_buf_num")
+        call AutoResize()
+        normal! <C-W>=
         let expl_win_num = bufwinnr(t:expl_buf_num)
         if expl_win_num != -1
             let cur_win_nr = winnr()
@@ -458,6 +469,7 @@ function! ToggleVExplorer()
         endif
     else
         exec '1wincmd w'
+        autocmd! Resize
         Vexplore
         vert res -70
         let t:expl_buf_num = bufnr("%")
@@ -466,11 +478,10 @@ endfunction
 noremap <silent> <C-E> :call ToggleVExplorer()<CR>
 " Hit enter in the file browser to open the selected
 " file with :vsplit to the right of the browser.
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_liststyle = 3
-let g:netrw_retmap = 1
-let g:netrw_browse_split = 2
+"let g:netrw_altv = 1
+"let g:netrw_liststyle = 3
+"let g:netrw_retmap = 1
+"let g:netrw_browse_split = 0
 " Change directory to the current buffer when opening files.
 set autochdir
 " }}}
