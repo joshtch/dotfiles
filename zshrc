@@ -25,8 +25,8 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 plugins=(vi-mode osx tmux)
 
+#cdpath=(. .. ~ ~/Desktop)
+
 source $ZSH/oh-my-zsh.sh
 source ~/dotfiles/custom/aliases.zsh
 source ~/localrc.zsh
-
-PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/josh/bin
