@@ -7,6 +7,9 @@
 [core]
 	editor = "vim -f"
 
+[credential]
+    helper = "osxkeychain"
+
 [alias]
 	b = branch
 	ba = branch -a
