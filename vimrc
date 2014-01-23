@@ -283,7 +283,7 @@ endif
 NeoBundle 'haya14busa/vim-easymotion'
 
 map <Space> <Plug>(easymotion-prefix)
-let g:EasyMotion_do_mapping = 0 " turn off
+let g:EasyMotion_do_mapping = 1                            " Do default mappings
 
 " Jump to anywhere with only `s{char}{target}`; `s<CR>` repeat last find motion.
 nmap s <Plug>(easymotion-s)
@@ -296,7 +296,7 @@ map <Space>w <Plug>(easymotion-bd-w)
 let g:EasyMotion_startofline = 0               " Don't force BOL for j+k motions
 let g:EasyMotion_smartcase = 1                      " type `a` and match `a`&`A`
 let g:EasyMotion_use_smartsign_us = 1   " Smartsign (type `1` and match `1`&`!`)
-let g:EasyMotion_keys='HKLYUIOPNM,QWERTZXCVBASDGJF;'
+let g:EasyMotion_keys='NMOLPKQJRISHTGUFVEWDXCYBZA'         " Alphabetize hotkeys
 let g:EasyMotion_use_upper = 1                     " Use uppercase target labels
 let g:EasyMotion_enter_jump_first = 1       " Type enter and jump to first match
 let g:EasyMotion_do_special_mapping = 1 " <Space>l to select line, -p for phrase
@@ -381,7 +381,7 @@ map <Leader>br <Plug>(ucw-restore-window)
 " }}}
 
 " YouCompleteMe: Smart autocompletion {{{
-if has("python") && has("unix") && v:version >= 7.3.584
+if has("python") && has("unix") && v:version >= 703.584
     NeoBundle 'Valloric/YouCompleteMe', {
             \ 'vim_version' : '7.3.584',
             \ 'build' : {
@@ -685,7 +685,6 @@ set ttyfast
 " Time out on key codes but not mappings
 set notimeout
 set ttimeout
-set ttimeoutlen=100
 " Update syntax highlighting for more lines increased scrolling performance
 syntax sync minlines=256
 " Don't syntax highlight long lines
@@ -693,11 +692,11 @@ set synmaxcol=256
 " Don't redraw screen while executing macros, registers
 " set lazyredraw
 " Maximum number of lines to scroll the screen
-" ttyscroll=3
+" set ttyscroll=3
 " Jump by more lines when scrolling
 " set scrolljump=2
 
-" Allow redo for insert-mode ^u
+" Allow redo for insert mode ^u
 inoremap <C-U> <C-G>u<C-U>
 
 " Since the ',' command is actually useful, set it to ',,'
