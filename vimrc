@@ -293,10 +293,15 @@ omap z <Plug>(easymotion-s)
 map <Space>w <Plug>(easymotion-bd-w)
 "map <Space><Space> <Plug>(easymotion-jumptoanywhere)
 
+hi link EasyMotionShade Comment
+hi link EasyMotionTarget2First Question
+hi link EasyMotionTarget2Second Question
+
 let g:EasyMotion_startofline = 0               " Don't force BOL for j+k motions
 let g:EasyMotion_smartcase = 1                      " type `a` and match `a`&`A`
 let g:EasyMotion_use_smartsign_us = 1   " Smartsign (type `1` and match `1`&`!`)
 let g:EasyMotion_keys='NMOLPKQJRISHTGUFVEWDXCYBZA'         " Alphabetize hotkeys
+let g:EasyMotion_keys='JFKDLS;ANV,CIEOWURPT/QYZ['           " Qwerty-ize hotkeys
 let g:EasyMotion_use_upper = 1                     " Use uppercase target labels
 let g:EasyMotion_enter_jump_first = 1       " Type enter and jump to first match
 let g:EasyMotion_do_special_mapping = 1 " <Space>l to select line, -p for phrase
