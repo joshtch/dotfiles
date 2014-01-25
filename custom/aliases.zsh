@@ -9,6 +9,9 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
+# Show contents of directory on cd
+alias cdl='cd && ls'
+
 # Super user
 alias sudo='sudo ' # make sudo play nice with other aliases
 alias _='sudo'
