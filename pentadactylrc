@@ -19,11 +19,13 @@ set hintkeys=oecruvmna;lskdjf
 set editor='/usr/local/bin/mvim -g -f +<line> +"sil! call cursor(0, <column>)" <file>'
 set shell=/bin/zsh
 
+silent qmark g https://github.com/
 silent qmark r http://www.reddit.com/
 silent qmark m https://mail.google.com/
 silent qmark c https://www.google.com/calendar/
 silent qmark s http://www.reddit.com/r/soccer/
 silent qmark f http://footytube.com/
+silent qmark G http://www.gettyfooty.com/search/label/Highlights
 silent qmark t https://trunk.tufts.edu/
 silent qmark i http://go.tufts.edu/isis
 silent qmark p https://student.support.tufts.edu/payrails/login/
