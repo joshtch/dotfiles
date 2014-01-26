@@ -201,10 +201,9 @@ if v:version >= 7.2
         endif
     endfunction
 
-    silent! call repeat#set("\<Plug>(operator-edge-insert)",v:count)
-    silent! call repeat#set("\<Plug>(operator-edge-append)",v:count)
+"    silent! call repeat#set("\<Plug>(operator-edge-insert)",v:count)
+"    silent! call repeat#set("\<Plug>(operator-edge-append)",v:count)
     " }}}
-
 endif
 " }}}
 
