@@ -60,6 +60,7 @@ augroup END
 if executable('ag')
     let g:unite_source_rec_async_command='ag --nocolor --nogroup --hidden -g'
 endif
+nnoremap <Leader>nu :Unite -log -tab -wrap neobundle/update<CR>
 " }}}
 
 " Solarized: colorscheme {{{
@@ -215,7 +216,7 @@ NeoBundleLazy 'mattdbridges/bufkill.vim', { 'autoload' : {
 NeoBundle 'mhinz/vim-signify'
 
 " Focus: Force display of a single buffer for focused editing {{{
-NeoBundleLazy 'joshtch/focus.vim', { 'autoload' : { 'mappings' :
+NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
             \ '<Plug>FocusModeToggle' } }
 function! ToggleFocusMode()
     if !exists("t:focusmode")
@@ -459,7 +460,6 @@ cabbrev help <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
 " Still haven't jumped on the NerdTree bandwagon
 function! ToggleVExplorer()
     if exists("t:expl_buf_num")
-        call AutoResize()
         normal! <C-W>=
         let expl_win_num = bufwinnr(t:expl_buf_num)
         if expl_win_num != -1
@@ -473,7 +473,6 @@ function! ToggleVExplorer()
         endif
     else
         exec '1wincmd w'
-        autocmd! Resize
         Vexplore
         vert res -70
         let t:expl_buf_num = bufnr("%")
