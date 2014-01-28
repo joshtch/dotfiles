@@ -251,25 +251,26 @@ let g:syntastic_c_check_header = 1
 let g:syntastic_c_compiler = 'gcc'
 " }}}
 
-" NERDCommenter: Smart commenting plugin
-NeoBundleLazy 'scrooloose/nerdcommenter', { 'autoload' : {
-            \ 'mappings' : [
-            \        '<Plug>NERDCommenterComment',
-            \        '<Plug>NERDCommenterNested',
-            \        '<Plug>NERDCommenterToggle',
-            \        '<Plug>NERDCommenterMinimal',
-            \        '<Plug>NERDCommenterInvert',
-            \        '<Plug>NERDCommenterSexy',
-            \        '<Plug>NERDCommenterYank',
-            \        '<Plug>NERDCommenterToEOL',
-            \        '<Plug>NERDCommenterAppend',
-            \        '<Plug>NERDCommenterInsert',
-            \        '<Plug>NERDCommenterAlignLeft',
-            \        '<Plug>NERDCommenterAlignBoth',
-            \        '<Plug>NERDCommenterUncomment',
-            \     ]
-            \   }
-            \ }
+" NERDCommenter: Smart commenting plugin {{{
+NeoBundle 'scrooloose/nerdcommenter' ", { 'autoload' : {
+            "\ 'mappings' : [
+            "\        '<Plug>NERDCommenterComment',
+            "\        '<Plug>NERDCommenterNested',
+            "\        '<Plug>NERDCommenterToggle',
+            "\        '<Plug>NERDCommenterMinimal',
+            "\        '<Plug>NERDCommenterInvert',
+            "\        '<Plug>NERDCommenterSexy',
+            "\        '<Plug>NERDCommenterYank',
+            "\        '<Plug>NERDCommenterToEOL',
+            "\        '<Plug>NERDCommenterAppend',
+            "\        '<Plug>NERDCommenterInsert',
+            "\        '<Plug>NERDCommenterAlignLeft',
+            "\        '<Plug>NERDCommenterAlignBoth',
+            "\        '<Plug>NERDCommenterUncomment',
+            "\     ]
+            "\   }
+            "\ }
+" }}}
 
 " Gundo: Undo tree visualization {{{
 if has("python")
