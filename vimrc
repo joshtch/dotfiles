@@ -891,12 +891,12 @@ function! CenteringToggle()
         if g:centeringtoggle_j == ""
             unmap j
         else
-            call map("j", "g:centeringtoggle_j")
+            execute "nnoremap j"  g:centeringtoggle_j
         endif
         if g:centeringtoggle_k == ""
             unmap k
         else
-            call map("k", "g:centeringtoggle_k")
+            execute "nnoremap k"  g:centeringtoggle_k
         endif
         unlet g:centeringtoggle_j
         unlet g:centeringtoggle_k
