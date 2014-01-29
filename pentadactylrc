@@ -19,11 +19,13 @@ set hintkeys=oecruvmna;lskdjf
 set editor='/usr/local/bin/mvim -g -f +<line> +"sil! call cursor(0, <column>)" <file>'
 set shell=/bin/zsh
 
+silent qmark g https://github.com/
 silent qmark r http://www.reddit.com/
 silent qmark m https://mail.google.com/
 silent qmark c https://www.google.com/calendar/
 silent qmark s http://www.reddit.com/r/soccer/
 silent qmark f http://footytube.com/
+silent qmark G http://www.gettyfooty.com/search/label/Highlights
 silent qmark t https://trunk.tufts.edu/
 silent qmark i http://go.tufts.edu/isis
 silent qmark p https://student.support.tufts.edu/payrails/login/
@@ -33,6 +35,7 @@ silent qmark w http://www.wiziwig.tv/competition.php?part=sports&discipline=foot
 silent qmark T http://tufts.service-now.com/
 silent qmark d http://drive.google.com/
 silent qmark v http://vpn.tufts.edu/
+silent qmark e http://www.ece.tufts.edu/~karen/ES4
 
 set passkeys=reddit\.com:?\.hkjunUNipP;=-_+[]\"OolLKJsrMmIi<>1234567890\,bB,<C-e>
 set strictfocus='google.com':laissez-faire,*:moderate,'chrome:*':laissez-faire,*:moderate

@@ -60,6 +60,7 @@ augroup END
 if executable('ag')
     let g:unite_source_rec_async_command='ag --nocolor --nogroup --hidden -g'
 endif
+nnoremap <Leader>nu :Unite -log -tab -wrap neobundle/update<CR>
 " }}}
 
 " Solarized: colorscheme {{{
@@ -201,10 +202,9 @@ if v:version >= 7.2
         endif
     endfunction
 
-    silent! call repeat#set("\<Plug>(operator-edge-insert)",v:count)
-    silent! call repeat#set("\<Plug>(operator-edge-append)",v:count)
+"    silent! call repeat#set("\<Plug>(operator-edge-insert)",v:count)
+"    silent! call repeat#set("\<Plug>(operator-edge-append)",v:count)
     " }}}
-
 endif
 " }}}
 
@@ -216,7 +216,7 @@ NeoBundleLazy 'mattdbridges/bufkill.vim', { 'autoload' : {
 NeoBundle 'mhinz/vim-signify'
 
 " Focus: Force display of a single buffer for focused editing {{{
-NeoBundleLazy 'joshtch/focus.vim', { 'autoload' : { 'mappings' :
+NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
             \ '<Plug>FocusModeToggle' } }
 function! ToggleFocusMode()
     if !exists("t:focusmode")
@@ -251,25 +251,26 @@ let g:syntastic_c_check_header = 1
 let g:syntastic_c_compiler = 'gcc'
 " }}}
 
-" NERDCommenter: Smart commenting plugin
-NeoBundleLazy 'scrooloose/nerdcommenter', { 'autoload' : {
-            \ 'mappings' : [
-            \        '<Plug>NERDCommenterComment',
-            \        '<Plug>NERDCommenterNested',
-            \        '<Plug>NERDCommenterToggle',
-            \        '<Plug>NERDCommenterMinimal',
-            \        '<Plug>NERDCommenterInvert',
-            \        '<Plug>NERDCommenterSexy',
-            \        '<Plug>NERDCommenterYank',
-            \        '<Plug>NERDCommenterToEOL',
-            \        '<Plug>NERDCommenterAppend',
-            \        '<Plug>NERDCommenterInsert',
-            \        '<Plug>NERDCommenterAlignLeft',
-            \        '<Plug>NERDCommenterAlignBoth',
-            \        '<Plug>NERDCommenterUncomment',
-            \     ]
-            \   }
-            \ }
+" NERDCommenter: Smart commenting plugin {{{
+NeoBundle 'scrooloose/nerdcommenter' ", { 'autoload' : {
+            "\ 'mappings' : [
+            "\        '<Plug>NERDCommenterComment',
+            "\        '<Plug>NERDCommenterNested',
+            "\        '<Plug>NERDCommenterToggle',
+            "\        '<Plug>NERDCommenterMinimal',
+            "\        '<Plug>NERDCommenterInvert',
+            "\        '<Plug>NERDCommenterSexy',
+            "\        '<Plug>NERDCommenterYank',
+            "\        '<Plug>NERDCommenterToEOL',
+            "\        '<Plug>NERDCommenterAppend',
+            "\        '<Plug>NERDCommenterInsert',
+            "\        '<Plug>NERDCommenterAlignLeft',
+            "\        '<Plug>NERDCommenterAlignBoth',
+            "\        '<Plug>NERDCommenterUncomment',
+            "\     ]
+            "\   }
+            "\ }
+" }}}
 
 " Gundo: Undo tree visualization {{{
 if has("python")
@@ -283,7 +284,7 @@ endif
 NeoBundle 'haya14busa/vim-easymotion'
 
 map <Space> <Plug>(easymotion-prefix)
-let g:EasyMotion_do_mapping = 0 " turn off
+let g:EasyMotion_do_mapping = 1                            " Do default mappings
 
 " Jump to anywhere with only `s{char}{target}`; `s<CR>` repeat last find motion.
 nmap s <Plug>(easymotion-s)
@@ -293,10 +294,15 @@ omap z <Plug>(easymotion-s)
 map <Space>w <Plug>(easymotion-bd-w)
 "map <Space><Space> <Plug>(easymotion-jumptoanywhere)
 
+hi link EasyMotionShade Comment
+hi link EasyMotionTarget2First Question
+hi link EasyMotionTarget2Second Question
+
 let g:EasyMotion_startofline = 0               " Don't force BOL for j+k motions
 let g:EasyMotion_smartcase = 1                      " type `a` and match `a`&`A`
 let g:EasyMotion_use_smartsign_us = 1   " Smartsign (type `1` and match `1`&`!`)
-let g:EasyMotion_keys='HKLYUIOPNM,QWERTZXCVBASDGJF;'
+let g:EasyMotion_keys='NMOLPKQJRISHTGUFVEWDXCYBZA'         " Alphabetize hotkeys
+let g:EasyMotion_keys='JFKDLS;ANV,CIEOWURPT/QYZ['           " Qwerty-ize hotkeys
 let g:EasyMotion_use_upper = 1                     " Use uppercase target labels
 let g:EasyMotion_enter_jump_first = 1       " Type enter and jump to first match
 let g:EasyMotion_do_special_mapping = 1 " <Space>l to select line, -p for phrase
@@ -327,7 +333,7 @@ NeoBundle 'tpope/vim-repeat'
 " RSI: Readline key bindings for insert and command line modes
 NeoBundle 'tpope/vim-rsi'
 
-" Surround: Surround text easily
+" Surround: Surround text easily {{{
 NeoBundle 'tpope/vim-surround', { 'autoload' : { 'mappings' : [
             \ '<Plug>Dsurround',
             \ '<Plug>Csurround',
@@ -340,6 +346,15 @@ NeoBundle 'tpope/vim-surround', { 'autoload' : { 'mappings' : [
             \ '<Plug>VgSurround',
             \ '<Plug>Isurround',
             \ '<Plug>ISurround', ]}}
+" }}}
+
+" Vinegar: netrw improvements {{{
+NeoBundleLazy 'tpope/vim-vinegar'
+augroup Vinegar
+    autocmd!
+    autocmd FileType netrw NeoBundleSource 'vim-vinegar'
+augroup END
+" }}}
 
 " Easydir: Automatically create filepaths for :w, :e, etc if they don't exist
 NeoBundle 'dockyard/vim-easydir'
@@ -372,7 +387,7 @@ map <Leader>br <Plug>(ucw-restore-window)
 " }}}
 
 " YouCompleteMe: Smart autocompletion {{{
-if has("python") && has("unix") && v:version >= 7.3.584
+if has("python") && has("unix") && v:version >= 703.584
     NeoBundle 'Valloric/YouCompleteMe', {
             \ 'vim_version' : '7.3.584',
             \ 'build' : {
@@ -446,6 +461,7 @@ cabbrev help <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
 " Still haven't jumped on the NerdTree bandwagon
 function! ToggleVExplorer()
     if exists("t:expl_buf_num")
+        normal! <C-W>=
         let expl_win_num = bufwinnr(t:expl_buf_num)
         if expl_win_num != -1
             let cur_win_nr = winnr()
@@ -466,11 +482,10 @@ endfunction
 noremap <silent> <C-E> :call ToggleVExplorer()<CR>
 " Hit enter in the file browser to open the selected
 " file with :vsplit to the right of the browser.
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_liststyle = 3
-let g:netrw_retmap = 1
-let g:netrw_browse_split = 2
+"let g:netrw_altv = 1
+"let g:netrw_liststyle = 3
+"let g:netrw_retmap = 1
+"let g:netrw_browse_split = 0
 " Change directory to the current buffer when opening files.
 set autochdir
 " }}}
@@ -674,7 +689,6 @@ set ttyfast
 " Time out on key codes but not mappings
 set notimeout
 set ttimeout
-set ttimeoutlen=100
 " Update syntax highlighting for more lines increased scrolling performance
 syntax sync minlines=256
 " Don't syntax highlight long lines
@@ -682,11 +696,11 @@ set synmaxcol=256
 " Don't redraw screen while executing macros, registers
 " set lazyredraw
 " Maximum number of lines to scroll the screen
-" ttyscroll=3
+" set ttyscroll=3
 " Jump by more lines when scrolling
 " set scrolljump=2
 
-" Allow redo for insert-mode ^u
+" Allow redo for insert mode ^u
 inoremap <C-U> <C-G>u<C-U>
 
 " Since the ',' command is actually useful, set it to ',,'

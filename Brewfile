@@ -35,6 +35,7 @@ install pkg-config
 install readline
 install the_silver_searcher
 install tmux
+install trash
 
 tap homebrew/versions
 install lua52

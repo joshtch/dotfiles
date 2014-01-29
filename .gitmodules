@@ -7,3 +7,6 @@
 [submodule "powerline-fonts"]
 	path = powerline-fonts
 	url = https://github.com/Lokaltog/powerline-fonts.git
+[submodule "ITerm2/iterm2-borderless"]
+	path = ITerm2/iterm2-borderless
+	url = https://github.com/Nasga/iterm2-borderless.git
