@@ -885,17 +885,28 @@ nnoremap <C-b> z^
 nnoremap <Leader>j z+
 nnoremap <Leader>k z^
 
+" TODO: Put this in a separate script to avoid polluting the global namespace
 function! CenteringToggle()
-    if &scrolloff!=99999
-        let g:scrolloff_default_value = &scrolloff
-        set scrolloff=99999
-    else
-        if exists(g:scrolloff_default_value)
-            set scrolloff=g:scrolloff_default_value
-            unlet g:scrolloff_default_value
+    if exists("g:centeringtoggle_on")
+        if g:centeringtoggle_j == ""
+            unmap j
         else
-            set scrolloff=0
+            call map("j", "g:centeringtoggle_j")
         endif
+        if g:centeringtoggle_k == ""
+            unmap k
+        else
+            call map("k", "g:centeringtoggle_k")
+        endif
+        unlet g:centeringtoggle_j
+        unlet g:centeringtoggle_k
+        unlet g:centeringtoggle_on
+    else
+        let g:centeringtoggle_on=1
+        let g:centeringtoggle_j=maparg("j")
+        let g:centeringtoggle_k=maparg("k")
+        nnoremap j gj<C-e>
+        nnoremap k gk<C-y>
     endif
 endfunction
 nnoremap <silent> <Leader>z :call CenteringToggle()<CR>
