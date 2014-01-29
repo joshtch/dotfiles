@@ -21,12 +21,12 @@ COMPLETION_WAITING_DOTS="true"
 # much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(vi-mode osx tmux)
-
-#cdpath=(. .. ~ ~/Desktop)
+cdpath=(. .. ~)
 
 source $ZSH/oh-my-zsh.sh
 source ~/dotfiles/custom/aliases.zsh
 source ~/localrc.zsh
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+plugins=(vi-mode osx tmux)

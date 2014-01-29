@@ -770,6 +770,9 @@ if has("autocmd")
         au FileType bash,coffee,markdown,python,zsh set sw=4 ts=4 expandtab
         au FileType javascript,html,xhtml,css,php set sw=2 tw=2 fdm=indent
 
+        " Treat ImpCore as Scheme
+        au BufNewFile,BufRead *.imp,*.ic setfiletype scheme
+
         " Treat .rss files as XML
         autocmd BufNewFile,BufRead *.rss setfiletype xml
     augroup END
