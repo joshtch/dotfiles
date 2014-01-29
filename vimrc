@@ -406,13 +406,6 @@ if has("python") && has("unix") && v:version >= 703.584
 endif
 " }}}
 
-" Holylight: (OSX only) Autoswap between light and dark colorscheme {{{
-" based on ambient light level
-if has("unix") && system("uname") == "Darwin\n"
-    NeoBundle 'Dinduks/vim-holylight'
-endif
-" }}}
-
 " Custom Textobjects: {{{
 NeoBundle 'kana/vim-textobj-user'
 
