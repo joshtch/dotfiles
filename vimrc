@@ -1,5 +1,5 @@
 " vimrc
-" vim:set ft=vim tw=80 sw=4 et:
+" vim:set ft=vim tw=80 sw=4 et
 
 " Clear autocmd settings -- stop autocommands from bogging down vim over time
 if has("autocmd")
@@ -234,6 +234,10 @@ let g:focus_use_default_mapping = 0
 " Ag Vim: Ag plugin for vim
 if executable('ag')
     NeoBundle 'rking/ag.vim'
+    set grepprg=ag\ --nogroup\ --nocolor\ --column
+    command! -bar -nargs=+ -complete=file Ag silent! grep! <args>|redraw!
+else
+    set grepprg=grep\ -rnH\ --exclude=tags\ --exclude-dir=.git\ --exclude-dir=node_modules
 endif
 
 " Syntastic: Real-time syntax checking {{{
