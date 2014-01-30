@@ -406,6 +406,8 @@ if has("python") && has("unix") && v:version >= 703.584
 endif
 " }}}
 
+NeoBundle 'kana/vim-smartinput'
+
 " Custom Textobjects: {{{
 NeoBundle 'kana/vim-textobj-user'
 
@@ -886,30 +888,31 @@ nnoremap <Leader>j z+
 nnoremap <Leader>k z^
 
 " TODO: Put this in a separate script to avoid polluting the global namespace
-function! CenteringToggle()
-    if exists("g:centeringtoggle_on")
-        if g:centeringtoggle_j == ""
+" TODO #2: Make this work with any movement, not just j and k
+function! DragWindowView()
+    if exists("g:dragwindowview_on")
+        if g:dragwindowview_j == ""
             unmap j
         else
-            execute "nnoremap j"  g:centeringtoggle_j
+            execute "nnoremap j"  g:dragwindowview_j
         endif
-        if g:centeringtoggle_k == ""
+        if g:dragwindowview_k == ""
             unmap k
         else
-            execute "nnoremap k"  g:centeringtoggle_k
+            execute "nnoremap k"  g:dragwindowview_k
         endif
-        unlet g:centeringtoggle_j
-        unlet g:centeringtoggle_k
-        unlet g:centeringtoggle_on
+        unlet g:dragwindowview_j
+        unlet g:dragwindowview_k
+        unlet g:dragwindowview_on
     else
-        let g:centeringtoggle_on=1
-        let g:centeringtoggle_j=maparg("j")
-        let g:centeringtoggle_k=maparg("k")
+        let g:dragwindowview_on=1
+        let g:dragwindowview_j=maparg("j")
+        let g:dragwindowview_k=maparg("k")
         nnoremap j gj<C-e>
         nnoremap k gk<C-y>
     endif
 endfunction
-nnoremap <silent> <Leader>z :call CenteringToggle()<CR>
+nnoremap <silent> <Leader>z :call DragWindowView()<CR>
 
 " Allow expected behavior when traversing wrapped lines
 noremap j gj
