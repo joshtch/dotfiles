@@ -17,6 +17,8 @@ alias sudo='sudo ' # make sudo play nice with other aliases
 alias _='sudo'
 alias please='sudo'
 
+alias rand='od -vAn -N4 -tu4 < /dev/urandom'
+
 # git shortcuts {{{
 alias grep='grep --color=auto'
 
