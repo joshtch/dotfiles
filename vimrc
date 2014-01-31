@@ -276,12 +276,10 @@ NeoBundle 'scrooloose/nerdcommenter' ", { 'autoload' : {
             "\ }
 " }}}
 
-" Gundo: Undo tree visualization {{{
-if has("python")
-    NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : { 'commands' : 'GundoToggle'},
-                \ 'vim_version' : '7.3' }
-    nnoremap <Leader>g :GundoToggle<CR>
-endif
+" UndoTree: {{{
+NeoBundleLazy 'mbbill/undotree',
+            \{ 'autoload' : { 'commands' : 'UndotreeToggle'}}
+nnoremap <Leader>undo :UndotreeToggle<CR>
 " }}}
 
 " Easymotion: Quick navigation {{{
