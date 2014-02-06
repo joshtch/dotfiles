@@ -283,7 +283,7 @@ nnoremap <Leader>undo :UndotreeToggle<CR>
 " }}}
 
 " Easymotion: Quick navigation {{{
-NeoBundle 'haya14busa/vim-easymotion'
+NeoBundle 'Lokaltog/vim-easymotion'
 
 map <Space> <Plug>(easymotion-prefix)
 let g:EasyMotion_do_mapping = 1                            " Do default mappings
