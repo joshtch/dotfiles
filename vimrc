@@ -208,9 +208,43 @@ if v:version >= 7.2
 endif
 " }}}
 
+" Easymotion: Quick navigation {{{
+NeoBundle 'Lokaltog/vim-easymotion'
+
+map <Space> <Plug>(easymotion-prefix)
+let g:EasyMotion_do_mapping = 1                            " Do default mappings
+
+" Jump to anywhere with only `s{char}{target}`; `s<CR>` repeat last find motion.
+nmap s <Plug>(easymotion-s)
+xmap s <Plug>(easymotion-s)
+omap z <Plug>(easymotion-s)
+
+map <Space>w <Plug>(easymotion-bd-w)
+"map <Space><Space> <Plug>(easymotion-jumptoanywhere)
+
+hi link EasyMotionShade Comment
+hi link EasyMotionTarget2First Question
+hi link EasyMotionTarget2Second Question
+
+let g:EasyMotion_startofline = 0               " Don't force BOL for j+k motions
+let g:EasyMotion_smartcase = 1                      " type `a` and match `a`&`A`
+let g:EasyMotion_use_smartsign_us = 1   " Smartsign (type `1` and match `1`&`!`)
+let g:EasyMotion_keys='NMOLPKQJRISHTGUFVEWDXCYBZA'         " Alphabetize hotkeys
+let g:EasyMotion_keys='JFKDLS;ANV,CIEOWURPT/QYZ['           " Qwerty-ize hotkeys
+let g:EasyMotion_use_upper = 1                     " Use uppercase target labels
+let g:EasyMotion_enter_jump_first = 1       " Type enter and jump to first match
+let g:EasyMotion_do_special_mapping = 1 " <Space>l to select line, -p for phrase
+" }}}
+
 " Bufkill: Close buffers without closing windows
 NeoBundleLazy 'mattdbridges/bufkill.vim', { 'autoload' : {
             \ 'commands' : [ 'BD', 'BC', 'BW', 'BB', 'BF' ] } }
+
+" UndoTree: {{{
+NeoBundleLazy 'mbbill/undotree',
+            \{ 'autoload' : { 'commands' : 'UndotreeToggle'}}
+nnoremap <Leader>undo :UndotreeToggle<CR>
+" }}}
 
 " Signify: Show VCS diff using sign column
 NeoBundle 'mhinz/vim-signify'
@@ -231,7 +265,7 @@ nmap <silent> <Leader>f :call ToggleFocusMode()<cr>
 let g:focus_use_default_mapping = 0
 " }}}
 
-" Ag Vim: Ag plugin for vim
+" Ag Vim: Ag plugin for vim {{{
 if executable('ag')
     NeoBundle 'rking/ag.vim'
     set grepprg=ag\ --nogroup\ --nocolor\ --column
@@ -239,6 +273,7 @@ if executable('ag')
 else
     set grepprg=grep\ -rnH\ --exclude=tags\ --exclude-dir=.git\ --exclude-dir=node_modules
 endif
+" }}}
 
 " Syntastic: Real-time syntax checking {{{
 NeoBundle 'scrooloose/syntastic'
@@ -274,40 +309,6 @@ NeoBundle 'scrooloose/nerdcommenter' ", { 'autoload' : {
             "\     ]
             "\   }
             "\ }
-" }}}
-
-" UndoTree: {{{
-NeoBundleLazy 'mbbill/undotree',
-            \{ 'autoload' : { 'commands' : 'UndotreeToggle'}}
-nnoremap <Leader>undo :UndotreeToggle<CR>
-" }}}
-
-" Easymotion: Quick navigation {{{
-NeoBundle 'Lokaltog/vim-easymotion'
-
-map <Space> <Plug>(easymotion-prefix)
-let g:EasyMotion_do_mapping = 1                            " Do default mappings
-
-" Jump to anywhere with only `s{char}{target}`; `s<CR>` repeat last find motion.
-nmap s <Plug>(easymotion-s)
-xmap s <Plug>(easymotion-s)
-omap z <Plug>(easymotion-s)
-
-map <Space>w <Plug>(easymotion-bd-w)
-"map <Space><Space> <Plug>(easymotion-jumptoanywhere)
-
-hi link EasyMotionShade Comment
-hi link EasyMotionTarget2First Question
-hi link EasyMotionTarget2Second Question
-
-let g:EasyMotion_startofline = 0               " Don't force BOL for j+k motions
-let g:EasyMotion_smartcase = 1                      " type `a` and match `a`&`A`
-let g:EasyMotion_use_smartsign_us = 1   " Smartsign (type `1` and match `1`&`!`)
-let g:EasyMotion_keys='NMOLPKQJRISHTGUFVEWDXCYBZA'         " Alphabetize hotkeys
-let g:EasyMotion_keys='JFKDLS;ANV,CIEOWURPT/QYZ['           " Qwerty-ize hotkeys
-let g:EasyMotion_use_upper = 1                     " Use uppercase target labels
-let g:EasyMotion_enter_jump_first = 1       " Type enter and jump to first match
-let g:EasyMotion_do_special_mapping = 1 " <Space>l to select line, -p for phrase
 " }}}
 
 " Capslock: Enable capslock for only insert mode using <C-G>c
