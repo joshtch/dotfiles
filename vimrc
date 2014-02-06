@@ -127,6 +127,13 @@ endif
 NeoBundleLazy 'dbakker/vim-lint', { 'autoload' : { 'filetypes' : 'vim' },
             \ 'depends' : 'scrooloose/syntastic' }
 
+" Vim Latex Suite: LaTeX for Vim! {{{
+NeoBundleLazy 'vim-scripts/TeX-PDF', { 'autoload' : { 'filetypes' : 'tex' }}
+let g:tex_pdf_map_keys = 0
+nnoremap <silent> gc :BuildAndViewTexPdf<CR>
+nnoremap <silent> gC :BuildTexPdf<CR>
+" }}}
+
 " Tabular: Character alignment {{{
 NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
 if exists(":Tabularize")
