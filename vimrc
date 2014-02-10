@@ -789,6 +789,22 @@ else
     match OverLength /\%>80v.\+/
 endif
 
+" Settings for automatic text formatting
+ set formatoptions=
+ set fo+=t " Auto-wrap text using 'textwidth'
+ set fo+=c " Auto-wrap comments + autoinsert comment leader
+ set fo+=r " Insert current comment leader after hitting <CR>
+"set fo+=o " Insert current comment leader after hitting 'o' or 'O'
+ set fo+=q " Allow formatting with 'gq'
+"set fo+=w " Trailing white space indicates a paragraph continues
+ set fo+=a " Autoformat paragraphs every time text is inserted/deleted
+ set fo+=n " Recognize lists. Not to be used with '2'
+"set fo+=2 " Use the indent of the second line of a paragraph
+"set fo+=v " Only break a line at blank entered during current insert
+"set fo+=b " Like 'v', but only for blanks entered before wrap margin
+ set fo+=l " Don't autoformat existing long lines
+ set fo+=1 " Don't break a line after a one-letter word
+
 " Delete comment character when joining commented lines
 if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j
