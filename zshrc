@@ -28,6 +28,7 @@ source ~/localrc.zsh
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(vi-mode osx tmux)
+plugins=(brew colored-man cp git github history osx tmux vi-mode)
+#plugins+=(common-aliases)
 
 source $ZSH/oh-my-zsh.sh
