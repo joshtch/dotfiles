@@ -29,6 +29,7 @@ install emacs
 install ffmpeg
 install findutils
 install fontconfig
+install git
 install mplayer
 install openssl
 install pkg-config
