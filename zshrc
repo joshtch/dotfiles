@@ -30,5 +30,5 @@ source ~/localrc.zsh
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 plugins=(brew colored-man cp git github history osx tmux vi-mode)
 #plugins+=(common-aliases)
-
 source $ZSH/oh-my-zsh.sh
+source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
