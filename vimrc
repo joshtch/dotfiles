@@ -122,7 +122,6 @@ if executable('tmux')
 endif
 " }}}
 
-" Allow user to undo with `u` after using <C-U>
 " Vim Lint: Syntax checking for vimscript
 NeoBundleLazy 'dbakker/vim-lint', { 'autoload' : { 'filetypes' : 'vim' },
             \ 'depends' : 'scrooloose/syntastic' }
@@ -242,6 +241,16 @@ let g:EasyMotion_keys='JFKDLS;ANV,CIEOWURPT/QYZ['           " Qwerty-ize hotkeys
 let g:EasyMotion_use_upper = 1                     " Use uppercase target labels
 let g:EasyMotion_enter_jump_first = 1       " Type enter and jump to first match
 let g:EasyMotion_do_special_mapping = 1 " <Space>l to select line, -p for phrase
+" }}}
+
+" Tagbar: Exuberant-ctags, in a window {{{
+NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
+            \ [ 'Ant', 'Assembler', 'ASP', 'Awk', 'Basic', 'BETA', 'C', 'C++',
+            \ 'C#', 'COBOL', 'DosBatch', 'Eiffel', 'Erlang', 'Flex', 'Fortran',
+            \ 'HTML', 'Java', 'JavaScript', 'Lisp', 'Lua', 'Make', 'MatLab',
+            \ 'OCaml', 'Pascal', 'Perl', 'PHP', 'Python', 'REXX', 'Ruby',
+            \ 'Scheme', 'Shell ''script', 'SLang', 'SML', 'SQL', 'Tcl', 'Tex',
+            \ 'Vera', 'Verilog', 'VHDL', 'Vim', 'YACC'] } }
 " }}}
 
 " Bufkill: Close buffers without closing windows
@@ -740,7 +749,7 @@ set switchbuf=useopen
 " This really should go in its own .gvimrc
 if has("gui_running")
     set guioptions=cghiP
-    silent! set guifont=Inconsolata-dz\ for\ Powerline:h12
+    silent! set guifont=Inconsolata-dz\ for\ Powerline\ 12
     set guitablabel=%M\ %t
     " Remove small delay between pressing Esc and entering Normal mode.
     set ttimeoutlen=10
