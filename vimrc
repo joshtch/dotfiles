@@ -413,8 +413,6 @@ if has("python") && has("unix") && v:version >= 703.584
 endif
 " }}}
 
-NeoBundle 'kana/vim-smartinput'
-
 " Custom Textobjects: {{{
 NeoBundle 'kana/vim-textobj-user'
 
@@ -564,7 +562,7 @@ set hidden
 set incsearch       " Show results of search immediately
 set hlsearch        " Highlight search results by default
 set magic           " Use regexp-style search; 'magic' is default
-set matchpairs+=<:> " Match angle brackets with '%'
+"set matchpairs+=<:> " Match angle brackets with '%'
 
 " These improve the C-style /* comments by wrapping with
 " a ' *' on each line.
@@ -797,7 +795,7 @@ endif
 "set fo+=o " Insert current comment leader after hitting 'o' or 'O'
  set fo+=q " Allow formatting with 'gq'
 "set fo+=w " Trailing white space indicates a paragraph continues
- set fo+=a " Autoformat paragraphs every time text is inserted/deleted
+"set fo+=a " Autoformat paragraphs every time text is inserted/deleted
  set fo+=n " Recognize lists. Not to be used with '2'
 "set fo+=2 " Use the indent of the second line of a paragraph
 "set fo+=v " Only break a line at blank entered during current insert
