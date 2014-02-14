@@ -20,8 +20,8 @@ install wget --enable-iri
 install vim --override-system-vi
 tap homebrew/dupes
 install homebrew/dupes/grep
-tap josegonzalez/homebrew-php
-install php55
+#tap josegonzalez/homebrew-php
+#install php55
 
 # Install other useful binaries
 install colordiff
@@ -37,6 +37,8 @@ install readline
 install the_silver_searcher
 install tmux
 install trash
+uninstall ctags
+install ctags-exuberant
 
 tap homebrew/versions
 install lua52
