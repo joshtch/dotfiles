@@ -504,7 +504,7 @@ set autochdir
 " }}}
 
 " Allow quitting unnamed buffers without confirmation or ! {{{
-nnoremap <Leader>q :call QuitIfEmpty()<CR>:q<CR>
+nnoremap <silent> <Leader>q :call QuitIfEmpty()<CR>:q<CR>
 function! QuitIfEmpty()
     if empty(bufname('%'))
         setlocal nomodified
