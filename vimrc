@@ -52,7 +52,7 @@ augroup UniteTags
     autocmd!
     autocmd BufEnter *
                 \ if empty(&buftype)
-                \| nnoremap <Buffer> <C-]> :<C-U>UniteWithCursorWord -immediately tag<CR>
+                \| nnoremap <Buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
                 \| endif
     autocmd FileType unite nmap <buffer> <Esc> <Plug>(unite_exit)
 augroup END
@@ -113,10 +113,10 @@ if executable('tmux')
     " VimTmuxNavigator: Seamlessly navigate vim and tmux splits {{{
     NeoBundle 'christoomey/vim-tmux-navigator'
     let g:tmux_navigator_no_mappings = 1
-    nnoremap <silent> <C-H> :TmuxNavigateLeft<CR>
-    nnoremap <silent> <C-J> :TmuxNavigateDown<CR>
-    nnoremap <silent> <C-K> :TmuxNavigateUp<CR>
-    nnoremap <silent> <C-L> :TmuxNavigateRight<CR>
+    nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+    nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
+    nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
+    nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
     nnoremap <silent> <C--> :TmuxNavigatePrevious<CR>
     " }}}
 endif
@@ -278,9 +278,50 @@ function! ToggleFocusMode()
         call AutoResize()
     endif
 endfunction
-nmap <silent> <Leader>f :call ToggleFocusMode()<cr>
+nmap <silent> <Leader>f :call ToggleFocusMode()<CR>
 let g:focus_use_default_mapping = 0
 " }}}
+
+" Better Whitespace: highlight trailing WS on all lines except current {{{
+NeoBundle 'ntpeters/vim-better-whitespace'
+if exists(":StripWhitespace")
+    augroup BetterWhitespace
+        autocmd!
+        autocmd BufWinEnter * execute "EnableWhitespace"
+        autocmd FileType markdown execute "DisableWhitespace"
+        autocmd BufWinLeave * execute "DisableWhitespace"
+    augroup END
+    nnoremap <Leader>cws :<C-u>StripWhitespace<CR>
+else
+    augroup AnnoyingWhitespace
+        autocmd!
+        highlight default link ExtraWhitespace ErrorMsg
+        match ExtraWhitespace /\s\+$/
+        autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+        autocmd InsertEnter * match ExtraWhitespace /\v\s+%#@<!$/
+        autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+        autocmd BufWinLeave * call clearmatches()
+        autocmd InsertEnter *
+                    \ syn clear EOLWS | syn match EOLWS excludenl /\v\s+%#@!$/
+        autocmd InsertLeave *
+                    \ syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+        highlight default link EOLWS ErrorMsg
+        highlight link markdownExtraWhitespace NONE
+        highlight link markdownEOLWS NONE
+    augroup END
+    function! <SID>StripTrailingWhitespace()
+        " Preparation: save last search, and cursor position.
+        let _s=@/
+        let l = line(".")
+        let c = col(".")
+        " Do the business:
+        %s/\s\+$//e
+        " Clean up: restore previous search history, and cursor position
+        let @/=_s
+        call cursor(l, c)
+    endfunction
+    nnoremap <silent> <Leader>cws :<C-u>call <SID>StripTrailingWhitespace()<CR>
+endif
 
 " Ag Vim: Ag plugin for vim {{{
 if executable('ag')
@@ -328,7 +369,7 @@ NeoBundle 'scrooloose/nerdcommenter' ", { 'autoload' : {
             "\ }
 " }}}
 
-" Capslock: Enable capslock for only insert mode using <C-G>c
+" Capslock: Enable capslock for only insert mode using <C-g>c
 NeoBundleLazy 'tpope/vim-capslock',
             \ { 'autoload' : { 'mappings' : '<Plug>CapslockToggle' } }
 
@@ -467,14 +508,14 @@ NeoBundleCheck
 
 " Open help in a vertical split instead of the default horizontal split
 " " http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev
-cabbrev h <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<CR>
-cabbrev help <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
+cabbrev h <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<CR>
+cabbrev help <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
 
 " Toggle Vexplore with Ctrl-E {{{
 " Still haven't jumped on the NerdTree bandwagon
 function! ToggleVExplorer()
     if exists("t:expl_buf_num")
-        normal! <C-W>=
+        normal! <C-w>=
         let expl_win_num = bufwinnr(t:expl_buf_num)
         if expl_win_num != -1
             let cur_win_nr = winnr()
@@ -492,7 +533,7 @@ function! ToggleVExplorer()
         let t:expl_buf_num = bufnr("%")
     endif
 endfunction
-noremap <silent> <C-E> :call ToggleVExplorer()<CR>
+noremap <silent> <C-e> :call ToggleVExplorer()<CR>
 " Hit enter in the file browser to open the selected
 " file with :vsplit to the right of the browser.
 "let g:netrw_altv = 1
@@ -514,8 +555,8 @@ endfunction
 
 " Replace 'ddate' with current date, 'ttime' with current time
 if exists("*strftime")
-    iabbrev ddate <C-R>=strftime("%m/%d/%Y")<CR>
-    iabbrev ttime <C-R>=strftime("%Y-%m-%d %a %H:%M")<CR>
+    iabbrev ddate <C-r>=strftime("%m/%d/%Y")<CR>
+    iabbrev ttime <C-r>=strftime("%Y-%m-%d %a %H:%M")<CR>
 endif
 
 " Allow backspacing anywhere
@@ -561,7 +602,7 @@ set infercase                    " Infer the case of match
 set showmatch    " Show matching parens
 set matchtime=1  " Tenths of a second to show matching paren
 
-" Defines bases for numbers for <C-A> and <C-X>
+" Defines bases for numbers for <C-a> and <C-x>
 set nrformats=hex,alpha
 
 " Allow modified buffers to be hidden
@@ -619,26 +660,6 @@ set autoindent
 
 "set smartindent " -- Deprecated
 filetype plugin indent on
-
-" Make trailing whitespace annoyingly highlighted.
-" See: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
-" TODO: Turn this off for markdown and other languages that require trailing ws
-augroup AnnoyingWhitespace
-    autocmd!
-    highlight default link ExtraWhitespace ErrorMsg
-    match ExtraWhitespace /\s\+$/
-    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-    autocmd InsertEnter * match ExtraWhitespace /\v\s+%#@<!$/
-    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-    autocmd BufWinLeave * call clearmatches()
-    autocmd InsertEnter *
-                \ syn clear EOLWS | syn match EOLWS excludenl /\v\s+%#@!$/
-    autocmd InsertLeave *
-                \ syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
-    highlight default link EOLWS ErrorMsg
-    highlight link markdownExtraWhitespace NONE
-    highlight link markdownEOLWS NONE
-augroup END
 
 " Set default shell to use
 set shell=/bin/zsh
@@ -714,7 +735,7 @@ set synmaxcol=256
 " set scrolljump=2
 
 " Allow redo for insert mode ^u
-inoremap <C-U> <C-G>u<C-U>
+inoremap <C-u> <C-g>u<C-u>
 
 " Since the ',' command is actually useful, set it to ',,'
 nnoremap <Leader>, ,
@@ -739,8 +760,8 @@ nnoremap <silent> <Leader>d "_d
 
 " Switch buffers with a count: 3! with switch to buffer 3
 " Delete buffers the same way with ~
-nnoremap <expr> ! v:count ? ":<C-U>b<C-R>=v:count<CR><CR>" : "!"
-nnoremap <expr> ~ v:count ? ":<C-U>bd<C-R>=v:count<CR><CR>" : "~"
+nnoremap <expr> ! v:count ? ":<C-u>b<C-r>=v:count<CR><CR>" : "!"
+nnoremap <expr> ~ v:count ? ":<C-u>bd<C-r>=v:count<CR><CR>" : "~"
 
 " Use the first open window that contains the specified buffer
 set switchbuf=useopen
@@ -818,8 +839,8 @@ if v:version > 703 || v:version == 703 && has("patch541")
 endif
 
 " Use the more intuitive + and - for incrementing and decrementing numbers
-nnoremap + <C-A>
-nnoremap - <C-X>
+nnoremap + <C-a>
+nnoremap - <C-x>
 
 " Set Y to match C and D syntax (use yy to yank entire line)
 nnoremap Y y$
@@ -939,19 +960,6 @@ noremap k gk
 noremap gj j
 noremap gk k
 
-function! <SID>StripTrailingWhitespace()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
-nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
-
 if $TERM_PROGRAM == 'iTerm.app'
     " different cursors for insert vs normal mode
     if exists('$TMUX')
@@ -966,8 +974,8 @@ endif
 augroup CommandWindow
     autocmd!
     " have <Ctrl-C> leave cmdline-window
-    autocmd CmdwinEnter * nnoremap <silent> <buffer> <C-c> :q<cr>
-    autocmd CmdwinEnter * inoremap <silent> <buffer> <C-c> <esc>:q<cr>
+    autocmd CmdwinEnter * nnoremap <silent> <buffer> <C-c> :q<CR>
+    autocmd CmdwinEnter * inoremap <silent> <buffer> <C-c> <esc>:q<CR>
     " start command line window in insert mode and no line numbers
     autocmd CmdwinEnter * startinsert
     autocmd CmdwinEnter * set nonumber
