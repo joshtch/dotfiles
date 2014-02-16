@@ -452,7 +452,7 @@ if has("python") && has("unix") && v:version >= 703.584
     NeoBundle 'Valloric/YouCompleteMe', {
             \ 'vim_version' : '7.3.584',
             \ 'build' : {
-            \       'unix' : '~/.vim/bundle/YouCompleteMe/install.sh',
+            \       'unix' : '~/.vim/bundle/YouCompleteMe/install.sh --clang-completer',
             \       'mac' : '~/.vim/bundle/YouCompleteMe/install.sh',
             \     }
             \ }
