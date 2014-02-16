@@ -51,16 +51,16 @@ nnoremap <Leader>ub :<C-u>Unite -no-split -buffer-name=buffer buffer -resume<CR>
 augroup UniteTags
     autocmd!
     autocmd BufEnter *
-                \ if empty(&buftype)
-                \| nnoremap <Buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-                \| endif
+            \ if empty(&buftype)
+            \| nnoremap <Buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+            \| endif
     autocmd FileType unite nmap <buffer> <Esc> <Plug>(unite_exit)
 augroup END
 " Use ag if available and ignore files in .gitignore/.hgignore
 if executable('ag')
     let g:unite_source_rec_async_command='ag --nocolor --nogroup --hidden -g'
 endif
-nnoremap <Leader>nu :<C-u>Unite -log -tab -wrap neobundle/update<CR>
+nnoremap <Leader>nu :<C-u>Unite -log -wrap neobundle/update<CR>
 " }}}
 
 " Solarized: colorscheme {{{
@@ -137,10 +137,10 @@ nnoremap <silent> gC :<C-u>BuildTexPdf<CR>
 " Tabular: Character alignment {{{
 NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
 if exists(":Tabularize")
-    nnoremap <Leader>a= :<C-u>Tabularize /=<CR>
-    xnoremap <Leader>a= :<C-u>Tabularize /=<CR>
-    nnoremap <Leader>a: :<C-u>Tabularize /:\zs<CR>
-    xnoremap <Leader>a: :<C-u>Tabularize /:\zs<CR>
+    nnoremap <Leader>a= :Tabularize /=<CR>
+    xnoremap <Leader>a= :Tabularize /=<CR>
+    nnoremap <Leader>a: :Tabularize /:\zs<CR>
+    xnoremap <Leader>a: :Tabularize /:\zs<CR>
 
     " Tabular operator function
     " Operations have the form <MAPPING> <TEXTOBJECT> <ALIGNMENT CHAR>
@@ -149,7 +149,7 @@ if exists(":Tabularize")
         let c = nr2char(getchar())
         execute "'[,']Tabularize/".c
     endfunction
-    nnoremap <silent> <Leader>t :<C-u>set opfunc=<SID>tabularize_op<Enter>g@
+    nnoremap <silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
 endif
 " }}}
 
@@ -291,7 +291,7 @@ if exists(":StripWhitespace")
         autocmd FileType markdown execute "DisableWhitespace"
         autocmd BufWinLeave * execute "DisableWhitespace"
     augroup END
-    nnoremap <Leader>cws :<C-u>StripWhitespace<CR>
+    nnoremap <Leader>cws :StripWhitespace<CR>
 else
     augroup AnnoyingWhitespace
         autocmd!
@@ -318,7 +318,7 @@ else
         let @/=_s
         call cursor(l, c)
     endfunction
-    nnoremap <silent> <Leader>cws :<C-u>call <SID>StripTrailingWhitespace()<CR>
+    nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
 endif
 
 " Ag Vim: Ag plugin for vim {{{
@@ -753,7 +753,7 @@ set pastetoggle=<Leader>p
 nnoremap <silent> <Leader>p :<C-u>set paste!<CR>
 
 " Open a Quickfix window for the last search.
-nnoremap <silent> <Leader>? :<C-u>execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+nnoremap <silent> <Leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Delete to black hole register
 nnoremap <silent> <Leader>d "_d
