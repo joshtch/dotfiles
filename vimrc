@@ -42,12 +42,12 @@ NeoBundleLazy 'Shougo/unite.vim', { 'depends' : 'Shougo/vimproc',
             \ 'autoload' : { 'commands' : 'Unite' } }
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <Leader>ut :Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<CR>
-nnoremap <Leader>uf :Unite -no-split -buffer-name=files -start-insert file -resume<CR>
-nnoremap <Leader>ur :Unite -no-split -buffer-name=mru -start-insert file_mru -resume<CR>
-nnoremap <Leader>uo :Unite -no-split -buffer-name=outline -start-insert outline -resume<CR>
-nnoremap <Leader>uy :Unite -no-split -buffer-name=yank history/yank -resume<CR>
-nnoremap <Leader>ub :Unite -no-split -buffer-name=buffer buffer -resume<CR>
+nnoremap <Leader>ut :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<CR>
+nnoremap <Leader>uf :<C-u>Unite -no-split -buffer-name=files -start-insert file -resume<CR>
+nnoremap <Leader>ur :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru -resume<CR>
+nnoremap <Leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline -resume<CR>
+nnoremap <Leader>uy :<C-u>Unite -no-split -buffer-name=yank history/yank -resume<CR>
+nnoremap <Leader>ub :<C-u>Unite -no-split -buffer-name=buffer buffer -resume<CR>
 augroup UniteTags
     autocmd!
     autocmd BufEnter *
@@ -60,7 +60,7 @@ augroup END
 if executable('ag')
     let g:unite_source_rec_async_command='ag --nocolor --nogroup --hidden -g'
 endif
-nnoremap <Leader>nu :Unite -log -tab -wrap neobundle/update<CR>
+nnoremap <Leader>nu :<C-u>Unite -log -tab -wrap neobundle/update<CR>
 " }}}
 
 " Solarized: colorscheme {{{
@@ -104,20 +104,20 @@ if executable('tmux')
 
     " Vimux: Interact with a tmux split directly from vim's commandline {{{
     NeoBundle 'benmills/vimux'
-    nnoremap <Leader>vs :call VimuxRunCommand('exec zsh')<CR>:call VimuxRunCommand('clear')<CR>
-    nnoremap <Leader>vc :VimuxCloseRunner<CR>
-    nnoremap <Leader>vp :VimuxPromptCommand<CR>
-    nnoremap <Leader>vr :VimuxRunLastCommand<CR>
+    nnoremap <Leader>vs :<C-u>call VimuxRunCommand('exec zsh')<CR>:call VimuxRunCommand('clear')<CR>
+    nnoremap <Leader>vc :<C-u>VimuxCloseRunner<CR>
+    nnoremap <Leader>vp :<C-u>VimuxPromptCommand<CR>
+    nnoremap <Leader>vr :<C-u>VimuxRunLastCommand<CR>
     " }}}
 
     " VimTmuxNavigator: Seamlessly navigate vim and tmux splits {{{
     NeoBundle 'christoomey/vim-tmux-navigator'
     let g:tmux_navigator_no_mappings = 1
-    nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
-    nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
-    nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
-    nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
-    nnoremap <silent> <C--> :TmuxNavigatePrevious<CR>
+    nnoremap <silent> <C-h> :<C-u>TmuxNavigateLeft<CR>
+    nnoremap <silent> <C-j> :<C-u>TmuxNavigateDown<CR>
+    nnoremap <silent> <C-k> :<C-u>TmuxNavigateUp<CR>
+    nnoremap <silent> <C-l> :<C-u>TmuxNavigateRight<CR>
+    nnoremap <silent> <C--> :<C-u>TmuxNavigatePrevious<CR>
     " }}}
 endif
 " }}}
@@ -129,18 +129,18 @@ NeoBundleLazy 'dbakker/vim-lint', { 'autoload' : { 'filetypes' : 'vim' },
 " TeX PDF: LaTeX compiling in Vim! Requires latex-mk or rubber {{{
 NeoBundleLazy 'vim-scripts/TeX-PDF', { 'autoload' : { 'filetypes' : 'tex' }}
 let g:tex_pdf_map_keys = 0
-nnoremap <silent> gc :BuildAndViewTexPdf<CR>
-nnoremap <silent> gC :BuildTexPdf<CR>
+nnoremap <silent> gc :<C-u>BuildAndViewTexPdf<CR>
+nnoremap <silent> gC :<C-u>BuildTexPdf<CR>
 " TODO: look into coot/atp_vim for autocompiling + special completions + stuff
 " }}}
 
 " Tabular: Character alignment {{{
 NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
 if exists(":Tabularize")
-    nnoremap <Leader>a= :Tabularize /=<CR>
-    xnoremap <Leader>a= :Tabularize /=<CR>
-    nnoremap <Leader>a: :Tabularize /:\zs<CR>
-    xnoremap <Leader>a: :Tabularize /:\zs<CR>
+    nnoremap <Leader>a= :<C-u>Tabularize /=<CR>
+    xnoremap <Leader>a= :<C-u>Tabularize /=<CR>
+    nnoremap <Leader>a: :<C-u>Tabularize /:\zs<CR>
+    xnoremap <Leader>a: :<C-u>Tabularize /:\zs<CR>
 
     " Tabular operator function
     " Operations have the form <MAPPING> <TEXTOBJECT> <ALIGNMENT CHAR>
@@ -149,7 +149,7 @@ if exists(":Tabularize")
         let c = nr2char(getchar())
         execute "'[,']Tabularize/".c
     endfunction
-    nnoremap <silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
+    nnoremap <silent> <Leader>t :<C-u>set opfunc=<SID>tabularize_op<Enter>g@
 endif
 " }}}
 
@@ -260,7 +260,7 @@ NeoBundleLazy 'mattdbridges/bufkill.vim', { 'autoload' : {
 " UndoTree: {{{
 NeoBundleLazy 'mbbill/undotree',
             \{ 'autoload' : { 'commands' : 'UndotreeToggle'}}
-nnoremap <Leader>undo :UndotreeToggle<CR>
+nnoremap <Leader>undo :<C-u>UndotreeToggle<CR>
 " }}}
 
 " Signify: Show VCS diff using sign column
@@ -278,9 +278,17 @@ function! ToggleFocusMode()
         call AutoResize()
     endif
 endfunction
-nmap <silent> <Leader>f :call ToggleFocusMode()<CR>
+nmap <silent> <Leader>f :<C-u>call ToggleFocusMode()<CR>
 let g:focus_use_default_mapping = 0
 " }}}
+
+" Indent Guides: highlight indent levels
+NeoBundle 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_auto_colors = 0
+highlight default link IndentGuidesOdd ColorColumn
+highlight default link IndentGuidesEven ColorColumn
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
 
 " Better Whitespace: highlight trailing WS on all lines except current {{{
 NeoBundle 'ntpeters/vim-better-whitespace'
@@ -306,8 +314,6 @@ else
         autocmd InsertLeave *
                     \ syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
         highlight default link EOLWS ErrorMsg
-        highlight link markdownExtraWhitespace NONE
-        highlight link markdownEOLWS NONE
     augroup END
     function! <SID>StripTrailingWhitespace()
         " Preparation: save last search, and cursor position.
@@ -380,12 +386,12 @@ NeoBundleLazy 'tpope/vim-dispatch', { 'autoload' : { 'commands' : [ 'Make',
 
 " Fugitive: Awesome git plugin for vim {{{
 NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
-nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gc :Gcommit<CR>
-nnoremap <Leader>gd :Gdiff<CR>
-nnoremap <Leader>gl :Glog<CR>
-nnoremap <Leader>gp :Git push<CR>
-nnoremap <Leader>gs :Git status -sb<CR>
+nnoremap <Leader>gb :<C-u>Gblame<CR>
+nnoremap <Leader>gc :<C-u>Gcommit<CR>
+nnoremap <Leader>gd :<C-u>Gdiff<CR>
+nnoremap <Leader>gl :<C-u>Glog<CR>
+nnoremap <Leader>gp :<C-u>Git push<CR>
+nnoremap <Leader>gs :<C-u>Git status -sb<CR>
 " }}}
 
 " Repeat: Enable use of dot operator with certain plugins
@@ -437,7 +443,7 @@ NeoBundleLazy 'tyru/open-browser.vim', {
 map gu <Plug>(openbrowser-open)
 map gs <Plug>(openbrowser-search)
 map go <Plug>(openbrowser-smart-search)
-noremap <Leader>ob :OpenBrowserSmartSearch<Space>
+noremap <Leader>ob :<C-u>OpenBrowserSmartSearch<Space>
 " }}}
 
 " UndoCloseWin: Undo closing of tabs and windows {{{
@@ -533,7 +539,7 @@ function! ToggleVExplorer()
         let t:expl_buf_num = bufnr("%")
     endif
 endfunction
-noremap <silent> <C-e> :call ToggleVExplorer()<CR>
+noremap <silent> <C-e> :<C-u>call ToggleVExplorer()<CR>
 " Hit enter in the file browser to open the selected
 " file with :vsplit to the right of the browser.
 "let g:netrw_altv = 1
@@ -545,7 +551,7 @@ set autochdir
 " }}}
 
 " Allow quitting unnamed buffers without confirmation or ! {{{
-nnoremap <silent> <Leader>q :call QuitIfEmpty()<CR>:q<CR>
+nnoremap <silent> <Leader>q :<C-u>call QuitIfEmpty()<CR>:q<CR>
 function! QuitIfEmpty()
     if empty(bufname('%'))
         setlocal nomodified
@@ -656,8 +662,6 @@ set wildignore+=*.swp,*~,._*
 set nobackup
 set noswapfile
 
-set autoindent
-
 "set smartindent " -- Deprecated
 filetype plugin indent on
 
@@ -702,7 +706,7 @@ set nowritebackup
 set number
 
 " Add a relative number toggle
-nnoremap <Leader>r :set rnu!<CR>
+nnoremap <Leader>r :<C-u>set rnu!<CR>
 
 " Rereads a file when it is detected to have been modified outside Vim
 set autoread
@@ -710,8 +714,12 @@ set autoread
 " Automatically save file when focus is lost
 set autowrite
 
-" Autoindent imitates indenting of previous line's indent
+" Imitate indenting of previous line's indent
 set copyindent
+set autoindent
+
+" Newline without automatically adding leading characters (e.g. comment chars)
+inoremap <C-j> <CR><C-u>
 
 " Off to avoid security vulnerabilities
 set modelines=0
@@ -739,21 +747,21 @@ inoremap <C-u> <C-g>u<C-u>
 
 " Since the ',' command is actually useful, set it to ',,'
 nnoremap <Leader>, ,
-nnoremap <silent> <Leader>/ :nohlsearch<CR>
-nnoremap <Leader>w :w!<CR>
-nnoremap <silent> <Leader>ev :vsplit $MYVIMRC<CR>
-nnoremap <silent> <Leader>ep :vsplit ~/dotfiles/plugins.vim<CR>
-nnoremap <silent> <Leader>ez :vsplit ~/.zshrc<CR>
+nnoremap <silent> <Leader>/ :<C-u>nohlsearch<CR>
+nnoremap <Leader>w :<C-u>w!<CR>
+nnoremap <silent> <Leader>ev :<C-u>vsplit $MYVIMRC<CR>
+nnoremap <silent> <Leader>ep :<C-u>vsplit ~/dotfiles/plugins.vim<CR>
+nnoremap <silent> <Leader>ez :<C-u>vsplit ~/.zshrc<CR>
 nnoremap <silent> <Leader>sl ^vg_y:execute @@<CR>
-nnoremap <silent> <Leader>ea :vsplit ~/.oh-my-zsh/lib/aliases.zsh<CR>
-nnoremap <silent> <Leader>sv :so $MYVIMRC<CR>
+nnoremap <silent> <Leader>ea :<C-u>vsplit ~/.oh-my-zsh/lib/aliases.zsh<CR>
+nnoremap <silent> <Leader>sv :<C-u>so $MYVIMRC<CR>
 
 " Toggle paste mode with <Leader>p
 set pastetoggle=<Leader>p
-nnoremap <silent> <Leader>p :set paste!<CR>
+nnoremap <silent> <Leader>p :<C-u>set paste!<CR>
 
 " Open a Quickfix window for the last search.
-nnoremap <silent> <Leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+nnoremap <silent> <Leader>? :<C-u>execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Delete to black hole register
 nnoremap <silent> <Leader>d "_d
@@ -952,7 +960,7 @@ function! CenteringToggle()
         endif
     endif
 endfunction
-nnoremap <silent> <Leader>z :call CenteringToggle()<CR>
+nnoremap <silent> <Leader>z :<C-u>call CenteringToggle()<CR>
 
 " Allow expected behavior when traversing wrapped lines
 noremap j gj
@@ -974,7 +982,7 @@ endif
 augroup CommandWindow
     autocmd!
     " have <Ctrl-C> leave cmdline-window
-    autocmd CmdwinEnter * nnoremap <silent> <buffer> <C-c> :q<CR>
+    autocmd CmdwinEnter * nnoremap <silent> <buffer> <C-c> :<C-u>q<CR>
     autocmd CmdwinEnter * inoremap <silent> <buffer> <C-c> <esc>:q<CR>
     " start command line window in insert mode and no line numbers
     autocmd CmdwinEnter * startinsert
