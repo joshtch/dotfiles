@@ -409,11 +409,7 @@ NeoBundle 'tpope/vim-surround', { 'autoload' : { 'mappings' : [
 
 " Vinegar: netrw improvements {{{
 " Still haven't jumped on the NerdTree bandwagon
-NeoBundleLazy 'tpope/vim-vinegar'
-augroup Vinegar
-    autocmd!
-    autocmd FileType netrw NeoBundleSource 'vim-vinegar'
-augroup END
+NeoBundleLazy 'tpope/vim-vinegar', { 'autoload' : { 'filetypes' : 'netrw' } }
 function! ToggleVExplorer()
     if exists("t:expl_buf_num")
         normal! <C-w>=
