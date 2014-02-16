@@ -282,14 +282,6 @@ nmap <silent> <Leader>f :<C-u>call ToggleFocusMode()<CR>
 let g:focus_use_default_mapping = 0
 " }}}
 
-" Indent Guides: highlight indent levels
-NeoBundle 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_auto_colors = 0
-highlight default link IndentGuidesOdd ColorColumn
-highlight default link IndentGuidesEven ColorColumn
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-
 " Better Whitespace: highlight trailing WS on all lines except current {{{
 NeoBundle 'ntpeters/vim-better-whitespace'
 if exists(":StripWhitespace")
