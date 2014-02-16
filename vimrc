@@ -408,11 +408,33 @@ NeoBundle 'tpope/vim-surround', { 'autoload' : { 'mappings' : [
 " }}}
 
 " Vinegar: netrw improvements {{{
+" Still haven't jumped on the NerdTree bandwagon
 NeoBundleLazy 'tpope/vim-vinegar'
 augroup Vinegar
     autocmd!
     autocmd FileType netrw NeoBundleSource 'vim-vinegar'
 augroup END
+function! ToggleVExplorer()
+    if exists("t:expl_buf_num")
+        normal! <C-w>=
+        let expl_win_num = bufwinnr(t:expl_buf_num)
+        if expl_win_num != -1
+            let cur_win_nr = winnr()
+            exec expl_win_num . 'wincmd w'
+            close
+            exec cur_win_nr . 'wincmd w'
+            unlet t:expl_buf_num
+        else
+            unlet t:expl_buf_num
+        endif
+    else
+        exec '1wincmd w'
+        Vexplore
+        vert res -70
+        let t:expl_buf_num = bufnr("%")
+    endif
+endfunction
+noremap <silent> <C-e> :<C-u>call ToggleVExplorer()<CR>
 " }}}
 
 " Easydir: Automatically create filepaths for :w, :e, etc if they don't exist
@@ -508,39 +530,6 @@ NeoBundleCheck
 " " http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev
 cabbrev h <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<CR>
 cabbrev help <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
-
-" Toggle Vexplore with Ctrl-E {{{
-" Still haven't jumped on the NerdTree bandwagon
-function! ToggleVExplorer()
-    if exists("t:expl_buf_num")
-        normal! <C-w>=
-        let expl_win_num = bufwinnr(t:expl_buf_num)
-        if expl_win_num != -1
-            let cur_win_nr = winnr()
-            exec expl_win_num . 'wincmd w'
-            close
-            exec cur_win_nr . 'wincmd w'
-            unlet t:expl_buf_num
-        else
-            unlet t:expl_buf_num
-        endif
-    else
-        exec '1wincmd w'
-        Vexplore
-        vert res -70
-        let t:expl_buf_num = bufnr("%")
-    endif
-endfunction
-noremap <silent> <C-e> :<C-u>call ToggleVExplorer()<CR>
-" Hit enter in the file browser to open the selected
-" file with :vsplit to the right of the browser.
-"let g:netrw_altv = 1
-"let g:netrw_liststyle = 3
-"let g:netrw_retmap = 1
-"let g:netrw_browse_split = 0
-" Change directory to the current buffer when opening files.
-set autochdir
-" }}}
 
 " Allow quitting unnamed buffers without confirmation or ! {{{
 nnoremap <silent> <Leader>q :<C-u>call QuitIfEmpty()<CR>:q<CR>
