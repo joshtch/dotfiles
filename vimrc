@@ -180,11 +180,14 @@ endif
 if v:version >= 7.2
     NeoBundle 'kana/vim-operator-user', { 'vim_version' : '7.2' }
 
-    " Operator Edge: Insert before/append after a text object/visual selection {{{
+" Operator Edge: Insert before/append after a text object/visual selection {{{
     " Note: requires +ex_extra
     " TODO: Make this operator work with tpope's repeat.vim
     "    See https://github.com/tpope/vim-repeat/issues/8
+    "    and https://github.com/Lokaltog/vim-easymotion/blob/
+    "    46606a9cc17039bbb4f8e2cf2e093318394845e3/autoload/EasyMotion.vim#L245
     " TODO: Separate this into its own repository and post on github
+    " TODO: Remove vim-operator-user dependency
 
     map ( <Plug>(operator-edge-insert)
     map ) <Plug>(operator-edge-append)
