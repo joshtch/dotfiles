@@ -327,10 +327,12 @@ endif
 " Ag Vim: Ag plugin for vim {{{
 if executable('ag')
     NeoBundle 'rking/ag.vim'
-    set grepprg=ag\ --nogroup\ --nocolor\ --column
+    set grepprg="ag --nogroup --nocolor --column"
     command! -bar -nargs=+ -complete=file Ag silent! grep! <args>|redraw!
 else
-    set grepprg=grep\ -rnH\ --exclude=tags\ --exclude-dir=.git\ --exclude-dir=node_modules
+    let grep_settings  = "grep -rnH --exclude=tags "
+    let grep_settings .= "--exclude-dir=.git --exclude-dir=node_modules"
+    set grepprg=grep_settings
 endif
 " }}}
 
@@ -478,7 +480,7 @@ if has("python") && has("unix") && v:version >= 703.584
     let g:ycm_confirm_extra_conf = 0
     let g:ycm_use_ultisnips_completer = 1
     let g:ycm_key_detailed_diagnostics = ''
-    let g:ycm_register_as_syntastic_checker = 0
+    let g:ycm_register_as_syntastic_checker = 1
 endif
 " }}}
 
