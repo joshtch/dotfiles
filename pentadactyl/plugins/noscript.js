@@ -162,11 +162,11 @@ completion.noscriptObjects = function (context) {
     context.generate = getObjects;
     context.keys = {
         text: util.identity,
-        description: function (key) Set.has(whitelist, key) ? "Allowed" : "Forbidden"
+        description: function (key) Set#has(whitelist, key) ? "Allowed" : "Forbidden"
     };
     splitContext(context, getObjects, [
-        ["forbidden", "Forbidden objects", function (item) !Set.has(whitelist, item.item)],
-        ["allowed",   "Allowed objects",   function (item) Set.has(whitelist, item.item)]]);
+        ["forbidden", "Forbidden objects", function (item) !Set#has(whitelist, item.item)],
+        ["allowed",   "Allowed objects",   function (item) Set#has(whitelist, item.item)]]);
 };
 completion.noscriptSites = function (context) {
     context.compare = CompletionContext.Sort.unsorted;
@@ -269,8 +269,8 @@ group.options.add(["script"],
         description: "The list of sites allowed to execute scripts",
         action: function (add, sites) sites.length && noscriptOverlay.safeAllow(sites, add, false, -1),
         completer: function (context) completion.noscriptSites(context),
-        has: function (val) Set.has(services.noscript.jsPolicySites.sitesMap, val) &&
-            !Set.has(services.noscript.tempSites.sitesMap, val),
+        has: function (val) Set#has(services.noscript.jsPolicySites.sitesMap, val) &&
+            !Set#has(services.noscript.tempSites.sitesMap, val),
         get set() Set.subtract(
             services.noscript.jsPolicySites.sitesMap,
             services.noscript.tempSites.sitesMap)
@@ -329,15 +329,15 @@ group.options.add(["script"],
                     params.completer(context)
             },
             domains: params.domains || function (values) values,
-            has: params.has || function (val) Set.has(params.set, val),
+            has: params.has || function (val) Set#has(params.set, val),
             initialValue: true,
             getter: params.getter || function () Object.keys(params.set),
             setter: function (values) {
                 let newset  = Set(values);
                 let current = params.set;
                 let value   = this.value;
-                params.action(true,  values.filter(function (site) !Set.has(current, site)))
-                params.action(false, value.filter(function (site) !Set.has(newset, site)));
+                params.action(true,  values.filter(function (site) !Set#has(current, site)))
+                params.action(false, value.filter(function (site) !Set#has(newset, site)));
                 return this.value;
             },
             persist: false,
