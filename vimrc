@@ -592,6 +592,7 @@ set hidden
 set incsearch       " Show results of search immediately
 set hlsearch        " Highlight search results by default
 set magic           " Use regexp-style search; 'magic' is default
+set wrapscan        " Have search wrap around the end of file
 "set matchpairs+=<:> " Match angle brackets with '%'
 
 " These improve the C-style /* comments by wrapping with
