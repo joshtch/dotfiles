@@ -62,7 +62,7 @@ alias history='fc -l 1'
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 
 # List direcory contents
-alias l='ls -la'
+alias l='ls -lv'
 alias sl=ls # often screw this up
 alias ls='ls -h -F -G'
 alias lx='ls -lXB'         #  Sort by extension.
@@ -70,10 +70,9 @@ alias lk='ls -lSr'         #  Sort by size, biggest last.
 alias lt='ls -ltr'         #  Sort by date, most recent last.
 alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
 alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
-alias ll='ls -lv'
-alias lm='ll |more'        #  Pipe through 'more'
-alias lr='ll -R'           #  Recursive ls.
-alias la='ll -A'           #  Show hidden files.
+alias lm='ls -lv |more'    #  Pipe through 'more'
+alias lr='ls -lvR'         #  Recursive ls.
+alias la='ls -lvA'         #  Show hidden files.
 alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
 if [[ -d ~/dotfiles ]] then
@@ -87,6 +86,7 @@ else
     alias aa='vim ~/.oh-my-zsh/custom/aliases.zsh; exec zsh'
     alias zz='vim ~/.zshrc; source ~/.zshrc'
 fi
+alias ll='vim ~/localrc.zsh; source ~/localrc.zsh'
 
 alias z='exec zsh'
 alias vbundle='cd ~/.vim/bundle'
