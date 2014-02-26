@@ -60,7 +60,7 @@ augroup END
 if executable('ag')
     let g:unite_source_rec_async_command='ag --nocolor --nogroup --hidden -g'
 endif
-nnoremap <Leader>nu :<C-u>Unite -log -wrap neobundle/update<CR>
+nnoremap <Leader>nu :<C-u>Unite -log -wrap -vertical neobundle/update<CR>
 " }}}
 
 " Solarized: colorscheme {{{
@@ -69,6 +69,7 @@ if v:version >= 7.2
     syntax enable
     colorscheme solarized
     call togglebg#map("<Leader>5")
+    iunmap <Leader>5
     let g:solarized_termcolors=16
     let g:solarized_termtrans=0
 endif
@@ -179,44 +180,7 @@ endif
 " Operator User: Create your own operators {{{
 if v:version >= 7.2
     NeoBundle 'kana/vim-operator-user', { 'vim_version' : '7.2' }
-
-" Operator Edge: Insert before/append after a text object/visual selection {{{
-    " Note: requires +ex_extra
-    " TODO: Make this operator work with tpope's repeat.vim
-    "    See https://github.com/tpope/vim-repeat/issues/8
-    "    and https://github.com/Lokaltog/vim-easymotion/blob/
-    "    46606a9cc17039bbb4f8e2cf2e093318394845e3/autoload/EasyMotion.vim#L245
-    " TODO: Separate this into its own repository and post on github
-    " TODO: Remove vim-operator-user dependency
-
-    map ( <Plug>(operator-edge-insert)
-    map ) <Plug>(operator-edge-append)
-    call operator#user#define('edge-insert', 'Op_command_insert')
-    call operator#user#define('edge-append', 'Op_command_append')
-
-    function! Op_command_insert(motion_wise)
-        normal! `[
-        if a:motion_wise == 'char'
-            call feedkeys('i')
-        else
-            call feedkeys('O')
-        endif
-    endfunction
-
-    function! Op_command_append(motion_wise)
-        normal! `]
-        if a:motion_wise == 'char'
-            call feedkeys('a')
-        else
-            call feedkeys('o')
-        endif
-    endfunction
-
-"    silent! call repeat#set("\<Plug>(operator-edge-insert)",v:count)
-"    silent! call repeat#set("\<Plug>(operator-edge-append)",v:count)
-    " }}}
 endif
-" }}}
 
 " Easymotion: Quick navigation {{{
 NeoBundle 'Lokaltog/vim-easymotion'
@@ -909,12 +873,18 @@ set winwidth=86
 " (reverse of J/gJ)
 nnoremap <F1> <Nop>
 nnoremap Q @q
-nnoremap K i<CR><Esc>k:let _s=@/<CR>:s/\s\+$//e<CR>:let @/=_s<CR>$
 set nojoinspaces
 noremap L }
 noremap H {
 noremap { ^
 noremap } $
+nnoremap K i<CR><Esc>k:call RemoveTrailingWS()<CR>$hl
+function! RemoveTrailingWS()
+    normal! $
+    while getline(".")[col(".")-1] == ' '
+        normal! "_x
+    endwhile
+endfunction
 
 " Keep context when scrolling page by page
 nnoremap <C-f> z+
