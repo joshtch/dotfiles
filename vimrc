@@ -155,8 +155,8 @@ endif
 " }}}
 
 " Vim Snippets: Default snippets for various languages
-NeoBundle 'honza/vim-snippets', { 'disabled' : 1 }
-NeoBundle 'MarcWeber/ultisnips', { 'disabled' : 1 }
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'MarcWeber/ultisnips'
 
 " Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc) {{{
 if v:version >= 7.2
