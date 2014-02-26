@@ -213,8 +213,8 @@ NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
 " }}}
 
 " Bufkill: Close buffers without closing windows
-NeoBundleLazy 'mattdbridges/bufkill.vim', { 'autoload' : {
-            \ 'commands' : [ 'BD', 'BC', 'BW', 'BB', 'BF' ] } }
+NeoBundleLazy 'vim-scripts/bufkill.vim', { 'autoload' : {
+            \ 'commands' : [ 'BD', 'BUN', 'BW', 'BB', 'BF' ] } }
 
 " UndoTree: {{{
 NeoBundleLazy 'mbbill/undotree',
