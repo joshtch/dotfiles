@@ -45,7 +45,7 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <Leader>ut :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<CR>
 nnoremap <Leader>uf :<C-u>Unite -no-split -buffer-name=files -start-insert file -resume<CR>
 nnoremap <Leader>ur :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru -resume<CR>
-nnoremap <Leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline -resume<CR>
+"nnoremap <Leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline -resume<CR>
 nnoremap <Leader>uy :<C-u>Unite -no-split -buffer-name=yank history/yank -resume<CR>
 nnoremap <Leader>ub :<C-u>Unite -no-split -buffer-name=buffer buffer -resume<CR>
 augroup UniteTags
@@ -153,10 +153,6 @@ if exists(":Tabularize")
     nnoremap <silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
 endif
 " }}}
-
-" Unite Outline: Outlining in unite
-NeoBundleLazy 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim',
-            \ 'autoload' : { 'commands' : 'Unite' } }
 
 " Vim Snippets: Default snippets for various languages
 NeoBundle 'honza/vim-snippets', { 'disabled' : 1 }
