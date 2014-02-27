@@ -340,6 +340,7 @@ NeoBundleLazy 'tpope/vim-dispatch', { 'autoload' : { 'commands' : [ 'Make',
 
 " Fugitive: Awesome git plugin for vim {{{
 NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
+nnoremap <Leader>ga :<C-u>Git add %<CR>
 nnoremap <Leader>gb :<C-u>Gblame<CR>
 nnoremap <Leader>gc :<C-u>Gcommit<CR>
 nnoremap <Leader>gd :<C-u>Gdiff<CR>
