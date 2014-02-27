@@ -631,6 +631,9 @@ set foldnestmax=3
 set nofoldenable
 set foldcolumn=0
 
+" Vimdiff settings
+set diffopt=filler,vertical,foldcolumn:2
+
 " Scrolling boundaries
 set scrolloff=4
 set sidescrolloff=0
