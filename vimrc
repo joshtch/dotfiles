@@ -217,12 +217,6 @@ NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
 NeoBundleLazy 'vim-scripts/bufkill.vim', { 'autoload' : {
             \ 'commands' : [ 'BD', 'BUN', 'BW', 'BB', 'BF' ] } }
 
-" UndoTree: {{{
-NeoBundleLazy 'mbbill/undotree',
-            \{ 'autoload' : { 'commands' : 'UndotreeToggle'}}
-nnoremap <Leader>undo :<C-u>UndotreeToggle<CR>
-" }}}
-
 " Signify: Show VCS diff using sign column
 NeoBundle 'mhinz/vim-signify'
 
