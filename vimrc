@@ -738,7 +738,11 @@ if has("autocmd")
         au FileType bash,coffee,markdown,python,zsh set sw=4 ts=4 expandtab
         au FileType javascript,html,xhtml,css,php set sw=2 tw=2 fdm=indent
 
-        " Treat ImpCore as Scheme
+        " Fix syntax highlighting of vim helpfiles, since 'modeline' is off
+        au BufEnter *.txt
+            \ if expand('%:p:h') =~ '.*/\.\?vim/.*/doc' | set ft=help | endif
+
+        " Treat ImpCore as Scheme (Comp105)
         au BufNewFile,BufRead *.imp,*.ic setfiletype scheme
 
         " Treat .rss files as XML
