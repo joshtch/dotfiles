@@ -401,8 +401,8 @@ NeoBundleLazy 'tyru/open-browser.vim', {
             \         'mappings' : [
             \                 '<Plug>(openbrowser-open)',
             \                 '<Plug>(openbrowser-search)',
-            \                 '<Plug>(openbrowser-smart-search)'
-            \             ]
+            \                 '<Plug>(openbrowser-smart-search)' ],
+            \         'commands' : 'OpenBrowserSmartSearch'
             \      }
             \ }
 map gu <Plug>(openbrowser-open)
