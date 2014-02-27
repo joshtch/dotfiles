@@ -48,6 +48,7 @@ nnoremap <Leader>ur :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mr
 "nnoremap <Leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline -resume<CR>
 nnoremap <Leader>uy :<C-u>Unite -no-split -buffer-name=yank history/yank -resume<CR>
 nnoremap <Leader>ub :<C-u>Unite -no-split -buffer-name=buffer buffer -resume<CR>
+nnoremap <Leader>ug :<C-u>Unite -no-split -buffer-name=outline -start-insert tag -resume<CR>
 augroup UniteTags
     autocmd!
     autocmd BufEnter *
@@ -243,7 +244,7 @@ if exists(":StripWhitespace")
     augroup BetterWhitespace
         autocmd!
         autocmd BufWinEnter * execute "EnableWhitespace"
-        autocmd FileType markdown execute "DisableWhitespace"
+        autocmd FileType unite,markdown execute "DisableWhitespace"
         autocmd BufWinLeave * execute "DisableWhitespace"
     augroup END
     nnoremap <Leader>cws :StripWhitespace<CR>
@@ -394,8 +395,7 @@ noremap <silent> <C-e> :<C-u>call ToggleVExplorer()<CR>
 NeoBundle 'dockyard/vim-easydir'
 
 " Tag: Tag navigation in unite
-NeoBundleLazy 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim',
-            \ 'autoload' : { 'commands' : 'Unite' } }
+NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 
 " Open Browser: Open a URL in the default browser {{{
 NeoBundleLazy 'tyru/open-browser.vim', {
