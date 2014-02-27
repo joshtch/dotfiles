@@ -95,6 +95,11 @@ if exists(":AirlineTheme")
 endif
 " }}}
 
+" Secure Modelines: fix security of 'modelines' without disabling it altogether
+NeoBundle 'ciaranm/securemodelines'
+set modelines=0
+set secure
+
 " Tmux Settings: {{{
 if executable('tmux')
     " Autolabel tmux windows
@@ -654,10 +659,6 @@ set autoindent
 
 " Newline without automatically adding leading characters (e.g. comment chars)
 inoremap <C-j> <CR><C-u>
-
-" Off to avoid security vulnerabilities
-set modelines=0
-set secure
 
 " See :help slow-terminal
 " Optimize for fast terminal connections
