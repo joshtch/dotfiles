@@ -713,7 +713,7 @@ set switchbuf=useopen
 " Gvim-specific settings
 " This really should go in its own .gvimrc
 if has("gui_running")
-    set guioptions=cghiP
+    set guioptions=c
     silent! set guifont=Inconsolata-dz\ for\ Powerline\ 12
     set guitablabel=%M\ %t
     " Remove small delay between pressing Esc and entering Normal mode.
