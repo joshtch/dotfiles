@@ -848,20 +848,11 @@ augroup END
 noremap gf gf`"
 noremap <C-^> <C-^>`"
 
-" Define what to save with :mksession
-" blank - empty windows
-" buffers - all buffers not only ones in a window
-" curdir - the current directory
-" folds - including manually created ones
-" help - the help window
-" options - all options and mapping
-" winsize - window sizes
-" tabpages - all tab pages
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 
 " Makes windows always equal size when resizing
 set equalalways
-function! AutoResize()
+function! AutoResize() " Made a function to enable easy toggling
     augroup Resize
         autocmd!
         autocmd WinEnter,VimResized * wincmd =
@@ -869,26 +860,34 @@ function! AutoResize()
 endfunction
 call AutoResize()
 
-" Sets minimum split width -- 80 + 6 for number + sign columns
+" Sets minimum split width -- 80 + 6 for number + sign/fold columns
 set winwidth=86
 
 " Map annoying and useless <F1>, Q and K to more useful things
-" Q repeats last macro, K splits the line and removes trailing whitespace
-" (reverse of J/gJ)
+" <F1> does nothing, so it can be used for things outside of vim like changing
+" windows in tmux
+" Q repeats the macro in register q, as a more convenient way to macro
+" K splits the line and removes trailing whitespace (reverse of J/gJ)
 nnoremap <F1> <Nop>
 nnoremap Q @q
 set nojoinspaces
-noremap L }
-noremap H {
-noremap { ^
-noremap } $
 nnoremap K i<CR><Esc>k:call RemoveTrailingWS()<CR>$hl
 function! RemoveTrailingWS()
+    " Using this method instead of :sub to avoid messing with search highlights
+    " It may lag on older systems. If that's the case use this instead:
+    "let _s=@/ | s/\s\+$//e | let @/=_s
     normal! $
     while getline(".")[col(".")-1] == ' '
         normal! "_x
     endwhile
 endfunction
+
+" Hitting { and } constantly gets painful, and ^ and $ are too useful to be so
+" inconvenient. Not sure what to do with the default H and L though
+noremap L }
+noremap H {
+noremap { ^
+noremap } $
 
 " Keep context when scrolling page by page
 nnoremap <C-f> z+
