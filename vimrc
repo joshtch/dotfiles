@@ -82,7 +82,7 @@ if exists(":AirlineTheme")
     set lazyredraw
     set t_Co=256
     set ttimeoutlen=50
-    "let g:airline_powerline_fonts = 1
+    let g:airline_powerline_fonts = 0
     let g:airline_enable_synastic = 1
     let g:airline_enable_fugitive = 1
     let g:airline_modified_detection = 1
@@ -95,7 +95,7 @@ if exists(":AirlineTheme")
     let g:airline_symbols.readonly = '⭤'
     let g:airline_symbols.linenr = '⭡'
     let g:airline_symbols.paste = 'PASTE'
-    "let g:airline_fugitive_prefix = '⎇ '
+    let g:airline_fugitive_prefix = '⎇ '
     let g:airline_theme = 'solarized'
     let g:airline#extensions#tabline#enabled = 1
 endif
