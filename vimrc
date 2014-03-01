@@ -578,6 +578,16 @@ set comments+=fb:*
 " using previous search easier (currently: "/<BS><BS>/")
 nnoremap / /\v
 
+" Auto center long jumps
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
+nnoremap <silent> <C-o> <C-o>zz
+nnoremap <silent> <C-i> <C-i>zz
+
 " Case matching in search
 set ignorecase " Ignore case in search patterns
 set smartcase  " Does not ignore case if search contains caps
