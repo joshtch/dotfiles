@@ -24,7 +24,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 cdpath=(. .. ~)
 
 source ~/dotfiles/custom/aliases.zsh
-source ~/localrc.zsh
+source ~/.localrc.zsh
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
