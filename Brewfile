@@ -4,44 +4,64 @@ update
 # Upgrade any already-installed formulae
 upgrade
 
+tap 'phinze/cask'
+brew 'brew-cask'
+
+tapall 'rcmdnk/brewall'
+
 # Install GNU core utilities (those that come with OS X are outdated)
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
-install coreutils
+brew 'coreutils'
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
-install findutils
+brew 'findutils'
 # Install Bash 4
-install bash
-install zsh
+brew 'bash'
+brew 'zsh'
 
 # Install wget with IRI support
-install wget --enable-iri
+brew 'wget --enable-iri'
 
 # Install more recent versions of some OS X tools
-install vim --override-system-vi
-tap homebrew/dupes
-install homebrew/dupes/grep
-#tap josegonzalez/homebrew-php
-#install php55
+brew 'vim --override-system-vi'
+tap 'homebrew/dupes'
+brew 'homebrew/dupes/grep'
+#tap 'josegonzalez/homebrew-php'
+#brew 'php55'
 
 # Install other useful binaries
-install colordiff
-install emacs
-install ffmpeg
-install findutils
-install fontconfig
-install git
-install mplayer
-install openssl
-install pkg-config
-install readline
-install the_silver_searcher
-install tmux
-install trash
-uninstall ctags
-install ctags-exuberant
+brew 'colordiff'
+brew 'emacs'
+brew 'ffmpeg'
+brew 'findutils'
+brew 'fontconfig'
+brew 'git'
+brew 'mplayer'
+brew 'openssl'
+brew 'pkg-config'
+brew 'readline'
+brew 'the_silver_searcher'
+brew 'tmux'
+brew 'trash'
+uninstall 'ctags'
+brew 'ctags-exuberant'
 
-tap homebrew/versions
-install lua52
+tap 'homebrew/versions'
+brew 'lua52'
+
+# Add Cask binaries
+cask 'bettertouchtool'
+cask 'caffeine'
+cask 'disk-inventory-x'
+cask 'evernote'
+cask 'geektool'
+cask 'gimp'
+cask 'gitx'
+cask 'firefox'
+cask 'keyremap4macbook'
+cask 'macvim --with-lua'
+cask 'onyx'
+cask 'the-unarchiver'
+cask 'vlc'
 
 # Remove outdated versions from the cellar
 cleanup
