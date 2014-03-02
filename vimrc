@@ -461,8 +461,8 @@ NeoBundle 'kana/vim-textobj-line', {
             \ 'depends' : 'kana/vim-textobj-user'
             \ }
 
-" Underscore: textobject ('i_'/'a_') -- for snake_case_objects
-NeoBundle 'kana/vim-textobj-underscore', {
+" Signify Hunk: textobject ('ih'/'ah') for signify's VCS diffs
+NeoBundle 'killphi/vim-textobj-signify-hunk', {
             \ 'vim_version' : '7.2',
             \ 'depends' : 'kana/vim-textobj-user'
             \ }
