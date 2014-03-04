@@ -8,6 +8,7 @@ source ~/dotfiles/antigen/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle brew
 antigen bundle colored-man
+antigen bundle command-not-found
 antigen bundle cp
 antigen bundle git
 antigen bundle github
