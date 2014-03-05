@@ -65,7 +65,7 @@ nnoremap <Leader>nu :<C-u>Unite -log -wrap -vertical neobundle/update<CR>
 " }}}
 
 " Solarized: colorscheme {{{
-if v:version >= 7.2
+if v:version >= 702
     NeoBundle 'altercation/vim-colors-solarized', { 'vim_version' : '7.2' }
     syntax enable
     colorscheme solarized
@@ -171,7 +171,7 @@ NeoBundle 'honza/vim-snippets', { 'disabled' : 1 }
 NeoBundle 'MarcWeber/ultisnips', { 'disabled' : 1 }
 
 " Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc) {{{
-if v:version >= 7.2
+if v:version >= 702
     NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
     augroup Arpeggio
         autocmd!
@@ -181,14 +181,10 @@ endif
 " }}}
 
 " Niceblock: Use I and A in all visual modes, not just visual block mode
-if v:version >= 7.3
+if v:version >= 703
     NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
 endif
 
-" Operator User: Create your own operators {{{
-if v:version >= 7.2
-    NeoBundle 'kana/vim-operator-user', { 'vim_version' : '7.2' }
-endif
 
 " Easymotion: Quick navigation {{{
 NeoBundle 'Lokaltog/vim-easymotion'
@@ -426,19 +422,20 @@ map <Leader>br <Plug>(ucw-restore-window)
 " }}}
 
 " YouCompleteMe: Smart autocompletion {{{
-if has("python") && has("unix") && v:version >= 703.584
-    NeoBundle 'Valloric/YouCompleteMe', {
-            \ 'vim_version' : '7.3.584',
-            \ 'build' : {
-            \       'unix' : '~/.vim/bundle/YouCompleteMe/install.sh --clang-completer',
-            \       'mac' : '~/.vim/bundle/YouCompleteMe/install.sh',
-            \     }
-            \ }
-    let g:ycm_confirm_extra_conf = 0
-    let g:ycm_use_ultisnips_completer = 1
-    let g:ycm_key_detailed_diagnostics = ''
-    let g:ycm_register_as_syntastic_checker = 1
-endif
+"if has("python") && has("unix") && v:version >= 703.584
+    "NeoBundle 'Valloric/YouCompleteMe', {
+            "\ 'vim_version' : '7.3.584',
+            "\ 'disabled' : 1,
+            "\ 'build' : {
+            "\       'unix' : '~/.vim/bundle/YouCompleteMe/install.sh --clang-completer',
+            "\       'mac' : '~/.vim/bundle/YouCompleteMe/install.sh',
+            "\     }
+            "\ }
+    "let g:ycm_confirm_extra_conf = 0
+    "let g:ycm_use_ultisnips_completer = 1
+    "let g:ycm_key_detailed_diagnostics = ''
+    "let g:ycm_register_as_syntastic_checker = 1
+"endif
 " }}}
 
 " Custom Textobjects: {{{
