@@ -617,8 +617,8 @@ filetype plugin indent on
 set shell=/bin/zsh
 
 " Show tab characters
-set list
-set listchars=tab:▶\ ,
+"set list
+"set listchars=tab:▶\ ,
 "set listchars+=trail:·
 
 set mouse=a         " Allow use of mouse
