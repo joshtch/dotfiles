@@ -265,14 +265,15 @@ else
     augroup END
     function! <SID>StripTrailingWhitespace()
         " Preparation: save last search, and cursor position.
-        let _s=@/
-        let l = line(".")
-        let c = col(".")
-        " Do the business:
+        let g:_ishls = v:hlsearch
+        let g:_lastsearch=@/
+        let g:_startline = line(".")
+        let g:_startcol = col(".")
         %s/\s\+$//e
-        " Clean up: restore previous search history, and cursor position
-        let @/=_s
-        call cursor(l, c)
+        let @/=g:_lastsearch
+        let v:hlsearch = g:_ishls
+        call cursor(g:_lastline, g:_lastcol)
+        unlet g:_lastline g:_lastcol g:_lastsearch g:_ishls
     endfunction
     nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
 endif
@@ -880,13 +881,12 @@ nnoremap Q @q
 set nojoinspaces
 nnoremap K i<CR><Esc>k:call RemoveTrailingWS()<CR>$hl
 function! RemoveTrailingWS()
-    " Using this method instead of :sub to avoid messing with search highlights
-    " It may lag on older systems. If that's the case use this instead:
-    "let _s=@/ | s/\s\+$//e | let @/=_s
-    normal! $
-    while getline(".")[col(".")-1] == ' '
-        normal! "_x
-    endwhile
+    let g:_ishls = v:hlsearch
+    let g:_lastsrch=@/
+    s/\s\+$//e
+    let @/=g:_lastsrch
+    let v:hlsearch = g:_ishls
+    unlet g:_lastsrch g:_ishls
 endfunction
 
 " Hitting { and } constantly gets painful, and ^ and $ are too useful to be so
