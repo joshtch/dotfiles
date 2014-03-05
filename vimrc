@@ -82,6 +82,7 @@ if exists(":AirlineTheme")
     set lazyredraw
     set t_Co=256
     set ttimeoutlen=50
+    set noshowmode
     let g:airline_powerline_fonts = 0
     let g:airline_enable_synastic = 1
     let g:airline_enable_fugitive = 1
