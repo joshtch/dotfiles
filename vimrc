@@ -186,7 +186,6 @@ if v:version >= 703
     NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
 endif
 
-
 " Easymotion: Quick navigation {{{
 NeoBundle 'Lokaltog/vim-easymotion'
 
