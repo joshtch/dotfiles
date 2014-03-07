@@ -817,8 +817,8 @@ endfunction
 " Hitting { and } constantly gets painful, and ^ and $ are too useful to be so
 " inconvenient. Not sure what to do with the default H and L though. I use
 " keepjumps so H and L don't write to the jumplist
-noremap L :keepjumps normal! }<CR>
-noremap H :keepjumps normal! {<CR>
+noremap <silent> L :keepjumps normal! }<CR>
+noremap <silent> H :keepjumps normal! {<CR>
 noremap { ^
 noremap } $
 
