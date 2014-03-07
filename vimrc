@@ -33,6 +33,7 @@ NeoBundle 'killphi/vim-textobj-signify-hunk', {
             \ 'vim_version' : '7.2',
             \ 'depends' : 'kana/vim-textobj-user'
             \ }
+NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
 NeoBundle 'kana/vim-textobj-line', {
             \ 'vim_version' : '7.2',
             \ 'depends' : 'kana/vim-textobj-user'
