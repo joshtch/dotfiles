@@ -25,59 +25,53 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'coderifous/textobj-word-column.vim', {
-            \ 'vim_version' : '7.2',
-            \ 'depends' : 'kana/vim-textobj-user'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'MarcWeber/ultisnips', { 'disabled' : 1 }
+NeoBundleLazy 'Shougo/unite.vim', {
+            \ 'depends' : 'Shougo/vimproc',
+            \ 'autoload' : { 'commands' : 'Unite' }
             \ }
-NeoBundle 'killphi/vim-textobj-signify-hunk', {
-            \ 'vim_version' : '7.2',
-            \ 'depends' : 'kana/vim-textobj-user'
+NeoBundle 'Shougo/vimproc', {
+            \ 'build' : {
+            \       'windows' : 'make -f make_mingw32.mak',
+            \       'cygwin'  : 'make -f make_cygwin.mak',
+            \       'mac'     : 'make -f make_mac.mak',
+            \       'unix'    : 'make -f make_unix.mak'
+            \      },
             \ }
+NeoBundle 'bling/vim-airline'
+NeoBundle 'ciaranm/securemodelines'
+NeoBundle 'christoomey/vim-tmux-navigator'
+NeoBundle 'coderifous/textobj-word-column.vim'
+NeoBundleLazy 'dbakker/vim-lint', {
+            \ 'autoload' : { 'filetypes' : 'vim' },
+            \ 'depends' : 'scrooloose/syntastic'
+            \ }
+NeoBundle 'dockyard/vim-easydir'
+NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
+NeoBundle 'honza/vim-snippets', { 'disabled' : 1 }
+NeoBundle 'joshtch/vim-syntax-pentadactyl'
 NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
 NeoBundle 'kana/vim-textobj-line', {
             \ 'vim_version' : '7.2',
             \ 'depends' : 'kana/vim-textobj-user'
             \ }
+NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
+            \ [ 'Ant', 'Assembler', 'ASP', 'Awk', 'Basic', 'BETA', 'C', 'C++',
+            \ 'C#', 'COBOL', 'DosBatch', 'Eiffel', 'Erlang', 'Flex', 'Fortran',
+            \ 'HTML', 'Java', 'JavaScript', 'Lisp', 'Lua', 'Make', 'MatLab',
+            \ 'OCaml', 'Pascal', 'Perl', 'PHP', 'Python', 'REXX', 'Ruby',
+            \ 'Scheme', 'Shell ''script', 'SLang', 'SML', 'SQL', 'Tcl', 'Tex',
+            \ 'Vera', 'Verilog', 'VHDL', 'Vim', 'YACC'] } }
+NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
+            \ '<Plug>FocusModeToggle' } }
+NeoBundle 'mhinz/vim-signify'
 NeoBundle 'michaeljsmith/vim-indent-object'
-NeoBundle 'kana/vim-textobj-user'
-NeoBundleLazy 'tyru/undoclosewin.vim', { 'autoload' : {
-            \ 'mappings' : '<Plug>(ucw-restore-window)' }
-            \ }
-" }}}
-NeoBundleLazy 'tyru/open-browser.vim', {
+NeoBundle 'neitanod/vim-sade'
+NeoBundle 'ntpeters/vim-better-whitespace'
+NeoBundle 'scrooloose/nerdcommenter' , {
             \ 'autoload' : {
-            \         'mappings' : [
-            \                 '<Plug>(openbrowser-open)',
-            \                 '<Plug>(openbrowser-search)',
-            \                 '<Plug>(openbrowser-smart-search)' ],
-            \         'commands' : 'OpenBrowserSmartSearch'
-            \      }
-            \ }
-" }}}
-NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'dockyard/vim-easydir'
-NeoBundleLazy 'tpope/vim-vinegar', { 'autoload' : { 'filetypes' : 'netrw' } }
-NeoBundle 'tpope/vim-surround', { 'autoload' : { 'mappings' : [
-            \ '<Plug>Dsurround',
-            \ '<Plug>Csurround',
-            \ '<Plug>Ysurround',
-            \ '<Plug>YSurround',
-            \ '<Plug>Yssurround',
-            \ '<Plug>YSsurround',
-            \ '<Plug>YSsurround',
-            \ '<Plug>VSurround',
-            \ '<Plug>VgSurround',
-            \ '<Plug>Isurround',
-            \ '<Plug>ISurround', ]}}
-NeoBundle 'tpope/vim-rsi'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
-NeoBundleLazy 'tpope/vim-dispatch', { 'autoload' : { 'commands' : [ 'Make',
-            \ 'Make!', 'Copen', 'Copen!', 'Dispatch', 'Dispatch!',
-            \ 'FocusDispatch', 'FocusDispatch!', 'Start', 'Start!' ] } }
-NeoBundleLazy 'tpope/vim-capslock',
-NeoBundle 'scrooloose/nerdcommenter' , { 'autoload' : {
-            \ 'mappings' : [
+            \     'mappings' : [
             \        '<Plug>NERDCommenterComment',
             \        '<Plug>NERDCommenterNested',
             \        '<Plug>NERDCommenterToggle',
@@ -95,39 +89,53 @@ NeoBundle 'scrooloose/nerdcommenter' , { 'autoload' : {
             \   }
             \ }
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'neitanod/vim-sade'
-NeoBundle 'ntpeters/vim-better-whitespace'
-NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
-            \ '<Plug>FocusModeToggle' } }
-NeoBundle 'mhinz/vim-signify'
+NeoBundleLazy 'tpope/vim-capslock',
+NeoBundleLazy 'tpope/vim-dispatch', {
+            \ 'autoload' : {
+            \   'commands' : [
+            \     'Make', 'Make!', 'Copen', 'Copen!', 'Dispatch', 'Dispatch!',
+            \     'FocusDispatch', 'FocusDispatch!', 'Start', 'Start!'
+            \     ]
+            \   }
+            \ }
+NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-rsi'
+NeoBundle 'tpope/vim-surround', {
+            \ 'autoload' : {
+            \   'mappings' : [
+            \     '<Plug>Dsurround',
+            \     '<Plug>Csurround',
+            \     '<Plug>Ysurround',
+            \     '<Plug>YSurround',
+            \     '<Plug>Yssurround',
+            \     '<Plug>YSsurround',
+            \     '<Plug>YSsurround',
+            \     '<Plug>VSurround',
+            \     '<Plug>VgSurround',
+            \     '<Plug>Isurround',
+            \     '<Plug>ISurround',
+            \     ]
+            \   }
+            \ }
+NeoBundleLazy 'tpope/vim-vinegar', { 'autoload' : { 'filetypes' : 'netrw' } }
+NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
+NeoBundleLazy 'tyru/open-browser.vim', {
+            \ 'autoload' : {
+            \         'mappings' : [
+            \                 '<Plug>(openbrowser-open)',
+            \                 '<Plug>(openbrowser-search)',
+            \                 '<Plug>(openbrowser-smart-search)'
+            \             ],
+            \         'commands' : 'OpenBrowserSmartSearch'
+            \      }
+            \ }
+NeoBundleLazy 'tyru/undoclosewin.vim', { 'autoload' : {
+            \ 'mappings' : '<Plug>(ucw-restore-window)' }
+            \ }
+NeoBundleLazy 'vim-scripts/TeX-PDF', { 'autoload' : { 'filetypes' : 'tex' }}
 NeoBundleLazy 'vim-scripts/bufkill.vim', { 'autoload' : {
             \ 'commands' : [ 'BD', 'BUN', 'BW', 'BB', 'BF' ] } }
-NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
-            \ [ 'Ant', 'Assembler', 'ASP', 'Awk', 'Basic', 'BETA', 'C', 'C++',
-            \ 'C#', 'COBOL', 'DosBatch', 'Eiffel', 'Erlang', 'Flex', 'Fortran',
-            \ 'HTML', 'Java', 'JavaScript', 'Lisp', 'Lua', 'Make', 'MatLab',
-            \ 'OCaml', 'Pascal', 'Perl', 'PHP', 'Python', 'REXX', 'Ruby',
-            \ 'Scheme', 'Shell ''script', 'SLang', 'SML', 'SQL', 'Tcl', 'Tex',
-            \ 'Vera', 'Verilog', 'VHDL', 'Vim', 'YACC'] } }
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'MarcWeber/ultisnips', { 'disabled' : 1 }
-NeoBundle 'honza/vim-snippets', { 'disabled' : 1 }
-NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
-NeoBundleLazy 'vim-scripts/TeX-PDF', { 'autoload' : { 'filetypes' : 'tex' }}
-NeoBundleLazy 'dbakker/vim-lint', { 'autoload' : { 'filetypes' : 'vim' },
-            \ 'depends' : 'scrooloose/syntastic' }
-NeoBundle 'ciaranm/securemodelines'
-NeoBundle 'bling/vim-airline'
-NeoBundleLazy 'Shougo/unite.vim', { 'depends' : 'Shougo/vimproc',
-            \ 'autoload' : { 'commands' : 'Unite' } }
-NeoBundle 'Shougo/vimproc', {
-            \ 'build' : {
-            \       'windows' : 'make -f make_mingw32.mak',
-            \       'cygwin'  : 'make -f make_cygwin.mak',
-            \       'mac'     : 'make -f make_mac.mak',
-            \       'unix'    : 'make -f make_unix.mak'
-            \      },
-            \ }
 
 " Ag Vim: Ag plugin for vim {{{
 if executable('ag')
@@ -338,6 +346,7 @@ else
     endfunction
     nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
 endif
+" }}}
 
 " Syntastic: Real-time syntax checking {{{
 let g:syntastic_check_on_open = 1
