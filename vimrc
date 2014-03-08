@@ -14,7 +14,7 @@ let g:mapleader = ","
 " Autoinstall NeoBundle:
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
-    if !isdirectory(expand('~/.vim/bundle/neobundle.vim'))
+    if !isdirectory(expand('~/.vim/bundle/neobundle.vim')) "TODO: Check if empty
         !mkdir -p ~/.vim/bundle/neobundle &&
                 \ git clone 'https://github.com/Shougo/neobundle.vim.git'
                 \ ~/.vim/bundle/neobundle
@@ -416,7 +416,7 @@ NeoBundleCheck
 cabbrev h <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<CR>
 cabbrev help <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
 
-" Allow quitting unnamed buffers without confirmation or ! {{{
+" Use ,q to quit empty buffers without confirmation or ! {{{
 nnoremap <silent> <Leader>q :<C-u>call QuitIfEmpty()<CR>:q<CR>
 function! QuitIfEmpty()
     if empty(bufname('%'))
@@ -497,8 +497,8 @@ set comments-=s1:/*,mb:*,ex:*/
 set comments+=s:/*,mb:\ *,ex:\ */
 set comments+=fb:*
 
-" want to verymagic your substitutions, add the flag yourself, or use the
-" last search register
+" Use 'verymagic' search. Does not apply to substitutions; if you want to
+" verymagic your substitutions, use the last search register
 " TODO: Make substitutions automatically verymagic without breaking things, make
 " using previous search easier (currently: "/<BS><BS>/")
 nnoremap / /\v
@@ -819,8 +819,10 @@ endfunction
 " Hitting { and } constantly gets painful, and ^ and $ are too useful to be so
 " inconvenient. Not sure what to do with the default H and L though. I use
 " keepjumps so H and L don't write to the jumplist
-noremap <silent> L :keepjumps normal! }<CR>
-noremap <silent> H :keepjumps normal! {<CR>
+nnoremap <silent> L :keepjumps normal! }<CR>
+nnoremap <silent> H :keepjumps normal! {<CR>
+xnoremap <silent> L }
+xnoremap <silent> H {
 noremap { ^
 noremap } $
 
