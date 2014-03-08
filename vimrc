@@ -149,7 +149,6 @@ else
 endif
 " }}}
 
-
 " Unite: Unified interface for file, buffer, yankstack, etc. management {{{
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
@@ -818,11 +817,11 @@ endfunction
 
 " Hitting { and } constantly gets painful, and ^ and $ are too useful to be so
 " inconvenient. Not sure what to do with the default H and L though. I use
-" keepjumps so H and L don't write to the jumplist
+" keepjumps in normal mode so H and L don't write to the jumplist
+noremap <silent> L }
+noremap <silent> H {
 nnoremap <silent> L :keepjumps normal! }<CR>
 nnoremap <silent> H :keepjumps normal! {<CR>
-xnoremap <silent> L }
-xnoremap <silent> H {
 noremap { ^
 noremap } $
 
