@@ -408,11 +408,6 @@ noremap <Leader>ob :<C-u>OpenBrowserSmartSearch<Space>
 map <Leader>br <Plug>(ucw-restore-window)
 " }}}
 
-" Disabled Plugins: {{{
-"NeoBundle 'osyo-manga/vim-over'
-"NeoBundle 'tpope/vim-obsession'
-" }}}
-
 NeoBundleCheck
 " }}}
 
@@ -490,7 +485,6 @@ set incsearch       " Show results of search immediately
 set hlsearch        " Highlight search results by default
 set magic           " Use regexp-style search; 'magic' is default
 set wrapscan        " Have search wrap around the end of file
-"set matchpairs+=<:> " Match angle brackets with '%'
 
 " These improve the C-style /* comments by wrapping with
 " a ' *' on each line.
@@ -503,7 +497,6 @@ set comments-=s1:/*,mb:*,ex:*/
 set comments+=s:/*,mb:\ *,ex:\ */
 set comments+=fb:*
 
-" Use 'verymagic' when searching. Does not verymagic substitutions; if you
 " want to verymagic your substitutions, add the flag yourself, or use the
 " last search register
 " TODO: Make substitutions automatically verymagic without breaking things, make
