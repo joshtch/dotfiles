@@ -40,6 +40,9 @@ NeoBundle 'Shougo/vimproc', {
             \      },
             \ }
 NeoBundle 'bling/vim-airline'
+NeoBundleLazy 'benmills/vimux', { 'autoload' : { 'commands' : [
+            \ 'VimuxPromptCommand', 'VimuxInspectRunner', 'VimuxRunCommand',
+            \ 'VimuxOpenPane' ] } }
 NeoBundle 'ciaranm/securemodelines'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'coderifous/textobj-word-column.vim'
