@@ -372,7 +372,7 @@ let g:syntastic_c_compiler = 'gcc'
 " }}}
 
 " Fugitive: Awesome git plugin for vim {{{
-nnoremap <Leader>ga :<C-u>Git add %<CR>
+nnoremap <Leader>ga :<C-u>Git add %<CR><CR>
 nnoremap <Leader>gb :<C-u>Gblame<CR>
 nnoremap <Leader>gc :<C-u>Gcommit<CR>
 nnoremap <Leader>gd :<C-u>Gdiff<CR>
