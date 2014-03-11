@@ -89,6 +89,13 @@ NeoBundle 'scrooloose/nerdcommenter' , {
             \   }
             \ }
 NeoBundle 'scrooloose/syntastic'
+NeoBundleLazy 'tommcdo/vim-exchange', {
+            \ 'autoload' : {
+            \   'mappings' : [
+            \     '<Plug>Exchange', '<Plug>ExchangeClear', '<Plug>ExchangeLine'
+            \     ]
+            \   }
+            \ }
 NeoBundleLazy 'tpope/vim-capslock',
 NeoBundleLazy 'tpope/vim-dispatch', {
             \ 'autoload' : {
