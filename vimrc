@@ -1,17 +1,17 @@
 " vimrc
 " vim:set ft=vim tw=80 sw=4 et
 
-" Plugins And Settings:
-"source '~/dotfiles/bundles.vim'
-"source '~/dotfiles/plugins.vim'
-filetype plugin indent on
-
 " Clear autocmd settings -- stop autocommands from bogging down vim over time
 if has("autocmd")
     autocmd!
 endif
 
 let g:mapleader = ","
+
+" Plugins And Settings:
+source ~/dotfiles/bundles.vim
+source ~/dotfiles/plugins.vim
+filetype plugin indent on
 
 set backspace=indent,eol,start                      " Allow backspacing anywhere
 set splitbelow splitright                 " Split windows below and to the right
