@@ -46,16 +46,20 @@ NeoBundleLazy 'benmills/vimux', { 'autoload' : { 'commands' : [
 NeoBundle 'ciaranm/securemodelines'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'coderifous/textobj-word-column.vim'
+NeoBundle 'cypok/vim-sml', { 'autoload' : { 'filetypes' : [ 'sml', 'mosml'] } }
 NeoBundleLazy 'dbakker/vim-lint', {
             \ 'autoload' : { 'filetypes' : 'vim' },
             \ 'depends' : 'scrooloose/syntastic'
             \ }
 NeoBundle 'dockyard/vim-easydir'
 NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
-NeoBundle 'honza/vim-snippets', { 'disabled' : 1 }
 NeoBundle 'joshtch/vim-syntax-pentadactyl'
 NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
 NeoBundle 'kana/vim-textobj-line', {
+            \ 'vim_version' : '7.2',
+            \ 'depends' : 'kana/vim-textobj-user'
+            \ }
+NeoBundle 'kana/vim-textobj-entire', {
             \ 'vim_version' : '7.2',
             \ 'depends' : 'kana/vim-textobj-user'
             \ }
