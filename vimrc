@@ -9,148 +9,10 @@ endif
 " MapLeader: needs to be set before it's used
 let g:mapleader = ","
 
-" NeoBundle Plugin Setup: {{{
+" Plugin Settings:
+source ~/.vim/bundles.vim
 
-" Autoinstall NeoBundle:
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-    if !isdirectory(expand('~/.vim/bundle/neobundle.vim')) "TODO: Check if empty
-        !mkdir -p ~/.vim/bundle/neobundle &&
-                \ git clone 'https://github.com/Shougo/neobundle.vim.git'
-                \ ~/.vim/bundle/neobundle
-    endif
-endif
-
-call neobundle#rc(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundleLazy 'Shougo/unite.vim', {
-            \ 'depends' : 'Shougo/vimproc',
-            \ 'autoload' : { 'commands' : 'Unite' }
-            \ }
-NeoBundle 'Shougo/vimproc', {
-            \ 'build' : {
-            \       'windows' : 'make -f make_mingw32.mak',
-            \       'cygwin'  : 'make -f make_cygwin.mak',
-            \       'mac'     : 'make -f make_mac.mak',
-            \       'unix'    : 'make -f make_unix.mak'
-            \      },
-            \ }
-NeoBundle 'bling/vim-airline'
-NeoBundleLazy 'benmills/vimux', { 'autoload' : { 'commands' : [
-            \ 'VimuxPromptCommand', 'VimuxInspectRunner', 'VimuxRunCommand',
-            \ 'VimuxOpenPane' ] } }
-NeoBundle 'ciaranm/securemodelines'
-NeoBundle 'christoomey/vim-tmux-navigator'
-NeoBundle 'coderifous/textobj-word-column.vim'
-NeoBundle 'cypok/vim-sml', { 'autoload' : { 'filetypes' : [ 'sml', 'mosml'] } }
-NeoBundleLazy 'dbakker/vim-lint', {
-            \ 'autoload' : { 'filetypes' : 'vim' },
-            \ 'depends' : 'scrooloose/syntastic'
-            \ }
-NeoBundle 'dockyard/vim-easydir'
-NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
-NeoBundle 'joshtch/vim-syntax-pentadactyl'
-NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
-NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
-NeoBundle 'kana/vim-textobj-line', {
-            \ 'vim_version' : '7.2',
-            \ 'depends' : 'kana/vim-textobj-user'
-            \ }
-NeoBundle 'kana/vim-textobj-entire', {
-            \ 'vim_version' : '7.2',
-            \ 'depends' : 'kana/vim-textobj-user'
-            \ }
-NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
-            \ [ 'Ant', 'Assembler', 'ASP', 'Awk', 'Basic', 'BETA', 'C', 'C++',
-            \ 'C#', 'COBOL', 'DosBatch', 'Eiffel', 'Erlang', 'Flex', 'Fortran',
-            \ 'HTML', 'Java', 'JavaScript', 'Lisp', 'Lua', 'Make', 'MatLab',
-            \ 'OCaml', 'Pascal', 'Perl', 'PHP', 'Python', 'REXX', 'Ruby',
-            \ 'Scheme', 'Shell ''script', 'SLang', 'SML', 'SQL', 'Tcl', 'Tex',
-            \ 'Vera', 'Verilog', 'VHDL', 'Vim', 'YACC'] } }
-NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
-            \ '<Plug>FocusModeToggle' } }
-NeoBundle 'mhinz/vim-signify'
-NeoBundle 'michaeljsmith/vim-indent-object'
-NeoBundle 'ntpeters/vim-better-whitespace'
-NeoBundle 'scrooloose/nerdcommenter' , {
-            \ 'autoload' : {
-            \     'mappings' : [
-            \        '<Plug>NERDCommenterComment',
-            \        '<Plug>NERDCommenterNested',
-            \        '<Plug>NERDCommenterToggle',
-            \        '<Plug>NERDCommenterMinimal',
-            \        '<Plug>NERDCommenterInvert',
-            \        '<Plug>NERDCommenterSexy',
-            \        '<Plug>NERDCommenterYank',
-            \        '<Plug>NERDCommenterToEOL',
-            \        '<Plug>NERDCommenterAppend',
-            \        '<Plug>NERDCommenterInsert',
-            \        '<Plug>NERDCommenterAlignLeft',
-            \        '<Plug>NERDCommenterAlignBoth',
-            \        '<Plug>NERDCommenterUncomment'
-            \     ]
-            \   }
-            \ }
-NeoBundle 'scrooloose/syntastic'
-NeoBundleLazy 'tommcdo/vim-exchange', {
-            \ 'autoload' : {
-            \   'mappings' : [
-            \     '<Plug>Exchange', '<Plug>ExchangeClear', '<Plug>ExchangeLine'
-            \     ]
-            \   }
-            \ }
-NeoBundleLazy 'tpope/vim-capslock',
-NeoBundleLazy 'tpope/vim-dispatch', {
-            \ 'autoload' : {
-            \   'commands' : [
-            \     'Make', 'Make!', 'Copen', 'Copen!', 'Dispatch', 'Dispatch!',
-            \     'FocusDispatch', 'FocusDispatch!', 'Start', 'Start!'
-            \     ]
-            \   }
-            \ }
-NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-rsi'
-NeoBundle 'tpope/vim-surround', {
-            \ 'autoload' : {
-            \   'mappings' : [
-            \     '<Plug>Dsurround',
-            \     '<Plug>Csurround',
-            \     '<Plug>Ysurround',
-            \     '<Plug>YSurround',
-            \     '<Plug>Yssurround',
-            \     '<Plug>YSsurround',
-            \     '<Plug>YSsurround',
-            \     '<Plug>VSurround',
-            \     '<Plug>VgSurround',
-            \     '<Plug>Isurround',
-            \     '<Plug>ISurround',
-            \     ]
-            \   }
-            \ }
-NeoBundleLazy 'tpope/vim-vinegar', { 'autoload' : { 'filetypes' : 'netrw' } }
-NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
-NeoBundleLazy 'tyru/open-browser.vim', {
-            \ 'autoload' : {
-            \         'mappings' : [
-            \                 '<Plug>(openbrowser-open)',
-            \                 '<Plug>(openbrowser-search)',
-            \                 '<Plug>(openbrowser-smart-search)'
-            \             ],
-            \         'commands' : 'OpenBrowserSmartSearch'
-            \      }
-            \ }
-NeoBundleLazy 'tyru/undoclosewin.vim', { 'autoload' : {
-            \ 'mappings' : '<Plug>(ucw-restore-window)' }
-            \ }
-NeoBundleLazy 'vim-scripts/TeX-PDF', { 'autoload' : { 'filetypes' : 'tex' }}
-NeoBundleLazy 'vim-scripts/bufkill.vim', { 'autoload' : {
-            \ 'commands' : [ 'BD', 'BUN', 'BW', 'BB', 'BF' ] } }
-
-" Ag Vim: Ag plugin for vim {{{
+" Ag Vim: Ag plugin for vim
 if executable('ag')
     NeoBundle 'rking/ag.vim'
     set grepprg="ag --nogroup --nocolor --column"
@@ -160,9 +22,8 @@ else
     let grep_settings .= "--exclude-dir=.git --exclude-dir=node_modules"
     set grepprg=grep_settings
 endif
-" }}}
 
-" Unite: Unified interface for file, buffer, yankstack, etc. management {{{
+" Unite: Unified interface for file, buffer, yankstack, etc. management
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <Leader>ut :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<CR>
@@ -185,9 +46,8 @@ if executable('ag')
     let g:unite_source_rec_async_command='ag --nocolor --nogroup --hidden -g'
 endif
 nnoremap <Leader>nu :<C-u>Unite -log -wrap -vertical neobundle/update<CR>
-" }}}
 
-" Solarized: colorscheme {{{
+" Solarized: colorscheme
 if v:version >= 702
     NeoBundle 'altercation/vim-colors-solarized', { 'vim_version' : '7.2' }
     syntax enable
@@ -197,9 +57,8 @@ if v:version >= 702
     let g:solarized_termcolors=16
     let g:solarized_termtrans=0
 endif
-" }}}
 
-" Airline: custom statusline {{{
+" Airline: custom statusline
 if exists(':AirlineTheme')
     set lazyredraw
     set t_Co=256
@@ -222,13 +81,13 @@ if exists(':AirlineTheme')
     let g:airline_theme = 'solarized'
     let g:airline#extensions#tabline#enabled = 1
 endif
-" }}}
 
 " Secure Modelines: fix security of 'modelines' without disabling it altogether
 set modelines=0
 set secure
+neobundle#source('securemodelines')
 
-" Tmux Settings: {{{
+" Tmux Settings:
 if executable('tmux')
     " Autolabel tmux windows (currently broken for some reason)
     "augroup Tmux
@@ -237,32 +96,28 @@ if executable('tmux')
         "autocmd VimLeave * call system('tmux rename-window ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1])
     "augroup END
 
-    " Vimux: Interact with a tmux split directly from vim's commandline {{{
+    " Vimux: Interact with a tmux split directly from vim's commandline
     nnoremap <Leader>vs :<C-u>call VimuxRunCommand('exec zsh')<CR>:call VimuxRunCommand('clear')<CR>
     nnoremap <Leader>vc :<C-u>VimuxCloseRunner<CR>
     nnoremap <Leader>vp :<C-u>VimuxPromptCommand<CR>
     nnoremap <Leader>vr :<C-u>VimuxRunLastCommand<CR>
-    " }}}
 
-    " VimTmuxNavigator: Seamlessly navigate vim and tmux splits {{{
+    " VimTmuxNavigator: Seamlessly navigate vim and tmux splits
     let g:tmux_navigator_no_mappings = 1
     nnoremap <silent> <C-h> :<C-u>TmuxNavigateLeft<CR>
     nnoremap <silent> <C-j> :<C-u>TmuxNavigateDown<CR>
     nnoremap <silent> <C-k> :<C-u>TmuxNavigateUp<CR>
     nnoremap <silent> <C-l> :<C-u>TmuxNavigateRight<CR>
     nnoremap <silent> <C--> :<C-u>TmuxNavigatePrevious<CR>
-    " }}}
 endif
-" }}}
 
-" TeX PDF: LaTeX compiling in Vim. Requires latex-mk or rubber {{{
+" TeX PDF: LaTeX compiling in Vim. Requires latex-mk or rubber
 let g:tex_pdf_map_keys = 0
 nnoremap <silent> gc :<C-u>BuildAndViewTexPdf<CR>
 nnoremap <silent> gC :<C-u>BuildTexPdf<CR>
 " TODO: look into coot/atp_vim for autocompiling + special completions + stuff
-" }}}
 
-" Tabular: Character alignment {{{
+" Tabular: Character alignment
 if exists(":Tabularize")
     nnoremap <Leader>a= :Tabularize /=<CR>
     xnoremap <Leader>a= :Tabularize /=<CR>
@@ -278,18 +133,16 @@ if exists(":Tabularize")
     endfunction
     nnoremap <silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
 endif
-" }}}
 
-" Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc) {{{
+" Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc)
 if v:version >= 702
     augroup Arpeggio
         autocmd!
         autocmd VimEnter * Arpeggio inoremap jk <Esc>
     augroup END
 endif
-" }}}
 
-" Easymotion: Quick navigation {{{
+" Easymotion: Quick navigation
 nmap <Space> <Plug>(easymotion-s2)
 xmap <Space> <Plug>(easymotion-s2)
 omap <Space> <Plug>(easymotion-s2)
@@ -302,9 +155,8 @@ let g:EasyMotion_smartcase = 1                      " type `a` and match `a`&`A`
 let g:EasyMotion_use_smartsign_us = 1   " Smartsign (type `1` and match `1`&`!`)
 let g:EasyMotion_use_upper = 1                     " Use uppercase target labels
 let g:EasyMotion_space_jump_first = 1       " Type space and jump to first match
-" }}}
 
-" Focus: Force display of a single buffer for focused editing {{{
+" Focus: Force display of a single buffer for focused editing
             \ '<Plug>FocusModeToggle' } }
 function! ToggleFocusMode()
     if !exists("t:focusmode")
@@ -317,10 +169,8 @@ function! ToggleFocusMode()
 endfunction
 nmap <silent> <Leader>f :<C-u>call ToggleFocusMode()<CR>
 let g:focus_use_default_mapping = 0
-" }}}
 
-" Better Whitespace: highlight trailing WS on all lines except current {{{
-NeoBundle 'ntpeters/vim-better-whitespace'
+" Better Whitespace: highlight trailing WS on all lines except current
 if exists(":StripWhitespace")
     augroup BetterWhitespace
         autocmd!
@@ -358,9 +208,8 @@ else
     endfunction
     nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
 endif
-" }}}
 
-" Syntastic: Real-time syntax checking {{{
+" Syntastic: Real-time syntax checking
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_loc_list = 0
@@ -372,9 +221,8 @@ let g:syntastic_warning_symbol = '!'
 let g:syntastic_c_check_header = 1
 "let g:syntastic_auto_refresh_includes = 1
 let g:syntastic_c_compiler = 'gcc'
-" }}}
 
-" Fugitive: Awesome git plugin for vim {{{
+" Fugitive: Awesome git plugin for vim
 nnoremap <Leader>ga :<C-u>Git add %<CR><CR>
 nnoremap <Leader>gb :<C-u>Gblame<CR>
 nnoremap <Leader>gc :<C-u>Gcommit<CR>
@@ -382,9 +230,8 @@ nnoremap <Leader>gd :<C-u>Gdiff<CR>
 nnoremap <Leader>gl :<C-u>Glog<CR>
 nnoremap <Leader>gp :<C-u>Git push<CR>
 nnoremap <Leader>gs :<C-u>Git status -sb<CR>
-" }}}
 
-" Vinegar: netrw improvements {{{
+" Vinegar: netrw improvements
 " Still haven't jumped on the NerdTree bandwagon
 function! ToggleVExplorer()
     if exists("t:expl_buf_num")
@@ -407,35 +254,28 @@ function! ToggleVExplorer()
     endif
 endfunction
 noremap <silent> <C-e> :<C-u>call ToggleVExplorer()<CR>
-" }}}
 
-" Open Browser: Open a URL in the default browser {{{
+" Open Browser: Open a URL in the default browser
 map gu <Plug>(openbrowser-open)
 map gs <Plug>(openbrowser-search)
 map go <Plug>(openbrowser-smart-search)
 noremap <Leader>ob :<C-u>OpenBrowserSmartSearch<Space>
-" }}}
 
-" UndoCloseWin: Undo closing of tabs and windows {{{
+" UndoCloseWin: Undo closing of tabs and windows
 map <Leader>br <Plug>(ucw-restore-window)
-" }}}
-
-NeoBundleCheck
-" }}}
 
 " Open help in a vertical split instead of the default horizontal split
 " " http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev
 cabbrev h <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<CR>
 cabbrev help <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
 
-" Use ,q to quit empty buffers without confirmation or ! {{{
+" Use ,q to quit empty buffers without confirmation or !
 nnoremap <silent> <Leader>q :<C-u>call QuitIfEmpty()<CR>:q<CR>
 function! QuitIfEmpty()
     if empty(bufname('%'))
         setlocal nomodified
     endif
 endfunction
-" }}}
 
 " Replace 'ddate' with current date, 'ttime' with current time
 if exists("*strftime")
