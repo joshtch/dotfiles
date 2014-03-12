@@ -71,7 +71,7 @@ endif
 " Secure Modelines: fix security of 'modelines' without disabling it altogether
 set modelines=0
 set secure
-neobundle#source('securemodelines')
+NeoBundleSource securemodelines
 
 " Tmux Settings:
 if executable('tmux')
