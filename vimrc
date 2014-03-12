@@ -26,7 +26,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'MarcWeber/ultisnips', { 'disabled' : 1 }
 NeoBundleLazy 'Shougo/unite.vim', {
             \ 'depends' : 'Shougo/vimproc',
             \ 'autoload' : { 'commands' : 'Unite' }
@@ -55,6 +54,7 @@ NeoBundle 'dockyard/vim-easydir'
 NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
 NeoBundle 'joshtch/vim-syntax-pentadactyl'
 NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
+NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
 NeoBundle 'kana/vim-textobj-line', {
             \ 'vim_version' : '7.2',
             \ 'depends' : 'kana/vim-textobj-user'
@@ -74,7 +74,6 @@ NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
             \ '<Plug>FocusModeToggle' } }
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'michaeljsmith/vim-indent-object'
-NeoBundle 'neitanod/vim-sade'
 NeoBundle 'ntpeters/vim-better-whitespace'
 NeoBundle 'scrooloose/nerdcommenter' , {
             \ 'autoload' : {
