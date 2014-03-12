@@ -30,11 +30,11 @@ set comments+=s:/*,mb:\ *,ex:\ */          "  * wrapping with a '*' on each line
 set comments+=fb:*                         "  */
 set ignorecase smartcase " Search case matching: ignore case except if caps used
 set ruler                        " Show comma-separated line and column location
-set tabstop=4                     " Number of spaces that a <Tab> counts for
-set softtabstop=4                 " Number of spaces to increment >>, <<, etc
-set shiftwidth=4                  " Number of spaces to tab by
-set expandtab                     " Change <Tab>s to spaces
-set smarttab                      " Tab inserts shiftwidth spaces, and backspace
+set tabstop=8                     " Number of spaces that a tab char displays as
+set softtabstop=4             " Number of spaces <Tab>/backspace inserts/removes
+set shiftwidth=4                     " Number of spaces to increment >>, <<, etc
+set expandtab                                          " Change <Tab>s to spaces
+set smarttab        " Tab inserts shiftwidth spaces, backspace removes that many
 set shiftround                    " Round indents to multiple of 'shiftwidth'
 set shell=/bin/zsh                                               " Default shell
 set mouse=a ttymouse=xterm2                                      " Mouse support
@@ -59,6 +59,7 @@ set viminfo='20,\"50,:10,/10,%,n~/.viminfo    " Remember things between sessions
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 set winwidth=86   " Minimum split width -- 80 + 6 for number + sign/fold columns
 set nojoinspaces          " Don't add extra spaces after .?! when joining with J
+syntax enable
 
 " Settings for automatic text formatting
  set formatoptions=
