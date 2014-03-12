@@ -18,7 +18,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Appearance
-NeoBundle 'altercation/vim-colors-solarized'
+"NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'bling/vim-airline'
 
 " Text-Objects
