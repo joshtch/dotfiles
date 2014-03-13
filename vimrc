@@ -26,7 +26,7 @@ set nrformats=hex,alpha                     " Accepted bases for <C-a> and <C-x>
 set hidden                                 " Allow modified buffers to be hidden
 set incsearch hlsearch magic wrapscan                                   " Search
 set comments-=s1:/*,mb:*,ex:*/             " /* Improve C-style comments by
-set comments+=s:/*,mb:\ *,ex:\ */          "  * wrapping with a '*' on each line
+set comments+=s:/*,mb:\ *,ex:\ */          "  * wrapping with ' * ' on each line
 set comments+=fb:*                         "  */
 set ignorecase smartcase " Search case matching: ignore case except if caps used
 set ruler                        " Show comma-separated line and column location
@@ -35,7 +35,7 @@ set softtabstop=4             " Number of spaces <Tab>/backspace inserts/removes
 set shiftwidth=4                     " Number of spaces to increment >>, <<, etc
 set expandtab                                          " Change <Tab>s to spaces
 set smarttab        " Tab inserts shiftwidth spaces, backspace removes that many
-set shiftround                    " Round indents to multiple of 'shiftwidth'
+set shiftround                       " Round indents to multiple of 'shiftwidth'
 set shell=/bin/zsh                                               " Default shell
 set mouse=a ttymouse=xterm2                                      " Mouse support
 set nowrap linebreak textwidth=80 " Text wrapping: break line along spaces @~80c
@@ -47,9 +47,9 @@ set number                                                        " Line numbers
 set autoread          " Reread a file detected to have been modified outside Vim
 set autowrite                       " Automatically save file when focus is lost
 set copyindent autoindent          " Imitate indenting of previous line's indent
-set ttyfast notimeout ttimeout       " See :help slow-terminal
+set ttyfast notimeout ttimeout                         " See :help slow-terminal
 syntax sync minlines=256             " Update syntax highlighting for more lines
-set synmaxcol=256                    " Don't syntax highlight long lines
+set synmaxcol=256                            " Don't syntax highlight long lines
 set pastetoggle=<Leader>p                     " Toggle paste mode with <Leader>p
 set switchbuf=useopen               " Switch to open buffer instead of reopening
 set viewoptions=folds,options,cursor,unix,slash                     " Appearance
