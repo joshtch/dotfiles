@@ -167,12 +167,11 @@ nnoremap <F1> <Nop>
 nnoremap Q @q
 nnoremap K i<CR><Esc>k:call RemoveTrailingWS()<CR>$hl
 function! RemoveTrailingWS()
-    let g:_ishls = v:hlsearch
-    let g:_lastsrch=@/
+    let s:_ishls = &hlsearch
+    let s:_lastsrch=@/
     s/\s\+$//e
-    let @/=g:_lastsrch
-    let v:hlsearch = g:_ishls
-    unlet g:_lastsrch g:_ishls
+    let @/=s:_lastsrch
+    let &hlsearch = s:_ishls
 endfunction
 
 " Open help in a vertical split instead of the default horizontal split
