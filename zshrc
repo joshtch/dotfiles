@@ -3,6 +3,7 @@
 
 # MAC Address spoofing: ifconfig bge0 link 03:a0:04:d3:00:11
 
+source ~/.localrc.zsh
 source ~/dotfiles/antigen/antigen.zsh
 
 antigen use oh-my-zsh
@@ -26,6 +27,5 @@ antigen apply
 cdpath=(. .. ~)
 
 source ~/dotfiles/custom/aliases.zsh
-source ~/.localrc.zsh
 
 source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
