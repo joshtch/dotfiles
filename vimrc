@@ -219,6 +219,7 @@ inoremap <C-u> <C-g>u<C-u>
 " Since the ',' command is actually useful, set it to ',,'
 nnoremap <Leader>, ,
 nnoremap <silent> <Leader>/ :<C-u>nohlsearch<CR>
+"nnoremap <Leader>w :<C-u>w!<CR>
 nnoremap <Leader>w :<C-u>w!<CR>
 nnoremap <silent> <Leader>ev :<C-u>vsplit $MYVIMRC<CR>
 nnoremap <silent> <Leader>ep :<C-u>vsplit ~/dotfiles/plugins.vim<CR>
