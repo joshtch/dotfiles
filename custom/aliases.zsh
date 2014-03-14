@@ -86,7 +86,7 @@ else
     alias aa='vim ~/.oh-my-zsh/custom/aliases.zsh; exec zsh'
     alias zz='vim ~/.zshrc; source ~/.zshrc'
 fi
-alias ll='vim ~/localrc.zsh; source ~/localrc.zsh'
+alias ll='vim ~/.localrc.zsh; source ~/.localrc.zsh'
 
 alias z='exec zsh'
 alias vbundle='cd ~/.vim/bundle'
