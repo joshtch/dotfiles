@@ -84,6 +84,7 @@ NeoBundle 'mhinz/vim-signify'
 NeoBundleLazy 'tpope/vim-vinegar', { 'autoload' : { 'filetypes' : 'netrw' } }
 NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'ntpeters/vim-better-whitespace'
 
 " Operators
 NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
@@ -134,7 +135,8 @@ NeoBundle 'tpope/vim-surround', {
             \ }
 
 " Language-specific
-NeoBundle 'cypok/vim-sml', { 'autoload' : { 'filetypes' : [ 'sml', 'mosml'] } }
+NeoBundleLazy 'cypok/vim-sml',
+            \ { 'autoload' : { 'filetypes' : [ 'sml', 'mosml'] } }
 NeoBundle 'joshtch/vim-syntax-pentadactyl'
 NeoBundleLazy 'vim-scripts/TeX-PDF', { 'autoload' : { 'filetypes' : 'tex' }}
 NeoBundleLazy 'dbakker/vim-lint', {
@@ -142,7 +144,7 @@ NeoBundleLazy 'dbakker/vim-lint', {
             \ 'depends' : 'scrooloose/syntastic'
             \ }
 
-" Generic functionality-extending
+" Vim built-in functionality-extending
 NeoBundle 'Shougo/vimproc', {
             \ 'build' : {
             \       'windows' : 'make -f make_mingw32.mak',
@@ -153,7 +155,6 @@ NeoBundle 'Shougo/vimproc', {
             \ }
 NeoBundleLazy 'ciaranm/securemodelines'
 NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
-NeoBundle 'ntpeters/vim-better-whitespace'
 NeoBundle 'tpope/vim-repeat'
 
 " Uncategorized
