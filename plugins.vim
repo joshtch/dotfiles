@@ -12,13 +12,13 @@ endif
 " Unite: Unified interface for file, buffer, yankstack, etc. management
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <Leader>ut :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<CR>
-nnoremap <Leader>uf :<C-u>Unite -no-split -buffer-name=files -start-insert file -resume<CR>
-nnoremap <Leader>ur :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru -resume<CR>
-"nnoremap <Leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline -resume<CR>
-nnoremap <Leader>uy :<C-u>Unite -no-split -buffer-name=yank history/yank -resume<CR>
-nnoremap <Leader>ub :<C-u>Unite -no-split -buffer-name=buffer buffer -resume<CR>
-nnoremap <Leader>ug :<C-u>Unite -no-split -buffer-name=outline -start-insert tag -resume<CR>
+nnoremap Ut :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/async:! -resume<CR>
+nnoremap Uf :<C-u>Unite -no-split -buffer-name=files -start-insert file -resume<CR>
+nnoremap Ur :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru -resume<CR>
+nnoremap Uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline -resume<CR>
+nnoremap Uy :<C-u>Unite -no-split -buffer-name=yank history/yank -resume<CR>
+nnoremap Ub :<C-u>Unite -no-split -buffer-name=buffer buffer -resume<CR>
+nnoremap Ug :<C-u>Unite -no-split -buffer-name=outline -start-insert tag -resume<CR>
 augroup UniteTags
     autocmd!
     autocmd BufEnter *
