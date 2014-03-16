@@ -32,6 +32,7 @@ NeoBundle 'kana/vim-textobj-entire', {
             \ 'depends' : 'kana/vim-textobj-user'
             \ }
 NeoBundle 'michaeljsmith/vim-indent-object'
+NeoBundle 'wellle/targets.vim'
 
 " Movement
 NeoBundle 'Lokaltog/vim-easymotion'
