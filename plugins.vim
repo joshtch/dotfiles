@@ -35,7 +35,6 @@ nnoremap <Leader>nu :<C-u>Unite -log -wrap -vertical neobundle/update<CR>
 
 " Solarized: colorscheme
 if v:version >= 702
-    NeoBundle 'altercation/vim-colors-solarized', { 'vim_version' : '7.2' }
     syntax enable
     colorscheme solarized
     call togglebg#map("<Leader>5")
