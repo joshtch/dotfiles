@@ -164,7 +164,7 @@ if exists(":StripWhitespace")
         autocmd FileType unite,markdown execute "DisableWhitespace"
         autocmd BufWinLeave * execute "DisableWhitespace"
     augroup END
-    nnoremap <Leader>cws :StripWhitespace<CR>
+    nnoremap <silent> <Leader>cws :StripWhitespace<CR>
 else
     augroup AnnoyingWhitespace
         autocmd!
@@ -181,16 +181,15 @@ else
         highlight default link EOLWS ErrorMsg
     augroup END
     function! <SID>StripTrailingWhitespace()
-        " Preparation: save last search, and cursor position.
-        let g:_ishls = v:hlsearch
-        let g:_lastsearch=@/
-        let g:_startline = line(".")
-        let g:_startcol = col(".")
+        let s:_ishls=v:hlsearch
+        let s:_lastsearch=@/
+        let s:_startline=line(".")
+        let s:_startcol=col(".")
         %s/\s\+$//e
-        let @/=g:_lastsearch
-        let v:hlsearch = g:_ishls
-        call cursor(g:_lastline, g:_lastcol)
-        unlet g:_lastline g:_lastcol g:_lastsearch g:_ishls
+        let @/=s:_lastsearch
+        let v:hlsearch=s:_ishls
+        call cursor(s:_startline, s:_startline)
+        unlet s:_startline s:_startcol s:_lastsearch s:_ishls
     endfunction
     nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
 endif
