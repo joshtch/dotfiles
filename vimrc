@@ -24,10 +24,10 @@ set infercase complete-=i completeopt=longest,menuone        " Insert completion
 set showmatch matchtime=1                                 " Parentheses matching
 set nrformats=hex,alpha                     " Accepted bases for <C-a> and <C-x>
 set hidden                                 " Allow modified buffers to be hidden
-set incsearch hlsearch magic wrapscan                                   " Search
-set comments-=s1:/*,mb:*,ex:*/             " /* Improve C-style comments by
-set comments+=s:/*,mb:\ *,ex:\ */          "  * wrapping with ' * ' on each line
-set comments+=fb:*                         "  */
+set incsearch hlsearch magic wrapscan                          " Search settings
+set comments-=s1:/*,mb:*,ex:*/                        " /* Make C-style comments
+set comments+=s:/*,mb:\ *,ex:\ */                     "  * wrap like this
+set comments+=fb:*                                    "  */
 set ignorecase smartcase " Search case matching: ignore case except if caps used
 set ruler                        " Show comma-separated line and column location
 set tabstop=8                     " Number of spaces that a tab char displays as
