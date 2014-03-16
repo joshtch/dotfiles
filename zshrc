@@ -10,11 +10,11 @@ antigen use oh-my-zsh
 antigen bundle colored-man
 antigen bundle command-not-found
 antigen bundle cp
-antigen bundle git
-antigen bundle github
 antigen bundle history
-antigen bundle tmux
 antigen bundle vi-mode
+
+(( ! $+git )) && antigen bundle git && antigen bundle github
+(( ! $+tmux )) && antigen bundle tmux
 
 if [[ `uname` == 'Darwin' ]] then
     antigen bundle osx
