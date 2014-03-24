@@ -28,7 +28,7 @@ silent qmark f http://footytube.com/
 silent qmark G http://www.gettyfooty.com/search/label/Highlights
 silent qmark t https://trunk.tufts.edu/
 silent qmark i http://go.tufts.edu/isis
-silent qmark p https://student.support.tufts.edu/payrails/login/
+silent qmark p https://tuftscss.shiftplanning.com/app/timeclock/
 silent qmark l https://student.support.tufts.edu/links/
 silent qmark k https://wikis.uit.tufts.edu/confluence/display/CSS/Student+Support/
 silent qmark w http://www.wiziwig.tv/competition.php?part=sports&discipline=football
