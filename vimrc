@@ -219,7 +219,7 @@ inoremap <C-u> <C-g>u<C-u>
 " Since the ',' command is actually useful, set it to ',,'
 nnoremap <Leader>, ,
 nnoremap <silent> <Leader>/ :<C-u>nohlsearch<CR>
-nnoremap <Leader>w :<C-u>w!<CR>
+nnoremap <silent> <Leader>w :<C-u>update!<CR>
 nnoremap <silent> <Leader>ev :<C-u>vsplit $MYVIMRC<CR>
 nnoremap <silent> <Leader>ep :<C-u>vsplit ~/dotfiles/plugins.vim<CR>
 nnoremap <silent> <Leader>ez :<C-u>vsplit ~/.zshrc<CR>
@@ -227,7 +227,7 @@ nnoremap <silent> <Leader>sl ^vg_y:execute @@<CR>
 nnoremap <silent> <Leader>ea :<C-u>vsplit ~/.oh-my-zsh/lib/aliases.zsh<CR>
 nnoremap <silent> <Leader>sv :<C-u>so $MYVIMRC<CR>
 
-nnoremap <silent> m :<C-u>w!<CR>:<C-u>call MakeIfPossible()<CR>
+nnoremap <silent> m :<C-u>update!<CR>:<C-u>call MakeIfPossible()<CR>
 function! MakeIfPossible()
     if &makeprg != 'make' || filereadable(expand('%:p:h') . "/Makefile")
         make
