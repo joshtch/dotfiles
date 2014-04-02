@@ -221,6 +221,7 @@ nnoremap <Leader>, ,
 nnoremap <silent> <Leader>/ :<C-u>nohlsearch<CR>
 nnoremap <Leader>w :<C-u>w!<CR>
 nnoremap <silent> <Leader>ev :<C-u>vsplit $MYVIMRC<CR>
+nnoremap <silent> <Leader>eb :<C-u>vsplit ~/dotfiles/bundles.vim<CR>
 nnoremap <silent> <Leader>ep :<C-u>vsplit ~/dotfiles/plugins.vim<CR>
 nnoremap <silent> <Leader>ez :<C-u>vsplit ~/.zshrc<CR>
 nnoremap <silent> <Leader>sl ^vg_y:execute @@<CR>
