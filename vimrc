@@ -311,8 +311,8 @@ function! CenteringToggle()
         let g:scrolloff_default_value = &scrolloff
         set scrolloff=99999
     else
-        if exists(g:scrolloff_default_value)
-            set scrolloff=g:scrolloff_default_value
+        if exists('g:scrolloff_default_value')
+            let &scrolloff= g:scrolloff_default_value
             unlet g:scrolloff_default_value
         else
             set scrolloff=0
