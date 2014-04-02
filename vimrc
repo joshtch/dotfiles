@@ -295,8 +295,8 @@ noremap <C-^> <C-^>`"
 " keepjumps in normal mode so H and L don't write to the jumplist
 noremap <silent> L }
 noremap <silent> H {
-nnoremap <silent> L :keepjumps normal! }<CR>
-nnoremap <silent> H :keepjumps normal! {<CR>
+nnoremap <silent> L :<C-u>execute 'keepjumps normal!' v:count1 . '}'<CR>
+nnoremap <silent> H :<C-u>execute 'keepjumps normal!' v:count1 . '{'<CR>
 noremap { ^
 noremap } $
 
