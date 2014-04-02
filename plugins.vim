@@ -188,7 +188,7 @@ else
         %s/\s\+$//e
         let @/=s:_lastsearch
         let v:hlsearch=s:_ishls
-        call cursor(s:_startline, s:_startline)
+        call cursor(s:_startline, s:_startcol)
         unlet s:_startline s:_startcol s:_lastsearch s:_ishls
     endfunction
     nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
