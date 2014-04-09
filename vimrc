@@ -165,13 +165,16 @@ augroup END
 " K splits the line and removes trailing whitespace (reverse of J/gJ)
 nnoremap <F1> <Nop>
 nnoremap Q @q
-nnoremap K i<CR><Esc>k:call RemoveTrailingWS()<CR>$hl
-function! RemoveTrailingWS()
-    let s:_ishls = &hlsearch
+nnoremap K :<C-u>call SplitHere()<CR>
+function! SplitHere()
+    exe "norm! i\<CR>\<Esc>k"
+    let s:_ishls=&hlsearch
     let s:_lastsrch=@/
     s/\s\+$//e
     let @/=s:_lastsrch
-    let &hlsearch = s:_ishls
+    let &hlsearch=s:_ishls
+    " The 'hl' is to enable splitting multiple times with KjKjKj...
+    norm! $hl
 endfunction
 
 " Open help in a vertical split instead of the default horizontal split
@@ -179,9 +182,9 @@ endfunction
 cabbrev h <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<CR>
 cabbrev help <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
 
-" Use ,q to quit empty buffers without confirmation or !
-nnoremap <silent> <Leader>q :<C-u>call QuitIfEmpty()<CR>:q<CR>
-function! QuitIfEmpty()
+" Use ,q to quit nameless buffers without confirmation or !
+nnoremap <silent> <Leader>q :<C-u>call QuitIfNameless()<CR>:q<CR>
+function! QuitIfNameless()
     if empty(bufname('%'))
         setlocal nomodified
     endif
