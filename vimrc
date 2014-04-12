@@ -200,16 +200,6 @@ endif
 " verymagic your substitutions, use the last search register or add \v manually
 nnoremap / /\v
 
-" Auto center long jumps
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-nnoremap <silent> g# g#zz
-nnoremap <silent> <C-o> <C-o>zz
-nnoremap <silent> <C-i> <C-i>zz
-
 " Add a relative number toggle
 nnoremap <Leader>r :<C-u>set rnu!<CR>
 
@@ -224,6 +214,7 @@ nnoremap <Leader>, ,
 nnoremap <silent> <Leader>/ :<C-u>nohlsearch<CR>
 nnoremap <silent> <Leader>w :<C-u>update!<CR>
 nnoremap <silent> <Leader>ev :<C-u>vsplit $MYVIMRC<CR>
+nnoremap <silent> <Leader>eb :<C-u>vsplit ~/dotfiles/bundles.vim<CR>
 nnoremap <silent> <Leader>ep :<C-u>vsplit ~/dotfiles/plugins.vim<CR>
 nnoremap <silent> <Leader>ez :<C-u>vsplit ~/.zshrc<CR>
 nnoremap <silent> <Leader>sl ^vg_y:execute @@<CR>
