@@ -9,6 +9,8 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
+alias cl='clear; ls'
+
 # Show contents of directory on cd
 alias cdl='cd && ls'
 
