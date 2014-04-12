@@ -38,7 +38,7 @@ NeoBundle 'wellle/targets.vim'
 NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'christoomey/vim-tmux-navigator'
 
-" IDE Features
+" IDE-like Features
 NeoBundleLazy 'Shougo/unite.vim', {
             \ 'depends' : 'Shougo/vimproc',
             \ 'autoload' : { 'commands' : 'Unite' }
@@ -60,8 +60,6 @@ NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
             \ 'OCaml', 'Pascal', 'Perl', 'PHP', 'Python', 'REXX', 'Ruby',
             \ 'Scheme', 'Shell ''script', 'SLang', 'SML', 'SQL', 'Tcl', 'Tex',
             \ 'Vera', 'Verilog', 'VHDL', 'Vim', 'YACC'] } }
-NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
-            \ '<Plug>FocusModeToggle' } }
 NeoBundleLazy 'tpope/vim-dispatch', {
             \ 'autoload' : {
             \   'commands' : [
@@ -157,8 +155,8 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundleLazy 'ciaranm/securemodelines'
 NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
 NeoBundle 'tpope/vim-repeat'
-
-" Uncategorized
+NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
+            \ '<Plug>FocusModeToggle' } }
 NeoBundle 'dockyard/vim-easydir'
 NeoBundle 'tpope/vim-rsi'
 NeoBundleLazy 'tyru/undoclosewin.vim', { 'autoload' : {
