@@ -37,6 +37,7 @@ nnoremap <Leader>nu :<C-u>Unite -log -wrap -vertical neobundle/update<CR>
 if v:version >= 702
     syntax enable
     colorscheme solarized
+    set background=dark
     call togglebg#map("<Leader>5")
     iunmap <Leader>5
     let g:solarized_termcolors=16
@@ -67,6 +68,7 @@ augroup END
 let g:airline_fugitive_prefix = '⎇ '
 let g:airline_theme = 'solarized'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " Secure Modelines: fix security of 'modelines' without disabling it altogether
 set modelines=0
