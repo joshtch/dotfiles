@@ -53,13 +53,13 @@ NeoBundleLazy 'benmills/vimux', {
             \     ]
             \   }
             \ }
-NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
-            \ [ 'Ant', 'Assembler', 'ASP', 'Awk', 'Basic', 'BETA', 'C', 'C++',
-            \ 'C#', 'COBOL', 'DosBatch', 'Eiffel', 'Erlang', 'Flex', 'Fortran',
-            \ 'HTML', 'Java', 'JavaScript', 'Lisp', 'Lua', 'Make', 'MatLab',
-            \ 'OCaml', 'Pascal', 'Perl', 'PHP', 'Python', 'REXX', 'Ruby',
-            \ 'Scheme', 'Shell ''script', 'SLang', 'SML', 'SQL', 'Tcl', 'Tex',
-            \ 'Vera', 'Verilog', 'VHDL', 'Vim', 'YACC'] } }
+"NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
+            "\ [ 'Ant', 'Assembler', 'ASP', 'Awk', 'Basic', 'BETA', 'C', 'C++',
+            "\ 'C#', 'COBOL', 'DosBatch', 'Eiffel', 'Erlang', 'Flex', 'Fortran',
+            "\ 'HTML', 'Java', 'JavaScript', 'Lisp', 'Lua', 'Make', 'MatLab',
+            "\ 'OCaml', 'Pascal', 'Perl', 'PHP', 'Python', 'REXX', 'Ruby',
+            "\ 'Scheme', 'Shell ''script', 'SLang', 'SML', 'SQL', 'Tcl', 'Tex',
+            "\ 'Vera', 'Verilog', 'VHDL', 'Vim', 'YACC'] } }
 NeoBundleLazy 'tpope/vim-dispatch', {
             \ 'autoload' : {
             \   'commands' : [
@@ -81,7 +81,7 @@ NeoBundleLazy 'tyru/open-browser.vim', {
             \ }
 NeoBundle 'mhinz/vim-signify'
 NeoBundleLazy 'tpope/vim-vinegar', { 'autoload' : { 'filetypes' : 'netrw' } }
-NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
+"NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'ntpeters/vim-better-whitespace'
 
