@@ -143,7 +143,6 @@ endif
 "let g:EasyMotion_space_jump_first = 1       " Type space and jump to first match
 
 " Focus: Force display of a single buffer for focused editing
-            \ '<Plug>FocusModeToggle' } }
 function! ToggleFocusMode()
     if !exists("t:focusmode")
         autocmd! Resize
