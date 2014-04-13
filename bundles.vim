@@ -13,15 +13,13 @@ if has('vim_starting')
     endif
 endif
 call neobundle#rc(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Appearance
+" Appearance:
 NeoBundle 'altercation/vim-colors-solarized', { 'vim_version' : '7.2' }
 NeoBundle 'bling/vim-airline'
 
-" Text-Objects
+" Text Objects:
 NeoBundle 'coderifous/textobj-word-column.vim'
 NeoBundle 'kana/vim-textobj-line', {
             \ 'vim_version' : '7.2',
@@ -34,11 +32,11 @@ NeoBundle 'kana/vim-textobj-entire', {
 NeoBundle 'michaeljsmith/vim-indent-object'
 NeoBundle 'wellle/targets.vim'
 
-" Movement
+" Movement:
 NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'christoomey/vim-tmux-navigator'
 
-" IDE-like Features
+" IDElike Features:
 NeoBundleLazy 'Shougo/unite.vim', {
             \ 'depends' : 'Shougo/vimproc',
             \ 'autoload' : { 'commands' : 'Unite' }
@@ -85,7 +83,7 @@ NeoBundleLazy 'tpope/vim-vinegar', { 'autoload' : { 'filetypes' : 'netrw' } }
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'ntpeters/vim-better-whitespace'
 
-" Operators
+" Operators:
 NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
 NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
 NeoBundle 'scrooloose/nerdcommenter' , {
@@ -133,7 +131,7 @@ NeoBundle 'tpope/vim-surround', {
             \   }
             \ }
 
-" Language-specific
+" Language Specific:
 NeoBundleLazy 'cypok/vim-sml',
             \ { 'autoload' : { 'filetypes' : [ 'sml', 'mosml'] } }
 NeoBundle 'joshtch/vim-syntax-pentadactyl'
@@ -143,7 +141,7 @@ NeoBundleLazy 'dbakker/vim-lint', {
             \ 'depends' : 'scrooloose/syntastic'
             \ }
 
-" Vim built-in functionality-extending
+" Vim Functionality Extending:
 NeoBundle 'Shougo/vimproc', {
             \ 'build' : {
             \       'windows' : 'make -f make_mingw32.mak',
