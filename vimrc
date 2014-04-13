@@ -87,12 +87,22 @@ if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j
 endif
 
-" Highlight column 80 so we know when we're over
+" Highlight last column so we know when we're over
 if exists('+colorcolumn')
-    set colorcolumn=80
-else
+    if &textwidth != 0
+        set colorcolumn=+0
+    else
+        set colorcolumn=80
+    endif
+elseif exists(':autocmd')
     highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
-    match OverLength /\%>80v.\+/
+    augroup OverLengthCol
+        autocmd!
+        autocmd BufEnter *
+                    \ exe 'match OverLength /\%>' .
+                    \ &textwidth == 0 ? 80 : &textwidth .
+                    \ 'v.\+/'
+    augroup END
 endif
 
 " Remember undo history
