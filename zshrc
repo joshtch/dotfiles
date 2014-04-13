@@ -3,12 +3,12 @@
 
 # MAC Address spoofing: ifconfig bge0 link 03:a0:04:d3:00:11
 
-cdpath=(. .. ~)
-
-source ~/.localrc.zsh
 source ~/dotfiles/antigen/antigen.zsh
-
 antigen use oh-my-zsh
+
+cdpath=(. .. ~)          # This has to come after sourcing antigen and oh-my-zsh
+source ~/.localrc.zsh
+
 antigen bundle colored-man
 antigen bundle command-not-found
 antigen bundle cp
