@@ -129,10 +129,7 @@ augroup resCur
     autocmd BufWinEnter * call ResCur()
 augroup END
 
-" Show tab characters
-"set list
-"set listchars=tab:▶\ ,
-"set listchars+=trail:·
+"set list listchars=tab:▶\ ,trail:·
 
 " Gvim-specific settings
 " This really should go in its own .gvimrc
