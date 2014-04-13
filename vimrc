@@ -253,7 +253,7 @@ nnoremap <silent> <Leader>d "_d
 " Switch buffers with a count: 3! with switch to buffer 3
 " Delete buffers the same way with ~
 nnoremap <expr> ! v:count ? ":<C-u>b<C-r>=v:count<CR><CR>" : "!"
-nnoremap <expr> ~ v:count ? ":<C-u>bd<C-r>=v:count<CR><CR>" : "~"
+nnoremap <expr> ~ v:count ? ":<C-u>bd!<C-r>=v:count<CR><CR>" : "~"
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
