@@ -43,7 +43,7 @@ set encoding=utf8 fileformats=unix,dos,mac          " Supported document formats
 set foldmethod=marker foldnestmax=3 nofoldenable foldcolumn=0            " Folds
 set diffopt=filler,vertical,foldcolumn:2                               " Vimdiff
 set scrolloff=4 sidescrolloff=0                           " Scrolling boundaries
-set number                                                        " Line numbers
+set number norelativenumber                                       " Line numbers
 set autoread          " Reread a file detected to have been modified outside Vim
 set autowrite                       " Automatically save file when focus is lost
 set copyindent autoindent          " Imitate indenting of previous line's indent
