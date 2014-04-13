@@ -176,14 +176,14 @@ nnoremap <F1> <Nop>
 nnoremap Q @q
 nnoremap K :<C-u>call SplitHere()<CR>
 function! SplitHere()
-    exe "norm! i\<CR>\<Esc>k"
-    let s:_ishls=&hlsearch
-    let s:_lastsrch=@/
+    execute "normal! i\<CR>\<Esc>k"
+    let ishls=&hlsearch
+    let lastsrch=@/
     s/\s\+$//e
-    let @/=s:_lastsrch
-    let &hlsearch=s:_ishls
-    " The 'hl' is to enable splitting multiple times with KjKjKj...
-    norm! $hl
+    let @/=lastsrch
+    let &hlsearch=ishls
+    " The 'hl' is to prevent right-aligning of the cursor
+    normal! $hl
 endfunction
 
 " Open help in a vertical split instead of the default horizontal split
