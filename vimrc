@@ -234,6 +234,8 @@ else
 endif
 nnoremap <silent> <Leader>el :<C-u>vsplit ~/.localrc.zsh<CR>
 nnoremap <silent> <Leader>sv :<C-u>so $MYVIMRC<CR>
+nnoremap <silent> <Leader>sl yy:execute @@<CR>
+xnoremap <silent> <Leader>sl y:execute @@<CR>gv<esc>
 
 nnoremap <silent> m :<C-u>update!<CR>:<C-u>call MakeIfPossible()<CR>
 function! MakeIfPossible()
