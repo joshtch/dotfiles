@@ -48,6 +48,7 @@ set autoread          " Reread a file detected to have been modified outside Vim
 set autowrite                       " Automatically save file when focus is lost
 set copyindent autoindent          " Imitate indenting of previous line's indent
 set ttyfast notimeout ttimeout                         " See :help slow-terminal
+syntax enable                                      " Turn on syntax highlighting
 syntax sync minlines=256             " Update syntax highlighting for more lines
 set synmaxcol=256                            " Don't syntax highlight long lines
 set pastetoggle=<Leader>p                     " Toggle paste mode with <Leader>p
@@ -59,7 +60,6 @@ set viminfo='20,\"50,:10,/10,%,n~/.viminfo    " Remember things between sessions
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 set winwidth=86   " Minimum split width -- 80 + 6 for number + sign/fold columns
 set nojoinspaces          " Don't add extra spaces after .?! when joining with J
-syntax enable
 
 " Settings for automatic text formatting
  set formatoptions=
