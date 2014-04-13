@@ -135,7 +135,13 @@ augroup END
 " This really should go in its own .gvimrc
 if has("gui_running")
     set guioptions=c
-    silent! set guifont=Inconsolata-dz\ for\ Powerline\ 12
+    if has("gui_gtk2")
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Book\ 12
+    elseif has("gui_macvim")
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Book:12
+    elseif has("gui_win32")
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Book:12
+    end
     set guitablabel=%M\ %t
     " Remove small delay between pressing Esc and entering Normal mode.
     set ttimeoutlen=10
