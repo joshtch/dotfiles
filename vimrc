@@ -60,6 +60,12 @@ set viminfo='20,\"50,:10,/10,%,n~/.viminfo    " Remember things between sessions
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 set winwidth=86   " Minimum split width -- 80 + 6 for number + sign/fold columns
 set nojoinspaces          " Don't add extra spaces after .?! when joining with J
+set equalalways         " Make current split be always at least "textwidth" wide
+
+augroup Resize
+    autocmd!
+    autocmd WinEnter,VimResized * wincmd =       " Make splits always equal size
+augroup END
 
 " Settings for automatic text formatting
  set formatoptions=
@@ -132,15 +138,6 @@ if has("gui_running")
         au InsertLeave * set timeoutlen=1000
     augroup END
 endif
-
-set equalalways          " Keep split sizes equal on Vim resize or window delete
-function! AutoResize()   " Enable toggling with a function
-    augroup Resize
-        autocmd!
-        autocmd WinEnter,VimResized * wincmd =
-    augroup END
-endfunction
-call AutoResize()
 
 " Highlight screen line of the cursor, but only in current window
 augroup CursorLine
