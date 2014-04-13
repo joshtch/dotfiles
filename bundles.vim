@@ -6,10 +6,10 @@ filetype off " required!
 " Autoinstall NeoBundle:
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
-    if !isdirectory(expand('~/.vim/bundle/neobundle.vim')) "TODO: Check if empty
-        !mkdir -p ~/.vim/bundle/neobundle &&
+    if !filereadable(expand('~/.vim/bundle/neobundle.vim/doc/neobundle.txt'))
+        !mkdir -p ~/.vim/bundle/neobundle.vim &&
                 \ git clone 'https://github.com/Shougo/neobundle.vim.git'
-                \ ~/.vim/bundle/neobundle
+                \ ~/.vim/bundle/neobundle.vim
     endif
 endif
 call neobundle#rc(expand('~/.vim/bundle/'))
