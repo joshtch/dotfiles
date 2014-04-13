@@ -17,8 +17,8 @@ set backspace=indent,eol,start                      " Allow backspacing anywhere
 set splitbelow splitright                 " Split windows below and to the right
 set wildmenu wildmode=list:longest,full                 " Cmdline tab completion
 set wildignore=*.o,*~,*.pyc,*.obj,*.a,*.lib,*.elf        " Ignore non-text files
-set wildignore+=*.swp,*~,._* nobackup noswapfile " Disable temp and backup files
-set updatecount=0 nobackup nowritebackup                       " Remove swapfile
+set wildignore+=*.swp,*~,._* nobackup noswapfile               " Remove swapfile
+set updatecount=0 nobackup nowritebackup         " Disable temp and backup files
 set showcmd showmode cmdheight=1 shortmess=atIfilmnrxoOT    " Cmd bar appearance
 set infercase complete-=i completeopt=longest,menuone        " Insert completion
 set showmatch matchtime=1                                 " Parentheses matching
@@ -70,14 +70,13 @@ syntax enable
  set fo+=q " Allow formatting with 'gq'
 "set fo+=w " Trailing white space indicates a paragraph continues
 "set fo+=a " Autoformat paragraphs every time text is inserted/deleted
- set fo+=n " Recognize lists. Not to be used with '2'
+ set fo+=n " Recognize lists. Not to be used with 'fo+=2'
 "set fo+=2 " Use the indent of the second line of a paragraph
 "set fo+=v " Only break a line at blank entered during current insert
 "set fo+=b " Like 'v', but only for blanks entered before wrap margin
  set fo+=l " Don't autoformat existing long lines
  set fo+=1 " Don't break a line after a one-letter word
 
-" Delete comment character when joining commented lines
 if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j
 endif
