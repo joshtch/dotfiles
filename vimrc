@@ -222,12 +222,17 @@ inoremap <C-u> <C-g>u<C-u>
 nnoremap <Leader>, ,
 nnoremap <silent> <Leader>/ :<C-u>nohlsearch<CR>
 nnoremap <silent> <Leader>w :<C-u>update!<CR>
-nnoremap <silent> <Leader>ev :<C-u>vsplit $MYVIMRC<CR>
-nnoremap <silent> <Leader>eb :<C-u>vsplit ~/dotfiles/bundles.vim<CR>
-nnoremap <silent> <Leader>ep :<C-u>vsplit ~/dotfiles/plugins.vim<CR>
-nnoremap <silent> <Leader>ez :<C-u>vsplit ~/.zshrc<CR>
-nnoremap <silent> <Leader>sl ^vg_y:execute @@<CR>
-nnoremap <silent> <Leader>ea :<C-u>vsplit ~/.oh-my-zsh/lib/aliases.zsh<CR>
+if isdirectory(expand('~/dotfiles'))
+    nnoremap <silent> <Leader>ev :<C-u>vsplit ~/dotfiles/vimrc<CR>
+    nnoremap <silent> <Leader>eb :<C-u>vsplit ~/dotfiles/bundles.vim<CR>
+    nnoremap <silent> <Leader>ep :<C-u>vsplit ~/dotfiles/plugins.vim<CR>
+    nnoremap <silent> <Leader>ez :<C-u>vsplit ~/dotfiles/zshrc<CR>
+    nnoremap <silent> <Leader>ez :<C-u>vsplit ~/dotfiles/custom/aliases.zsh<CR>
+else
+    nnoremap <silent> <Leader>ev :<C-u>vsplit ~/.vimrc<CR>
+    nnoremap <silent> <Leader>ez :<C-u>vsplit ~/.zshrc<CR>
+endif
+nnoremap <silent> <Leader>el :<C-u>vsplit ~/.localrc.zsh<CR>
 nnoremap <silent> <Leader>sv :<C-u>so $MYVIMRC<CR>
 
 nnoremap <silent> m :<C-u>update!<CR>:<C-u>call MakeIfPossible()<CR>
