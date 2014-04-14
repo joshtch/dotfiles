@@ -9,8 +9,11 @@ endif
 let g:mapleader = ","
 
 " Plugins And Settings:
-source ~/dotfiles/bundles.vim
-source ~/dotfiles/plugins.vim
+if filereadable(expand('~/dotfiles/bundles.vim')) &&
+            \ filereadable(expand('~/dotfiles/bundles.vim'))
+    source ~/dotfiles/bundles.vim
+    source ~/dotfiles/plugins.vim
+endif
 filetype plugin indent on
 
 set backspace=indent,eol,start                      " Allow backspacing anywhere
