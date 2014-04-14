@@ -56,8 +56,8 @@ fi
 
 # List direcory contents
 alias l='ls -lv'
-alias sl=ls # often screw this up
-alias ls='ls -h -F -G'
+alias sl=ls
+alias ls='ls -h -F'
 alias lx='ls -lXB'         #  Sort by extension.
 alias lk='ls -lSr'         #  Sort by size, biggest last.
 alias lt='ls -ltr'         #  Sort by date, most recent last.
