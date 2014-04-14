@@ -17,8 +17,8 @@ set backspace=indent,eol,start                      " Allow backspacing anywhere
 set splitbelow splitright                 " Split windows below and to the right
 set wildmenu wildmode=list:longest,full                 " Cmdline tab completion
 set wildignore=*.o,*~,*.pyc,*.obj,*.a,*.lib,*.elf        " Ignore non-text files
-set wildignore+=*.swp,*~,._* nobackup noswapfile " Disable temp and backup files
-set updatecount=0 nobackup nowritebackup                       " Remove swapfile
+set wildignore+=*.swp,*~,._* nobackup noswapfile               " Remove swapfile
+set updatecount=0 nobackup nowritebackup         " Disable temp and backup files
 set showcmd showmode cmdheight=1 shortmess=atIfilmnrxoOT    " Cmd bar appearance
 set infercase complete-=i completeopt=longest,menuone        " Insert completion
 set showmatch matchtime=1                                 " Parentheses matching
@@ -43,11 +43,12 @@ set encoding=utf8 fileformats=unix,dos,mac          " Supported document formats
 set foldmethod=marker foldnestmax=3 nofoldenable foldcolumn=0            " Folds
 set diffopt=filler,vertical,foldcolumn:2                               " Vimdiff
 set scrolloff=4 sidescrolloff=0                           " Scrolling boundaries
-set number                                                        " Line numbers
+set number norelativenumber                                       " Line numbers
 set autoread          " Reread a file detected to have been modified outside Vim
 set autowrite                       " Automatically save file when focus is lost
 set copyindent autoindent          " Imitate indenting of previous line's indent
 set ttyfast notimeout ttimeout                         " See :help slow-terminal
+syntax enable                                      " Turn on syntax highlighting
 syntax sync minlines=256             " Update syntax highlighting for more lines
 set synmaxcol=256                            " Don't syntax highlight long lines
 set pastetoggle=<Leader>p                     " Toggle paste mode with <Leader>p
@@ -59,7 +60,12 @@ set viminfo='20,\"50,:10,/10,%,n~/.viminfo    " Remember things between sessions
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 set winwidth=86   " Minimum split width -- 80 + 6 for number + sign/fold columns
 set nojoinspaces          " Don't add extra spaces after .?! when joining with J
-syntax enable
+set equalalways         " Make current split be always at least "textwidth" wide
+
+augroup Resize
+    autocmd!
+    autocmd WinEnter,VimResized * wincmd =       " Make splits always equal size
+augroup END
 
 " Settings for automatic text formatting
  set formatoptions=
@@ -70,24 +76,33 @@ syntax enable
  set fo+=q " Allow formatting with 'gq'
 "set fo+=w " Trailing white space indicates a paragraph continues
 "set fo+=a " Autoformat paragraphs every time text is inserted/deleted
- set fo+=n " Recognize lists. Not to be used with '2'
+ set fo+=n " Recognize lists. Not to be used with 'fo+=2'
 "set fo+=2 " Use the indent of the second line of a paragraph
 "set fo+=v " Only break a line at blank entered during current insert
 "set fo+=b " Like 'v', but only for blanks entered before wrap margin
  set fo+=l " Don't autoformat existing long lines
  set fo+=1 " Don't break a line after a one-letter word
 
-" Delete comment character when joining commented lines
 if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j
 endif
 
-" Highlight column 80 so we know when we're over
+" Highlight last column so we know when we're over
 if exists('+colorcolumn')
-    set colorcolumn=80
-else
+    if &textwidth != 0
+        set colorcolumn=+0
+    else
+        set colorcolumn=80
+    endif
+elseif exists(':autocmd')
     highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
-    match OverLength /\%>80v.\+/
+    augroup OverLengthCol
+        autocmd!
+        autocmd BufEnter *
+                    \ exe 'match OverLength /\%>' .
+                    \ &textwidth == 0 ? 80 : &textwidth .
+                    \ 'v.\+/'
+    augroup END
 endif
 
 " Remember undo history
@@ -114,16 +129,19 @@ augroup resCur
     autocmd BufWinEnter * call ResCur()
 augroup END
 
-" Show tab characters
-"set list
-"set listchars=tab:▶\ ,
-"set listchars+=trail:·
+"set list listchars=tab:▶\ ,trail:·
 
 " Gvim-specific settings
 " This really should go in its own .gvimrc
 if has("gui_running")
     set guioptions=c
-    silent! set guifont=Inconsolata-dz\ for\ Powerline\ 12
+    if has("gui_gtk2")
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Book\ 12
+    elseif has("gui_macvim")
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Book:12
+    elseif has("gui_win32")
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Book:12
+    end
     set guitablabel=%M\ %t
     " Remove small delay between pressing Esc and entering Normal mode.
     set ttimeoutlen=10
@@ -133,15 +151,6 @@ if has("gui_running")
         au InsertLeave * set timeoutlen=1000
     augroup END
 endif
-
-set equalalways          " Keep split sizes equal on Vim resize or window delete
-function! AutoResize()   " Enable toggling with a function
-    augroup Resize
-        autocmd!
-        autocmd WinEnter,VimResized * wincmd =
-    augroup END
-endfunction
-call AutoResize()
 
 " Highlight screen line of the cursor, but only in current window
 augroup CursorLine
@@ -167,14 +176,10 @@ nnoremap <F1> <Nop>
 nnoremap Q @q
 nnoremap K :<C-u>call SplitHere()<CR>
 function! SplitHere()
-    exe "norm! i\<CR>\<Esc>k"
-    let s:_ishls=&hlsearch
-    let s:_lastsrch=@/
-    s/\s\+$//e
-    let @/=s:_lastsrch
-    let &hlsearch=s:_ishls
-    " The 'hl' is to enable splitting multiple times with KjKjKj...
-    norm! $hl
+    execute "normal! i\<CR>\<Esc>k$hl"
+    if getline(line('.'))[col('.')-1] =~ '\s'
+        execute 'normal! "_diw'
+    endif
 endfunction
 
 " Open help in a vertical split instead of the default horizontal split
@@ -213,13 +218,20 @@ inoremap <C-u> <C-g>u<C-u>
 nnoremap <Leader>, ,
 nnoremap <silent> <Leader>/ :<C-u>nohlsearch<CR>
 nnoremap <silent> <Leader>w :<C-u>update!<CR>
-nnoremap <silent> <Leader>ev :<C-u>vsplit $MYVIMRC<CR>
-nnoremap <silent> <Leader>eb :<C-u>vsplit ~/dotfiles/bundles.vim<CR>
-nnoremap <silent> <Leader>ep :<C-u>vsplit ~/dotfiles/plugins.vim<CR>
-nnoremap <silent> <Leader>ez :<C-u>vsplit ~/.zshrc<CR>
-nnoremap <silent> <Leader>sl ^vg_y:execute @@<CR>
-nnoremap <silent> <Leader>ea :<C-u>vsplit ~/.oh-my-zsh/lib/aliases.zsh<CR>
+if isdirectory(expand('~/dotfiles'))
+    nnoremap <silent> <Leader>ev :<C-u>vsplit ~/dotfiles/vimrc<CR>
+    nnoremap <silent> <Leader>eb :<C-u>vsplit ~/dotfiles/bundles.vim<CR>
+    nnoremap <silent> <Leader>ep :<C-u>vsplit ~/dotfiles/plugins.vim<CR>
+    nnoremap <silent> <Leader>ez :<C-u>vsplit ~/dotfiles/zshrc<CR>
+    nnoremap <silent> <Leader>ez :<C-u>vsplit ~/dotfiles/custom/aliases.zsh<CR>
+else
+    nnoremap <silent> <Leader>ev :<C-u>vsplit ~/.vimrc<CR>
+    nnoremap <silent> <Leader>ez :<C-u>vsplit ~/.zshrc<CR>
+endif
+nnoremap <silent> <Leader>el :<C-u>vsplit ~/.localrc.zsh<CR>
 nnoremap <silent> <Leader>sv :<C-u>so $MYVIMRC<CR>
+nnoremap <silent> <Leader>sl yy:execute @@<CR>
+xnoremap <silent> <Leader>sl y:execute @@<CR>gv<esc>
 
 nnoremap <silent> m :<C-u>update!<CR>:<C-u>call MakeIfPossible()<CR>
 function! MakeIfPossible()
@@ -237,7 +249,7 @@ nnoremap <silent> <Leader>d "_d
 " Switch buffers with a count: 3! with switch to buffer 3
 " Delete buffers the same way with ~
 nnoremap <expr> ! v:count ? ":<C-u>b<C-r>=v:count<CR><CR>" : "!"
-nnoremap <expr> ~ v:count ? ":<C-u>bd<C-r>=v:count<CR><CR>" : "~"
+nnoremap <expr> ~ v:count ? ":<C-u>bd!<C-r>=v:count<CR><CR>" : "~"
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
@@ -341,5 +353,5 @@ augroup CommandWindow
     autocmd CmdwinEnter * set nonumber
     autocmd BufReadPost *
                 \ if line("'\"") > 0 && line("'\"") <= line("$")
-                \| exe "normal g'\"" | endif
+                \| execute "normal g'\"" | endif
 augroup END

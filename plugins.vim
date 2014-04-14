@@ -146,12 +146,17 @@ endif
 
 " Focus: Force display of a single buffer for focused editing
 function! ToggleFocusMode()
-    if !exists("t:focusmode")
+    if !exists("t:focusmode") && exists("#Resize#WinEnter")
+        set noequalalways
         autocmd! Resize
     endif
     execute "normal \<Plug>FocusModeToggle"
     if !exists("t:focusmode")
-        call AutoResize()
+        set equalalways
+        augroup Resize
+            autocmd!
+            autocmd WinEnter,VimResized * wincmd =
+        augroup END
     endif
 endfunction
 nmap <silent> <Leader>f :<C-u>call ToggleFocusMode()<CR>

@@ -19,60 +19,51 @@ alias sudo='sudo ' # make sudo play nice with other aliases
 alias _='sudo'
 alias please='sudo'
 
-alias rand='od -vAn -N4 -tu4 < /dev/urandom'
-
-# git shortcuts {{{
-alias grep='grep --color=auto'
-
-alias g='git'
-alias ga='git add'
-alias gr='git rm'
-
-alias gf='git fetch'
-alias gu='git pull'
-alias gup='git pull && git push'
-
-alias gs='git status --short'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias gdisc='git discard'
-
-function gc() {
-    args=$@
-    git commit -m "$args"
-}
-function gca() {
-    args=$@
-    git commit --amend -m "$args"
+function rand {
+    NUMBYTES="$@"
+    valid_num_regexp="[1-4]"
+    if [[ $NUMBYTES != "" ]]
+    then
+        if [[ $NUMBYTES =~ $valid_num_regexp ]]
+        then
+            od -vAn -N$NUMBYTES -tu4 < /dev/urandom
+        else
+            echo "Usage: $0 [NUMBYTES]"
+        fi
+    else
+        od -vAn -N3 -tu4 < /dev/urandom
+    fi
 }
 
-alias gp='git push'
-
-# git commit -m ... && git push
-function gcp() {
-    args=$@
-    git commit -a -m "$args" && git push -u origin
-}
-alias gcl='git clone'
-alias gch='git checkout'
-alias gl='git log --no-merges'
-# }}}
+alias gsl='git diff --stat --color | cat'
 
 # Show history
 alias history='fc -l 1'
 # Show ten most used commands
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 
-# List direcory contents
+# ugly hack to get color by default in different versions of ls
+if ls --color -d . >/dev/null 2>&1; then # GNU
+    function ls {/bin/ls --color=auto "$@" }
+elif ls -G -d . >/dev/null 2>&1; then # BSD
+    function ls {/bin/ls -G "$@" }
+elif /usr/gnu/bin/ls --color=auto >/dev/null 2>&1; then
+    # Solaris but with GNU ls installed
+    function ls {/usr/gnu/bin/ls --color=auto "$@" }
+else
+    # Solaris/something else. I don't know if colored ls is possible.
+fi
+
+# List directory contents
 alias l='ls -lv'
-alias sl=ls # often screw this up
-alias ls='ls -h -F -G'
+alias sl=ls
+alias ls='ls -h -F'
 alias lx='ls -lXB'         #  Sort by extension.
 alias lk='ls -lSr'         #  Sort by size, biggest last.
 alias lt='ls -ltr'         #  Sort by date, most recent last.
 alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
 alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
-alias lm='ls -lv |more'    #  Pipe through 'more'
+alias le='ls -lv |less'    #  Pipe through 'less'
 alias lr='ls -lvR'         #  Recursive ls.
 alias la='ls -lvA'         #  Show hidden files.
 alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
@@ -118,6 +109,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
     alias gif='echo "mplayer -ao null -loop 0 -ss 0:11:22 -endpos 5 file.avi";
     echo "mplayer -ao null -ss 0:11:22 -endpos 5 file.avi -vo jpeg:outdir=somedir"'
+else if [[ "$(uname)" == "Linux" ]]; then
+    alias open='xdg-open .'
+    endif
 fi
 
 function size() {
@@ -139,3 +133,22 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '' fancy-ctrl-z
+
+up-line-or-history-beginning-search () {
+  if [[ -n $PREBUFFER ]]; then
+    zle up-line-or-history
+  else
+    zle history-beginning-search-backward
+  fi
+}
+down-line-or-history-beginning-search () {
+  if [[ -n $PREBUFFER ]]; then
+    zle down-line-or-history
+  else
+    zle history-beginning-search-forward
+  fi
+}
+zle -N up-line-or-history-beginning-search
+zle -N down-line-or-history-beginning-search
+bindkey '' up-line-or-history-beginning-search
+bindkey '' down-line-or-history-beginning-search
