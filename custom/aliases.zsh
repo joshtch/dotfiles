@@ -108,6 +108,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
     alias gif='echo "mplayer -ao null -loop 0 -ss 0:11:22 -endpos 5 file.avi";
     echo "mplayer -ao null -ss 0:11:22 -endpos 5 file.avi -vo jpeg:outdir=somedir"'
+else if [[ "$(uname)" == "Linux" ]]; then
+    alias open='xdg-open .'
+    endif
 fi
 
 function size() {
@@ -129,3 +132,22 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '' fancy-ctrl-z
+
+up-line-or-history-beginning-search () {
+  if [[ -n $PREBUFFER ]]; then
+    zle up-line-or-history
+  else
+    zle history-beginning-search-backward
+  fi
+}
+down-line-or-history-beginning-search () {
+  if [[ -n $PREBUFFER ]]; then
+    zle down-line-or-history
+  else
+    zle history-beginning-search-forward
+  fi
+}
+zle -N up-line-or-history-beginning-search
+zle -N down-line-or-history-beginning-search
+bindkey '' up-line-or-history-beginning-search
+bindkey '' down-line-or-history-beginning-search
