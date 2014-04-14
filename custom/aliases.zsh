@@ -42,6 +42,18 @@ alias history='fc -l 1'
 # Show ten most used commands
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 
+# ugly hack to get color by default in different versions of ls
+if ls --color -d . >/dev/null 2>&1; then # GNU
+    function ls {/bin/ls --color=auto "$@" }
+elif ls -G -d . >/dev/null 2>&1; then # BSD
+    function ls {/bin/ls -G "$@" }
+elif /usr/gnu/bin/ls --color=auto >/dev/null 2>&1; then
+    # Solaris but with GNU ls installed
+    function ls {/usr/gnu/bin/ls --color=auto "$@" }
+else
+    # Solaris/something else. I don't know if colored ls is possible.
+fi
+
 # List direcory contents
 alias l='ls -lv'
 alias sl=ls # often screw this up
