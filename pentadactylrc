@@ -37,9 +37,10 @@ silent qmark d http://drive.google.com/
 silent qmark v http://vpn.tufts.edu/
 silent qmark e http://www.ece.tufts.edu/~karen/ES4
 
-set passkeys=reddit\.com:?\.hkjunUNipP;=-_+[]\"OolLKJsrMmIi<>1234567890\,bB,<C-e>
+set passkeys=reddit\.com:jkpn\;\,\.[]JKu
 set strictfocus='google.com':laissez-faire,*:moderate,'chrome:*':laissez-faire,*:moderate
 set passkeys+=mail\.google\.com:jkv<CR>rau#T[]{}/<space><S-space>?,gi,gl,*u,*i,*n,gi,gc,gl
-:autocmd LocationChange facebook.com :normal! <C-z>
+autocmd LocationChange facebook.com :normal! <C-z>
+autocmd LocationChange drive.google.com :normal! <C-z>
 
 colorscheme solarized-light
