@@ -98,12 +98,12 @@ if exists('+colorcolumn')
     else
         set colorcolumn=80
     endif
-elseif exists(':autocmd')
+elseif has("autocmd")
     highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
     augroup OverLengthCol
         autocmd!
         autocmd BufEnter *
-                    \ exe 'match OverLength /\%>' .
+                    \ execute 'match OverLength /\%>' .
                     \ &textwidth == 0 ? 80 : &textwidth .
                     \ 'v.\+/'
     augroup END
@@ -111,7 +111,7 @@ endif
 
 " Remember undo history
 if exists("+undofile")
-    if isdirectory($HOME . '/.vim/undo') == 0
+    if !isdirectory($HOME . '/.vim/undo')
         silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
     endif
     set undodir=./.vim-undo//
@@ -125,7 +125,6 @@ endif
 function! ResCur()
     if line("'\"") <= line("$")
         normal! g`"
-        return 1
     endif
 endfunction
 augroup resCur
@@ -138,7 +137,7 @@ augroup END
 " Gvim-specific settings
 " This really should go in its own .gvimrc
 if has("gui_running")
-    set guioptions=c
+    set guioptions=c " Least obtrusive gui possible
     if has("gui_gtk2")
         set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Book\ 12
     elseif has("gui_macvim")
@@ -159,8 +158,8 @@ endif
 " Highlight screen line of the cursor, but only in current window
 augroup CursorLine
     autocmd!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
 augroup END
 
 " Always show line numbers, but only in current window.
