@@ -54,7 +54,7 @@ else
     # Solaris/something else. I don't know if colored ls is possible.
 fi
 
-# List direcory contents
+# List directory contents
 alias l='ls -lv'
 alias sl=ls
 alias ls='ls -h -F'
