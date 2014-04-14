@@ -169,13 +169,14 @@ augroup ShowLineNumber
     au WinLeave * setlocal nonumber
 augroup END
 
-" Map annoying and useless <F1>, Q and K to more useful things
-" <F1> does nothing, so it can be used for things outside of vim like changing
-" windows in tmux
-" Q repeats the macro in register q, as a more convenient way to macro
-" K splits the line and removes trailing whitespace (reverse of J/gJ)
+" Map annoying and useless <F1>, Q, <Space>, and K to more useful things
+" - <F1> unmapped so it can be used outside of vim for changing tmux windows
+" - Q repeats the macro in register q, making using macros actually convenient
+" - <Space> scrolls down a page (like most programs)
+" - K splits the line and removes trailing whitespace (reverse of J/gJ)
 nnoremap <F1> <Nop>
 nnoremap Q @q
+nnoremap <Space> <C-f>
 nnoremap K :<C-u>call SplitHere()<CR>
 function! SplitHere()
     execute "normal! i\<CR>\<Esc>k$hl"
