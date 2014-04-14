@@ -353,5 +353,5 @@ augroup CommandWindow
     autocmd CmdwinEnter * set nonumber
     autocmd BufReadPost *
                 \ if line("'\"") > 0 && line("'\"") <= line("$")
-                \| exe "normal g'\"" | endif
+                \| execute "normal g'\"" | endif
 augroup END
