@@ -2,7 +2,7 @@ dotfiles
 ========
 
     cd
-    git clone https://github.com/joshtch/dotfiles.git
+    git clone --recursive https://github.com/joshtch/dotfiles.git
     dotfiles/boostrap.sh
 
 TODO:
