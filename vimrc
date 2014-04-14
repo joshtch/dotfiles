@@ -165,7 +165,6 @@ augroup END
 " Always show line numbers, but only in current window.
 augroup ShowLineNumber
     autocmd!
-    set number
     au WinEnter * setlocal number
     au WinLeave * setlocal nonumber
 augroup END
