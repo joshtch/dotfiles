@@ -176,14 +176,10 @@ nnoremap <F1> <Nop>
 nnoremap Q @q
 nnoremap K :<C-u>call SplitHere()<CR>
 function! SplitHere()
-    execute "normal! i\<CR>\<Esc>k"
-    let ishls=&hlsearch
-    let lastsrch=@/
-    s/\s\+$//e
-    let @/=lastsrch
-    let &hlsearch=ishls
-    " The 'hl' is to prevent right-aligning of the cursor
-    normal! $hl
+    execute "normal! i\<CR>\<Esc>k$hl"
+    if getline(line('.'))[col('.')-1] =~ '\s'
+        execute 'normal! "_diw'
+    endif
 endfunction
 
 " Open help in a vertical split instead of the default horizontal split
