@@ -19,7 +19,23 @@ alias sudo='sudo ' # make sudo play nice with other aliases
 alias _='sudo'
 alias please='sudo'
 
-alias rand='od -vAn -N4 -tu4 < /dev/urandom'
+function rand {
+    NUMBYTES="$@"
+    valid_num_regexp="[1-4]"
+    if [[ $NUMBYTES != "" ]]
+    then
+        if [[ $NUMBYTES =~ $valid_num_regexp ]]
+        then
+            od -vAn -N$NUMBYTES -tu4 < /dev/urandom
+        else
+            echo "Usage: $0 [NUMBYTES]"
+        fi
+    else
+        od -vAn -N3 -tu4 < /dev/urandom
+    fi
+}
+
+
 
 # git shortcuts {{{
 alias grep='grep --color=auto'
