@@ -36,7 +36,7 @@ nnoremap <Leader>nu :<C-u>Unite -log -wrap -vertical neobundle/update<CR>
 " Solarized: colorscheme
 if v:version >= 702
     syntax enable
-    colorscheme solarized
+    "colorscheme solarized
     set background=dark
     call togglebg#map("<Leader>5")
     iunmap <Leader>5
@@ -53,20 +53,20 @@ let g:airline_powerline_fonts = 0
 let g:airline_enable_synastic = 1
 let g:airline_enable_fugitive = 1
 let g:airline_modified_detection = 1
-let g:airline_left_sep = '⮀'
-let g:airline_right_sep = '⮂'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_alt_sep = '⮃'
+"let g:airline_left_sep = '⮀'
+"let g:airline_right_sep = '⮂'
+"let g:airline_left_alt_sep = '⮁'
+"let g:airline_right_alt_sep = '⮃'
 augroup AirlineSymbols
     autocmd!
-    autocmd VimEnter * let g:airline_symbols.branch = '⭠'
+    autocmd VimEnter * "let g:airline_symbols.branch = '⭠'
                 \| let g:airline_linecolumn_prefix = '¶'
-                \| let g:airline_symbols.readonly = '⭤'
-                \| let g:airline_symbols.linenr = '⭡'
+                "\| let g:airline_symbols.readonly = '⭤'
+                "\| let g:airline_symbols.linenr = '⭡'
                 \| let g:airline_symbols.paste = 'PASTE'
 augroup END
 let g:airline_fugitive_prefix = '⎇ '
-let g:airline_theme = 'solarized'
+"let g:airline_theme = 'solarized'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
