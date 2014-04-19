@@ -174,8 +174,8 @@ augroup END
 " Always show line numbers, but only in current window.
 augroup ShowLineNumber
     autocmd!
-    au WinEnter * setlocal number
-    au WinLeave * setlocal nonumber
+    autocmd WinEnter * setlocal number
+    autocmd WinLeave * setlocal nonumber
 augroup END
 
 " Map annoying and useless <F1>, Q, <Space>, and K to more useful things
@@ -258,14 +258,12 @@ nnoremap <silent> <Leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 " Delete to black hole register
 nnoremap <silent> <Leader>d "_d
 
-" Switch buffers with a count: 3! with switch to buffer 3
+" Switch buffers with a count: 3! will switch to buffer 3
 " Delete buffers the same way with ~
 nnoremap <expr> ! v:count ? ":<C-u>b<C-r>=v:count<CR><CR>" : "!"
 nnoremap <expr> ~ v:count ? ":<C-u>bd!<C-r>=v:count<CR><CR>" : "~"
 
-" Only do this part when compiled with support for autocommands
 if has("autocmd")
-    " Enable file type detection
     filetype on
 
     augroup filetype_commands
@@ -274,7 +272,6 @@ if has("autocmd")
         au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
         au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-        " Customisations based on house-style (arbitrary)
         au FileType html       setlocal ts=8 sts=4 sw=4 et
         au FileType css        setlocal ts=8 sts=4 sw=4 et
         au FileType javascript setlocal ts=4 sts=4 sw=4 noet
