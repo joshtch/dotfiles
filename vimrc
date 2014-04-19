@@ -219,7 +219,7 @@ nnoremap / /\v
 nnoremap ? ?\v
 
 " Add a relative number toggle
-nnoremap <Leader>r :<C-u>set rnu!<CR>
+nnoremap <silent> <Leader>r :<C-u>set relativenumber!<CR>
 
 " Newline without automatically adding leading characters (e.g. comment chars)
 inoremap <C-j> <CR><C-u>
