@@ -276,8 +276,6 @@ if has("autocmd")
         au FileType html       setlocal ts=8 sts=4 sw=4 et
         au FileType css        setlocal ts=8 sts=4 sw=4 et
         au FileType javascript setlocal ts=4 sts=4 sw=4 noet
-        au FileType c          setlocal ts=4 sts=4 sw=4 et
-        au FileType vim        setlocal ts=4 sts=4 sw=4 et
         au FileType c,cpp,javascript,slang setlocal cindent fo+=ro
         au FileType bash,coffee,markdown,python,zsh set sw=4 ts=4 expandtab
         au FileType javascript,html,xhtml,css,php set sw=2 tw=2 fdm=indent
