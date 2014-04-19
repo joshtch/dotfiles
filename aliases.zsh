@@ -109,9 +109,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
     alias gif='echo "mplayer -ao null -loop 0 -ss 0:11:22 -endpos 5 file.avi";
     echo "mplayer -ao null -ss 0:11:22 -endpos 5 file.avi -vo jpeg:outdir=somedir"'
-else if [[ "$(uname)" == "Linux" ]]; then
-    alias open='xdg-open .'
-    endif
+
+elif [[ "$(uname)" == "Linux" ]]; then
+    if ! which -s open >/dev/null; then open() { if "$#" > 0; then xdg-open "$@"; else; xdg-open .; fi } >/dev/null; export -f open >/dev/null; fi
 fi
 
 function size() {
