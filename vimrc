@@ -216,6 +216,7 @@ endif
 " Use 'verymagic' search. Does not apply to substitutions; if you want to
 " verymagic your substitutions, use the last search register or add \v manually
 nnoremap / /\v
+nnoremap ? ?\v
 
 " Add a relative number toggle
 nnoremap <Leader>r :<C-u>set rnu!<CR>
