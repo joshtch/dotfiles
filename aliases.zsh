@@ -110,6 +110,21 @@ if [[ "$(uname)" == "Darwin" ]]; then
     alias gif='echo "mplayer -ao null -loop 0 -ss 0:11:22 -endpos 5 file.avi";
     echo "mplayer -ao null -ss 0:11:22 -endpos 5 file.avi -vo jpeg:outdir=somedir"'
 
+    DefineApps () { export T=$(mktemp /tmp/$PPID''XXXXXX) ; find "$@" '(' -type d -or -type l ')' -name '*.app' -prune -print0 2>/dev/null | xargs -0 python -c 'import os,sys,re,distutils.spawn;os.chdir("/usr/bin")'$'\n''def orApp(c):'$'\n'' if not distutils.spawn.find_executable(c): return c'$'\n'' elif not distutils.spawn.find_executable(c+"-app"): return c+"-app"'$'\n\n''def getF(Command):'$'\n'' if "." in Command or "-" in Command: return lambda App: "alias \""+Command+"\"=\"open -W -a \\\""+App+"\\\"\""'$'\n'' else: return lambda App:Command+" () { open -W -a \""+App+"\" \"$@\" ; } ; export -f "+Command'$'\n\n''print "\n".join((lambda Command:getF(orApp(Command))(App))(Command=re.sub("[^a-z0-9._-]","",re.sub(".*/","",App)[:-4].replace(" ","-").lower())) for App in sys.argv[1:])' >> $T ; . $T ; rm $T ; unset T; } 2>/dev/null 1>/dev/null
+    DefineApps ~/Applications /Applications /usr/local/Cellar/emacs 2>/dev/null 1>/dev/null
+    if declare -F xcode >/dev/null; then
+        DefineApps "$(declare|grep -i '^ *open.*/Xcode.app'|head -1|sed -e 's/[^"]*"//' -e 's/".*//')/Contents/Applications" 2>/dev/null 1>/dev/null;
+    fi
+    unset DefineApps
+
+    # Play audio files
+    if ! which -s play >/dev/null; then play () { afplay "$@" ; } >/dev/null; export -f play >/dev/null; fi
+
+    if ! which -s umount >/dev/null; then umount () { diskutil umount "$@" ; }  >/dev/null; export -f umount >/dev/null; fi
+
+    alias spotlight-disable="sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
+    alias spotlight-enable="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
+
 elif [[ "$(uname)" == "Linux" ]]; then
     if ! which -s open >/dev/null; then open() { if "$#" > 0; then xdg-open "$@"; else; xdg-open .; fi } >/dev/null; export -f open >/dev/null; fi
 fi
