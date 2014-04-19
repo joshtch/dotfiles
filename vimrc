@@ -226,7 +226,7 @@ if isdirectory(expand('~/dotfiles'))
     nnoremap <silent> <Leader>eb :<C-u>vsplit ~/dotfiles/bundles.vim<CR>
     nnoremap <silent> <Leader>ep :<C-u>vsplit ~/dotfiles/plugins.vim<CR>
     nnoremap <silent> <Leader>ez :<C-u>vsplit ~/dotfiles/zshrc<CR>
-    nnoremap <silent> <Leader>ez :<C-u>vsplit ~/dotfiles/custom/aliases.zsh<CR>
+    nnoremap <silent> <Leader>ea :<C-u>vsplit ~/dotfiles/aliases.zsh<CR>
 else
     nnoremap <silent> <Leader>ev :<C-u>vsplit ~/.vimrc<CR>
     nnoremap <silent> <Leader>ez :<C-u>vsplit ~/.zshrc<CR>

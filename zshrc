@@ -26,6 +26,6 @@ fi
 antigen theme joshtch/dotfiles custom/nicoulaj-solarized
 antigen apply
 
-source ~/dotfiles/custom/aliases.zsh
+source ~/dotfiles/aliases.zsh
 
 source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
