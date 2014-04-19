@@ -282,7 +282,8 @@ if has("autocmd")
 
         " Fix syntax highlighting of vim helpfiles, since 'modeline' is off
         au BufEnter *.txt
-            \ if expand('%:p:h') =~ '.*/\.\?vim/.*/doc' | set ft=help | endif
+            \ if expand('%:p:h') =~ '.*/\.\?vim/.*/(doc|macros)' | set ft=help | endif
+        au FileType help       setlocal nonumber
 
         " Treat ImpCore as Scheme (Comp105)
         au BufNewFile,BufRead *.imp,*.ic setfiletype scheme
