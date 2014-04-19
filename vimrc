@@ -103,9 +103,9 @@ endif
 " Highlight last column so we know when we're over
 if exists('+colorcolumn')
     if &textwidth != 0
-        set colorcolumn=+0
+        set colorcolumn=+1
     else
-        set colorcolumn=80
+        set colorcolumn=81
     endif
 elseif has("autocmd")
     highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
@@ -113,7 +113,7 @@ elseif has("autocmd")
         autocmd!
         autocmd BufEnter *
                     \ execute 'match OverLength /\%>' .
-                    \ &textwidth == 0 ? 80 : &textwidth .
+                    \ &textwidth == 0 ? 81 : (&textwidth + 1) .
                     \ 'v.\+/'
     augroup END
 endif
