@@ -37,6 +37,7 @@ set expandtab                                          " Change <Tab>s to spaces
 set smarttab        " Tab inserts shiftwidth spaces, backspace removes that many
 set shiftround                       " Round indents to multiple of 'shiftwidth'
 set shell=/bin/zsh                                               " Default shell
+set t_ut=                    " Clear using background color -- fix tmux coloring
 set mouse=a ttymouse=xterm2                                      " Mouse support
 set nowrap linebreak textwidth=80 " Text wrapping: break line along spaces @~80c
 set encoding=utf8 fileformats=unix,dos,mac          " Supported document formats
