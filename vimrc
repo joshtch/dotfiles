@@ -320,20 +320,40 @@ nnoremap <C-b> z^
 nnoremap <Leader>j z+
 nnoremap <Leader>k z^
 
-function! CenteringToggle()
-    if &scrolloff!=99999
+function! CenteringON()
+    let scrolloff_value = 99999
+    if !g:is_centering || &scrolloff != scrolloff_value
         let g:scrolloff_default_value = &scrolloff
-        set scrolloff=99999
-    else
+        execute 'set scrolloff=' . scrolloff_value
+        let g:is_centering=1
+    endif
+endfunction
+function! CenteringOFF()
+    if g:is_centering
         if exists('g:scrolloff_default_value')
             let &scrolloff=g:scrolloff_default_value
             unlet g:scrolloff_default_value
         else
             set scrolloff=0
         endif
+        let g:is_centering=0
     endif
 endfunction
-nnoremap <silent> <Leader>z :<C-u>call CenteringToggle()<CR>
+function! CenteringToggle()
+    if !exists('g:is_centering')
+        let g:is_centering=0
+    endif
+    if !g:is_centering
+        call CenteringON()
+    else
+        call CenteringOFF()
+        endif
+    endif
+endfunction
+nnoremap <silent> [om :<C-u>call CenteringToggle()<CR>
+nnoremap <silent> ]om :<C-u>call CenteringToggle()<CR>
+nnoremap <silent> com :<C-u>call CenteringToggle()<CR>
+nnoremap \z :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>
 
 " Allow expected behavior when traversing wrapped lines
 noremap j gj
