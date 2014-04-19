@@ -114,8 +114,8 @@ if exists("+undofile")
     set undodir=./.vim-undo//
     set undodir+=~/.vim/undo//
     set undofile
-    set undolevels=100  " How many undos to save
-    set undoreload=1000 " Number of lines to save per undo
+    set undolevels=1000  " How many undos to save
+    set undoreload=10000 " Number of lines to save per undo
 endif
 
 " Remember cursor position
