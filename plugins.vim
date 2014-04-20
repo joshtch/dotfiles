@@ -76,7 +76,7 @@ set secure
 NeoBundleSource securemodelines
 
 " Tmux Settings:
-if executable('tmux')
+if exists('$TMUX')
     " Autolabel tmux windows (currently broken for some reason)
     "augroup Tmux
         "autocmd!
