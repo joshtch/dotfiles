@@ -35,7 +35,12 @@ if [[ `uname` == 'Darwin' ]] then
     antigen bundle osx
 fi
 
-antigen theme joshtch/dotfiles custom/nicoulaj-solarized
+if [[ -f ~/dotfiles/custom/nicoulaj-solarized.zsh-theme ]] then
+    antigen theme $HOME/dotfiles/custom/nicoulaj-solarized.zsh-theme --no-local-clone
+else
+    antigen theme joshtch/dotfiles custom/nicoulaj-solarized
+fi
+
 antigen apply
 
 source ~/dotfiles/aliases.zsh
