@@ -147,6 +147,7 @@ NeoBundleLazy 'dbakker/vim-lint', {
             \ 'autoload' : { 'filetypes' : 'vim' },
             \ 'depends' : 'scrooloose/syntastic'
             \ }
+NeoBundle 'vimez/vim-tmux', { 'autoload' : { 'filetypes' : 'conf' }}
 
 " Vim Functionality Extending:
 NeoBundle 'Shougo/vimproc', {
