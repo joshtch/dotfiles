@@ -28,8 +28,11 @@ fi
 (( ! $+tmux )) && antigen bundle tmux
 
 if [[ `uname` == 'Darwin' ]] then
+    if [[ ! `which brew` =~ 'not found$' ]] then
+        antigen bundle brew
+        antigen bundle brew-cask
+    fi
     antigen bundle osx
-    antigen bundle brew
 fi
 
 antigen theme joshtch/dotfiles custom/nicoulaj-solarized
