@@ -165,6 +165,7 @@ NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
             \ '<Plug>FocusModeToggle' } }
 NeoBundle 'dockyard/vim-easydir'
 NeoBundle 'tpope/vim-rsi'
+NeoBundle 'tpope/vim-unimpaired'
 NeoBundleLazy 'tyru/undoclosewin.vim', { 'autoload' : {
             \ 'mappings' : '<Plug>(ucw-restore-window)' }
             \ }
