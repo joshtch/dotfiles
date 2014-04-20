@@ -43,8 +43,8 @@ alias history='fc -l 1'
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 
 # ugly hack to get color by default in different versions of ls
-if ls --color -d . >/dev/null 2>&1; then # GNU
-    function ls {/bin/ls --color=auto "$@" }
+if `whereis ls` --color -d . >/dev/null 2>&1; then # GNU
+    function ls {`whereis ls` --color=auto "$@" }
 elif /usr/gnu/bin/ls --color=auto >/dev/null 2>&1; then
     # Solaris but with GNU ls installed
     function ls {/usr/gnu/bin/ls --color=auto "$@" }
