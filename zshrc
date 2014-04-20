@@ -9,6 +9,15 @@ antigen use oh-my-zsh
 cdpath=(. .. ~)          # This has to come after sourcing antigen and oh-my-zsh
 source ~/.localrc.zsh
 
+if [[ ! `which dircolors` =~ 'not found$' ]] then
+        if [[ -d ~/dotfiles/dircolors-solarized ]] then
+        eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-universal`
+    else
+        antigen bundle huyz/dircolors-solarized
+        eval `dircolors $ADOTDIR/repos/https-COLON--SLASH--SLASH-github.com-SLASH-huyz-SLASH-dircolors-solarized.git/dircolors.ansi-universal`
+    fi
+fi
+
 antigen bundle colored-man
 antigen bundle compleat
 antigen bundle cp
