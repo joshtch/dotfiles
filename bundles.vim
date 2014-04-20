@@ -49,7 +49,8 @@ NeoBundleLazy 'benmills/vimux', {
             \     'VimuxRunCommand',
             \     'VimuxOpenPane'
             \     ]
-            \   }
+            \   },
+            \ 'disable' : !exists('$TMUX')
             \ }
 "NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
             "\ [ 'Ant', 'Assembler', 'ASP', 'Awk', 'Basic', 'BETA', 'C', 'C++',

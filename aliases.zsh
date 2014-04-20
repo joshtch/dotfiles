@@ -46,7 +46,7 @@ alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r 
 if ls --color -d . >/dev/null 2>&1; then # GNU
     function ls {/bin/ls --color=auto "$@" }
 elif /usr/gnu/bin/ls --color=auto >/dev/null 2>&1; then
-    # GNU ls installed in /usr/gnu/bin/ls but not default (Solaris)
+    # Solaris but with GNU ls installed
     function ls {/usr/gnu/bin/ls --color=auto "$@" }
 elif $(brew --prefix coreutils)/libexec/gnubin/ls --color=auto >/dev/null 2>&1; then
     # GNU ls installed in /usr/gnu/bin/ls but not default (Solaris)
