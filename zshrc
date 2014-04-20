@@ -18,7 +18,13 @@ antigen bundle history-substring-search
 antigen bundle extract
 antigen bundle vi-mode
 
-(( ! $+git )) && antigen bundle git && antigen bundle github
+if (( ! $+git )) then
+    antigen bundle git
+    #antigen bundle github
+    #antigen bundle git-remote-branch
+    #antigen bundle git-extras
+fi
+
 (( ! $+tmux )) && antigen bundle tmux
 
 if [[ `uname` == 'Darwin' ]] then
