@@ -10,9 +10,12 @@ cdpath=(. .. ~)          # This has to come after sourcing antigen and oh-my-zsh
 source ~/.localrc.zsh
 
 antigen bundle colored-man
-antigen bundle command-not-found
+antigen bundle compleat
 antigen bundle cp
+antigen bundle dirhistory
 antigen bundle history
+antigen bundle history-substring-search
+antigen bundle extract
 antigen bundle vi-mode
 
 (( ! $+git )) && antigen bundle git && antigen bundle github
