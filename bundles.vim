@@ -82,6 +82,12 @@ NeoBundle 'mhinz/vim-signify'
 NeoBundleLazy 'tpope/vim-vinegar', { 'autoload' : { 'filetypes' : 'netrw' } }
 "NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'valloric/YouCompleteMe', {
+            \ 'build' : {
+            \      'mac' : './install.sh --clang-completer',
+            \      'unix' : './install.sh --clang-completer --system-libclang'
+            \    }
+            \ }
 NeoBundle 'ntpeters/vim-better-whitespace'
 
 " Operators:
