@@ -347,7 +347,6 @@ function! CenteringToggle()
         call CenteringON()
     else
         call CenteringOFF()
-        endif
     endif
 endfunction
 nnoremap <silent> [om :<C-u>call CenteringToggle()<CR>
