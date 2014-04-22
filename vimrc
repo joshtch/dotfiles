@@ -107,13 +107,15 @@ if exists('+colorcolumn')
     else
         set colorcolumn=81
     endif
-elseif has("autocmd")
-    highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
+endif
+" Highlight text that's over our limit
+if has("autocmd")
+    highlight link OverLength ErrorMsg
     augroup OverLengthCol
         autocmd!
-        autocmd BufEnter *
+        autocmd BufEnter,BufWrite *
                     \ execute 'match OverLength /\%>' .
-                    \ &textwidth == 0 ? 81 : (&textwidth + 1) .
+                    \ (&textwidth == 0 ? 80 : &textwidth) .
                     \ 'v.\+/'
     augroup END
 endif
