@@ -59,6 +59,7 @@ set pastetoggle=<Leader>p                     " Toggle paste mode with <Leader>p
 set switchbuf=useopen               " Switch to open buffer instead of reopening
 set viewoptions=folds,options,cursor,unix,slash                     " Appearance
 set laststatus=2                                    " Always display status line
+set noshowmode         " Don't show -- INSERT -- or whatever in the command line
 set noerrorbells novisualbell                               " No annoying alerts
 set viminfo='20,\"50,:10,/10,%,n~/.viminfo    " Remember things between sessions
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
