@@ -119,6 +119,10 @@ if has("autocmd")
                     \ 'v.\+/'
     augroup END
 endif
+exe 'nnoremap <silent> <Leader>n /\%>' . (&textwidth == 0 ? 80 : (&textwidth)) .
+            \'v.\+<cr>'
+exe 'nnoremap <silent> <Leader>N ?\%>' . (&textwidth == 0 ? 80 : (&textwidth)) .
+            \'v.\+<cr>'
 
 " Remember undo history
 if exists("+undofile")
