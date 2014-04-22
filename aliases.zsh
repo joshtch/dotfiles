@@ -43,30 +43,32 @@ alias history='fc -l 1'
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 
 # ugly hack to get color by default in different versions of ls
-if `whereis ls` --color -d . >/dev/null 2>&1; then # GNU
-    function ls {`whereis ls` --color=auto "$@" }
-elif /usr/gnu/bin/ls --color=auto >/dev/null 2>&1; then
+if ls --color -d . &>/dev/null 2>&1; then # GNU
+    COLOR_STRING='--color=auto'
+elif /usr/gnu/bin/ls --color &>/dev/null; then
     # Solaris but with GNU ls installed
-    function ls {/usr/gnu/bin/ls --color=auto "$@" }
-elif $(brew --prefix coreutils)/libexec/gnubin/ls --color=auto >/dev/null 2>&1; then
+    COLOR_STRING='--color=auto'
+elif $(brew --prefix coreutils)/libexec/gnubin/ls --color=auto &>/dev/null; then
     # GNU ls installed in /usr/gnu/bin/ls but not default (Solaris)
-    function ls {$(brew --prefix coreutils)/libexec/gnubin/ls --color=auto "$@" }
-elif /bin/ls -G -d . >/dev/null 2>&1; then # BSD
-    function ls {/bin/ls -G "$@" }
+    COLOR_STRING='--color=auto'
+elif /bin/ls -G -d . &>/dev/null; then # BSD
+    COLOR_STRING='-G'
+else
+    COLOR_STRING='' # You're on your own
 fi
 
 # List directory contents
-alias l='ls -lv'
+alias l="ls -lv $COLOR_STRING"
 alias sl=ls
-alias ls='ls -h -F'
-alias lx='ls -lXB'         #  Sort by extension.
-alias lk='ls -lSr'         #  Sort by size, biggest last.
-alias lt='ls -ltr'         #  Sort by date, most recent last.
-alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
-alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
-alias le='ls -lv |less'    #  Pipe through 'less'
-alias lr='ls -lvR'         #  Recursive ls.
-alias la='ls -lvA'         #  Show hidden files.
+alias ls="ls -h -F $COLOR_STRING"
+alias lx="ls -lXB $COLOR_STRING"         #  Sort by extension.
+alias lk="ls -lSr $COLOR_STRING"         #  Sort by size, biggest last.
+alias lt="ls -ltr $COLOR_STRING"         #  Sort by date, most recent last.
+alias lc="ls -ltcr $COLOR_STRING"        #  Sort by/show change time,most recent last.
+alias lu="ls -ltur $COLOR_STRING"        #  Sort by/show access time,most recent last.
+alias le="ls -lv $COLOR_STRING |less"    #  Pipe through 'less'
+alias lr="ls -lvR $COLOR_STRING"         #  Recursive ls.
+alias la="ls -lvA $COLOR_STRING"         #  Show hidden files.
 alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
 if [[ -d ~/dotfiles ]] then
