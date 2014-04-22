@@ -129,7 +129,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     alias spotlight-enable="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
 
 elif [[ "$(uname)" == "Linux" ]]; then
-    if ! which -s open >/dev/null; then open() { if "$#" > 0; then xdg-open "$@"; else; xdg-open .; fi } >/dev/null; export -f open >/dev/null; fi
+    if [[ `which open` =~ $WHICH_NOT_FOUND ]] then; open() { if "$#" > 0; then xdg-open "$@"; else; xdg-open .; fi } >/dev/null; export -f open >/dev/null; fi
 fi
 
 function size() {
