@@ -31,7 +31,7 @@ augroup END
 if executable('ag')
     let g:unite_source_rec_async_command='ag --nocolor --nogroup --hidden -g'
 endif
-nnoremap <Leader>nu :<C-u>Unite -log -wrap -vertical neobundle/update<CR>
+nnoremap Uu :<C-u>Unite -log -wrap -vertical neobundle/update<CR>
 
 " Solarized: colorscheme
 if v:version >= 702
