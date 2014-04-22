@@ -11,7 +11,7 @@ antigen use oh-my-zsh
 cdpath=(. .. ~)          # This has to come after sourcing antigen and oh-my-zsh
 source ~/.localrc.zsh
 
-if [[ -f ~/dotfiles/dircolors-solarized/dircolors.ansi-universal ]] then
+if [[ -f "$DFS"/dircolors-solarized/dircolors.ansi-universal ]]; then
     eval `dircolors "$DFS"/dircolors-solarized/dircolors.ansi-universal` 2>/dev/null
 else
     antigen bundle huyz/dircolors-solarized
