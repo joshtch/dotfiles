@@ -51,7 +51,7 @@ set number norelativenumber                                       " Line numbers
 set autoread          " Reread a file detected to have been modified outside Vim
 set autowrite                       " Automatically save file when focus is lost
 set copyindent autoindent          " Imitate indenting of previous line's indent
-set ttyfast notimeout ttimeout                         " See :help slow-terminal
+set ttyfast                                            " See :help slow-terminal
 syntax enable                                      " Turn on syntax highlighting
 syntax sync minlines=256             " Update syntax highlighting for more lines
 set synmaxcol=256                            " Don't syntax highlight long lines
@@ -59,6 +59,7 @@ set pastetoggle=<Leader>p                     " Toggle paste mode with <Leader>p
 set switchbuf=useopen               " Switch to open buffer instead of reopening
 set viewoptions=folds,options,cursor,unix,slash                     " Appearance
 set laststatus=2                                    " Always display status line
+set noshowmode         " Don't show -- INSERT -- or whatever in the command line
 set noerrorbells novisualbell                               " No annoying alerts
 set viminfo='20,\"50,:10,/10,%,n~/.viminfo    " Remember things between sessions
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
@@ -107,16 +108,22 @@ if exists('+colorcolumn')
     else
         set colorcolumn=81
     endif
-elseif has("autocmd")
-    highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
+endif
+" Highlight text that's over our limit
+if has("autocmd")
+    highlight link OverLength ErrorMsg
     augroup OverLengthCol
         autocmd!
-        autocmd BufEnter *
+        autocmd BufEnter,BufWrite *
                     \ execute 'match OverLength /\%>' .
-                    \ &textwidth == 0 ? 81 : (&textwidth + 1) .
+                    \ (&textwidth == 0 ? 80 : &textwidth) .
                     \ 'v.\+/'
     augroup END
 endif
+exe 'nnoremap <silent> <Leader>n /\%>' . (&textwidth == 0 ? 80 : (&textwidth)) .
+            \'v.\+<cr>'
+exe 'nnoremap <silent> <Leader>N ?\%>' . (&textwidth == 0 ? 80 : (&textwidth)) .
+            \'v.\+<cr>'
 
 " Remember undo history
 if exists("+undofile")
@@ -155,12 +162,13 @@ if has("gui_running")
         set guifont=DejaVu_Sans_Mono_for_Powerline:12
     end
     set guitablabel=%M\ %t
+else
     " Remove small delay between pressing Esc and entering Normal mode.
-    set ttimeoutlen=10
+    set ttimeout
     augroup FastEscape
         autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
+        au InsertEnter * set ttimeoutlen=0
+        au InsertLeave * set ttimeoutlen=100
     augroup END
 endif
 
@@ -347,7 +355,6 @@ function! CenteringToggle()
         call CenteringON()
     else
         call CenteringOFF()
-        endif
     endif
 endfunction
 nnoremap <silent> [om :<C-u>call CenteringToggle()<CR>
