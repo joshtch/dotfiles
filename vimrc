@@ -51,7 +51,7 @@ set number norelativenumber                                       " Line numbers
 set autoread          " Reread a file detected to have been modified outside Vim
 set autowrite                       " Automatically save file when focus is lost
 set copyindent autoindent          " Imitate indenting of previous line's indent
-set ttyfast notimeout ttimeout                         " See :help slow-terminal
+set ttyfast                                            " See :help slow-terminal
 syntax enable                                      " Turn on syntax highlighting
 syntax sync minlines=256             " Update syntax highlighting for more lines
 set synmaxcol=256                            " Don't syntax highlight long lines
@@ -161,12 +161,13 @@ if has("gui_running")
         set guifont=DejaVu_Sans_Mono_for_Powerline:12
     end
     set guitablabel=%M\ %t
+else
     " Remove small delay between pressing Esc and entering Normal mode.
-    set ttimeoutlen=10
+    set ttimeout
     augroup FastEscape
         autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
+        au InsertEnter * set ttimeoutlen=0
+        au InsertLeave * set ttimeoutlen=100
     augroup END
 endif
 
