@@ -193,7 +193,7 @@ augroup END
 " - K splits the line and removes trailing whitespace (reverse of J/gJ)
 nnoremap <F1> <Nop>
 nnoremap Q @q
-nnoremap <Space> <C-f>
+nnoremap <Space> :<C-u>k `<CR><C-f>
 nnoremap K :<C-u>call SplitHere()<CR>
 function! SplitHere()
     execute "normal! i\<CR>\<Esc>k$hl"
@@ -254,12 +254,7 @@ nnoremap <silent> <Leader>sv :<C-u>so $MYVIMRC<CR>
 nnoremap <silent> <Leader>sl yy:execute @@<CR>
 xnoremap <silent> <Leader>sl y:execute @@<CR>gv<esc>
 
-nnoremap <silent> m :<C-u>update!<CR>:<C-u>call MakeIfPossible()<CR>
-function! MakeIfPossible()
-    if &makeprg != 'make' || filereadable(expand('%:p:h') . "/Makefile")
-        make
-    endif
-endfunction
+nnoremap <silent> m :<C-u>update!<CR>
 
 " Open a Quickfix window for the last search.
 nnoremap <silent> <Leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
@@ -281,17 +276,17 @@ if has("autocmd")
         au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
         au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-        au FileType html       setlocal ts=8 sts=4 sw=4 et
-        au FileType css        setlocal ts=8 sts=4 sw=4 et
-        au FileType javascript setlocal ts=4 sts=4 sw=4 noet
+        au FileType html       setlocal ts=8
+        au FileType css        setlocal ts=8
+        au FileType javascript setlocal noet
+        au FileType sml        setlocal makeprg="mosmlc %"
         au FileType c,cpp,javascript,slang setlocal cindent fo+=r
-        au FileType bash,coffee,markdown,python,zsh set sw=4 ts=4 expandtab
-        au FileType javascript,html,xhtml,css,php set sw=2 tw=2 fdm=indent
+        au FileType javascript,html,xhtml,css,php setlocal sw=2 tw=2 fdm=indent
 
         " Fix syntax highlighting of vim helpfiles, since 'modeline' is off
         au BufEnter *.txt
-            \ if expand('%:p:h') =~ '.*/\.\?vim/.*/(doc|macros)' | set ft=help | endif
-        au FileType help       setlocal nonumber
+            \ if expand('%:p:h') =~? '.*/\.\?vim/.*/(doc|macros)' | setfiletype help | endif
+        au FileType help setlocal nonumber
 
         " Treat ImpCore as Scheme (Comp105)
         au BufNewFile,BufRead *.imp,*.ic setfiletype scheme
@@ -314,9 +309,12 @@ noremap <C-^> <C-^>`"
 
 " Hitting { and } constantly gets painful, and ^ and $ are too useful to be so
 " inconvenient. Not sure what to do with the default H and L though. I use
-" keepjumps in normal mode so H and L don't write to the jumplist
-noremap <silent> L }
-noremap <silent> H {
+" keepjumps in normal mode so H and L don't write to the jumplist, and add V to
+" operator-pending mode so the motion acts linewise instead of characterwise
+xnoremap L }
+xnoremap H {
+onoremap L V}
+onoremap H V{
 nnoremap <silent> L :<C-u>execute 'keepjumps normal!' v:count1 . '}'<CR>
 nnoremap <silent> H :<C-u>execute 'keepjumps normal!' v:count1 . '{'<CR>
 noremap { ^
@@ -329,19 +327,19 @@ nnoremap <Leader>j z+
 nnoremap <Leader>k z^
 
 function! CenteringON()
-    let scrolloff_value = 99999
-    if !g:is_centering || &scrolloff != scrolloff_value
+    let scrolloff_value = 999
+    if !exists('g:is_centering') || !g:is_centering
         let g:scrolloff_default_value = &scrolloff
         execute 'set scrolloff=' . scrolloff_value
         let g:is_centering=1
     endif
 endfunction
 function! CenteringOFF()
-    if g:is_centering
-        if exists('g:scrolloff_default_value')
+    if !exists('g:is_centering') || g:is_centering
+        if exists('g:scrolloff_default_value') && g:scrolloff_default_value < 999
             let &scrolloff=g:scrolloff_default_value
             unlet g:scrolloff_default_value
-        else
+        elseif &scrolloff == 999
             set scrolloff=0
         endif
         let g:is_centering=0
@@ -357,10 +355,12 @@ function! CenteringToggle()
         call CenteringOFF()
     endif
 endfunction
-nnoremap <silent> [om :<C-u>call CenteringToggle()<CR>
-nnoremap <silent> ]om :<C-u>call CenteringToggle()<CR>
+nnoremap <silent> [om :<C-u>call CenteringON()<CR>
+nnoremap <silent> ]om :<C-u>call CenteringOFF()<CR>
 nnoremap <silent> com :<C-u>call CenteringToggle()<CR>
-nnoremap \z :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>
+
+nnoremap <silent> zS :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>
+set foldopen-=search
 
 " Allow expected behavior when traversing wrapped lines
 noremap j gj
@@ -423,3 +423,42 @@ augroup AutoView
     autocmd BufWritePost,WinLeave,BufWinLeave ?* if MakeViewCheck() | mkview | endif
     autocmd BufWinEnter ?* if MakeViewCheck() | silent! loadview | endif
 augroup END
+
+" Set a nicer foldtext function
+function! MyFoldText()
+  let line = getline(v:foldstart)
+  if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
+    let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
+    let linenum = v:foldstart + 1
+    while linenum < v:foldend
+      let line = getline( linenum )
+      let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
+      if comment_content != ''
+        break
+      endif
+      let linenum = linenum + 1
+    endwhile
+    let sub = initial . ' ' . comment_content
+  else
+    let sub = line
+    let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+    if startbrace == '{'
+      let line = getline(v:foldend)
+      let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+      if endbrace == '}'
+        let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+      endif
+    endif
+  endif
+  let n = v:foldend - v:foldstart + 1
+  let info = " " . n . " lines"
+  let sub = sub . "                                                                                                                  "
+  let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+  let fold_w = getwinvar( 0, '&foldcolumn' )
+  let tw = (&tw > 0 ? &tw : 80)
+  let ww = winwidth(0)
+  let width = (ww > tw ? tw : ww)
+  let sub = strpart( sub, 0, width - strlen( info ) - num_w - fold_w - 1 )
+  return sub . info
+endfunction
+set foldtext=MyFoldText()

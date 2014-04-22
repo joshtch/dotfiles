@@ -3,19 +3,19 @@
 
 # MAC Address spoofing: ifconfig bge0 link 03:a0:04:d3:00:11
 
-source ~/dotfiles/antigen/antigen.zsh
+export DFS="$HOME"/dotfiles
+
+source "$DFS"/antigen/antigen.zsh
 antigen use oh-my-zsh
 
 cdpath=(. .. ~)          # This has to come after sourcing antigen and oh-my-zsh
 source ~/.localrc.zsh
 
-if [[ ! `which dircolors` =~ 'not found$' ]] then
-        if [[ -f ~/dotfiles/dircolors-solarized/dircolors.ansi-universal ]] then
-        eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-universal`
-    else
-        antigen bundle huyz/dircolors-solarized
-        eval `dircolors $ADOTDIR/repos/https-COLON--SLASH--SLASH-github.com-SLASH-huyz-SLASH-dircolors-solarized.git/dircolors.ansi-universal`
-    fi
+if [[ -f ~/dotfiles/dircolors-solarized/dircolors.ansi-universal ]] then
+    eval `dircolors "$DFS"/dircolors-solarized/dircolors.ansi-universal` 2>/dev/null
+else
+    antigen bundle huyz/dircolors-solarized
+    eval `dircolors $ADOTDIR/repos/https-COLON--SLASH--SLASH-github.com-SLASH-huyz-SLASH-dircolors-solarized.git/dircolors.ansi-universal` 2>/dev/null
 fi
 
 antigen bundle colored-man
@@ -37,21 +37,21 @@ fi
 (( ! $+tmux )) && antigen bundle tmux
 
 if [[ `uname` == 'Darwin' ]] then
-    if [[ ! `which brew` =~ 'not found$' ]] then
+    if [[ ! `which brew` =~ "$WHICH_NOT_FOUND" ]] then
         antigen bundle brew
         antigen bundle brew-cask
     fi
     antigen bundle osx
 fi
 
-if [[ -f ~/dotfiles/custom/nicoulaj-solarized.zsh-theme ]] then
-    antigen theme $HOME/dotfiles/custom/nicoulaj-solarized.zsh-theme --no-local-clone
+if [[ -f "$DFS"/custom/nicoulaj-solarized.zsh-theme ]] then
+    antigen theme "$DFS"/custom/nicoulaj-solarized.zsh-theme --no-local-clone
 else
     antigen theme joshtch/dotfiles custom/nicoulaj-solarized
 fi
 
 antigen apply
 
-source ~/dotfiles/aliases.zsh
+source "$DFS"/aliases.zsh
 
-source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$DFS"/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
