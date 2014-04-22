@@ -10,7 +10,7 @@ cdpath=(. .. ~)          # This has to come after sourcing antigen and oh-my-zsh
 source ~/.localrc.zsh
 
 if [[ ! `which dircolors` =~ 'not found$' ]] then
-        if [[ -d ~/dotfiles/dircolors-solarized ]] then
+        if [[ -f ~/dotfiles/dircolors-solarized/dircolors.ansi-universal ]] then
         eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-universal`
     else
         antigen bundle huyz/dircolors-solarized
