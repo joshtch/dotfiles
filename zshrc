@@ -11,11 +11,13 @@ antigen use oh-my-zsh
 cdpath=(. .. ~)          # This has to come after sourcing antigen and oh-my-zsh
 source ~/.localrc.zsh
 
-if [[ -f "$DFS"/dircolors-solarized/dircolors.ansi-universal ]]; then
-    eval `dircolors "$DFS"/dircolors-solarized/dircolors.ansi-universal` 2>/dev/null
-else
-    antigen bundle huyz/dircolors-solarized
-    eval `dircolors $ADOTDIR/repos/https-COLON--SLASH--SLASH-github.com-SLASH-huyz-SLASH-dircolors-solarized.git/dircolors.ansi-universal` 2>/dev/null
+if [[ -x "${commands[setenv]}" ]]; then
+    if [[ -f "$DFS"/dircolors-solarized/dircolors.ansi-universal ]]; then
+        eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-universal`
+    else
+        antigen bundle huyz/dircolors-solarized
+        eval `dircolors $ADOTDIR/repos/https-COLON--SLASH--SLASH-github.com-SLASH-huyz-SLASH-dircolors-solarized.git/dircolors.ansi-universal`
+    fi
 fi
 
 antigen bundle colored-man
@@ -41,6 +43,7 @@ if [[ `uname` == 'Darwin' ]] then
         antigen bundle brew
         antigen bundle brew-cask
     fi
+    antigen bundle gnu-utils
     antigen bundle osx
 fi
 
