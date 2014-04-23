@@ -39,7 +39,7 @@ fi
 (( ! $+tmux )) && antigen bundle tmux
 
 if [[ `uname` == 'Darwin' ]] then
-    if [[ ! `which brew` =~ "$WHICH_NOT_FOUND" ]] then
+    if [[ -x "${commands[brew]}" ]] then
         antigen bundle brew
         antigen bundle brew-cask
     fi
