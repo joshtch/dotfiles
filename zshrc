@@ -9,7 +9,7 @@ source "$DFS"/antigen/antigen.zsh
 antigen use oh-my-zsh
 
 cdpath=(. .. ~)          # This has to come after sourcing antigen and oh-my-zsh
-source ~/.localrc.zsh
+[[ -f ~/.localrc.zsh ]] && source ~/.localrc.zsh
 
 if [[ -x "${commands[setenv]}" ]]; then
     if [[ -f "$DFS"/dircolors-solarized/dircolors.ansi-universal ]]; then
