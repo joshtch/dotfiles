@@ -43,15 +43,15 @@ alias history='fc -l 1'
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 
 # ugly hack to get color by default in different versions of ls
-if ls --color -d . &>/dev/null 2>&1; then # GNU
+if "${commands[ls]}" --color -d . >/dev/null 2>&1; then # GNU
     COLOR_STRING='--color=auto'
-elif /usr/gnu/bin/ls --color &>/dev/null; then
-    # Solaris but with GNU ls installed
-    COLOR_STRING='--color=auto'
-elif $(brew --prefix coreutils)/libexec/gnubin/ls --color=auto &>/dev/null; then
+elif /usr/gnu/bin/ls --color=auto >/dev/null 2>&1; then
     # GNU ls installed in /usr/gnu/bin/ls but not default (Solaris)
     COLOR_STRING='--color=auto'
-elif /bin/ls -G -d . &>/dev/null; then # BSD
+elif [[ -x "${commands[brew]}" ]] && "$(brew --prefix coreutils)"/libexec/gnubin/ls --color=auto >/dev/null 2>&1; then
+    # GNU ls installed with homebrew in OSX
+    COLOR_STRING='--color=auto'
+elif "${commands[ls]}" -G -d . >/dev/null 2>&1; then # BSD
     COLOR_STRING='-G'
 else
     COLOR_STRING='' # You're on your own
