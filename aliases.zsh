@@ -11,13 +11,8 @@ alias .....='cd ../../../..'
 
 alias cl='clear; ls'
 
-# Show contents of directory on cd
-alias cdl='cd && ls'
-
 # Super user
 alias sudo='sudo ' # make sudo play nice with other aliases
-alias _='sudo'
-alias please='sudo'
 
 function rand {
     NUMBYTES="$@"
@@ -85,14 +80,12 @@ fi
 alias ll='vim ~/.localrc.zsh; source ~/.localrc.zsh'
 
 alias z='exec zsh'
-alias vbundle='cd ~/.vim/bundle'
 alias more='less'
 alias grep='grep --color=auto'
 
 # progress bar on file copy
 alias pcp='rsync --progress -ravz'
 
-alias h=history
 alias j='jobs -l'
 alias r='fc -e -'
 alias c=clear
