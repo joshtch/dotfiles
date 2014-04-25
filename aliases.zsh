@@ -33,7 +33,7 @@ function rand {
 alias gsl='git diff --stat --color | cat'
 
 # Show history
-alias history='fc -l 1'
+alias h='fc -l 1'
 # Show ten most used commands
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 
