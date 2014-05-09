@@ -3,27 +3,32 @@ tap 'homebrew/dupes'
 
 tap 'homebrew/versions'
 
-tap 'phinze/cask'
-
 tap 'rcmdnk/brewall'
 
 
 # Cask packages
 cask 'bettertouchtool'
-cask 'caffeine'
+cask '(!)'
 cask 'coconutbattery'
-cask 'colloquy'
+cask '(!)'
 cask 'disk-inventory-x'
+cask '(!)'
 cask 'evernote'
+cask '(!)'
 cask 'firefox'
-cask 'geektool'
+cask '(!)'
 cask 'gimp'
+cask '(!)'
 cask 'keyremap4macbook'
+cask '(!)'
 cask 'onyx'
+cask '(!)'
 cask 'the-unarchiver'
+cask '(!)'
 cask 'virtualbox'
+cask '(!)'
 cask 'vlc'
-cask 'xquartz'
+cask '(!)'
 
 # Other Homebrew packages
 brew 'atk'
