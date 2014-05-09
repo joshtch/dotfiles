@@ -5,30 +5,18 @@ tap 'homebrew/versions'
 
 tap 'rcmdnk/brewall'
 
-
 # Cask packages
 cask 'bettertouchtool'
-cask '(!)'
 cask 'coconutbattery'
-cask '(!)'
 cask 'disk-inventory-x'
-cask '(!)'
 cask 'evernote'
-cask '(!)'
 cask 'firefox'
-cask '(!)'
 cask 'gimp'
-cask '(!)'
 cask 'keyremap4macbook'
-cask '(!)'
 cask 'onyx'
-cask '(!)'
 cask 'the-unarchiver'
-cask '(!)'
 cask 'virtualbox'
-cask '(!)'
 cask 'vlc'
-cask '(!)'
 
 # Other Homebrew packages
 brew 'atk'
