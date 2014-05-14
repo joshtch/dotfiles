@@ -1,36 +1,103 @@
 # Tap repositories and their packages
-tap caskroom/cask
-brew brew-cask
+tap 'homebrew/dupes'
 
-tap homebrew/dupes
-brew diffutils
-brew gpatch
-brew grep --default-names
-brew gzip
-brew less
-brew m4
-brew make
-brew openssh
-brew rsync
-brew screen
-brew unzip
+tap 'homebrew/versions'
 
-tap homebrew/versions
-brew lua52
-
-tap rcmdnk/brewall
-brew brewall
+tap 'rcmdnk/brewall'
 
 
-# Homebrew packages
-install atk
-install autoconf
-install bash
-install binutils
-install cairo
-install cmake
-install colordiff
-install coreutils
-install emacs
-install faac
-install findutils --default-names
+# Cask packages
+cask 'bettertouchtool'
+cask '(!)'
+cask 'coconutbattery'
+cask '(!)'
+cask 'disk-inventory-x'
+cask '(!)'
+cask 'evernote'
+cask '(!)'
+cask 'firefox'
+cask '(!)'
+cask 'gimp'
+cask '(!)'
+cask 'keyremap4macbook'
+cask '(!)'
+cask 'onyx'
+cask '(!)'
+cask 'the-unarchiver'
+cask '(!)'
+cask 'virtualbox'
+cask '(!)'
+cask 'vlc'
+cask '(!)'
+
+# Other Homebrew packages
+brew 'atk'
+brew 'autoconf'
+brew 'bash'
+brew 'binutils'
+brew 'brew-cask'
+brew 'brewall'
+brew 'cairo'
+brew 'cmake'
+brew 'colordiff'
+brew 'coreutils'
+brew 'diffutils'
+brew 'emacs'
+brew 'faac'
+brew 'findutils --default-names'
+brew 'fontconfig'
+brew 'freetype'
+brew 'gawk'
+brew 'gdbm'
+brew 'gdk-pixbuf'
+brew 'gettext'
+brew 'git'
+brew 'glib'
+brew 'gmp'
+brew 'gnu-sed --default-names'
+brew 'gnu-which'
+brew 'gnutls'
+brew 'gobject-introspection'
+brew 'gpatch'
+brew 'grep --default-names'
+brew 'gtk+'
+brew 'gzip'
+brew 'harfbuzz'
+brew 'icu4c'
+brew 'jpeg'
+brew 'less'
+brew 'libevent'
+brew 'libffi'
+brew 'libidn'
+brew 'libpng'
+brew 'libtasn1'
+brew 'libtiff'
+brew 'libtool'
+brew 'lua'
+brew 'lua52'
+brew 'm4'
+brew 'make'
+brew 'mplayer'
+brew 'mutt'
+brew 'nettle'
+brew 'openssh'
+brew 'openssl'
+brew 'pango'
+brew 'pcre'
+brew 'pixman'
+brew 'pkg-config'
+brew 'readline'
+brew 'reattach-to-user-namespace'
+brew 'rsync'
+brew 'screen'
+brew 'ssh-copy-id'
+brew 'the_silver_searcher'
+brew 'tmux'
+brew 'tokyo-cabinet'
+brew 'trash'
+brew 'unzip'
+brew 'watch'
+brew 'wdiff --with-gettext'
+brew 'wget --enable-iri'
+brew 'xz'
+brew 'zsh'
