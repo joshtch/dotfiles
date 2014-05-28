@@ -187,4 +187,38 @@ if [[ "$SHELL" == 'zsh' ]]; then
     zle -N down-line-or-history-beginning-search
     bindkey '' up-line-or-history-beginning-search
     bindkey '' down-line-or-history-beginning-search
+
+    # zsh is able to auto-do some kungfoo
+    # depends on the SUFFIX :)
+    if [ ${ZSH_VERSION//\./} -ge 420 ]; then
+        # open browser on urls
+        _browser_fts=(htm html de org net com at cx nl se dk dk php)
+        for ft in $_browser_fts ; do alias -s $ft=$BROWSER ; done
+
+        _editor_fts=(cpp cxx cc c hh h inl asc txt TXT tex)
+        for ft in $_editor_fts ; do alias -s $ft=$EDITOR ; done
+
+        _image_fts=(jpg jpeg png gif mng tiff tif xpm)
+        for ft in $_image_fts ; do alias -s $ft=$XIVIEWER; done
+
+        _media_fts=(ape avi flv mkv mov mp3 mpeg mpg ogg ogm rm wav webm)
+        for ft in $_media_fts ; do alias -s $ft=mplayer ; done
+
+        #read documents
+        alias -s pdf=acroread
+        alias -s ps=gv
+        alias -s dvi=xdvi
+        alias -s chm=xchm
+        alias -s djvu=djview
+
+        #list whats inside packed file
+        alias -s zip="unzip -l"
+        alias -s rar="unrar l"
+        alias -s tar="tar tf"
+        alias -s tar.gz="echo "
+        alias -s ace="unace l"
+    fi
+
+    # Make zsh know about hosts already accessed by SSH
+    zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 fi
