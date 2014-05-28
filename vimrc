@@ -211,11 +211,12 @@ cabbrev h <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<CR>
 cabbrev help <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
 
 " Use ,q to quit nameless buffers without confirmation or !
-nnoremap <silent> <Leader>q :<C-u>call QuitIfNameless()<CR>:q<CR>
+nnoremap <silent> <Leader>q :<C-u>call QuitIfNameless()<CR>
 function! QuitIfNameless()
     if empty(bufname('%'))
         setlocal nomodified
     endif
+    execute 'q'
 endfunction
 
 " Replace 'ddate' with current date, 'ttime' with current time
