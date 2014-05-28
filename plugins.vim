@@ -194,6 +194,9 @@ let g:syntastic_c_check_header = 1
 "let g:syntastic_auto_refresh_includes = 1
 let g:syntastic_c_compiler = 'gcc'
 
+" YouCompleteMe:
+let g:ycm_enable_diagnostic_signs = 0
+
 " Fugitive: Awesome git plugin for vim
 nnoremap <Leader>ga :<C-u>Git add %<CR><CR>
 nnoremap <Leader>gb :<C-u>Gblame<CR>
