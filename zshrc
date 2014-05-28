@@ -45,9 +45,9 @@ if [[ `uname` == 'Darwin' ]] then
 fi
 
 if [[ -f "$DFS"/custom/nicoulaj-solarized.zsh-theme ]] then
-    antigen theme "$DFS"/custom/nicoulaj-solarized.zsh-theme --no-local-clone
+    antigen theme "$DFS"/custom/nicoulaj-solarized.zsh-theme
 else
-    antigen theme joshtch/dotfiles custom/nicoulaj-solarized
+    antigen theme "$DFS" custom/nicoulaj-solarized
 fi
 
 antigen apply
