@@ -67,7 +67,7 @@ NeoBundleLazy 'tpope/vim-dispatch', {
             \     ]
             \   }
             \ }
-NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
+NeoBundle 'tpope/vim-fugitive'
 NeoBundleLazy 'tyru/open-browser.vim', {
             \ 'autoload' : {
             \         'mappings' : [
