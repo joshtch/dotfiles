@@ -10,7 +10,7 @@ let g:mapleader = ","
 
 " Plugins And Settings:
 if filereadable(expand('~/dotfiles/bundles.vim')) &&
-            \ filereadable(expand('~/dotfiles/bundles.vim'))
+            \ filereadable(expand('~/dotfiles/plugins.vim'))
     source ~/dotfiles/bundles.vim
     source ~/dotfiles/plugins.vim
 endif
