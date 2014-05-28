@@ -16,7 +16,7 @@ set showtabline=never
 set guioptions=s
 set showstatuslinks='command'
 set hintkeys=oecruvmna;lskdjf
-set editor='/usr/local/bin/mvim -g -f +<line> +"sil! call cursor(0, <column>)" <file>'
+"set editor='/usr/local/bin/mvim -g -f +<line> +"sil! call cursor(0, <column>)" <file>'
 set shell=/bin/zsh
 
 silent qmark g https://github.com/
