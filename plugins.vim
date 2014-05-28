@@ -19,6 +19,10 @@ nnoremap Uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline -re
 nnoremap Uy :<C-u>Unite -no-split -buffer-name=yank history/yank -resume<CR>
 nnoremap Ub :<C-u>Unite -no-split -buffer-name=buffer buffer -resume<CR>
 nnoremap Ug :<C-u>Unite -no-split -buffer-name=outline -start-insert tag -resume<CR>
+nnoremap Uu :<C-u>Unite -log -wrap -vertical neobundle/update<CR>
+call unite#filters#matcher_default#use(['matcher_fuzzy', 'matcher_hide_hidden_files'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+
 augroup UniteTags
     autocmd!
     autocmd BufEnter *
@@ -31,7 +35,6 @@ augroup END
 if executable('ag')
     let g:unite_source_rec_async_command='ag --nocolor --nogroup --hidden -g'
 endif
-nnoremap Uu :<C-u>Unite -log -wrap -vertical neobundle/update<CR>
 
 " Solarized: colorscheme
 if v:version >= 702
