@@ -11,7 +11,7 @@ antigen use oh-my-zsh
 cdpath=(. .. ~)          # This has to come after sourcing antigen and oh-my-zsh
 [[ -f ~/.localrc.zsh ]] && source ~/.localrc.zsh
 
-if [[ -x "${commands[setenv]}" ]]; then
+if [[ -x "${commands[dircolors]}" ]]; then
     if [[ -f "$DFS"/dircolors-solarized/dircolors.ansi-universal ]]; then
         eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-universal`
     else
