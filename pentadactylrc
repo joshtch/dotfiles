@@ -35,7 +35,6 @@ silent qmark k https://wikis.uit.tufts.edu/confluence/display/CSS/Student+Suppor
 silent qmark w http://www.wiziwig.tv/competition.php?part=sports&discipline=football
 silent qmark T http://tufts.service-now.com/
 silent qmark d http://drive.google.com/
-silent qmark v http://vpn.tufts.edu/
 silent qmark e http://www.ece.tufts.edu/~karen/ES4
 
 set passkeys=reddit\.com:jkpn\;\,\.[]JKu
