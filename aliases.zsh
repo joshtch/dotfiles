@@ -68,12 +68,12 @@ alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 if [[ -d ~/dotfiles ]]; then
     alias vv='vim ~/dotfiles/vimrc'
     alias bb='vim ~/dotfiles/bashrc'
-    alias aa='vim ~/dotfiles/aliases.zsh; exec zsh'
+    alias aa='vim ~/dotfiles/aliases.zsh; source ~/dotfiles/aliases.zsh'
     alias zz='vim ~/dotfiles/zshrc; source ~/.zshrc'
 else
     alias vv='vim ~/.vimrc'
     alias bb='vim ~/.bashrc; exec bash'
-    alias aa='vim ~/.oh-my-zsh/custom/aliases.zsh; exec zsh'
+    alias aa='vim ~/.oh-my-zsh/custom/aliases.zsh; source ~/.oh-my-zsh/custom/aliases.zsh'
     alias zz='vim ~/.zshrc; source ~/.zshrc'
 fi
 alias ll='vim ~/.localrc.zsh; source ~/.localrc.zsh'
