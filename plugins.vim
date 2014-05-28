@@ -133,20 +133,6 @@ if v:version >= 702 && !g:entered_vim
     silent! Arpeggio inoremap jk <Esc>
 endif
 
-" Easymotion: Quick navigation
-"nmap <Space> <Plug>(easymotion-s2)
-"xmap <Space> <Plug>(easymotion-s2)
-"omap <Space> <Plug>(easymotion-s2)
-"let g:EasyMotion_keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-"hi link EasyMotionShade Comment
-"hi link EasyMotionTarget2First Question
-"hi link EasyMotionTarget2Second Question
-"let g:EasyMotion_do_mapping = 0
-"let g:EasyMotion_smartcase = 1                      " type `a` and match `a`&`A`
-"let g:EasyMotion_use_smartsign_us = 1   " Smartsign (type `1` and match `1`&`!`)
-"let g:EasyMotion_use_upper = 1                     " Use uppercase target labels
-"let g:EasyMotion_space_jump_first = 1       " Type space and jump to first match
-
 " Focus: Force display of a single buffer for focused editing
 function! ToggleFocusMode()
     if !exists("t:focusmode") && exists("#Resize#WinEnter")
