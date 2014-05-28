@@ -1,4 +1,4 @@
-set titlestring=Mozilla\ Firefox
+set titlestring=''
 set! browser.tabs.closeWindowWithLastTab=true
 set hlfind
 set incfind
