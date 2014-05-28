@@ -255,8 +255,8 @@ else
 endif
 nnoremap <silent> <Leader>el :<C-u>vsplit ~/.localrc.zsh<CR>
 nnoremap <silent> <Leader>sv :<C-u>so $MYVIMRC<CR>
-nnoremap <silent> <Leader>sl yy:execute @@<CR>
-xnoremap <silent> <Leader>sl y:execute @@<CR>gv<esc>
+nnoremap <silent> <Leader>sl yy:execute @@<CR>:echo "Sourced line"<CR>
+xnoremap <silent> <Leader>sl y:execute @@<CR>gv<esc>:echo "Sourced selection"<CR>
 
 nnoremap <silent> m :<C-u>update!<CR>
 
