@@ -65,7 +65,7 @@ alias lr="ls -lvR"         #  Recursive ls.
 alias la="ls -lvA"         #  Show hidden files.
 alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
-if [[ -d ~/dotfiles ]] then
+if [[ -d ~/dotfiles ]]; then
     alias vv='vim ~/dotfiles/vimrc'
     alias bb='vim ~/dotfiles/bashrc'
     alias aa='vim ~/dotfiles/aliases.zsh; exec zsh'
