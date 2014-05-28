@@ -192,8 +192,8 @@ augroup END
 " - <Space> scrolls down a page (like most programs), <C-Space> goes reverse
 " - K splits the line and removes trailing whitespace (reverse of J/gJ)
 nnoremap <F1> <Nop>
-nnoremap Q @q
-nnoremap <Space> :<C-u>k `<CR><C-f>
+nnoremap Q @@
+nnoremap <Space> :<C-u>k`<CR><C-f>
 nnoremap K :<C-u>call SplitHere()<CR>
 function! SplitHere()
     execute "normal! i\<CR>\<Esc>k$hl"
