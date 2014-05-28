@@ -129,11 +129,8 @@ if exists(":Tabularize")
 endif
 
 " Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc)
-if v:version >= 702
-    augroup Arpeggio
-        autocmd!
-        autocmd VimEnter * Arpeggio inoremap jk <Esc>
-    augroup END
+if v:version >= 702 && !g:entered_vim
+    silent! Arpeggio inoremap jk <Esc>
 endif
 
 " Easymotion: Quick navigation
