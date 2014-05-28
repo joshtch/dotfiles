@@ -132,6 +132,30 @@ function ssht(){
     ssh $* -t 'tmux a || tmux || /bin/bash'
 }
 
+alias dud='du --max-depth=1 -h'
+alias du-dir='du --max-depth=1 -h'
+alias duf='du -sh *'
+alias du-file='du -sh *'
+alias fd='find . -type d -name'
+alias find-dir='find . -type d -name'
+alias ff='find . -type f -name'
+alias find-file='find . -type f -name'
+
+alias hgrep="fc -El 0 | grep"
+alias j='jobs'
+alias p='ps -f'
+alias sortnr='sort -n -r'
+
+# Command line head / tail shortcuts
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep'
+alias -g L="| less"
+alias -g LL="2>&1 | less"
+alias -g CA="2>&1 | cat -A"
+alias -g NE="2> /dev/null"
+alias -g NUL="> /dev/null 2>&1"
+
 fancy-ctrl-z () {
     if [[ $#BUFFER -eq 0 ]]; then
         fg
