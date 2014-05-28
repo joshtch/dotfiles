@@ -133,6 +133,12 @@ if v:version >= 702 && !g:entered_vim
     silent! Arpeggio inoremap jk <Esc>
 endif
 
+" Exchange:
+nmap cx <Plug>(Exchange)
+vmap x <Plug>(Exchange)
+nmap cxc <Plug>(ExchangeClear)
+nmap cxx <Plug>(ExchangeLine)
+
 " Focus: Force display of a single buffer for focused editing
 function! ToggleFocusMode()
     if !exists("t:focusmode") && exists("#Resize#WinEnter")
