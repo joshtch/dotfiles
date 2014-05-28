@@ -18,6 +18,7 @@ ln -sf ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/cask ~/.cask
 ln -sf ~/dotfiles/pentadactylrc ~/.pentadactylrc
 ln -sf ~/dotfiles/pentadactyl ~/.pentadactyl
+ln -sf ~/.vim/bundle/pterosaur/pterosaur.js ~/dotfiles/pentadactyl/plugins/pterosaur.js
 
 mkdir -p ~/.vim/syntax
 mkdir -p ~/.vim/ftdetect

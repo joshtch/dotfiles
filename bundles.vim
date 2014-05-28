@@ -171,6 +171,8 @@ NeoBundleLazy 'tyru/undoclosewin.vim', { 'autoload' : {
             \ }
 NeoBundleLazy 'vim-scripts/bufkill.vim', { 'autoload' : {
             \ 'commands' : [ 'BD', 'BUN', 'BW', 'BB', 'BF' ] } }
+NeoBundle 'ardagnir/eventloop.vim'
+NeoBundle 'ardagnir/pterosaur'
 
 NeoBundleCheck
 filetype plugin indent on
