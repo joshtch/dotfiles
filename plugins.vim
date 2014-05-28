@@ -140,21 +140,7 @@ nmap cxc <Plug>(ExchangeClear)
 nmap cxx <Plug>(ExchangeLine)
 
 " Focus: Force display of a single buffer for focused editing
-function! ToggleFocusMode()
-    if !exists("t:focusmode") && exists("#Resize#WinEnter")
-        set noequalalways
-        autocmd! Resize
-    endif
-    execute "normal \<Plug>FocusModeToggle"
-    if !exists("t:focusmode")
-        set equalalways
-        augroup Resize
-            autocmd!
-            autocmd WinEnter,VimResized * wincmd =
-        augroup END
-    endif
-endfunction
-nmap <silent> <Leader>f :<C-u>call ToggleFocusMode()<CR>
+nmap <silent> <Leader>f <Plug>FocusModeToggle
 let g:focus_use_default_mapping = 0
 
 " Better Whitespace: highlight trailing WS on all lines except current
