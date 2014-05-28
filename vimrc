@@ -194,7 +194,7 @@ augroup END
 nnoremap <F1> <Nop>
 nnoremap Q @@
 nnoremap <Space> :<C-u>k`<CR><C-f>
-nnoremap K :<C-u>call SplitHere()<CR>
+nnoremap <silent> K :<C-u>call SplitHere()<CR>
 function! SplitHere()
     execute "normal! i\<CR>\<Esc>k$hl"
     if getline(line('.'))[col('.')-1] =~ '\s'
