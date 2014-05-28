@@ -188,8 +188,8 @@ augroup END
 
 " Map annoying and useless <F1>, Q, <Space>, and K to more useful things
 " - <F1> unmapped so it can be used outside of vim for changing tmux windows
-" - Q repeats the macro in register q, making using macros actually convenient
-" - <Space> scrolls down a page (like most programs)
+" - Q repeats the last macro used, making using macros more convenient
+" - <Space> scrolls down a page (like most programs), <C-Space> goes reverse
 " - K splits the line and removes trailing whitespace (reverse of J/gJ)
 nnoremap <F1> <Nop>
 nnoremap Q @q
