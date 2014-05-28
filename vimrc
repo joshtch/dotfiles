@@ -196,11 +196,14 @@ nnoremap Q @@
 nnoremap <Space> :<C-u>k`<CR><C-f>
 nnoremap <silent> K :<C-u>call SplitHere()<CR>
 function! SplitHere()
-    execute "normal! i\<CR>\<Esc>k$hl"
+    execute "normal! i\<CR>\<Esc>kg_"
     if getline(line('.'))[col('.')-1] =~ '\s'
         execute 'normal! "_diw'
     endif
 endfunction
+
+" Make cw consistent with dw, yw, vw
+onoremap w :execute 'normal! '.v:count1.'w'<CR>
 
 " Open help in a vertical split instead of the default horizontal split
 " " http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev
