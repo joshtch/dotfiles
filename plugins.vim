@@ -231,9 +231,9 @@ endfunction
 noremap <silent> <C-e> :<C-u>call ToggleVExplorer()<CR>
 
 " Open Browser: Open a URL in the default browser
-map gu <Plug>(openbrowser-open)
+map gl <Plug>(openbrowser-open)
 map gs <Plug>(openbrowser-search)
-map go <Plug>(openbrowser-smart-search)
+map gb <Plug>(openbrowser-smart-search)
 noremap <Leader>ob :<C-u>OpenBrowserSmartSearch<Space>
 
 " UndoCloseWin: Undo closing of tabs and windows
