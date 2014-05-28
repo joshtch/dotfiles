@@ -21,6 +21,7 @@ set shell=/bin/zsh
 
 silent qmark g https://github.com/
 silent qmark r http://www.reddit.com/
+silent qmark R http://www.reddit.com/r/realmadrid
 silent qmark m https://mail.google.com/
 silent qmark c https://www.google.com/calendar/
 silent qmark s http://www.reddit.com/r/soccer/
