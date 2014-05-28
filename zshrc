@@ -31,9 +31,6 @@ antigen bundle vi-mode
 
 if (( ! $+git )) then
     antigen bundle git
-    #antigen bundle github
-    #antigen bundle git-remote-branch
-    #antigen bundle git-extras
 fi
 
 (( ! $+tmux )) && antigen bundle tmux
