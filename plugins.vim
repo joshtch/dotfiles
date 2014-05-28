@@ -72,6 +72,7 @@ let g:airline_fugitive_prefix = '⎇ '
 let g:airline_theme = 'solarized'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_section_y = '%{synIDattr(synID(line("."),col("."),1),"name")}'
 
 " Secure Modelines: fix security of 'modelines' without disabling it altogether
 set modelines=0
