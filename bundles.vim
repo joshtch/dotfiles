@@ -141,7 +141,7 @@ NeoBundle 'tpope/vim-surround', {
 " Language Specific:
 NeoBundleLazy 'cypok/vim-sml',
             \ { 'autoload' : { 'filetypes' : [ 'sml', 'mosml'] } }
-NeoBundle 'joshtch/vim-syntax-pentadactyl'
+NeoBundle 'dogrover/vim-pentadactyl'
 NeoBundleLazy 'vim-scripts/TeX-PDF', { 'autoload' : { 'filetypes' : 'tex' }}
 NeoBundleLazy 'dbakker/vim-lint', {
             \ 'autoload' : { 'filetypes' : 'vim' },
