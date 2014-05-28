@@ -115,7 +115,7 @@ NeoBundle 'scrooloose/nerdcommenter' , {
 NeoBundleLazy 'tommcdo/vim-exchange', {
             \ 'autoload' : {
             \   'mappings' : [
-            \     '<Plug>Exchange', '<Plug>ExchangeClear', '<Plug>ExchangeLine'
+            \     '<Plug>(Exchange)', '<Plug>(ExchangeClear)', '<Plug>(ExchangeLine)'
             \     ]
             \   }
             \ }
