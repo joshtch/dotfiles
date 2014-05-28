@@ -156,33 +156,35 @@ alias -g CA="2>&1 | cat -A"
 alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 
-fancy-ctrl-z () {
-    if [[ $#BUFFER -eq 0 ]]; then
-        fg
-        zle redisplay
-    else
-        zle push-input
-        zle clear-screen
-    fi
-}
-zle -N fancy-ctrl-z
-bindkey '' fancy-ctrl-z
+if [[ "$SHELL" == 'zsh' ]]; then
+    fancy-ctrl-z () {
+        if [[ $#BUFFER -eq 0 ]]; then
+            fg
+            zle redisplay
+        else
+            zle push-input
+            zle clear-screen
+        fi
+    }
+    zle -N fancy-ctrl-z
+    bindkey '' fancy-ctrl-z
 
-up-line-or-history-beginning-search () {
-  if [[ -n $PREBUFFER ]]; then
-    zle up-line-or-history
-  else
-    zle history-beginning-search-backward
-  fi
-}
-down-line-or-history-beginning-search () {
-  if [[ -n $PREBUFFER ]]; then
-    zle down-line-or-history
-  else
-    zle history-beginning-search-forward
-  fi
-}
-zle -N up-line-or-history-beginning-search
-zle -N down-line-or-history-beginning-search
-bindkey '' up-line-or-history-beginning-search
-bindkey '' down-line-or-history-beginning-search
+    up-line-or-history-beginning-search () {
+        if [[ -n $PREBUFFER ]]; then
+            zle up-line-or-history
+        else
+            zle history-beginning-search-backward
+        fi
+    }
+    down-line-or-history-beginning-search () {
+        if [[ -n $PREBUFFER ]]; then
+            zle down-line-or-history
+        else
+            zle history-beginning-search-forward
+        fi
+    }
+    zle -N up-line-or-history-beginning-search
+    zle -N down-line-or-history-beginning-search
+    bindkey '' up-line-or-history-beginning-search
+    bindkey '' down-line-or-history-beginning-search
+fi
