@@ -40,13 +40,13 @@ alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r 
 # Portably colorize ls
 if "${commands[ls]}" --color -d /dev/null &>/dev/null; then
     # Using GNU ls
-    alias ls="${commands[ls]} --color=auto -H -F"
-elif /usr/gnu/bin/ls --color=auto /dev/null &>/dev/null; then
+    alias ls="${commands[ls]} --color=always -H -F"
+elif /usr/gnu/bin/ls --color=always /dev/null &>/dev/null; then
     # GNU ls installed in /usr/gnu/bin/ls but not default (Solaris)
-    alias ls="/usr/gnu/bin/ls --color=auto -H -F"
+    alias ls="/usr/gnu/bin/ls --color=always -H -F"
 elif [[ -x "${commands[brew]}" ]] && "$(brew --prefix coreutils)"/libexec/gnubin/ls --color=auto /dev/null &>/dev/null; then
     # GNU ls installed with homebrew in OSX
-    alias ls="$(brew --prefix coreutils)/libexec/gnubin/ls --color=auto -H -F"
+    alias ls="$(brew --prefix coreutils)/libexec/gnubin/ls --color=always -H -F"
 elif "${commands[ls]}" -G -d /dev/null &>/dev/null; then
     # Using BSD ls
     alias ls="${commands[ls]} -G -H -F"
