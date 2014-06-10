@@ -4,6 +4,7 @@
 # MAC Address spoofing: ifconfig bge0 link 03:a0:04:d3:00:11
 
 export DFS="$HOME"/dotfiles
+export KEYTIMEOUT=1
 
 source "$DFS"/antigen/antigen.zsh
 antigen use oh-my-zsh
