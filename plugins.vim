@@ -238,3 +238,9 @@ noremap <Leader>ob :<C-u>OpenBrowserSmartSearch<Space>
 
 " UndoCloseWin: Undo closing of tabs and windows
 map <Leader>br <Plug>(ucw-restore-window)
+
+" YouCompleteMe:
+let g:ycm_filetype_specific_completion_to_disable = {'scheme': 1 }
+
+" Dispatch:
+nnoremap <leader>m :Dispatch<CR>

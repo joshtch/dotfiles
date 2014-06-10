@@ -18,4 +18,4 @@
 	url = https://github.com/zsh-users/antigen.git
 [submodule "dircolors-solarized"]
 	path = dircolors-solarized
-	url = https://github.com/huyz/dircolors-solarized
+	url = https://github.com/huyz/dircolors-solarized.git

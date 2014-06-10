@@ -23,7 +23,7 @@ function rand {
         then
             od -vAn -N$NUMBYTES -tu4 < /dev/urandom
         else
-            echo "Usage: $0 [NUMBYTES]"
+            echo "Usage: $0 [1|2|3|4]"
         fi
     else
         od -vAn -N3 -tu4 < /dev/urandom
@@ -36,6 +36,15 @@ alias gsl='git diff --stat --color | cat'
 alias h='fc -l 1'
 # Show ten most used commands
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
+
+if [[ -x "${commands[setenv]}" ]]; then
+    if [[ -f "$DFS"/dircolors-solarized/dircolors.ansi-universal ]]; then
+        eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-universal`
+    else
+        antigen bundle huyz/dircolors-solarized
+        eval `dircolors $ADOTDIR/repos/https-COLON--SLASH--SLASH-github.com-SLASH-huyz-SLASH-dircolors-solarized.git/dircolors.ansi-universal`
+    fi
+fi
 
 # Portably colorize ls
 if "${commands[ls]}" --color -d /dev/null &>/dev/null; then
@@ -159,7 +168,7 @@ alias -g CA="2>&1 | cat -A"
 alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 
-if [[ "$SHELL" == 'zsh' ]]; then
+if [[ "$SHELL" == 'zsh' ]]; then     # For portability with bash
     fancy-ctrl-z () {
         if [[ $#BUFFER -eq 0 ]]; then
             fg

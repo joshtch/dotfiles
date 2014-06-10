@@ -62,7 +62,7 @@ set autowrite                       " Automatically save file when focus is lost
 set copyindent autoindent          " Imitate indenting of previous line's indent
 set ttyfast                                            " See :help slow-terminal
 syntax enable                                      " Turn on syntax highlighting
-syntax sync minlines=256             " Update syntax highlighting for more lines
+syntax sync minlines=512             " Update syntax highlighting for more lines
 set synmaxcol=256                            " Don't syntax highlight long lines
 set pastetoggle=<Leader>p                     " Toggle paste mode with <Leader>p
 set switchbuf=useopen               " Switch to open buffer instead of reopening
@@ -176,8 +176,8 @@ else
     set ttimeout
     augroup FastEscape
         autocmd!
-        au InsertEnter * set ttimeoutlen=0
-        au InsertLeave * set ttimeoutlen=100
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
     augroup END
 endif
 
@@ -376,7 +376,9 @@ set foldopen-=search
 
 " Allow expected behavior when traversing wrapped lines
 noremap j gj
+onoremap j Vgj
 noremap k gk
+onoremap k Vgk
 noremap gj j
 noremap gk k
 
