@@ -52,6 +52,9 @@ elif "${commands[ls]}" -G -d /dev/null &>/dev/null; then
     alias ls="${commands[ls]} -G -H -F"
 fi
 
+# Make less support colors
+alias less='less -r'
+
 # List directory contents
 alias l="ls -lv"
 alias sl=ls
