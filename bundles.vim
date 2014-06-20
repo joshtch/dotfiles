@@ -152,7 +152,7 @@ NeoBundle 'Shougo/vimproc', {
             \      },
             \ }
 NeoBundleLazy 'ciaranm/securemodelines'
-NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
+"NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
 NeoBundle 'tpope/vim-repeat'
 NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
             \ '<Plug>FocusModeToggle' } }
