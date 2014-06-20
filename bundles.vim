@@ -79,7 +79,7 @@ NeoBundleLazy 'tyru/open-browser.vim', {
             \ }
 NeoBundle 'mhinz/vim-signify'
 NeoBundleLazy 'tpope/vim-vinegar', { 'autoload' : { 'filetypes' : 'netrw' } }
-"NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
+NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'ntpeters/vim-better-whitespace'
 
