@@ -86,26 +86,25 @@ NeoBundle 'ntpeters/vim-better-whitespace'
 " Operators:
 NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
 NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
-"NeoBundle 'scrooloose/nerdcommenter' , {
-            "\ 'autoload' : {
-            "\   'mappings' : [
-            "\     '<Plug>NERDCommenterComment',
-            "\     '<Plug>NERDCommenterNested',
-            "\     '<Plug>NERDCommenterToggle',
-            "\     '<Plug>NERDCommenterMinimal',
-            "\     '<Plug>NERDCommenterInvert',
-            "\     '<Plug>NERDCommenterSexy',
-            "\     '<Plug>NERDCommenterYank',
-            "\     '<Plug>NERDCommenterToEOL',
-            "\     '<Plug>NERDCommenterAppend',
-            "\     '<Plug>NERDCommenterInsert',
-            "\     '<Plug>NERDCommenterAlignLeft',
-            "\     '<Plug>NERDCommenterUncomment',
-            "\     '<Plug>NERDCommenterAlignBoth'
-            "\     ]
-            "\   }
-            "\ }
-NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'scrooloose/nerdcommenter' , {
+            \ 'autoload' : {
+            \   'mappings' : [
+            \     '<Plug>NERDCommenterComment',
+            \     '<Plug>NERDCommenterNested',
+            \     '<Plug>NERDCommenterToggle',
+            \     '<Plug>NERDCommenterMinimal',
+            \     '<Plug>NERDCommenterInvert',
+            \     '<Plug>NERDCommenterSexy',
+            \     '<Plug>NERDCommenterYank',
+            \     '<Plug>NERDCommenterToEOL',
+            \     '<Plug>NERDCommenterAppend',
+            \     '<Plug>NERDCommenterInsert',
+            \     '<Plug>NERDCommenterAlignLeft',
+            \     '<Plug>NERDCommenterUncomment',
+            \     '<Plug>NERDCommenterAlignBoth'
+            \     ]
+            \   }
+            \ }
 NeoBundleLazy 'tommcdo/vim-exchange', {
             \ 'autoload' : {
             \   'mappings' : [
