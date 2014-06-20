@@ -65,7 +65,6 @@ set ttyfast                                            " See :help slow-terminal
 syntax enable                                      " Turn on syntax highlighting
 syntax sync minlines=512             " Update syntax highlighting for more lines
 set synmaxcol=256                            " Don't syntax highlight long lines
-set pastetoggle=<Leader>p                     " Toggle paste mode with <Leader>p
 set switchbuf=useopen               " Switch to open buffer instead of reopening
 set viewoptions=folds,options,cursor,unix,slash                     " Appearance
 set laststatus=2                                    " Always display status line
