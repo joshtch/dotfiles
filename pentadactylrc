@@ -40,7 +40,7 @@ silent qmark T http://tufts.service-now.com/
 silent qmark d http://drive.google.com/
 silent qmark v http://www.reddit.com/r/vim/
 
-set passkeys=reddit\.com:jkpn\;\,\.[]JKu?
+set passkeys=reddit\.com:jkpn\;\,.[]JKu?
 set strictfocus='google.com':laissez-faire,*:moderate,'chrome:*':laissez-faire,*:moderate
 set passkeys+=mail\.google\.com:jkv<CR>rau#T[]{}/<space><S-space>?,gi,gl,*u,*i,*n,gi,gc,gl
 group pentadactylrc-autocmds
