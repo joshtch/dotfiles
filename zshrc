@@ -41,7 +41,6 @@ if [[ `uname` == 'Darwin' ]] then
         antigen bundle brew
         antigen bundle brew-cask
     fi
-    antigen bundle gnu-utils
     antigen bundle osx
 fi
 
