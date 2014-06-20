@@ -3,17 +3,11 @@ tap caskroom/cask
 install brew-cask
 
 tap homebrew/dupes
-install diffutils
-install gpatch
 install grep --default-names
-install gzip
+ --default-names
 install less
-install m4
-install make
 install openssh
 install rsync
-install screen
-install unzip
 
 tap homebrew/versions
 install lua52
@@ -23,92 +17,64 @@ install brewall
 
 
 # Homebrew packages
-install atk
-install atkmm
 install autoconf
-install bash
-install bdw-gc
+install automake
 install binutils
-install boost
-install boost-build
-install cairo
-install cairomm
-install cloog
-install cmake
 install colordiff
 install coreutils
+install ddrescue
 install emacs
-install faac
 install findutils --default-names
 install fontconfig
-install fortune
 install freetype
-install gawk
-install gcc
 install gdbm
-install gdk-pixbuf
+install geoip
 install gettext
 install git
 install glib
-install glibmm
 install gmp
-install gnu-sed --default-names
-install gnu-which
 install gnutls
-install gobject-introspection
-install gsl
-install gtk+
-install gtkmm
-install harfbuzz
-install hicolor-icon-theme
-install icu4c
-install intltool
-install isl
-install jpeg
 install libevent
 install libffi
-install libidn
-install libmpc
+install libgcrypt
+install libgpg-error
 install libpng
-install libsigc++
 install libtasn1
-install libtiff
-install libtool
-install little-cms
 install lua
-install mpfr
+install lzip
 install mplayer
 install mutt
 install nettle
 install openssl
-install pango
-install pangomm
 install pcre
-install pixman
 install pkg-config
-install popt
-install readline
 install reattach-to-user-namespace
 install ssh-copy-id
 install the_silver_searcher
 install tmux
 install tokyo-cabinet
 install trash
-install watch
-install wdiff --with-gettext
 install wget --enable-iri
+install wireshark
 install xz
 install zsh
 
 # Cask Applications
+cask install apptivate
 cask install bettertouchtool
+cask install boom
 cask install coconutbattery
 cask install disk-inventory-x
 cask install evernote
 cask install firefox
+cask install flux
+cask install geektool
 cask install gimp
 cask install keyremap4macbook
-cask install nmap
 cask install onyx
+cask install rescuetime
+cask install sopcast
 cask install the-unarchiver
+cask install virtualbox
 cask install vlc
+cask install xquartz
