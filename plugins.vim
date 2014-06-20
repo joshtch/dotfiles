@@ -40,7 +40,7 @@ endif
 if v:version >= 702
     syntax enable
     colorscheme solarized
-    set background=dark
+    set background=light
     call togglebg#map("<Leader>5")
     iunmap <Leader>5
     let g:solarized_termcolors=16
