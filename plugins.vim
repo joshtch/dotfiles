@@ -111,12 +111,6 @@ if exists('$TMUX')
     nnoremap <silent> <C--> :<C-u>TmuxNavigatePrevious<CR>
 endif
 
-" TeX PDF: LaTeX compiling in Vim. Requires latex-mk or rubber
-let g:tex_pdf_map_keys = 0
-nnoremap <silent> gc :<C-u>BuildAndViewTexPdf<CR>
-nnoremap <silent> gC :<C-u>BuildTexPdf<CR>
-" TODO: look into coot/atp_vim for autocompiling + special completions + stuff
-
 " Tabular: Character alignment
 if exists(":Tabularize")
     nnoremap <Leader>a= :Tabularize /=<CR>
