@@ -161,6 +161,7 @@ NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
 NeoBundle 'dockyard/vim-easydir'
 NeoBundle 'tpope/vim-rsi'
 NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'edthedev/minion'
 NeoBundleLazy 'tyru/undoclosewin.vim', { 'autoload' : {
             \ 'mappings' : '<Plug>(ucw-restore-window)' }
             \ }

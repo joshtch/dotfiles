@@ -52,6 +52,10 @@ fi
 
 antigen apply
 
+if [[ -f "$HOME"/.vim/bundle/minion/add_to_your_profile ]]; then
+    source "$HOME"/.vim/bundle/minion/add_to_your_profile
+fi
+
 source "$DFS"/aliases.zsh
 
 source "$DFS"/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
