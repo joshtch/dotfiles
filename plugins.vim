@@ -193,7 +193,7 @@ let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_c_check_header = 1
 "let g:syntastic_auto_refresh_includes = 1
-let g:syntastic_c_compiler = 'gcc'
+let g:syntastic_c_compiler = 'clang'
 
 " YouCompleteMe:
 let g:ycm_enable_diagnostic_signs = 0
