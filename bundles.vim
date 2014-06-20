@@ -33,7 +33,6 @@ NeoBundle 'michaeljsmith/vim-indent-object'
 NeoBundle 'wellle/targets.vim'
 
 " Movement:
-NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'christoomey/vim-tmux-navigator'
 
 " IDElike Features:
