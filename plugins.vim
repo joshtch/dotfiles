@@ -47,6 +47,9 @@ if v:version >= 702
     let g:solarized_termtrans=0
 endif
 
+" Capslock: enable capslock from within vim
+imap <C-g>u <Plug>CapsLockToggle
+
 " Airline: custom statusline
 set lazyredraw
 set t_Co=256
