@@ -11,9 +11,6 @@ alias .....='cd ../../../..'
 
 alias cl='clear; ls'
 
-# Super user
-alias sudo='sudo ' # make sudo play nice with other aliases
-
 function rand {
     NUMBYTES="$@"
     valid_num_regexp="[1-4]"
