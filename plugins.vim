@@ -22,7 +22,6 @@ nnoremap Ug :<C-u>Unite -no-split -buffer-name=outline -start-insert tag -resume
 nnoremap Uu :<C-u>Unite -log -wrap -vertical -direction=botright neobundle/update<CR>
 call unite#filters#matcher_default#use(['matcher_fuzzy', 'matcher_hide_hidden_files'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-
 augroup UniteTags
     autocmd!
     autocmd BufEnter *
@@ -77,7 +76,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_y = '%{synIDattr(synID(line("."),col("."),1),"name")}'
 
-" Secure Modelines: fix security of 'modelines' without disabling it altogether
+" Secure Modelines: fix security of modelines without disabling them altogether
 set modelines=0
 set secure
 if exists(':NeoBundleSource')
