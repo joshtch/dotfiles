@@ -27,7 +27,7 @@ function rand {
     fi
 }
 
-alias gsl='git diff --stat --color | cat'
+alias gds='git diff --stat --color | cat'
 
 # Show history
 alias h='fc -l 1'
