@@ -79,9 +79,13 @@ let g:airline_section_y = '%{synIDattr(synID(line("."),col("."),1),"name")}'
 " Secure Modelines: fix security of modelines without disabling them altogether
 set modelines=0
 set secure
-if exists(':NeoBundleSource')
-    NeoBundleSource securemodelines
-endif
+augroup SecureModelines
+    autocmd!
+    autocmd VimEnter *
+                \  if exists(':NeoBundleSource')
+                \|    NeoBundleSource securemodelines
+                \| endif
+augroup END
 
 " Tmux Settings:
 if exists('$TMUX')
