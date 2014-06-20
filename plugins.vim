@@ -129,7 +129,7 @@ if exists(":Tabularize")
 endif
 
 " Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc)
-if v:version >= 702 && !g:entered_vim
+if v:version >= 702
     silent! Arpeggio inoremap jk <Esc>
 endif
 
