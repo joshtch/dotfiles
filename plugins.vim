@@ -168,15 +168,16 @@ else
         highlight default link EOLWS ErrorMsg
     augroup END
     function! <SID>StripTrailingWhitespace()
-        let s:_ishls=v:hlsearch
-        let s:_lastsearch=@/
-        let s:_startline=line(".")
-        let s:_startcol=col(".")
+        silent! let ishls=v:hlsearch
+        let lastsearch=@/
+        let pos=getpos('.')
+        "let startline=line(".")
+        "let startcol=col(".")
         %s/\s\+$//e
-        let @/=s:_lastsearch
-        let v:hlsearch=s:_ishls
-        call cursor(s:_startline, s:_startcol)
-        unlet s:_startline s:_startcol s:_lastsearch s:_ishls
+        let @/=lastsearch
+        silent! let v:hlsearch=ishls
+        call setpos('.',pos)
+        "call cursor(startline, startcol)
     endfunction
     nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
 endif
