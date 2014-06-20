@@ -25,9 +25,9 @@ antigen bundle colored-man
 antigen bundle compleat
 antigen bundle cp
 antigen bundle dirhistory
+antigen bundle extract
 antigen bundle history
 antigen bundle history-substring-search
-antigen bundle extract
 antigen bundle vi-mode
 
 if (( ! $+git )) then
