@@ -236,9 +236,6 @@ map gs <Plug>(openbrowser-search)
 map gb <Plug>(openbrowser-smart-search)
 noremap <Leader>ob :<C-u>OpenBrowserSmartSearch<Space>
 
-" UndoCloseWin: Undo closing of tabs and windows
-map <Leader>br <Plug>(ucw-restore-window)
-
 " YouCompleteMe:
 let g:ycm_filetype_specific_completion_to_disable = {'scheme': 1 }
 
