@@ -15,7 +15,8 @@ if !exists('g:entered_vim')
     augroup END
 endif
 
-let g:mapleader = ","
+let g:mapleader = " "
+nnoremap <Space> <Nop>
 
 " Plugins And Settings:
 if filereadable(expand('~/dotfiles/bundles.vim')) &&
@@ -195,14 +196,12 @@ augroup ShowLineNumber
     autocmd WinLeave * setlocal nonumber
 augroup END
 
-" Map annoying and useless <F1>, Q, <Space>, and K to more useful things
+" Map annoying and useless <F1>, Q, and K to more useful things
 " - <F1> unmapped so it can be used outside of vim for changing tmux windows
 " - Q repeats the last macro used, making using macros more convenient
-" - <Space> scrolls down a page (like most programs), <C-Space> goes reverse
 " - K splits the line and removes trailing whitespace (reverse of J/gJ)
 nnoremap <F1> <Nop>
 nnoremap Q @@
-nnoremap <Space> :<C-u>k`<CR><C-f>
 nnoremap <silent> K :<C-u>call SplitHere()<CR>
 function! SplitHere()
     execute "normal! i\<CR>\<Esc>kg_"
@@ -248,8 +247,6 @@ inoremap <C-j> <CR>"_<C-u>
 " Allow redo for insert mode ^u
 inoremap <C-u> <C-g>u<C-u>
 
-" Since the ',' command is actually useful, set it to ',,'
-nnoremap <Leader>, ,
 nnoremap <silent> <Leader>/ :<C-u>nohlsearch<CR>
 nnoremap <silent> <Leader>w :<C-u>update!<CR>
 if isdirectory(expand('~/dotfiles'))
