@@ -59,3 +59,4 @@ fi
 source "$DFS"/aliases.zsh
 
 source "$DFS"/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export HOMEBREW_BREWFILE=~/dotfiles/Brewfile
