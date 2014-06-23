@@ -1,0 +1,37 @@
+set realname = "Josh Howe"
+set imap_user = 'howejosh@gmail.com'
+set imap_pass = 'apwtyojnwecrikws'
+set spoolfile = imaps://imap.gmail.com:993/INBOX
+set smtp_url = "smtp://howejosh@smtp.gmail.com:587/"
+set folder = "imaps://imap.gmail.com:993"
+set record="+[Gmail]/Sent Mail"
+set postponed="+[Gmail]/Drafts"
+set header_cache="~/.mutt/cache/headers"
+set message_cachedir="~/.mutt/cache/bodies"
+set certificate_file=~/.mutt/certificates
+set imap_check_subscribed=yes
+set move = no
+set delete = yes
+set edit_hdrs
+set include
+set reply_to
+set abort_nosubject=no
+set sig_dashes = no
+set attribution = " %n wrote:\n"
+alternates '(username|altusername)([-+].*)?@.*'
+set hdr_format="%4C %Z %{%m/%d} %-15.15F (%4c) %s"
+
+ignore *
+unignore from subject to cc date x-mailer x-url user-agent
+hdr_order from to cc date subject x-mailer user-agent
+
+set sort=threads
+set sort_aux=last-date-received
+
+# see beyond for hooks explanations
+folder-hook . 'set from = "howejosh@gmail.com"; \
+set smtp_url= "smtp://howejosh@smtp.gmail.com:587/"'
+
+folder-hook tufts 'set from = "joshua.howe@tufts.edu"; \
+set smtp_url = "smtp://jhowe03@exchange.tufts.edu:587/";'
+folder-hook Tufts 'set from = "joshua.howe@tufts.edu";'
