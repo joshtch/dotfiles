@@ -144,15 +144,17 @@ elseif has("autocmd") " Highlight text that's over our limit
     augroup OverLengthCol
         autocmd!
         autocmd BufEnter,BufWrite *
-                    \ execute 'match OverLength /\%>' .
-                    \ (&textwidth == 0 ? 80 : &textwidth) .
-                    \ 'v.\+/'
+                    \ execute 'match OverLength /\%>'
+                    \ . (&textwidth == 0 ? 80 : &textwidth)
+                    \ . 'v.\+/'
     augroup END
 endif
-exe 'nnoremap <silent> <Leader>n /\%>' . (&textwidth == 0 ? 80 : (&textwidth)) .
-            \'v.\+<cr>'
-exe 'nnoremap <silent> <Leader>N ?\%>' . (&textwidth == 0 ? 80 : (&textwidth)) .
-            \'v.\+<cr>'
+exe 'nnoremap <silent> <Leader>n /\%>'
+            \ . (&textwidth == 0 ? 81 : (&textwidth + 1))
+            \ . 'v.\+<cr>'
+exe 'nnoremap <silent> <Leader>N ?\%>'
+            \ . (&textwidth == 0 ? 81 : (&textwidth + 1))
+            \ . 'v.\+<cr>'
 
 " Remember undo history
 if exists("+undofile")
@@ -422,7 +424,7 @@ augroup CommandWindow
                 \| execute "normal g'\"" | endif
 augroup END
 
-" The following saves and loads buffers' foldview settings between sessions
+" The following saves and loads buffers' foldview settings between sessions {{{
 " All this code originates from https://github.com/vim-scripts/restore_view.vim
 " which itself originates from the vim wiki http://vim.wikia.com/wiki/VimTip991
 if exists("g:loaded_restore_view")
@@ -453,8 +455,9 @@ augroup AutoView
     autocmd BufWritePost,WinLeave,BufWinLeave ?* if MakeViewCheck() | mkview | endif
     autocmd BufWinEnter ?* if MakeViewCheck() | silent! loadview | endif
 augroup END
+"}}}
 
-" Set a nicer foldtext function
+" Set a nicer foldtext function {{{
 function! MyFoldText()
   let line = getline(v:foldstart)
   if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
@@ -492,8 +495,9 @@ function! MyFoldText()
   return sub . info
 endfunction
 set foldtext=MyFoldText()
+" }}}
 
-" Stolen from github.com/tpope/vim-scriptease
+" Stolen from github.com/tpope/vim-scriptease {{{
 function! s:opfunc(type) abort
   let sel_save = &selection
   let cb_save = &clipboard
@@ -542,3 +546,4 @@ xnoremap <silent> <Plug>ScripteaseFilter :<C-U>call <SID>filterop(visualmode())<
 nmap g! <Plug>ScripteaseFilter
 nmap g!! <Plug>ScripteaseFilter_
 xmap g! <Plug>ScripteaseFilter
+" }}}
