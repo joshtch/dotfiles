@@ -171,7 +171,7 @@ endif
 " Remember cursor position
 function! ResCur()
     if line("'\"") <= line("$")
-        normal! g`"
+        silent! normal! g`"
     endif
 endfunction
 augroup resCur
