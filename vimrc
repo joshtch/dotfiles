@@ -139,9 +139,7 @@ if exists('+colorcolumn')
     else
         set colorcolumn=81
     endif
-endif
-" Highlight text that's over our limit
-if has("autocmd")
+elseif has("autocmd") " Highlight text that's over our limit
     highlight link OverLength ErrorMsg
     augroup OverLengthCol
         autocmd!
