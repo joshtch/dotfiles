@@ -269,7 +269,7 @@ nnoremap ? ?\v
 nnoremap <silent> <Leader>r :<C-u>set relativenumber!<CR>
 
 " Newline without automatically adding leading characters (e.g. comment chars)
-inoremap <C-j> <CR>"_<C-u>
+inoremap <C-j> <CR><C-u>
 
 " Allow redo for insert mode ^u
 inoremap <C-u> <C-g>u<C-u>
