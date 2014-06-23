@@ -288,8 +288,16 @@ else
 endif
 nnoremap <silent> <Leader>el :<C-u>vsplit ~/.localrc.zsh<CR>
 nnoremap <silent> <Leader>sv :<C-u>so $MYVIMRC<CR>
-nnoremap <silent> <Leader>sl yy:execute @@<CR>:echo "Sourced line"<CR>
-xnoremap <silent> <Leader>sl y:execute @@<CR>gv<esc>:echo "Sourced selection"<CR>
+nnoremap <silent> <Leader>sll yy:execute @@<CR>
+xnoremap <silent> <Leader>sl y:execute @@<CR>gv<esc>
+function! SourceMe(...)
+    let a_reg = @a
+    norm! `["ay`]
+    echo ''
+    exe @a
+    let @a = a_reg
+endfunction
+nnoremap <silent> <Leader>sl :set opfunc=SourceMe<CR>g@
 
 nnoremap <silent> m :<C-u>update!<CR>
 
