@@ -111,6 +111,23 @@ highlight! link MatchParen Comment
  set fo+=l " Don't autoformat existing long lines
  set fo+=1 " Don't break a line after a one-letter word
 
+" Settings for Vi-compatible behavior (Vim default: aABceFs)
+" Note: this list is not exhaustive. See :h 'cpo'
+ set cpoptions=
+"set cpo+=a " :read  command with a file name arg will modify the window's alternate file name
+"set cpo+=A " :write command with a file name arg will modify the window's alternate file name
+ set cpo+=B " Give backslash no special meaning in mappings, abbreviations and the 'to' part of the menu commands
+ set cpo+=c " Searching continues at the end of any match at the cursor position, but not further than the start of the next line.  When not present searching continues one character from the cursor position.  With 'c' 'abababababab' only gets three matches when repeating /abab', without 'c' there are five matches.
+ set cpo+=e " When executing a register with ':@r', always add a <CR> to the last line, even when the register is not linewise
+ set cpo+=F " :write with a file name argument will set the file name for the current buffer if it doesn't have one already
+"set cpo+=i " Interrupting the reading of a file will leave it modified.
+ set cpo+=K " Don't wait for a key code to complete
+"set cpo+=m " 'Showmatch' will always wait half a second, even if a character is typed within that time period
+ set cpo+=q " Joining multiple lines leaves the cursor where it would be when joining two lines
+ set cpo+=s " Set buffer options when first entering the buffer instead of when it's created
+"set cpo+=t " Search pattern for the tag command is remembered for 'n' command
+ set cpo+={ " The |{| and |}| commands also stop at a '{' character at the start of a line.
+
 if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j
 endif
