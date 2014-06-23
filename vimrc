@@ -356,12 +356,6 @@ nnoremap <silent> H :<C-u>execute 'keepjumps normal!' v:count1 . '{'<CR>
 noremap { ^
 noremap } $
 
-" Keep context when scrolling page by page
-nnoremap <C-f> z+
-nnoremap <C-b> z^
-nnoremap <Leader>j z+
-nnoremap <Leader>k z^
-
 function! CenteringON()
     let scrolloff_value = 999
     if !exists('g:is_centering') || !g:is_centering
