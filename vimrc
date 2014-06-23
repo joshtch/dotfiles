@@ -356,38 +356,11 @@ nnoremap <silent> H :<C-u>execute 'keepjumps normal!' v:count1 . '{'<CR>
 noremap { ^
 noremap } $
 
-function! CenteringON()
-    let scrolloff_value = 999
-    if !exists('g:is_centering') || !g:is_centering
-        let g:scrolloff_default_value = &scrolloff
-        execute 'set scrolloff=' . scrolloff_value
-        let g:is_centering=1
-    endif
-endfunction
-function! CenteringOFF()
-    if !exists('g:is_centering') || g:is_centering
-        if exists('g:scrolloff_default_value') && g:scrolloff_default_value < 999
-            let &scrolloff=g:scrolloff_default_value
-            unlet g:scrolloff_default_value
-        elseif &scrolloff == 999
-            set scrolloff=0
-        endif
-        let g:is_centering=0
-    endif
-endfunction
-function! CenteringToggle()
-    if !exists('g:is_centering')
-        let g:is_centering=0
-    endif
-    if !g:is_centering
-        call CenteringON()
-    else
-        call CenteringOFF()
-    endif
-endfunction
-nnoremap <silent> [om :<C-u>call CenteringON()<CR>
-nnoremap <silent> ]om :<C-u>call CenteringOFF()<CR>
-nnoremap <silent> com :<C-u>call CenteringToggle()<CR>
+nnoremap <silent> <Leader><Leader> :let &scrolloff=999-&scrolloff<CR>
+augroup CenteringReadOnly
+    autocmd!
+    autocmd BufEnter * if !&modifiable | setlocal scrolloff=999 | endif
+augroup END
 
 nnoremap <silent> zS :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>
 set foldopen-=search
