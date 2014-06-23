@@ -242,6 +242,9 @@ onoremap w :execute 'normal! '.v:count1.'w'<CR>
 cabbrev h <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<CR>
 cabbrev help <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
 
+" Use :w!! to save a file with super-user permissions
+cabbrev w!! <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'w !sudo tee % >/dev/null' : 'w!!')<CR>
+
 " Use ,q to quit nameless buffers without confirmation or !
 nnoremap <silent> <Leader>q :<C-u>call QuitIfNameless()<CR>
 function! QuitIfNameless()
