@@ -76,6 +76,7 @@ set winwidth=86   " Minimum split width -- 80 + 6 for number + sign/fold columns
 set nojoinspaces          " Don't add extra spaces after .?! when joining with J
 set equalalways         " Make current split be always at least "textwidth" wide
 set cryptmethod=blowfish                     " Slightly more secure cryptography
+set path=.,**        " Make :find, :sfind, :vert sfind search parent directories
 
 augroup Resize
     autocmd!
