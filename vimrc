@@ -78,9 +78,9 @@ set equalalways         " Make current split be always at least "textwidth" wide
 set cryptmethod=blowfish                     " Slightly more secure cryptography
 set path=.,**        " Make :find, :sfind, :vert sfind search parent directories
 
-augroup Resize
+augroup Resize                    " Make splits equal size, unless in focus mode
     autocmd!
-    autocmd WinEnter,VimResized * wincmd =       " Make splits always equal size
+    autocmd WinEnter,VimResized * if &l:ft != 'focusmode' | wincmd = | endif
 augroup END
 
 if v:version > 600
