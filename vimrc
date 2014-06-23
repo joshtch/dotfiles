@@ -92,6 +92,9 @@ if v:version > 600
     endif
 endif
 
+" Default paren match highting is too distracting
+highlight! link MatchParen Comment
+
 " Settings for automatic text formatting
  set formatoptions=
  set fo+=t " Auto-wrap text using 'textwidth'
