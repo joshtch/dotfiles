@@ -223,9 +223,12 @@ augroup END
 " - K splits the line and removes trailing whitespace (reverse of J/gJ)
 nnoremap <F1> <Nop>
 nnoremap Q @@
-nnoremap <silent> K :<C-u>call SplitHere()<CR>
-function! SplitHere()
-    execute "normal! i\<CR>\<Esc>kg_"
+nnoremap <silent> <Plug>Split :<C-u>call Split()<CR>:<C-u>silent! call repeat#set("\<Plug>Split")<CR>
+nmap K <Plug>Split
+nnoremap <silent> K :<C-u>call Split()<CR>
+function! Split()
+    " The 'hl' is there to keep the cursor from becoming right-aligned
+    execute "normal! i\<CR>\<Esc>k$hl"
     if getline(line('.'))[col('.')-1] =~ '\s'
         execute 'normal! "_diw'
     endif
