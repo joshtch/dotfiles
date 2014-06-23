@@ -251,7 +251,7 @@ function! QuitIfNameless()
     if empty(bufname('%'))
         setlocal nomodified
     endif
-    execute 'q'
+    execute 'confirm quit'
 endfunction
 
 " Replace 'ddate' with current date, 'ttime' with current time
