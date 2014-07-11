@@ -4,13 +4,8 @@ install brew-cask
 
 tap homebrew/dupes
 install grep --default-names
- --default-names
 install less
 install openssh
-install rsync
-
-tap homebrew/versions
-install lua52
 
 tap rcmdnk/brewall
 install brewall
@@ -20,47 +15,37 @@ install brewall
 install autoconf
 install automake
 install binutils
-install colordiff
+install cabal-install
+install cloog
 install coreutils
-install ddrescue
 install emacs
 install findutils --default-names
-install fontconfig
-install freetype
+install gcc
 install gdbm
-install geoip
-install gettext
+install ghc
 install git
-install glib
 install gmp
 install gnutls
+install isl
 install libevent
-install libffi
-install libgcrypt
-install libgpg-error
-install libpng
+install libmpc
 install libtasn1
-install lua
-install lzip
-install mplayer
+install mpfr
 install mutt
 install nettle
 install openssl
 install pcre
 install pkg-config
+install ranger
 install reattach-to-user-namespace
-install ssh-copy-id
-install the_silver_searcher
 install tmux
 install tokyo-cabinet
 install trash
-install wget --enable-iri
-install wireshark
 install xz
 install zsh
 
 # Cask Applications
-cask install apptivate
+cask install appcleaner
 cask install bettertouchtool
 cask install boom
 cask install coconutbattery
@@ -68,13 +53,13 @@ cask install disk-inventory-x
 cask install evernote
 cask install firefox
 cask install flux
-cask install geektool
 cask install gimp
-cask install keyremap4macbook
+cask install karabiner
+cask install lastpass-universal
 cask install onyx
 cask install rescuetime
 cask install sopcast
 cask install the-unarchiver
 cask install virtualbox
 cask install vlc
-cask install xquartz
+cask install xtrafinder
