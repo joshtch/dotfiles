@@ -58,5 +58,5 @@ fi
 
 source "$DFS"/aliases.zsh
 
-source "$DFS"/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+antigen bundle zsh-users/zsh-syntax-highlighting
 export HOMEBREW_BREWFILE=~/dotfiles/Brewfile
