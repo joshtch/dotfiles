@@ -10,9 +10,3 @@
 [submodule "zsh-syntax-highlighting"]
 	path = zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "antigen"]
-	path = antigen
-	url = https://github.com/zsh-users/antigen.git
-[submodule "dircolors-solarized"]
-	path = dircolors-solarized
-	url = https://github.com/huyz/dircolors-solarized.git
