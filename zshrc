@@ -8,6 +8,14 @@ export DFS="${DFS:-$HOME/dotfiles}"
 export KEYTIMEOUT=1
 export HOMEBREW_BREWFILE="$HOME/dotfiles/Brewfile"
 
+[[ -d "$HOME/.zsh" ]] || mkdir "$HOME/.zsh"
+
+[[ -d "$ZSH" ]] \
+    || git clone https://github.com/robbyrussell/oh-my-zsh.git "$ZSH"
+
+[[ -d "$HOME/.zsh/syntax-highlighting" ]] \
+    || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh/syntax-highlighting"
+
 if [[ -x "${commands[dircolors]}" ]]; then
     [[ -f "$DFS"/dircolors-solarized/dircolors.ansi-universal ]] || \
         git clone https://github.com/huyz/dircolors-solarized.git ~/.zsh/dircolors-solarized
