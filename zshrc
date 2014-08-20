@@ -3,54 +3,31 @@
 
 # MAC Address spoofing: ifconfig bge0 link 03:a0:04:d3:00:11
 
-export DFS="$HOME"/dotfiles
+export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
+export DFS="${DFS:-$HOME/dotfiles}"
 export KEYTIMEOUT=1
 
-source "$DFS"/antigen/antigen.zsh
-antigen use oh-my-zsh
-
-cdpath=(. .. ~)          # This has to come after sourcing antigen and oh-my-zsh
-[[ -f ~/.localrc.zsh ]] && source ~/.localrc.zsh
-
 if [[ -x "${commands[dircolors]}" ]]; then
-    if [[ -f "$DFS"/dircolors-solarized/dircolors.ansi-universal ]]; then
-        eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-universal`
-    else
-        antigen bundle huyz/dircolors-solarized
-        eval `dircolors $ADOTDIR/repos/https-COLON--SLASH--SLASH-github.com-SLASH-huyz-SLASH-dircolors-solarized.git/dircolors.ansi-universal`
+    [[ -f "$DFS"/dircolors-solarized/dircolors.ansi-universal ]] || \
+        git clone https://github.com/huyz/dircolors-solarized.git ~/.zsh/dircolors-solarized
+    eval `dircolors $ADOTDIR/repos/https-COLON--SLASH--SLASH-github.com-SLASH-huyz-SLASH-dircolors-solarized.git/dircolors.ansi-universal`
+fi
+
+ZSH_THEME='nicoulaj'
+
+plugins=(colored-man cp extract history pip safe-paste vi-mode z)
+[[ -x "${commands[git]}" ]] && plugins+=git
+[[ -x "${commands[tmux]}" ]] && plugins+=tmux
+
+if [[ `uname` == 'Darwin' ]]; then
+    if [[ -x "${commands[brew]}" ]]; then
+        plugins+=brew
+        plugins+=brew-cask
     fi
+    plugins+=osx
 fi
 
-antigen bundle colored-man
-antigen bundle compleat
-antigen bundle cp
-antigen bundle dirhistory
-antigen bundle extract
-antigen bundle history
-antigen bundle history-substring-search
-antigen bundle vi-mode
-
-if (( ! $+git )) then
-    antigen bundle git
-fi
-
-(( ! $+tmux )) && antigen bundle tmux
-
-if [[ `uname` == 'Darwin' ]] then
-    if [[ -x "${commands[brew]}" ]] then
-        antigen bundle brew
-        antigen bundle brew-cask
-    fi
-    antigen bundle osx
-fi
-
-if [[ -f "$DFS"/custom/nicoulaj-solarized.zsh-theme ]] then
-    antigen theme "$DFS"/custom/nicoulaj-solarized.zsh-theme --no-local-clone
-else
-    antigen theme "$DFS" custom/nicoulaj-solarized
-fi
-
-antigen apply
+source "$ZSH/oh-my-zsh.sh"
 
 if [[ -f "$HOME"/.vim/bundle/minion/add_to_your_profile ]]; then
     source "$HOME"/.vim/bundle/minion/add_to_your_profile
@@ -58,5 +35,9 @@ fi
 
 source "$DFS"/aliases.zsh
 
-antigen bundle zsh-users/zsh-syntax-highlighting
-export HOMEBREW_BREWFILE=~/dotfiles/Brewfile
+[[ -f "$HOME/.localrc.zsh" ]] && source "$HOME/.localrc.zsh"
+
+[[ -d "$HOME/.zsh/syntax-highlighting" ]] && \
+    source "$HOME/.zsh/syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+export HOMEBREW_BREWFILE="$HOME/dotfiles/Brewfile"
