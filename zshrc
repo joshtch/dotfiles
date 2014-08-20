@@ -6,6 +6,7 @@
 export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 export DFS="${DFS:-$HOME/dotfiles}"
 export KEYTIMEOUT=1
+export HOMEBREW_BREWFILE="$HOME/dotfiles/Brewfile"
 
 if [[ -x "${commands[dircolors]}" ]]; then
     [[ -f "$DFS"/dircolors-solarized/dircolors.ansi-universal ]] || \
@@ -35,5 +36,3 @@ source "$DFS"/aliases.zsh
 
 [[ -d "$HOME/.zsh/syntax-highlighting" ]] && \
     source "$HOME/.zsh/syntax-highlighting/zsh-syntax-highlighting.zsh"
-
-export HOMEBREW_BREWFILE="$HOME/dotfiles/Brewfile"
