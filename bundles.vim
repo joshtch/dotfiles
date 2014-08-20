@@ -159,7 +159,6 @@ NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
 NeoBundle 'dockyard/vim-easydir'
 NeoBundle 'tpope/vim-rsi'
 NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'edthedev/minion'
 NeoBundleLazy 'vim-scripts/bufkill.vim', { 'autoload' : {
             \ 'commands' : [ 'BD', 'BUN', 'BW', 'BB', 'BF' ] } }
 

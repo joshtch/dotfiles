@@ -29,10 +29,6 @@ fi
 
 source "$ZSH/oh-my-zsh.sh"
 
-if [[ -f "$HOME"/.vim/bundle/minion/add_to_your_profile ]]; then
-    source "$HOME"/.vim/bundle/minion/add_to_your_profile
-fi
-
 source "$DFS"/aliases.zsh
 
 [[ -f "$HOME/.localrc.zsh" ]] && source "$HOME/.localrc.zsh"
