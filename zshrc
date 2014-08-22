@@ -16,12 +16,6 @@ export HOMEBREW_BREWFILE="$HOME/dotfiles/Brewfile"
 [[ -d "$HOME/.zsh/syntax-highlighting" ]] \
     || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh/syntax-highlighting"
 
-if [[ -x "${commands[dircolors]}" ]]; then
-    [[ -f "$DFS"/dircolors-solarized/dircolors.ansi-universal ]] || \
-        git clone https://github.com/huyz/dircolors-solarized.git ~/.zsh/dircolors-solarized
-    eval `dircolors $ADOTDIR/repos/https-COLON--SLASH--SLASH-github.com-SLASH-huyz-SLASH-dircolors-solarized.git/dircolors.ansi-universal`
-fi
-
 ZSH_THEME='nicoulaj'
 
 plugins=(colored-man cp extract history pip safe-paste vi-mode z)
