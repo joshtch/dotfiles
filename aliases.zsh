@@ -5,7 +5,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-alias cl='clear; ls'
+alias c='clear; ls'
 
 function rand {
     NUMBYTES="$@"
