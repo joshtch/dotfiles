@@ -7,10 +7,10 @@ alias .....='cd ../../../..'
 
 alias c='clear; ls'
 
-function rand {
+function urand {
     NUMBYTES="$@"
-    valid_num_regexp="[1-4]"
-    if [[ $NUMBYTES != "" ]]
+    valid_num_regexp='[1-4]'
+    if [[ "$#" > 0 ]]
     then
         if [[ $NUMBYTES =~ $valid_num_regexp ]]
         then
