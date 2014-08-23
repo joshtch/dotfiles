@@ -124,8 +124,6 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     # Play audio files
     if ! which -s play >/dev/null; then play () { afplay "$@" ; } >/dev/null; export -f play >/dev/null; fi
 
-    if ! which -s umount >/dev/null; then umount () { diskutil umount "$@" ; }  >/dev/null; export -f umount >/dev/null; fi
-
     alias spotlight-disable="sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
     alias spotlight-enable="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
 
