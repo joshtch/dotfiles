@@ -125,8 +125,10 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     # Play audio files
     if ! which -s play >/dev/null; then play () { afplay "$@" ; } >/dev/null; export -f play >/dev/null; fi
 
-    alias spotlight-disable="sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
-    alias spotlight-enable="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
+    alias spotlight-disable='sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist'
+    alias spotlight-enable='sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist'
+    alias spotlight-hide='sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search && killall SystemUIServer'
+    alias spotlight-show='sudo chmod 755 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search && killall SystemUIServer'
 
 elif [[ "$(uname)" == 'Linux' ]]; then
     if [[ `which open` =~ $WHICH_NOT_FOUND ]]; then; open() { if "$#" > 0; then xdg-open "$@"; else xdg-open .; fi } >/dev/null; export -f open >/dev/null; fi
