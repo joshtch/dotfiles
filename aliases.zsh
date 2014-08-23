@@ -134,10 +134,6 @@ elif [[ "$(uname)" == 'Linux' ]]; then
     function open() { xdg-open "${@:-.}" }
 fi
 
-function size() {
-    du -sh "$@" 2>&1 | grep -v '^du:'
-}
-
 function ssht(){
     ssh $* -t 'tmux a || tmux || /bin/bash'
 }
