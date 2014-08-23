@@ -86,9 +86,6 @@ alias less='"${commands[less]}" -R'
 alias more='less'
 alias grep='grep --color=auto'
 
-# progress bar on file copy
-alias pcp='rsync --progress -ravz'
-
 alias j='jobs -l'
 alias r='fc -e -'
 alias c=clear
