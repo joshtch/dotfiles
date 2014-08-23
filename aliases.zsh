@@ -222,3 +222,6 @@ zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*'   force-list always
 
 bindkey ' ' magic-space
+
+# when using sudo, complete commands in root's path even if not available to user
+zstyle ':completion:*:sudo::' environ PATH="/sbin:/usr/sbin:$PATH" HOME="/root"
