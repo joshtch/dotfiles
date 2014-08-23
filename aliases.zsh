@@ -55,9 +55,6 @@ if [[ -x "${commands[dircolors]}" ]] \
     eval `dircolors "$HOME/.zsh/dircolors-solarized/dircolors.ansi-universal"`
 fi
 
-# Make less support colors
-alias less='less -r'
-
 # List directory contents
 alias l="ls -lv"
 alias sl=ls
@@ -85,6 +82,7 @@ fi
 alias ll='vim ~/.localrc.zsh; source ~/.localrc.zsh'
 
 alias z='exec zsh'
+alias less='"${commands[less]}" -R'
 alias more='less'
 alias grep='grep --color=auto'
 
