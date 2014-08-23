@@ -135,7 +135,7 @@ elif [[ "$(uname)" == 'Linux' ]]; then
 fi
 
 function ssht(){
-    ssh $* -t 'tmux a || tmux || /bin/bash'
+    ssh $* -t 'tmux a || tmux || zsh'
 }
 
 alias dud='du --max-depth=1 -h'
