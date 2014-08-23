@@ -16,6 +16,9 @@ export HOMEBREW_BREWFILE="$HOME/dotfiles/Brewfile"
 [[ -d "$HOME/.zsh/syntax-highlighting" ]] \
     || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh/syntax-highlighting"
 
+[[ -d "$HOME/.zsh/history-substring-search" ]] \
+    || git clone https://github.com/zsh-users/zsh-history-substring-search.git "$HOME/.zsh/history-substring-search"
+
 ZSH_THEME='nicoulaj'
 
 plugins=(colored-man cp extract history pip safe-paste vi-mode z)
@@ -38,3 +41,5 @@ source "$DFS"/aliases.zsh
 
 [[ -d "$HOME/.zsh/syntax-highlighting" ]] && \
     source "$HOME/.zsh/syntax-highlighting/zsh-syntax-highlighting.zsh"
+[[ -d "$HOME/.zsh/history-substring-search" ]] && \
+    source "$HOME/.zsh/history-substring-search/zsh-history-substring-search.zsh"
