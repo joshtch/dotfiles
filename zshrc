@@ -35,7 +35,7 @@ fi
 
 source "$ZSH/oh-my-zsh.sh"
 
-source "$DFS"/aliases.zsh
+[[ -f "$DFS/aliases.zsh" ]] && source "$DFS/aliases.zsh"
 
 [[ -f "$HOME/.localrc.zsh" ]] && source "$HOME/.localrc.zsh"
 
