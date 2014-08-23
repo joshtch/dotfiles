@@ -5,8 +5,6 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-alias c='clear; ls'
-
 function urand {
     NUMBYTES="$@"
     valid_num_regexp='[1-4]'
@@ -88,7 +86,7 @@ alias grep='grep --color=auto'
 
 alias j='jobs -l'
 alias r='fc -e -'
-alias c=clear
+alias c='clear && ls'
 alias x=exit
 
 function stackoverflow() {
