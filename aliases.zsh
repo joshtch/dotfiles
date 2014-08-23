@@ -54,16 +54,16 @@ if [[ -x "${commands[dircolors]}" ]] \
 fi
 
 # List directory contents
-alias l="ls -lv"
+alias l='ls -lv'
 alias sl=ls
-alias lx="ls -lXB"         #  Sort by extension.
-alias lk="ls -lSr"         #  Sort by size, biggest last.
-alias lt="ls -ltr"         #  Sort by date, most recent last.
-alias lc="ls -ltcr"        #  Sort by/show change time,most recent last.
-alias lu="ls -ltur"        #  Sort by/show access time,most recent last.
-alias le="ls -lv |less"    #  Pipe through 'less'
-alias lr="ls -lvR"         #  Recursive ls.
-alias la="ls -lvA"         #  Show hidden files.
+alias lx='ls -lXB'         #  Sort by extension.
+alias lk='ls -lSr'         #  Sort by size, biggest last.
+alias lt='ls -ltr'         #  Sort by date, most recent last.
+alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
+alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
+alias le='ls -lv |less'    #  Pipe through 'less'
+alias lr='ls -lvR'         #  Recursive ls.
+alias la='ls -lvA'         #  Show hidden files.
 alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
 if [[ -d ~/dotfiles ]]; then
@@ -97,7 +97,7 @@ function google() {
     firefox "http://google.com/search?q=$*" &
 }
 
-if [[ "$(uname)" == "Darwin" ]]; then
+if [[ "$(uname)" == 'Darwin' ]]; then
     alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
     alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
     alias man='_() { echo $1; man -M $(brew --prefix)/opt/coreutils/libexec/gnuman $1 1>/dev/null 2>&1; if [ "$?" -eq 0 ]; then man -M $(brew --prefix)/opt/coreutils/libexec/gnuman $1; else man $1; fi }; _'
@@ -111,7 +111,10 @@ if [[ "$(uname)" == "Darwin" ]]; then
     alias gif='echo "mplayer -ao null -loop 0 -ss 0:11:22 -endpos 5 file.avi";
     echo "mplayer -ao null -ss 0:11:22 -endpos 5 file.avi -vo jpeg:outdir=somedir"'
 
-    DefineApps () { export T=$(mktemp /tmp/$PPID''XXXXXX) ; find "$@" '(' -type d -or -type l ')' -name '*.app' -prune -print0 2>/dev/null | xargs -0 python -c 'import os,sys,re,distutils.spawn;os.chdir("/usr/bin")'$'\n''def orApp(c):'$'\n'' if not distutils.spawn.find_executable(c): return c'$'\n'' elif not distutils.spawn.find_executable(c+"-app"): return c+"-app"'$'\n\n''def getF(Command):'$'\n'' if "." in Command or "-" in Command: return lambda App: "alias \""+Command+"\"=\"open -W -a \\\""+App+"\\\"\""'$'\n'' else: return lambda App:Command+" () { open -W -a \""+App+"\" \"$@\" ; } ; export -f "+Command'$'\n\n''print "\n".join((lambda Command:getF(orApp(Command))(App))(Command=re.sub("[^a-z0-9._-]","",re.sub(".*/","",App)[:-4].replace(" ","-").lower())) for App in sys.argv[1:])' >> $T ; . $T ; rm $T ; unset T; } 2>/dev/null 1>/dev/null
+    DefineApps () {
+        export T=$(mktemp /tmp/$PPID''XXXXXX) ;
+        find "$@" '(' -type d -or -type l ')' -name '*.app' -prune -print0 2>/dev/null |\
+            xargs -0 python -c 'import os,sys,re,distutils.spawn;os.chdir("/usr/bin")'$'\n''def orApp(c):'$'\n'' if not distutils.spawn.find_executable(c): return c'$'\n'' elif not distutils.spawn.find_executable(c+"-app"): return c+"-app"'$'\n\n''def getF(Command):'$'\n'' if "." in Command or "-" in Command: return lambda App: "alias \""+Command+"\"=\"open -W -a \\\""+App+"\\\"\""'$'\n'' else: return lambda App:Command+" () { open -W -a \""+App+"\" \"$@\" ; } ; export -f "+Command'$'\n\n''print "\n".join((lambda Command:getF(orApp(Command))(App))(Command=re.sub("[^a-z0-9._-]","",re.sub(".*/","",App)[:-4].replace(" ","-").lower())) for App in sys.argv[1:])' >> $T ; . $T ; rm $T ; unset T; } 2>/dev/null 1>/dev/null
     DefineApps ~/Applications /Applications /usr/local/Cellar/emacs 2>/dev/null 1>/dev/null
     if declare -F xcode >/dev/null; then
         DefineApps "$(declare|grep -i '^ *open.*/Xcode.app'|head -1|sed -e 's/[^"]*"//' -e 's/".*//')/Contents/Applications" 2>/dev/null 1>/dev/null;
@@ -126,7 +129,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     alias spotlight-disable="sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
     alias spotlight-enable="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
 
-elif [[ "$(uname)" == "Linux" ]]; then
+elif [[ "$(uname)" == 'Linux' ]]; then
     if [[ `which open` =~ $WHICH_NOT_FOUND ]]; then; open() { if "$#" > 0; then xdg-open "$@"; else xdg-open .; fi } >/dev/null; export -f open >/dev/null; fi
 fi
 
