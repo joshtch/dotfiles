@@ -131,7 +131,7 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     alias spotlight-show='sudo chmod 755 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search && killall SystemUIServer'
 
 elif [[ "$(uname)" == 'Linux' ]]; then
-    if [[ `which open` =~ $WHICH_NOT_FOUND ]]; then; open() { if "$#" > 0; then xdg-open "$@"; else xdg-open .; fi } >/dev/null; export -f open >/dev/null; fi
+    function open() { xdg-open "${@:-.}" }
 fi
 
 function size() {
