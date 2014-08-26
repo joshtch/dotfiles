@@ -58,7 +58,6 @@ set foldmethod=marker foldnestmax=3 nofoldenable foldcolumn=0            " Folds
 set diffopt=filler,vertical,foldcolumn:2                               " Vimdiff
 set scrolloff=4 sidescrolloff=0                           " Scrolling boundaries
 set number norelativenumber                                       " Line numbers
-set autoread          " Reread a file detected to have been modified outside Vim
 set autowrite                       " Automatically save file when focus is lost
 set copyindent autoindent          " Imitate indenting of previous line's indent
 set ttyfast                                            " See :help slow-terminal
@@ -77,6 +76,12 @@ set nojoinspaces          " Don't add extra spaces after .?! when joining with J
 set equalalways         " Make current split be always at least "textwidth" wide
 set cryptmethod=blowfish                     " Slightly more secure cryptography
 set path=.,**        " Make :find, :sfind, :vert sfind search parent directories
+
+set autoread          " Reread a file detected to have been modified outside Vim
+augroup AutoReading
+    autocmd!
+    autocmd CursorHold,CursorHoldI * checktime
+augroup END
 
 augroup Resize                    " Make splits equal size, unless in focus mode
     autocmd!
