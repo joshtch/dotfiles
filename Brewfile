@@ -1,4 +1,4 @@
-# Tap repositories and their packages
+# tap repositories and their packages
 
 ## caskroom/cask
 tap caskroom/cask
@@ -6,22 +6,20 @@ install brew-cask
 cask install appcleaner
 cask install bettertouchtool
 cask install caffeine
-cask install coconutbattery
-cask install day-o
 cask install disk-inventory-x
 cask install evernote
-cask install firefox
 cask install flux
+cask install geektool
 cask install gimp
 cask install karabiner
 cask install lastpass-universal
-cask install nvalt
+cask install macvim
 cask install onyx
 cask install seil
+cask install sopcast
 cask install telegram
 cask install the-unarchiver
 cask install virtualbox
-cask install wireshark
 cask install xquartz
 cask install xtrafinder
 
@@ -29,6 +27,7 @@ cask install xtrafinder
 tap homebrew/dupes
 install grep --default-names
 install openssh
+install rsync
 
 ## rcmdnk/file
 tap rcmdnk/file
@@ -37,47 +36,45 @@ install brew-file
 # Other Homebrew packages
 install autoconf
 install automake
+install bash
 install binutils
-install brewall
 install cabal-install
-install cloog
-install cmake
 install coreutils
-install curl
-install emacs
-install ettercap
+install cscope
+install curl --with-openssl --with-ssh
 install findutils --default-names
-install gcc
+install freetype
 install gdbm
-install geoip
-install gettext
 install ghc
 install git
-install glib
 install gmp
 install gnutls
-install isl
+install gsasl
+install imagemagick
+install jpeg
 install libevent
-install libffi
-install libgcrypt
-install libgpg-error
-install libmpc
-install libnet
+install libpng
 install libtasn1
+install libtool
 install lua
+install mailutils
 install mobile-shell
-install mpfr
+install moreutils
 install mutt
 install nettle
-install nmap
 install openssl
+install pandoc
 install pcre
 install pkg-config
+install protobuf
+install readline
 install reattach-to-user-namespace
+install sqlite
 install tmux
 install tokyo-cabinet
+install tor
 install trash
 install wakeonlan
-install wget --enable-iri
+install wget --with-iri
 install xz
 install zsh
