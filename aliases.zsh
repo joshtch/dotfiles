@@ -149,7 +149,7 @@ function ssht(){
     ssh $* -t 'tmux a || tmux || zsh'
 }
 
-[[ "$SHELL" == 'zsh' ]] || return # For portability with bash
+[[ "$SHELL" =~ 'zsh' ]] || return # For portability with bash
 
 fancy-ctrl-z () {
     if [[ $#BUFFER -eq 0 ]]; then
