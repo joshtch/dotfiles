@@ -19,7 +19,7 @@ set showstatuslinks='command'
 "set hintkeys=fjdksla;vnrueocm
 "set hintkeys=fdjksal;vrnuecom
 "set hintkeys=jkfdl;sanuvromec
-set editor='/usr/local/bin/mvim -g -f +<line> +"sil! call cursor(0, <column>)" <file>'
+set editor='/Applications/MacVim.app/Contents/MacOS/MacVim -g -f +<line> +"sil! call cursor(0, <column>)" <file>'
 set shell=/bin/zsh
 
 silent qmark g https://github.com/
