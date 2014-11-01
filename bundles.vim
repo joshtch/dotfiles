@@ -15,17 +15,15 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Appearance:
-NeoBundle 'altercation/vim-colors-solarized', { 'vim_version' : '7.2' }
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'bling/vim-airline'
 
 " Text Objects:
 NeoBundle 'coderifous/textobj-word-column.vim'
 NeoBundle 'kana/vim-textobj-line', {
-            \ 'vim_version' : '7.2',
             \ 'depends' : 'kana/vim-textobj-user'
             \ }
 NeoBundle 'kana/vim-textobj-entire', {
-            \ 'vim_version' : '7.2',
             \ 'depends' : 'kana/vim-textobj-user'
             \ }
 NeoBundle 'michaeljsmith/vim-indent-object'
@@ -84,7 +82,7 @@ NeoBundle 'ntpeters/vim-better-whitespace'
 
 " Operators:
 NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
-NeoBundle 'kana/vim-niceblock', { 'vim_version' : '7.3' }
+NeoBundle 'kana/vim-niceblock'
 NeoBundle 'scrooloose/nerdcommenter' , {
             \ 'autoload' : {
             \   'mappings' : [
@@ -151,7 +149,7 @@ NeoBundle 'Shougo/vimproc', {
             \      },
             \ }
 NeoBundleLazy 'ciaranm/securemodelines'
-"NeoBundle 'kana/vim-arpeggio', { 'vim_version' : '7.2' }
+"NeoBundle 'kana/vim-arpeggio'
 NeoBundle 'tpope/vim-repeat'
 NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
             \ '<Plug>FocusModeToggle' } }
