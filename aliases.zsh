@@ -26,7 +26,7 @@ alias gds='git diff --stat --color | cat'
 # Show history
 alias h='fc -l 1'
 # Show ten most used commands
-alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
+alias history-stat="fc -l 1 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 
 # Portably colorize ls
 if "${commands[ls]}" --color -d /dev/null &>/dev/null; then
