@@ -107,8 +107,6 @@ NeoBundle 'tpope/vim-surround', {
             \ }
 
 " Language Specific Syntax Handling:
-NeoBundleLazy 'cypok/vim-sml',
-            \ { 'filetypes' : [ 'sml', 'mosml'] }
 NeoBundle 'dogrover/vim-pentadactyl'
 NeoBundleLazy 'vim-scripts/TeX-PDF', { 'filetypes' : 'tex' }
 NeoBundleLazy 'dbakker/vim-lint', {
