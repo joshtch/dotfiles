@@ -29,9 +29,9 @@ silent qmark m https://mail.google.com/
 silent qmark c https://www.google.com/calendar/
 silent qmark s http://www.reddit.com/r/soccer/
 silent qmark f http://footytube.com/
-silent qmark G http://www.gettyfooty.com/search/label/Highlights
+silent qmark G http://www.gettyfooty.com/search/label/Highlights/
 silent qmark t https://trunk.tufts.edu/
-silent qmark i http://go.tufts.edu/isis
+silent qmark i http://go.tufts.edu/isis/
 silent qmark p https://tuftscss.shiftplanning.com/app/timeclock/
 silent qmark l https://student.support.tufts.edu/links/
 silent qmark k https://wikis.uit.tufts.edu/confluence/display/CSS/Student+Support/

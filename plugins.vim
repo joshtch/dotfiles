@@ -11,7 +11,7 @@ nnoremap Ug :<C-u>Unite -no-split -buffer-name=outline -start-insert tag -resume
 nnoremap Uu :<C-u>Unite -log -wrap -vertical -direction=botright neobundle/update<CR>
 call unite#filters#matcher_default#use(['matcher_fuzzy', 'matcher_hide_hidden_files'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-augroup UniteTags
+augroup UniteSettings
     autocmd!
     autocmd BufEnter *
             \ if empty(&buftype)

@@ -1,8 +1,8 @@
 " bundles.vim
 set nocompatible
-filetype off " required!
+filetype off
 
-" Autoinstall NeoBundle:
+" NeoBundle:
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
     if !filereadable(expand('~/.vim/bundle/neobundle.vim/doc/neobundle.txt'))
@@ -122,7 +122,7 @@ NeoBundle 'Shougo/vimproc', {
             \       'cygwin'  : 'make -f make_cygwin.mak',
             \       'mac'     : 'make -f make_mac.mak',
             \       'unix'    : 'make -f make_unix.mak'
-            \      },
+            \      }
             \ }
 NeoBundleLazy 'ciaranm/securemodelines'
 NeoBundle 'tpope/vim-repeat'

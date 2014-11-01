@@ -83,7 +83,7 @@ augroup Resize                    " Make splits equal size, unless in focus mode
     autocmd WinEnter,VimResized * if &l:ft != 'focusmode' | wincmd = | endif
 augroup END
 
-" Settings for automatic text formatting
+" Settings for automatic text formatting (Vim default: tcq)
  set formatoptions=
  set fo+=t " Auto-wrap text using 'textwidth'
  set fo+=c " Auto-wrap comments + autoinsert comment leader

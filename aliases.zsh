@@ -96,7 +96,7 @@ alias grep='grep --color=auto'
 alias j='jobs -l'
 alias r='fc -e -'
 alias c='clear && ls'
-alias x=exit
+alias x='exit'
 
 function stackoverflow() {
     firefox "http://stackoverflow.com/search?q=$*" &
