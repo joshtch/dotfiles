@@ -3,7 +3,7 @@ set! browser.tabs.closeWindowWithLastTab=true
 set hlfind
 set incfind
 set findcase=smart
-set complete=slb
+set complete=search,location
 set wildmode=list:full
 map , <Leader>
 map <Leader>f F
