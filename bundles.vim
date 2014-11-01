@@ -65,7 +65,8 @@ NeoBundle 'scrooloose/syntastic'
 
 " Operators:
 NeoBundleLazy 'godlygeek/tabular', { 'commands' : 'Tabularize' }
-NeoBundle 'kana/vim-niceblock'
+NeoBundleLazy 'kana/vim-niceblock', {
+            \ 'mappings' : ['<Plug>(niceblock-I)', '<Plug>(niceblock-A)' ] }
 NeoBundle 'scrooloose/nerdcommenter' , {
             \ 'mappings' : [
             \   '<Plug>NERDCommenterComment',

@@ -133,6 +133,10 @@ if v:version >= 702
     silent! Arpeggio inoremap jk <Esc>
 endif
 
+" Niceblock:
+xnoremap I <Plug>(niceblock-I)
+xnoremap A <Plug>(niceblock-A)
+
 " Exchange:
 nmap cx <Plug>(Exchange)
 vmap X <Plug>(Exchange)
