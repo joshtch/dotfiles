@@ -143,45 +143,6 @@ nmap cxx <Plug>(ExchangeLine)
 nmap <silent> <Leader>f <Plug>FocusModeToggle
 let g:focus_use_default_mapping = 0
 
-" Better Whitespace: highlight trailing WS on all lines except current
-if exists(":StripWhitespace")
-    augroup BetterWhitespace
-        autocmd!
-        autocmd BufWinEnter * execute "EnableWhitespace"
-        autocmd FileType unite,markdown execute "DisableWhitespace"
-        autocmd BufWinLeave * execute "DisableWhitespace"
-    augroup END
-    nnoremap <silent> <Leader>cws :StripWhitespace<CR>
-else
-    augroup AnnoyingWhitespace
-        autocmd!
-        highlight default link ExtraWhitespace ErrorMsg
-        match ExtraWhitespace /\s\+$/
-        autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-        autocmd InsertEnter * match ExtraWhitespace /\v\s+%#@<!$/
-        autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-        autocmd BufWinLeave * call clearmatches()
-        autocmd InsertEnter *
-                    \ syn clear EOLWS | syn match EOLWS excludenl /\v\s+%#@!$/
-        autocmd InsertLeave *
-                    \ syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
-        highlight default link EOLWS ErrorMsg
-    augroup END
-    function! <SID>StripTrailingWhitespace()
-        silent! let ishls=v:hlsearch
-        let lastsearch=@/
-        let pos=getpos('.')
-        "let startline=line(".")
-        "let startcol=col(".")
-        %s/\s\+$//e
-        let @/=lastsearch
-        silent! let v:hlsearch=ishls
-        call setpos('.',pos)
-        "call cursor(startline, startcol)
-    endfunction
-    nnoremap <silent> <Leader>cws :call <SID>StripTrailingWhitespace()<CR>
-endif
-
 " Syntastic: Real-time syntax checking
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0

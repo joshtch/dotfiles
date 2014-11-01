@@ -62,7 +62,6 @@ NeoBundle 'mhinz/vim-signify'
 NeoBundleLazy 'tpope/vim-vinegar', { 'filetypes' : 'netrw' }
 NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'ntpeters/vim-better-whitespace'
 
 " Operators:
 NeoBundleLazy 'godlygeek/tabular', { 'commands' : 'Tabularize' }
