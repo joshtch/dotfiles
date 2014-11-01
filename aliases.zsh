@@ -55,6 +55,15 @@ if [[ -x "${commands[dircolors]}" ]] \
     eval `dircolors "$HOME/.zsh/dircolors-solarized/dircolors.ansi-universal"`
 fi
 
+# Restart Tor session with password
+# Refer to http://pundirtech.com/data-scraping-series-2-1-rotating-your-tor-ip-address-php-or-linux/
+rtor-pwd () {
+    echo "Password: "
+    read -s PASS
+    echo -e "AUTHENTICATE \"$PASS\"\r\nsignal NEWNYM\r\nQUIT" | nc 127.0.0.1 9051
+    unset PASS
+}
+
 # List directory contents
 alias l='ls -lv'
 alias sl=ls
