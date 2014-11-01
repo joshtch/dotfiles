@@ -1,5 +1,4 @@
 " bundles.vim
-" vim:set ft=vim tw=80 sw=4 et
 set nocompatible
 filetype off " required!
 
