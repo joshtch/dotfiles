@@ -37,13 +37,13 @@ NeoBundleLazy 'Shougo/unite.vim', {
             \ 'depends' : 'Shougo/vimproc',
             \ 'autoload' : { 'commands' : 'Unite' }
             \ }
-"NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
-            "\ [ 'Ant', 'Assembler', 'ASP', 'Awk', 'Basic', 'BETA', 'C', 'C++',
-            "\ 'C#', 'COBOL', 'DosBatch', 'Eiffel', 'Erlang', 'Flex', 'Fortran',
-            "\ 'HTML', 'Java', 'JavaScript', 'Lisp', 'Lua', 'Make', 'MatLab',
-            "\ 'OCaml', 'Pascal', 'Perl', 'PHP', 'Python', 'REXX', 'Ruby',
-            "\ 'Scheme', 'Shell ''script', 'SLang', 'SML', 'SQL', 'Tcl', 'Tex',
-            "\ 'Vera', 'Verilog', 'VHDL', 'Vim', 'YACC'] } }
+NeoBundleLazy 'majutsushi/tagbar', {
+            \ 'filetypes' :  [ 'ant', 'asm', 'asp', 'awk', 'basic', 'beta', 'c',
+            \ 'cpp', 'csharp', 'cobol', 'bat', 'eiffel', 'erlang', 'flex',
+            \ 'fortran', 'html', 'java', 'javascript', 'lisp', 'lua', 'make',
+            \ 'matlab', 'ocaml', 'pascal', 'perl', 'php', 'python', 'rexx',
+            \ 'ruby', 'scheme', 'sh', 'slang', 'sml', 'sql', 'tcl', 'tex', 'vb',
+            \ 'vera', 'verilog', 'vhdl', 'vim', 'yacc' ] }
 NeoBundleLazy 'tpope/vim-dispatch', {
             \ 'autoload' : {
             \   'commands' : [
