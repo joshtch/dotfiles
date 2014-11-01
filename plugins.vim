@@ -18,6 +18,7 @@ augroup UniteTags
             \| nnoremap <Buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
             \| endif
     autocmd FileType unite nmap <buffer> <Esc> <Plug>(unite_exit)
+    autocmd FileType unite call clearmatches()
 augroup END
 " Use ag if available and ignore files in .gitignore/.hgignore
 if executable('ag')
