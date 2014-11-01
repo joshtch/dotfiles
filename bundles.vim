@@ -37,17 +37,6 @@ NeoBundleLazy 'Shougo/unite.vim', {
             \ 'depends' : 'Shougo/vimproc',
             \ 'autoload' : { 'commands' : 'Unite' }
             \ }
-NeoBundleLazy 'benmills/vimux', {
-            \ 'autoload' : {
-            \   'commands' : [
-            \     'VimuxPromptCommand',
-            \     'VimuxInspectRunner',
-            \     'VimuxRunCommand',
-            \     'VimuxOpenPane'
-            \     ]
-            \   },
-            \ 'disable' : !exists('$TMUX')
-            \ }
 "NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : { 'filetypes' :
             "\ [ 'Ant', 'Assembler', 'ASP', 'Awk', 'Basic', 'BETA', 'C', 'C++',
             "\ 'C#', 'COBOL', 'DosBatch', 'Eiffel', 'Erlang', 'Flex', 'Fortran',
