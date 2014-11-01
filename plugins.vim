@@ -1,14 +1,3 @@
-" Ag Vim: Ag plugin for vim
-if executable('ag')
-    NeoBundle 'rking/ag.vim'
-    set grepprg="ag --nogroup --nocolor --column"
-    command! -bar -nargs=+ -complete=file Ag silent! grep! <args>|redraw!
-else
-    let grep_settings  = "grep -rnH --exclude=tags "
-    let grep_settings .= "--exclude-dir=.git --exclude-dir=node_modules"
-    set grepprg=grep_settings
-endif
-
 " Unite: Unified interface for file, buffer, yankstack, etc. management
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
