@@ -48,18 +48,21 @@ let g:airline_powerline_fonts = 0
 let g:airline_enable_synastic = 1
 let g:airline_enable_fugitive = 1
 let g:airline_modified_detection = 1
-let g:airline_left_sep = '⮀'
-let g:airline_right_sep = '⮂'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_alt_sep = '⮃'
-augroup AirlineSymbols
-    autocmd!
-    autocmd VimEnter * let g:airline_symbols.branch = '⭠'
-                \| let g:airline_linecolumn_prefix = '¶'
-                \| let g:airline_symbols.readonly = '⭤'
-                \| let g:airline_symbols.linenr = '⭡'
-                \| let g:airline_symbols.paste = 'PASTE'
-augroup END
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.modified = '+'
+let g:airline_symbols.space = ' '
+let g:airline_symbols.whitespace = '!'
+let g:airline_symbols.branch = ''
+let g:airline_linecolumn_prefix = '¶'
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.paste = 'PASTE'
 let g:airline_fugitive_prefix = '⎇ '
 let g:airline_theme = 'solarized'
 let g:airline#extensions#tabline#enabled = 1
