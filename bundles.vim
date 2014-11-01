@@ -125,7 +125,6 @@ NeoBundle 'Shougo/vimproc', {
             \      },
             \ }
 NeoBundleLazy 'ciaranm/securemodelines'
-"NeoBundle 'kana/vim-arpeggio'
 NeoBundle 'tpope/vim-repeat'
 NeoBundleLazy 'merlinrebrovic/focus.vim', { 'mappings' : '<Plug>FocusModeToggle' }
 NeoBundle 'dockyard/vim-easydir'

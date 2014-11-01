@@ -128,11 +128,6 @@ if exists(":Tabularize")
     nnoremap <silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
 endif
 
-" Arpeggio: Chord arbitrary keys together (e.g. 'jk' to esc)
-if v:version >= 702
-    silent! Arpeggio inoremap jk <Esc>
-endif
-
 " Niceblock:
 xnoremap I <Plug>(niceblock-I)
 xnoremap A <Plug>(niceblock-A)
