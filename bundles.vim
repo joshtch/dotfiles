@@ -45,88 +45,77 @@ NeoBundleLazy 'majutsushi/tagbar', {
             \ 'ruby', 'scheme', 'sh', 'slang', 'sml', 'sql', 'tcl', 'tex', 'vb',
             \ 'vera', 'verilog', 'vhdl', 'vim', 'yacc' ] }
 NeoBundleLazy 'tpope/vim-dispatch', {
-            \ 'autoload' : {
-            \   'commands' : [
-            \     'Make', 'Make!', 'Copen', 'Copen!', 'Dispatch', 'Dispatch!',
-            \     'FocusDispatch', 'FocusDispatch!', 'Start', 'Start!'
-            \     ]
-            \   }
+            \ 'commands' : [
+            \   'Make', 'Make!', 'Copen', 'Copen!', 'Dispatch', 'Dispatch!',
+            \   'FocusDispatch', 'FocusDispatch!', 'Start', 'Start!'
+            \   ]
             \ }
 NeoBundle 'tpope/vim-fugitive'
 NeoBundleLazy 'tyru/open-browser.vim', {
-            \ 'autoload' : {
-            \         'mappings' : [
-            \                 '<Plug>(openbrowser-open)',
-            \                 '<Plug>(openbrowser-search)',
-            \                 '<Plug>(openbrowser-smart-search)'
-            \             ],
-            \         'commands' : 'OpenBrowserSmartSearch'
-            \      }
-            \ }
+            \ 'mappings' : [
+            \  '<Plug>(openbrowser-open)',
+            \  '<Plug>(openbrowser-search)',
+            \  '<Plug>(openbrowser-smart-search)'
+            \  ],
+            \ 'commands' : 'OpenBrowserSmartSearch' }
 NeoBundle 'mhinz/vim-signify'
-NeoBundleLazy 'tpope/vim-vinegar', { 'autoload' : { 'filetypes' : 'netrw' } }
+NeoBundleLazy 'tpope/vim-vinegar', { 'filetypes' : 'netrw' }
 NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'ntpeters/vim-better-whitespace'
 
 " Operators:
-NeoBundleLazy 'godlygeek/tabular', { 'autoload' : { 'commands' : 'Tabularize' }}
+NeoBundleLazy 'godlygeek/tabular', { 'commands' : 'Tabularize' }
 NeoBundle 'kana/vim-niceblock'
 NeoBundle 'scrooloose/nerdcommenter' , {
-            \ 'autoload' : {
-            \   'mappings' : [
-            \     '<Plug>NERDCommenterComment',
-            \     '<Plug>NERDCommenterNested',
-            \     '<Plug>NERDCommenterToggle',
-            \     '<Plug>NERDCommenterMinimal',
-            \     '<Plug>NERDCommenterInvert',
-            \     '<Plug>NERDCommenterSexy',
-            \     '<Plug>NERDCommenterYank',
-            \     '<Plug>NERDCommenterToEOL',
-            \     '<Plug>NERDCommenterAppend',
-            \     '<Plug>NERDCommenterInsert',
-            \     '<Plug>NERDCommenterAlignLeft',
-            \     '<Plug>NERDCommenterUncomment',
-            \     '<Plug>NERDCommenterAlignBoth'
-            \     ]
-            \   }
+            \ 'mappings' : [
+            \   '<Plug>NERDCommenterComment',
+            \   '<Plug>NERDCommenterNested',
+            \   '<Plug>NERDCommenterToggle',
+            \   '<Plug>NERDCommenterMinimal',
+            \   '<Plug>NERDCommenterInvert',
+            \   '<Plug>NERDCommenterSexy',
+            \   '<Plug>NERDCommenterYank',
+            \   '<Plug>NERDCommenterToEOL',
+            \   '<Plug>NERDCommenterAppend',
+            \   '<Plug>NERDCommenterInsert',
+            \   '<Plug>NERDCommenterAlignLeft',
+            \   '<Plug>NERDCommenterUncomment',
+            \   '<Plug>NERDCommenterAlignBoth'
+            \   ]
             \ }
 NeoBundleLazy 'tommcdo/vim-exchange', {
-            \ 'autoload' : {
-            \   'mappings' : [
-            \     '<Plug>(Exchange)', '<Plug>(ExchangeClear)', '<Plug>(ExchangeLine)'
-            \     ]
-            \   }
+            \ 'mappings' : [
+            \   '<Plug>(Exchange)', '<Plug>(ExchangeClear)', '<Plug>(ExchangeLine)'
+            \  ]
             \ }
 NeoBundleLazy 'tpope/vim-capslock',
 NeoBundle 'tpope/vim-surround', {
-            \ 'autoload' : {
-            \   'mappings' : [
-            \     '<Plug>Dsurround',
-            \     '<Plug>Csurround',
-            \     '<Plug>Ysurround',
-            \     '<Plug>YSurround',
-            \     '<Plug>Yssurround',
-            \     '<Plug>YSsurround',
-            \     '<Plug>YSsurround',
-            \     '<Plug>VSurround',
-            \     '<Plug>VgSurround',
-            \     '<Plug>Isurround',
-            \     '<Plug>ISurround',
-            \     ]
-            \   }
+            \ 'mappings' : [
+            \  '<Plug>Dsurround',
+            \  '<Plug>Csurround',
+            \  '<Plug>Ysurround',
+            \  '<Plug>YSurround',
+            \  '<Plug>Yssurround',
+            \  '<Plug>YSsurround',
+            \  '<Plug>YSsurround',
+            \  '<Plug>VSurround',
+            \  '<Plug>VgSurround',
+            \  '<Plug>Isurround',
+            \  '<Plug>ISurround',
+            \  ]
             \ }
 
 " Language Specific Syntax Handling:
 NeoBundleLazy 'cypok/vim-sml',
-            \ { 'autoload' : { 'filetypes' : [ 'sml', 'mosml'] } }
+            \ { 'filetypes' : [ 'sml', 'mosml'] }
 NeoBundle 'dogrover/vim-pentadactyl'
-NeoBundleLazy 'vim-scripts/TeX-PDF', { 'autoload' : { 'filetypes' : 'tex' }}
+NeoBundleLazy 'vim-scripts/TeX-PDF', { 'filetypes' : 'tex' }
 NeoBundleLazy 'dbakker/vim-lint', {
             \ 'autoload' : { 'filetypes' : 'vim' },
             \ 'depends' : 'scrooloose/syntastic'
             \ }
-NeoBundle 'vimez/vim-tmux', { 'autoload' : { 'filetypes' : 'conf' }}
+NeoBundle 'vimez/vim-tmux', { 'filetypes' : 'conf' }
 
 " Vim Functionality Extending:
 NeoBundle 'Shougo/vimproc', {
@@ -140,13 +129,26 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundleLazy 'ciaranm/securemodelines'
 "NeoBundle 'kana/vim-arpeggio'
 NeoBundle 'tpope/vim-repeat'
-NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' :
-            \ '<Plug>FocusModeToggle' } }
+NeoBundleLazy 'merlinrebrovic/focus.vim', { 'mappings' : '<Plug>FocusModeToggle' }
 NeoBundle 'dockyard/vim-easydir'
 NeoBundle 'tpope/vim-rsi'
 NeoBundle 'tpope/vim-unimpaired'
-NeoBundleLazy 'vim-scripts/bufkill.vim', { 'autoload' : {
-            \ 'commands' : [ 'BD', 'BUN', 'BW', 'BB', 'BF' ] } }
+NeoBundleLazy 'vim-scripts/bufkill.vim', {
+            \ 'commands' : [ 'BD', 'BUN', 'BW', 'BB', 'BF' ] }
+NeoBundle 'ConradIrwin/vim-bracketed-paste', {
+            \ 'terminal' : 1, 'disabled' : (&term !~? "xterm.*") }
+NeoBundle 'ardagnir/vimbed'
+NeoBundleLazy 'tpope/vim-scriptease', {
+            \ 'commands' : [
+            \   'PP', 'PPmsg', 'Runtime', 'Disarm', 'Scriptnames', 'Verbose',
+            \   'Time', 'Breakadd', 'Breakdel', 'Vedit', 'Vsplit', 'Vopen',
+            \   'Vread', 'Vvsplit', 'Vtabedit'
+            \  ],
+            \ 'mappings' : [
+            \   '<Plug>ScripteaseFilter', '<Plug>ScripteaseFilter_',
+            \   '<Plug>ScripteaseSynnames'
+            \  ]
+            \ }
 
 NeoBundleCheck
 filetype plugin indent on
