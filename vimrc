@@ -16,7 +16,7 @@ set backspace=indent,eol,start                      " Allow backspacing anywhere
 set splitbelow splitright                 " Split windows below and to the right
 set wildmenu wildmode=list:longest,full                 " Cmdline tab completion
 set wildignore=*.o,*~,*.pyc,*.obj,*.a,*.lib,*.elf        " Ignore non-text files
-set wildignore+=*.swp,*~,._* nobackup noswapfile               " Remove swapfile
+set wildignore+=*.swp,*~,._* backup noswapfile                 " Remove swapfile
 set updatecount=0 nobackup nowritebackup         " Disable temp and backup files
 set showcmd showmode cmdheight=1 shortmess=atIfilmnrxoOT    " Cmd bar appearance
 set infercase complete-=i completeopt=longest,menuone        " Insert completion
