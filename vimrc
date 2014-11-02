@@ -1,15 +1,6 @@
 " vimrc
 " vim:set ft=vim tw=80 sw=4 et
 
-" Keep track of whether this vimrc is being sourced at startup or at runtime
-if !exists('g:entered_vim')
-    let g:entered_vim = 0
-    augroup CheckIfEntered
-        autocmd!
-        autocmd VimEnter * let g:entered_vim = 1 | autocmd! CheckIfEntered
-    augroup END
-endif
-
 let g:mapleader = " "
 nnoremap <Space> <Nop>
 
