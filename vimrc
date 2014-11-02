@@ -60,6 +60,8 @@ set equalalways         " Make current split be always at least "textwidth" wide
 set cryptmethod=blowfish                     " Slightly more secure cryptography
 set path=.,**        " Make :find, :sfind, :vert sfind search parent directories
 
+if exists('+breakindent') | set breakindent | endif
+
 " Syntax Highlighting:
 syntax enable                                      " Turn on syntax highlighting
 syntax sync minlines=256            " Update syntax highlighting for more lines
