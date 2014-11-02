@@ -22,7 +22,7 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 ZSH_THEME='nicoulaj'
 
-plugins=(colored-man cp extract history pip safe-paste vi-mode z)
+plugins=(cp extract history pip safe-paste vi-mode z)
 [[ -x "${commands[git]}" ]] && plugins+=git
 [[ -x "${commands[tmux]}" ]] && plugins+=tmux
 
