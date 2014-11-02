@@ -83,15 +83,6 @@ augroup Resize                    " Make splits equal size, unless in focus mode
     autocmd WinEnter,VimResized * if &l:ft != 'focusmode' | wincmd = | endif
 augroup END
 
-if v:version > 600
-    if exists(':NeoBundleLazy')
-        NeoBundleLazy 'matchit.zip', { 'autoload' : { 'mappings' : ['%','g%']}}
-    else
-        helptags $VIMRUNTIME/macros
-        runtime macros/matchit.vim
-    endif
-endif
-
 " Settings for automatic text formatting
  set formatoptions=
  set fo+=t " Auto-wrap text using 'textwidth'
