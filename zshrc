@@ -7,6 +7,7 @@ export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 export DFS="${DFS:-$HOME/dotfiles}"
 export KEYTIMEOUT=1
 export HOMEBREW_BREWFILE="$HOME/dotfiles/Brewfile"
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 [[ -d "$HOME/.zsh" ]] || mkdir "$HOME/.zsh"
 
