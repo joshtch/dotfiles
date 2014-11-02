@@ -47,9 +47,6 @@ set number norelativenumber                                       " Line numbers
 set autowrite                       " Automatically save file when focus is lost
 set copyindent autoindent          " Imitate indenting of previous line's indent
 set ttyfast                                            " See :help slow-terminal
-syntax enable                                      " Turn on syntax highlighting
-syntax sync minlines=512             " Update syntax highlighting for more lines
-set synmaxcol=256                            " Don't syntax highlight long lines
 set switchbuf=useopen               " Switch to open buffer instead of reopening
 set viewoptions=folds,options,cursor,unix,slash                     " Appearance
 set laststatus=2                                    " Always display status line
@@ -62,6 +59,16 @@ set nojoinspaces          " Don't add extra spaces after .?! when joining with J
 set equalalways         " Make current split be always at least "textwidth" wide
 set cryptmethod=blowfish                     " Slightly more secure cryptography
 set path=.,**        " Make :find, :sfind, :vert sfind search parent directories
+
+" Syntax Highlighting:
+syntax enable                                      " Turn on syntax highlighting
+syntax sync minlines=256            " Update syntax highlighting for more lines
+set synmaxcol=512                            " Don't syntax highlight long lines
+" Default paren match highting is too distracting
+highlight! link MatchParen Comment
+
+" Highlight VCS conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 set autoread          " Reread a file detected to have been modified outside Vim
 augroup AutoReading
@@ -82,9 +89,6 @@ if v:version > 600
         runtime macros/matchit.vim
     endif
 endif
-
-" Default paren match highting is too distracting
-highlight! link MatchParen Comment
 
 " Settings for automatic text formatting
  set formatoptions=
