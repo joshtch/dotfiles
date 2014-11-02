@@ -41,6 +41,7 @@ install binutils
 install cabal-install
 install coreutils
 install cscope
+install ctags
 install curl --with-openssl --with-ssh
 install findutils --default-names
 install freetype
