@@ -92,8 +92,8 @@ augroup END
  set fo+=q " Allow formatting with 'gq'
 "set fo+=w " Trailing white space indicates a paragraph continues
 "set fo+=a " Autoformat paragraphs every time text is inserted/deleted
- set fo+=n " Recognize lists. Not to be used with 'fo+=2'
-"set fo+=2 " Use the indent of the second line of a paragraph
+"set fo+=n " Recognize lists. Not to be used with 'fo+=2'
+ set fo+=2 " Use the indent of the second line of a paragraph
 "set fo+=v " Only break a line at blank entered during current insert
 "set fo+=b " Like 'v', but only for blanks entered before wrap margin
  set fo+=l " Don't autoformat existing long lines
