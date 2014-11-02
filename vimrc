@@ -96,7 +96,7 @@ augroup END
  set fo+=2 " Use the indent of the second line of a paragraph
 "set fo+=v " Only break a line at blank entered during current insert
 "set fo+=b " Like 'v', but only for blanks entered before wrap margin
- set fo+=l " Don't autoformat existing long lines
+"set fo+=l " Don't autoformat existing long lines
  set fo+=1 " Don't break a line after a one-letter word
 
 " Settings for Vi-compatible behavior (Vim default: aABceFs)
