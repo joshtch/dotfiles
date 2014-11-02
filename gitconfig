@@ -8,7 +8,7 @@
 	editor = "vim -f"
 
 [credential]
-    helper = "osxkeychain"
+	helper = "osxkeychain"
 
 [alias]
 	b = branch
@@ -36,5 +36,6 @@
 	stm = status --untracked=no
 	stfu = status --untracked=no
 	pullsrb = !git stash save && git pull --rebase && git stash pop && echo 'Success!'
+
 [push]
 	default = simple
