@@ -40,7 +40,7 @@ set t_ut=                    " Clear using background color -- fix tmux coloring
 set mouse=a ttymouse=xterm2                                      " Mouse support
 set nowrap linebreak textwidth=80 " Text wrapping: break line along spaces @~80c
 set encoding=utf8 fileformats=unix,dos,mac          " Supported document formats
-set foldmethod=marker foldnestmax=3 nofoldenable foldcolumn=0            " Folds
+set foldmethod=manual foldnestmax=3 nofoldenable foldcolumn=0            " Folds
 set diffopt=filler,vertical,foldcolumn:2                               " Vimdiff
 set scrolloff=4 sidescrolloff=0                           " Scrolling boundaries
 set number norelativenumber                                       " Line numbers
