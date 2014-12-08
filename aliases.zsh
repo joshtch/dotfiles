@@ -301,3 +301,12 @@ zle -N no-magic-abbrev-expand
 bindkey " " magic-abbrev-expand
 bindkey "^x " no-magic-abbrev-expand
 bindkey -M isearch " " self-insert
+
+function nn() {
+    NOTE_DIR=~/course\ notes
+    TIMESTAMP="$(date +%m-%d-%y)"
+    if (( $# > 0 )); then
+        NOTE_NAME="$1-"
+    fi
+    vim "${NOTE_DIR}/${NOTE_NAME}${TIMESTAMP}.md"
+}
