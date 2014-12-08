@@ -39,7 +39,18 @@ function urand {
 alias gds='git diff --stat --color | cat'
 
 # Show history
-alias h='fc -l 1'
+if [ "$HIST_STAMPS" = "mm/dd/yyyy" ]
+then
+    alias h='fc -fl 1'
+elif [ "$HIST_STAMPS" = "dd.mm.yyyy" ]
+then
+    alias h='fc -El 1'
+elif [ "$HIST_STAMPS" = "yyyy-mm-dd" ]
+then
+    alias h='fc -il 1'
+else
+    alias h='fc -l 1'
+fi
 # Show ten most used commands
 alias history-stat="fc -l 1 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 alias hgrep='history | grep'
