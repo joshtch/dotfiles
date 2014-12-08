@@ -93,6 +93,7 @@ rtor-pwd () {
 # List directory contents
 alias l='ls -lv'
 alias sl=ls
+alias ll='ls -lh'
 alias lx='ls -lXB'         #  Sort by extension.
 alias lk='ls -lSr'         #  Sort by size, biggest last.
 alias lt='ls -ltr'         #  Sort by date, most recent last.
