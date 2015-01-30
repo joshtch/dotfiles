@@ -4,9 +4,6 @@
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = http://github.com/robbyrussell/oh-my-zsh.git
-[submodule "ITerm2/iterm2-borderless"]
-	path = ITerm2/iterm2-borderless
-	url = https://github.com/Nasga/iterm2-borderless.git
 [submodule "zsh-syntax-highlighting"]
 	path = zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
