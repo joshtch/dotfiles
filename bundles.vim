@@ -11,7 +11,7 @@ if has('vim_starting')
                 \ ~/.vim/bundle/neobundle.vim
     endif
 endif
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Appearance:
@@ -31,43 +31,48 @@ NeoBundle 'wellle/targets.vim'
 
 " Movement:
 NeoBundle 'christoomey/vim-tmux-navigator'
+NeoBundleLazy 'matchit.zip', { 'autoload' : { 'mappings' : [[ '%', 'g%', '[%', ']%', 'a%' ]] }}
+NeoBundleLazy 'unblevable/quick-scope'
 
 " IDElike Features:
 NeoBundleLazy 'Shougo/unite.vim', {
             \ 'depends' : 'Shougo/vimproc',
             \ 'autoload' : { 'commands' : 'Unite' }
             \ }
-NeoBundleLazy 'majutsushi/tagbar', {
+"NeoBundle 'SirVer/ultisnips'
+"NeoBundleLazy 'honza/vim-snippets', { 'depends' : 'SirVer/ultisnips' }
+NeoBundleLazy 'majutsushi/tagbar', { 'autoload': {
             \ 'filetypes' :  [ 'ant', 'asm', 'asp', 'awk', 'basic', 'beta', 'c',
             \ 'cpp', 'csharp', 'cobol', 'bat', 'eiffel', 'erlang', 'flex',
             \ 'fortran', 'html', 'java', 'javascript', 'lisp', 'lua', 'make',
             \ 'matlab', 'ocaml', 'pascal', 'perl', 'php', 'python', 'rexx',
             \ 'ruby', 'scheme', 'sh', 'slang', 'sml', 'sql', 'tcl', 'tex', 'vb',
-            \ 'vera', 'verilog', 'vhdl', 'vim', 'yacc' ] }
-NeoBundleLazy 'tpope/vim-dispatch', {
+            \ 'vera', 'verilog', 'vhdl', 'vim', 'yacc' ] }}
+NeoBundleLazy 'tpope/vim-dispatch', { 'autoload' : {
             \ 'commands' : [
             \   'Make', 'Make!', 'Copen', 'Copen!', 'Dispatch', 'Dispatch!',
             \   'FocusDispatch', 'FocusDispatch!', 'Start', 'Start!'
             \   ]
-            \ }
+            \ }}
 NeoBundle 'tpope/vim-fugitive'
-NeoBundleLazy 'tyru/open-browser.vim', {
-            \ 'mappings' : [
+NeoBundleLazy 'tyru/open-browser.vim', { 'autoload': {
+            \ 'mappings' : [[
             \  '<Plug>(openbrowser-open)',
             \  '<Plug>(openbrowser-search)',
             \  '<Plug>(openbrowser-smart-search)'
-            \  ],
-            \ 'commands' : 'OpenBrowserSmartSearch' }
+            \  ]],
+            \ 'commands' : 'OpenBrowserSmartSearch' }}
 NeoBundle 'mhinz/vim-signify'
-NeoBundleLazy 'tpope/vim-vinegar', { 'filetypes' : 'netrw' }
+NeoBundleLazy 'tpope/vim-vinegar', { 'autoload': { 'filetypes' : 'netrw' }}
 NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
+NeoBundle 'Shougo/neomru.vim', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'scrooloose/syntastic'
+NeoBundleLazy 'zweifisch/pipe2eval'
 
 " Operators:
-NeoBundleLazy 'godlygeek/tabular', { 'commands' : 'Tabularize' }
-NeoBundleLazy 'kana/vim-niceblock', {
-            \ 'mappings' : ['<Plug>(niceblock-I)', '<Plug>(niceblock-A)' ] }
-NeoBundle 'scrooloose/nerdcommenter' , {
+NeoBundleLazy 'godlygeek/tabular', { 'autoload': { 'commands' : 'Tabularize' }}
+NeoBundleLazy 'kana/vim-niceblock', { 'autoload': { 'mappings' : [[ '<Plug>(niceblock-I)', '<Plug>(niceblock-A)' ]] }}
+NeoBundleLazy 'scrooloose/nerdcommenter' , { 'autoload' : {
             \ 'mappings' : [
             \   '<Plug>NERDCommenterComment',
             \   '<Plug>NERDCommenterNested',
@@ -83,15 +88,16 @@ NeoBundle 'scrooloose/nerdcommenter' , {
             \   '<Plug>NERDCommenterUncomment',
             \   '<Plug>NERDCommenterAlignBoth'
             \   ]
-            \ }
-NeoBundleLazy 'tommcdo/vim-exchange', {
-            \ 'mappings' : [
+            \ }}
+NeoBundleLazy 'tommcdo/vim-exchange', { 'autoload': {
+            \ 'mappings' : [[
             \   '<Plug>(Exchange)', '<Plug>(ExchangeClear)', '<Plug>(ExchangeLine)'
-            \  ]
-            \ }
-NeoBundleLazy 'tpope/vim-capslock',
-NeoBundle 'tpope/vim-surround', {
-            \ 'mappings' : [
+            \  ]]
+            \ }}
+NeoBundleLazy 'tpope/vim-capslock', { 'autoload' : {
+            \ 'mappings' : [[ '<C-g>u' ]] }}
+NeoBundleLazy 'tpope/vim-surround', { 'autoload' : {
+            \ 'mappings' : [[
             \  '<Plug>Dsurround',
             \  '<Plug>Csurround',
             \  '<Plug>Ysurround',
@@ -103,17 +109,20 @@ NeoBundle 'tpope/vim-surround', {
             \  '<Plug>VgSurround',
             \  '<Plug>Isurround',
             \  '<Plug>ISurround',
-            \  ]
-            \ }
+            \  ]]
+            \ }}
 
 " Language Specific Syntax Handling:
 NeoBundle 'dogrover/vim-pentadactyl'
-NeoBundleLazy 'vim-scripts/TeX-PDF', { 'filetypes' : 'tex' }
+NeoBundleLazy 'vim-scripts/TeX-PDF', { 'autoload' : { 'filetypes' : 'tex' }}
 NeoBundleLazy 'dbakker/vim-lint', {
             \ 'autoload' : { 'filetypes' : 'vim' },
             \ 'depends' : 'scrooloose/syntastic'
             \ }
-NeoBundle 'vimez/vim-tmux', { 'filetypes' : 'conf' }
+NeoBundleLazy 'vimez/vim-tmux', { 'autoload': { 'filetypes' : 'conf' }}
+NeoBundle     'vim-pandoc/vim-pandoc'
+NeoBundleLazy 'vim-pandoc/vim-pandoc-syntax', { 'autoload': { 'filetypes' : 'pandoc' }}
+NeoBundleLazy 'nelstrom/vim-markdown-folding', { 'autoload': { 'filetypes' : 'markdown' }}
 
 " Vim Functionality Extending:
 NeoBundle 'Shougo/vimproc', {
@@ -124,18 +133,18 @@ NeoBundle 'Shougo/vimproc', {
             \       'unix'    : 'make -f make_unix.mak'
             \      }
             \ }
-NeoBundleLazy 'ciaranm/securemodelines'
+NeoBundleLazy 'ciaranm/securemodelines' " 'autoload': {
 NeoBundle 'tpope/vim-repeat'
-NeoBundleLazy 'merlinrebrovic/focus.vim', { 'mappings' : '<Plug>FocusModeToggle' }
+NeoBundleLazy 'merlinrebrovic/focus.vim', { 'autoload' : { 'mappings' : '<Plug>FocusModeToggle' }}
 NeoBundle 'dockyard/vim-easydir'
 NeoBundle 'tpope/vim-rsi'
 NeoBundle 'tpope/vim-unimpaired'
-NeoBundleLazy 'vim-scripts/bufkill.vim', {
-            \ 'commands' : [ 'BD', 'BUN', 'BW', 'BB', 'BF' ] }
+NeoBundleLazy 'vim-scripts/bufkill.vim', { 'autoload': {
+            \ 'commands' : [ 'BD', 'BUN', 'BW', 'BB', 'BF' ] }}
 NeoBundle 'ConradIrwin/vim-bracketed-paste', {
             \ 'terminal' : 1, 'disabled' : (&term !~? "xterm.*") }
 NeoBundle 'ardagnir/vimbed'
-NeoBundleLazy 'tpope/vim-scriptease', {
+NeoBundleLazy 'tpope/vim-scriptease', { 'autoload': {
             \ 'commands' : [
             \   'PP', 'PPmsg', 'Runtime', 'Disarm', 'Scriptnames', 'Verbose',
             \   'Time', 'Breakadd', 'Breakdel', 'Vedit', 'Vsplit', 'Vopen',
@@ -145,7 +154,8 @@ NeoBundleLazy 'tpope/vim-scriptease', {
             \   '<Plug>ScripteaseFilter', '<Plug>ScripteaseFilter_',
             \   '<Plug>ScripteaseSynnames'
             \  ]
-            \ }
+            \ }}
 
-NeoBundleCheck
+call neobundle#end()
 filetype plugin indent on
+NeoBundleCheck

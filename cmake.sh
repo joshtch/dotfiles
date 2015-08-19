@@ -1,4 +1,5 @@
 #!/bin/bash
+# Meant for users without root access
 
 TEMP=`mktemp -d`
 cd $TEMP

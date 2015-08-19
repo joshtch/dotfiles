@@ -34,6 +34,7 @@ if v:version >= 702
     iunmap <Leader>5
     let g:solarized_termcolors=16
     let g:solarized_termtrans=0
+    let g:solarized_menu=0
 endif
 
 " Capslock: enable capslock from within vim
@@ -45,8 +46,6 @@ set t_Co=256
 set ttimeoutlen=50
 set noshowmode
 let g:airline_powerline_fonts = 0
-let g:airline_enable_synastic = 1
-let g:airline_enable_fugitive = 1
 let g:airline_modified_detection = 1
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
@@ -60,13 +59,15 @@ let g:airline_symbols.modified = '+'
 let g:airline_symbols.space = ' '
 let g:airline_symbols.whitespace = '!'
 let g:airline_symbols.branch = ''
-let g:airline_linecolumn_prefix = '¶'
 let g:airline_symbols.linenr = ''
 let g:airline_symbols.paste = 'PASTE'
-let g:airline_fugitive_prefix = '⎇ '
-let g:airline_theme = 'solarized'
+let g:airline#extensions#fugitive#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#hunks#enabled = 1
+let g:airline_theme = 'solarized'
 let g:airline_section_y = '%{synIDattr(synID(line("."),col("."),1),"name")}'
 
 " Secure Modelines: fix security of modelines without disabling them altogether
@@ -104,6 +105,12 @@ if exists('$TMUX')
     nnoremap <silent> <C--> :<C-u>TmuxNavigatePrevious<CR>
 endif
 
+" Matchit: brace & parentheses movements
+let bundle = neobundle#get('matchit.zip')
+function! bundle.hooks.on_post_source(bundle)
+    silent! execute 'doautocmd Filetype' &filetype
+endfunction
+
 " Tabular: Character alignment
 if exists(":Tabularize")
     nnoremap <Leader>a= :Tabularize /=<CR>
@@ -122,8 +129,8 @@ if exists(":Tabularize")
 endif
 
 " Niceblock:
-xnoremap I <Plug>(niceblock-I)
-xnoremap A <Plug>(niceblock-A)
+vmap I <Plug>(niceblock-I)
+vmap A <Plug>(niceblock-A)
 
 " Exchange:
 nmap cx <Plug>(Exchange)
@@ -159,6 +166,9 @@ nnoremap <Leader>gd :<C-u>Gdiff<CR>
 nnoremap <Leader>gl :<C-u>Glog<CR>
 nnoremap <Leader>gp :<C-u>Git push<CR>
 nnoremap <Leader>gs :<C-u>Git status -sb<CR>
+
+" NERDCommenter:
+let NERDMenuMode = 0
 
 " Vinegar: netrw improvements
 " Still haven't jumped on the NerdTree bandwagon

@@ -239,7 +239,7 @@ cabbrev help <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'help')<CR>
 " Use :w!! to save a file with super-user permissions
 cabbrev w!! <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'w !sudo tee % >/dev/null' : 'w!!')<CR>
 
-" Use ,q to quit nameless buffers without confirmation or !
+" Use <leader>q to quit nameless buffers without confirmation or !
 nnoremap <silent> <Leader>q :<C-U>call QuitIfNameless()<CR>
 function! QuitIfNameless()
     if empty(bufname('%'))
@@ -296,14 +296,14 @@ nnoremap <silent> <Leader>el :<C-U>vsplit ~/.localrc.zsh<CR>
 nnoremap <silent> <Leader>sv :<C-U>so $MYVIMRC<CR>
 nnoremap <silent> <Leader>sll yy:execute @@<CR>
 xnoremap <silent> <Leader>sl y:execute @@<CR>gv<esc>
-function! SourceMe(...)
+function! SourceThis(...)
     let a_reg = @a
     norm! `["ay`]
     echo ''
     exe @a
     let @a = a_reg
 endfunction
-nnoremap <silent> <Leader>sl :set opfunc=SourceMe<CR>g@
+nnoremap <silent> <Leader>sl :set opfunc=SourceThis<CR>g@
 
 nnoremap <silent> m :<C-U>update!<CR>
 

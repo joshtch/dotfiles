@@ -1,3 +1,6 @@
+# Copy last command to clipboard
+alias pbget='fc -ln -1 | pbcopy'
+
 # Basic directory operations
 alias -- -='cd -'
 alias ..='cd ..'
@@ -20,6 +23,9 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 
+#echo $[${RANDOM}%1000] # random between 0-999
+#echo $[${RANDOM}%11+10] # random between 10-20
+#echo ${(l:3::0:)${RANDOM}} # N digits long (3 digits)
 function urand {
     NUMBYTES="$@"
     valid_num_regexp='[1-4]'
@@ -41,15 +47,15 @@ alias gds='git diff --stat --color | cat'
 # Show history
 if [ "$HIST_STAMPS" = "mm/dd/yyyy" ]
 then
-    alias h='fc -fl 1'
+    alias history='fc -fl 1'
 elif [ "$HIST_STAMPS" = "dd.mm.yyyy" ]
 then
-    alias h='fc -El 1'
+    alias history='fc -El 1'
 elif [ "$HIST_STAMPS" = "yyyy-mm-dd" ]
 then
-    alias h='fc -il 1'
+    alias history='fc -il 1'
 else
-    alias h='fc -l 1'
+    alias history='fc -l 1'
 fi
 # Show ten most used commands
 alias history-stat="fc -l 1 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
@@ -310,3 +316,5 @@ function nn() {
     fi
     vim "${NOTE_DIR}/${NOTE_NAME}${TIMESTAMP}.md"
 }
+
+alias tg="sh -c 'cd ~/tg && bin/telegram-cli'"
