@@ -30,7 +30,6 @@ install zsh
 
 cask appcleaner
 cask bettertouchtool
-cask caffeine
 cask coconutbattery
 cask day-o
 cask disconnect
@@ -46,6 +45,7 @@ cask google-chrome
 cask google-hangouts
 cask iterm2
 cask karabiner
+cask keepingyouawake
 cask lastpass
 cask macvim
 cask openzfs
