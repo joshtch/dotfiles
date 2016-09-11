@@ -1,13 +1,13 @@
 " vimrc
 " vim:set ft=vim tw=80 sw=4 et
 
-let g:mapleader = " "
 nnoremap <Space> <Nop>
+let g:mapleader = " "
 
 " Plugins And Settings:
-if filereadable(expand('~/dotfiles/bundles.vim')) &&
+if filereadable(expand('~/dotfiles/plugs.vim')) &&
             \ filereadable(expand('~/dotfiles/plugins.vim'))
-    source ~/dotfiles/bundles.vim
+    source ~/dotfiles/plugs.vim
     source ~/dotfiles/plugins.vim
 endif
 filetype plugin indent on
@@ -57,14 +57,13 @@ set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 set winwidth=86   " Minimum split width -- 80 + 6 for number + sign/fold columns
 set nojoinspaces          " Don't add extra spaces after .?! when joining with J
 set equalalways         " Make current split be always at least "textwidth" wide
-set cryptmethod=blowfish                     " Slightly more secure cryptography
+set cryptmethod=blowfish               " Use slightly less insecure cryptography
 set path=.,**        " Make :find, :sfind, :vert sfind search parent directories
-
-if exists('+breakindent') | set breakindent | endif
+if exists('+breakindent') | set breakindent | endif       " Indent wrapped lines
 
 " Syntax Highlighting:
 syntax enable                                      " Turn on syntax highlighting
-syntax sync minlines=256            " Update syntax highlighting for more lines
+syntax sync minlines=256             " Update syntax highlighting for more lines
 set synmaxcol=512                            " Don't syntax highlight long lines
 " Default paren match highting is too distracting
 highlight! link MatchParen Comment
@@ -98,12 +97,15 @@ augroup END
 "set fo+=b " Like 'v', but only for blanks entered before wrap margin
 "set fo+=l " Don't autoformat existing long lines
  set fo+=1 " Don't break a line after a one-letter word
+if v:version > 703 || v:version == 703 && has("patch541")
+    set formatoptions+=j " Where it makes sense, remove comment leader when joining lines
+endif
 
 " Settings for Vi-compatible behavior (Vim default: aABceFs)
 " Note: this list is not exhaustive. See :h 'cpo'
  set cpoptions=
-"set cpo+=a " :read  command with a file name arg will modify the window's alternate file name
-"set cpo+=A " :write command with a file name arg will modify the window's alternate file name
+"set cpo+=a " :read command with a file name will modify the window's alternate file name
+"set cpo+=A " :write command with a file name will modify the window's alternate file name
  set cpo+=B " Give backslash no special meaning in mappings, abbreviations and the 'to' part of the menu commands
  set cpo+=c " Searching continues at the end of any match at the cursor position, but not further than the start of the next line
  set cpo+=e " When executing a register with ':@r', always add a <CR> to the last line even when the register is not linewise
@@ -114,11 +116,7 @@ augroup END
  set cpo+=q " Joining multiple lines leaves the cursor where it would be when joining two lines
 "set cpo+=s " Set buffer options when first entering the buffer instead of when it's created
 "set cpo+=t " Search pattern for the tag command is remembered for 'n' command
- set cpo+={ " The |{| and |}| commands also stop at a '{' character at the start of a line.
-
-if v:version > 703 || v:version == 703 && has("patch541")
-    set formatoptions+=j
-endif
+ set cpo+={ " The { and } commands also stop at a '{' character at the start of a line.
 
 " Highlight last column so we know when we're over
 if exists('+colorcolumn')
@@ -217,11 +215,9 @@ augroup END
 " - K splits the line and removes trailing whitespace (reverse of J/gJ)
 nnoremap <F1> <Nop>
 nnoremap Q @@
-nnoremap <silent> <Plug>Split :<C-U>call Split()<CR>:<C-U>silent! call repeat#set("\<Plug>Split")<CR>
+nnoremap <silent> <Plug>Split :<C-U>call <SID>Split()<Bar>silent! call repeat#set("\<lt>Plug>Split",-1)<CR>
 nmap K <Plug>Split
-nnoremap <silent> K :<C-U>call Split()<CR>
-function! Split()
-    " The 'hl' is there to keep the cursor from becoming right-aligned
+function! s:Split()
     execute "normal! i\<CR>\<Esc>k$hl"
     if getline(line('.'))[col('.')-1] =~ '\s'
         execute 'normal! "_diw'
@@ -491,7 +487,8 @@ augroup ClearTrailingWSOnSave
     autocmd!
     autocmd BufWritePre *.py,*.js call StripTrailingWhitespace()
     autocmd BufLeave * call DisableWhitespace()
-    autocmd BufEnter * if !(&ft=='unite' || &ft=='markdown') | call EnableWhitespace() | endif
+    autocmd BufEnter * if !(&ft=='unite' || &ft=='markdown')
+                \| call EnableWhitespace() | endif
 augroup END
 nnoremap <silent> <Leader>cws :<C-U>call StripTrailingWhitespace()<CR>
 " }}}
@@ -516,4 +513,25 @@ function! DoWordMotion(motion)
 endfunction
 onoremap w :<C-U>call DoWordMotion('w')<CR>
 onoremap W :<C-U>call DoWordMotion('W')<CR>
+" }}}
+
+" Hex Mode Toggling: {{{
+" The following maps the F8 key to toggle between hex and binary (while also
+" setting the noeol and binary flags, so if you :write your file, vim doesn't
+" perform unwanted conversions.
+
+noremap <F8> :call HexMe()<CR>
+
+let $in_hex=0
+function! HexMe()
+    set binary
+    set noeol
+    if $in_hex>0
+        :%!xxd -r
+        let $in_hex=0
+    else
+        :%!xxd
+        let $in_hex=1
+    endif
+endfunction
 " }}}

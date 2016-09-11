@@ -9,6 +9,8 @@ export KEYTIMEOUT=1
 export HOMEBREW_BREWFILE="$HOME/dotfiles/Brewfile"
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
+[[ -f "$HOME/.zshenv" ]] && source "$HOME/.zshenv" # Not sourced on login
+
 [[ -d "$HOME/.zsh" ]] || mkdir "$HOME/.zsh"
 
 [[ -d "$ZSH" ]] \
@@ -22,16 +24,17 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 ZSH_THEME='nicoulaj'
 
-plugins=(cp extract history pip safe-paste vi-mode z)
+plugins=(cp extract history pip safe-paste z)
 [[ -x "${commands[git]}" ]] && plugins+=git
 [[ -x "${commands[tmux]}" ]] && plugins+=tmux
 
 if [[ `uname` == 'Darwin' ]]; then
+    plugins+=osx
+    source ~/.iterm2_shell_integration.`basename $SHELL`
     if [[ -x "${commands[brew]}" ]]; then
         plugins+=brew
         plugins+=brew-cask
     fi
-    plugins+=osx
 fi
 
 source "$ZSH/oh-my-zsh.sh"

@@ -19,4 +19,6 @@ ln -sf cask ~/.cask
 ln -sf pentadactylrc ~/.pentadactylrc
 ln -sf pentadactyl ~/.pentadactyl
 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 chsh -s /bin/zsh && exec zsh

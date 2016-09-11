@@ -97,10 +97,6 @@ rtor-pwd () {
 }
 
 # List directory contents
-alias l='ls -lv'
-alias sl=ls
-alias ll='ls -lh'
-alias lx='ls -lXB'         #  Sort by extension.
 alias lk='ls -lSr'         #  Sort by size, biggest last.
 alias lt='ls -ltr'         #  Sort by date, most recent last.
 alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
@@ -131,26 +127,13 @@ alias r='fc -e -'
 alias c='clear && ls'
 alias x='exit'
 
-function stackoverflow() {
-    firefox "http://stackoverflow.com/search?q=$*" &
-}
-
-function google() {
-    firefox "http://google.com/search?q=$*" &
-}
-
 if [[ "$(uname)" == 'Darwin' ]]; then
     alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
     alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
     alias man='_() { echo $1; man -M $(brew --prefix)/opt/coreutils/libexec/gnuman $1 1>/dev/null 2>&1; if [ "$?" -eq 0 ]; then man -M $(brew --prefix)/opt/coreutils/libexec/gnuman $1; else man $1; fi }; _'
     alias rm='trash'
-
-    if `whence brew file &>/dev/null`; then
-        alias bf='brew file'
-        alias bfb='brew file brew'
-        alias bfc='brew file brew cask'
-        alias bs='brew search'
-        alias bcs='brew cask search'
+    if [[ -x '/Applications/MacVim.app/Contents/MacOS/Vim' ]]; then
+        alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
     fi
 
     alias gif='echo "mplayer -ao null -loop 0 -ss 0:11:22 -endpos 5 file.avi";
@@ -165,9 +148,6 @@ if [[ "$(uname)" == 'Darwin' ]]; then
         DefineApps "$(declare|grep -i '^ *open.*/Xcode.app'|head -1|sed -e 's/[^"]*"//' -e 's/".*//')/Contents/Applications" 2>/dev/null 1>/dev/null;
     fi
     unset DefineApps
-
-    # Play audio files
-    if ! which -s play >/dev/null; then play () { afplay "$@" ; } >/dev/null; export -f play >/dev/null; fi
 
     alias spotlight-disable='sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist'
     alias spotlight-enable='sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist'
@@ -228,8 +208,10 @@ if [ ${ZSH_VERSION//\./} -ge 420 ]; then
     _image_fts=(jpg jpeg png gif mng tiff tif xpm)
     for ft in $_image_fts ; do alias -s $ft=$XIVIEWER; done
 
-    #_media_fts=(ape avi flv mkv mov mp3 mpeg mpg ogg ogm rm wav webm)
-    #for ft in $_media_fts ; do alias -s $ft=mplayer ; done
+    if [[ -x "${commands[mplayer]}" ]]; then
+        _media_fts=(ape avi flv mkv mov mp3 mpeg mpg ogg ogm rm wav webm)
+        for ft in $_media_fts ; do alias -s $ft=mplayer ; done
+    fi
 
     #read documents
     alias -s pdf=acroread
@@ -318,3 +300,4 @@ function nn() {
 }
 
 alias tg="sh -c 'cd ~/tg && bin/telegram-cli'"
+alias gcal='gcalcli'
