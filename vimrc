@@ -63,7 +63,7 @@ if exists('+breakindent') | set breakindent | endif       " Indent wrapped lines
 
 " Syntax Highlighting:
 syntax enable                                      " Turn on syntax highlighting
-syntax sync minlines=256             " Update syntax highlighting for more lines
+syntax sync minlines=512             " Update syntax highlighting for more lines
 set synmaxcol=512                            " Don't syntax highlight long lines
 " Default paren match highting is too distracting
 highlight! link MatchParen Comment
@@ -280,7 +280,8 @@ nnoremap <silent> <Leader>/ :<C-U>nohlsearch<CR>
 nnoremap <silent> <Leader>w :<C-U>update!<CR>
 if isdirectory(expand('~/dotfiles'))
     nnoremap <silent> <Leader>ev :<C-U>vsplit ~/dotfiles/vimrc<CR>
-    nnoremap <silent> <Leader>eb :<C-U>vsplit ~/dotfiles/bundles.vim<CR>
+    nnoremap <silent> <Leader>en :<C-U>vsplit ~/dotfiles/bundles.vim<CR>
+    nnoremap <silent> <Leader>eb :<C-U>vsplit ~/dotfiles/plugs.vim<CR>
     nnoremap <silent> <Leader>ep :<C-U>vsplit ~/dotfiles/plugins.vim<CR>
     nnoremap <silent> <Leader>ez :<C-U>vsplit ~/dotfiles/zshrc<CR>
     nnoremap <silent> <Leader>ea :<C-U>vsplit ~/dotfiles/aliases.zsh<CR>
@@ -328,7 +329,8 @@ if has("autocmd")
         au FileType javascript setlocal noet
         au FileType sml        setlocal makeprg="mosmlc %"
         au FileType c,cpp,javascript,slang setlocal cindent fo+=r
-        au FileType javascript,html,xhtml,css,php setlocal sw=2 tw=2 fdm=indent
+        au FileType javascript,html,xhtml,css,php setlocal sw=2 ts=2 fdm=indent
+        "au BufWrite *.js,*.html,*.css,*.php exec "silent! !open '" . expand('%') ."'"
         au FileType crontab setlocal backupcopy=yes
         au BufEnter *.md setlocal filetype=markdown
 

@@ -91,6 +91,11 @@ if s:has_plugin('open-browser.vim')
     noremap <Leader>ob :<C-u>OpenBrowserSmartSearch<Space>
 endif
 
+" Quick Scope: highlight target characters to use to jump to a word with f/F/t/T
+if s:has_plugin('quick-scope')
+    let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+endif
+
 " Secure Modelines: fix security of modelines without disabling them altogether
 if s:has_plugin('securemodelines')
     set modelines=0

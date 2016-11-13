@@ -30,6 +30,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'unblevable/quick-scope'
 
 " IDElike Features:
+Plug 'jaxbot/browserlink.vim', { 'for' : [ 'htm_', 'html', 'html4', 'htmlm4' ] }
 "Plug 'SirVer/ultisnips'
     "\| Plug 'honza/vim-snippets'
 Plug 'majutsushi/tagbar', { 'for' : [
@@ -93,19 +94,8 @@ Plug 'tommcdo/vim-exchange', { 'on':  [
             \   '<Plug>(Exchange)', '<Plug>(ExchangeClear)', '<Plug>(ExchangeLine)'
             \  ] }
 Plug 'tpope/vim-capslock', { 'on' : '<Plug>CapsLockToggle' }
-Plug 'tpope/vim-surround', { 'on' : [
-            \  '<Plug>Dsurround',
-            \  '<Plug>Csurround',
-            \  '<Plug>Ysurround',
-            \  '<Plug>YSurround',
-            \  '<Plug>Yssurround',
-            \  '<Plug>YSsurround',
-            \  '<Plug>YSsurround',
-            \  '<Plug>VSurround',
-            \  '<Plug>VgSurround',
-            \  '<Plug>Isurround',
-            \  '<Plug>ISurround',
-            \  ] }
+Plug 'tpope/vim-surround'
+Plug 'PeterRincker/vim-argumentative'
 
 " Language Specific Syntax Handling:
 Plug 'vim-scripts/TeX-PDF', { 'for' : 'tex' }
@@ -113,6 +103,8 @@ Plug 'vimez/vim-tmux', { 'for' : 'conf' }
 Plug 'vim-pandoc/vim-pandoc'
             \| Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': 'pandoc' }
 Plug 'nelstrom/vim-markdown-folding', { 'for': 'markdown' }
+Plug 'pangloss/vim-javascript'
+Plug 'douglascrockford/jslint'
 
 " Vim Functionality Extending:
 Plug 'ciaranm/securemodelines'
