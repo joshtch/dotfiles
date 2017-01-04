@@ -30,7 +30,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'unblevable/quick-scope'
 
 " IDElike Features:
-Plug 'jaxbot/browserlink.vim', { 'for' : [ 'htm_', 'html', 'html4', 'htmlm4' ] }
+"Plug 'jaxbot/browserlink.vim', { 'for' : [ 'htm_', 'html', 'html4', 'htmlm4' ] }
 "Plug 'SirVer/ultisnips'
     "\| Plug 'honza/vim-snippets'
 Plug 'majutsushi/tagbar', { 'for' : [
@@ -50,6 +50,7 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-vinegar', { 'for': 'netrw' }
 Plug 'scrooloose/syntastic'
     \| Plug 'dbakker/vim-lint', { 'for' : 'vim' }
+Plug 'Yggdroot/indentLine'
 Plug 'zweifisch/pipe2eval'
 
 "function! BuildVimProc(info)
@@ -98,13 +99,14 @@ Plug 'tpope/vim-surround'
 Plug 'PeterRincker/vim-argumentative'
 
 " Language Specific Syntax Handling:
-Plug 'vim-scripts/TeX-PDF', { 'for' : 'tex' }
-Plug 'vimez/vim-tmux', { 'for' : 'conf' }
-Plug 'vim-pandoc/vim-pandoc'
-            \| Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': 'pandoc' }
+Plug 'douglascrockford/jslint', { 'for' : 'js' }
 Plug 'nelstrom/vim-markdown-folding', { 'for': 'markdown' }
 Plug 'pangloss/vim-javascript'
-Plug 'douglascrockford/jslint'
+Plug 'vim-scripts/TeX-PDF', { 'for' : 'tex' }
+Plug 'vim-pandoc/vim-pandoc'
+            \| Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': 'pandoc' }
+Plug 'vimez/vim-tmux', { 'for' : 'conf' }
+Plug 'sophacles/vim-processing', { 'for' : 'processing' }
 
 " Vim Functionality Extending:
 Plug 'ciaranm/securemodelines'
