@@ -29,7 +29,7 @@ set comments+=s:/*,mb:\ *,ex:\ */                     "  * wrap like this
 set comments+=fb:*                                    "  */
 set ignorecase smartcase " Search case matching: ignore case except if caps used
 set ruler                        " Show comma-separated line and column location
-set tabstop=8                     " Number of spaces that a tab char displays as
+set tabstop=4                     " Number of spaces that a tab char displays as
 set softtabstop=4             " Number of spaces <Tab>/backspace inserts/removes
 set shiftwidth=4                     " Number of spaces to increment >>, <<, etc
 set expandtab                                          " Change <Tab>s to spaces
@@ -324,9 +324,8 @@ if has("autocmd")
         au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
         au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-        au FileType html       setlocal ts=8
-        au FileType css        setlocal ts=8
-        au FileType javascript setlocal noet
+        au FileType html,css       setlocal ts=8 omnifunc=htmlcomplete#CompleteTags
+                    \ iabbrev </ </<C-x><C-o>
         au FileType sml        setlocal makeprg="mosmlc %"
         au FileType c,cpp,javascript,slang setlocal cindent fo+=r
         au FileType javascript,html,xhtml,css,php setlocal sw=2 ts=2 fdm=indent
@@ -348,8 +347,8 @@ if has("autocmd")
 endif
 
 " Use the more intuitive + and - for incrementing and decrementing numbers
-nnoremap + <C-A>
-nnoremap - <C-X>
+noremap + <C-A>
+noremap - <C-X>
 
 " Set Y to match C and D syntax (use yy to yank entire line)
 nnoremap Y Dp
