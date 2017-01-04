@@ -1,8 +1,6 @@
 # zshrc
 # vim:set ft=zsh et ts=4 sw=4:
 
-# MAC Address spoofing: ifconfig bge0 link 03:a0:04:d3:00:11
-
 export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 export DFS="${DFS:-$HOME/dotfiles}"
 export KEYTIMEOUT=1
