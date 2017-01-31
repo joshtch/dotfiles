@@ -22,7 +22,7 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 ZSH_THEME='nicoulaj'
 
-plugins=(cp extract history pip safe-paste z)
+plugins=(cp extract history pip safe-paste)
 [[ -x "${commands[git]}" ]] && plugins+=git
 [[ -x "${commands[tmux]}" ]] && plugins+=tmux
 

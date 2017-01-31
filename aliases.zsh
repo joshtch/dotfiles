@@ -104,7 +104,11 @@ alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
 alias le='ls -lv |less'    #  Pipe through 'less'
 alias lr='ls -lvR'         #  Recursive ls.
 alias la='ls -lvA'         #  Show hidden files.
-alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
+if [[ -x "${commands[tree]}" ]]; then
+    alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
+elif [[ -x "${commands[m]}" ]]; then
+    alias tree='m dir tree'
+fi
 
 if [[ -d ~/dotfiles ]]; then
     alias vv='vim ~/dotfiles/vimrc'

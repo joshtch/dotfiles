@@ -325,7 +325,7 @@ if has("autocmd")
         au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
         au FileType html,css       setlocal ts=8 omnifunc=htmlcomplete#CompleteTags
-                    \ iabbrev </ </<C-x><C-o>
+                    \| iabbrev </ </<C-x><C-o>
         au FileType sml        setlocal makeprg="mosmlc %"
         au FileType c,cpp,javascript,slang setlocal cindent fo+=r
         au FileType javascript,html,xhtml,css,php setlocal sw=2 ts=2 fdm=indent
