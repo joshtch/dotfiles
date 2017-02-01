@@ -305,3 +305,4 @@ function nn() {
 
 alias tg="sh -c 'cd ~/tg && bin/telegram-cli'"
 alias gcal='gcalcli'
+alias venvactive='source venv/bin/activate'
