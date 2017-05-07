@@ -358,13 +358,17 @@ noremap gf gf`"
 noremap <C-^> <C-^>`"
 
 " Hitting { and } constantly gets painful, and ^ and $ are too useful to be so
-" inconvenient. Not sure what to do with the default H and L though. I use
+" inconvenient. The normal H and L have been offloaded to gH and gL. I use
 " keepjumps in normal mode so H and L don't write to the jumplist, and add V to
 " operator-pending mode so the motion acts linewise instead of characterwise
 xnoremap L }
 xnoremap H {
+xnoremap gL L
+xnoremap gH H
 onoremap L V}
 onoremap H V{
+onoremap gL L
+onoremap gH H
 nnoremap <silent> L :<C-U>execute 'keepjumps normal!' v:count1 . '}'<CR>
 nnoremap <silent> H :<C-U>execute 'keepjumps normal!' v:count1 . '{'<CR>
 noremap { ^
@@ -512,8 +516,8 @@ function! DoWordMotion(motion)
         echoerr "motion not recognized"
     endif
 endfunction
-onoremap w :<C-U>call DoWordMotion('w')<CR>
-onoremap W :<C-U>call DoWordMotion('W')<CR>
+onoremap <silent> w :<C-U>call DoWordMotion('w')<CR>
+onoremap <silent> W :<C-U>call DoWordMotion('W')<CR>
 " }}}
 
 " Hex Mode Toggling: {{{
