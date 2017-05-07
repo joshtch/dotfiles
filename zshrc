@@ -33,7 +33,9 @@ ZSH_THEME='nicoulaj'
 plugins=(copybuffer docker extract globalias history pip python safe-paste systemadmin urltools web-search zsh-navigation-tools)
 [[ -x "${commands[autoenv]}" ]] && plugins+=autoenv
 [[ -x "${commands[git]}" ]] && plugins+=git
-[[ -x "${commands[tmux]}" ]] && plugins+=tmux
+[[ -x "${commands[tmux]}" ]] && plugins+=tmux \
+    && [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]] \
+        || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 autoload is-at-least && is-at-least "$ZSH_VERSION" 4.2 || plugins+=history-substring-search
 
