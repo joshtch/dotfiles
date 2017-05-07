@@ -20,13 +20,16 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 [[ -d "$HOME/.zsh/history-substring-search" ]] \
     || git clone https://github.com/zsh-users/zsh-history-substring-search.git "$HOME/.zsh/history-substring-search"
 
-[[ -f "$HOME/.cargo/env" ]] && path=("$HOME/.cargo/env" $path) # Rust
+[[ -f "$HOME/.cargo/env" ]] && path=("$HOME/.cargo/env" "$path") # Rust
 
 ZSH_THEME='nicoulaj'
 
 plugins=(autoenv copybuffer docker extract globalias history pip python safe-paste systemadmin urltools web-search zsh-navigation-tools)
 [[ -x "${commands[git]}" ]] && plugins+=git
-[[ -x "${commands[tmux]}" ]] && plugins+=tmux
+[[ -x "${commands[tmux]}" ]] && plugins+=tmux \
+    && [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]] \
+        || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 autoload is-at-least && is-at-least "$ZSH_VERSION" 4.2 || plugins+=history-substring-search
 
 plugins+=ssh-agent
