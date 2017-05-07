@@ -227,6 +227,12 @@ endfunction
 " Fly through buffers
 nnoremap <Leader>b :<C-U>ls<cr>:<C-U>b<Space>
 
+" Evaluate floating point math in place - ("math after" and "math replace")
+nnoremap <Leader>ma yyp^y$V:!perl -e '$x = <C-R>"; print $x'<CR>-y0j0P
+vnoremap <Leader>ma yo<Esc>p^y$V:!perl -e '$x = <C-R>"; print $x'<CR>-y0j0P
+nnoremap <Leader>mr ^"gy0^y$V:!perl -e '$x = <C-R>"; print $x'<CR>^"gP
+vnoremap <Leader>mr "aygvrXgv"by:r !perl -e '$x = <C-R>a; print $x'<CR>0"cyWddk:s/<C-R>b/<C-R>c/<CR>
+
 " Open help in a vertical split instead of the default horizontal split
 " " http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev
 cabbrev h <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'vert h' : 'h')<CR>
@@ -393,10 +399,6 @@ noremap  k  gk
 onoremap k  Vgk
 noremap  gj j
 noremap  gk k
-
-" Make n always search forward in the buffer and N always backward
-nnoremap n /<CR>
-nnoremap N ?<CR>
 
 if $TERM_PROGRAM == 'iTerm.app'
     " different cursors for insert vs normal mode
