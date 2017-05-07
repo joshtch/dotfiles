@@ -30,7 +30,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'unblevable/quick-scope'
 
 " IDElike Features:
-"Plug 'jaxbot/browserlink.vim', { 'for' : [ 'htm_', 'html', 'html4', 'htmlm4' ] }
+Plug 'jaxbot/browserlink.vim', { 'for' : [ 'htm_', 'html', 'html4', 'htmlm4' ] }
 "Plug 'SirVer/ultisnips'
     "\| Plug 'honza/vim-snippets'
 Plug 'majutsushi/tagbar', { 'for' : [
@@ -107,6 +107,9 @@ Plug 'vim-pandoc/vim-pandoc'
             \| Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': 'pandoc' }
 Plug 'vimez/vim-tmux', { 'for' : 'conf' }
 Plug 'sophacles/vim-processing', { 'for' : 'processing' }
+Plug 'Rykka/InstantRst', { 'for' : 'rst' }
+Plug 'mrsipan/vim-rst', { 'for' : 'rst' }
+Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
 
 " Vim Functionality Extending:
 Plug 'ciaranm/securemodelines'
