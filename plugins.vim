@@ -112,7 +112,7 @@ if v:version >= 702 && s:has_plugin('vim-colors-solarized')
     let g:solarized_termcolors=16
     let g:solarized_visibility = "normal"
     let g:solarized_contrast = "normal"
-    set background=dark
+    set background=light
     colorscheme solarized
 endif
 
