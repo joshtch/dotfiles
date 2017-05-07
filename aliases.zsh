@@ -295,14 +295,18 @@ bindkey "^x " no-magic-abbrev-expand
 bindkey -M isearch " " self-insert
 
 function nn() {
-    NOTE_DIR=~/course\ notes
-    TIMESTAMP="$(date +%m-%d-%y)"
+    note_name=
+    note_dir=~/course\ notes
+    timestamp="$(date +%m-%d-%y)"
     if (( $# > 0 )); then
-        NOTE_NAME="$1-"
+        topic="$1"
+        note_name="${1}-"
     fi
-    vim "${NOTE_DIR}/${NOTE_NAME}${TIMESTAMP}.md"
+    vim "${note_dir}/${topic}/${note_name}${timestamp}.md"
 }
 
 alias tg="sh -c 'cd ~/tg && bin/telegram-cli'"
 alias gcal='gcalcli'
 alias venvactive='source venv/bin/activate'
+alias dockerstop='docker ps -q -a | xargs docker rm'
+alias dockerclear='docker images | awk '"'"'$2 == "^<none>" {print $3}'"'"' | xargs docker rmi'
