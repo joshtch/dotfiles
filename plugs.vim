@@ -47,6 +47,7 @@ Plug 'tyru/open-browser.vim', { 'on' : [
             \ '<Plug>(openbrowser-open)', '<Plug>(openbrowser-search)',
             \ '<Plug>(openbrowser-smart-search)' ] }
 Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-abolish', { 'on' : [ 'Subvert', 'Abolish' ] }
 Plug 'tpope/vim-vinegar', { 'for': 'netrw' }
 Plug 'scrooloose/syntastic'
     \| Plug 'dbakker/vim-lint', { 'for' : 'vim' }
