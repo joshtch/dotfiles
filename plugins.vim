@@ -105,13 +105,15 @@ endif
 " Solarized: colorscheme
 if v:version >= 702 && s:has_plugin('vim-colors-solarized')
     syntax enable
-    colorscheme solarized
-    set background=light
+    let g:solarized_menu=0
     call togglebg#map("<Leader>5")
     iunmap <Leader>5
+    let g:solarized_termtrans=1
     let g:solarized_termcolors=16
-    let g:solarized_termtrans=0
-    let g:solarized_menu=0
+    let g:solarized_visibility = "normal"
+    let g:solarized_contrast = "normal"
+    set background=dark
+    colorscheme solarized
 endif
 
 " Syntastic: Real-time syntax checking
@@ -126,7 +128,6 @@ if s:has_plugin('syntastic')
     let g:syntastic_warning_symbol = '⚠'
     let g:syntastic_c_check_header = 1
     "let g:syntastic_auto_refresh_includes = 1
-    let g:syntastic_c_compiler = 'clang'
 endif
 
 " Tmux Settings:
@@ -157,6 +158,7 @@ if s:has_plugin('tabular')
         execute "'[,']Tabularize/".c
     endfunction
     nnoremap <silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
+    command! AlignSpaces Tab /\s\+\zs/l1r0
 endif
 
 " Unite: Unified interface for file, buffer, yankstack, etc. management
