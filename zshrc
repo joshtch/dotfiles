@@ -26,7 +26,7 @@ if [[ -x "${commands[git]}" ]]; then
         || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
-[[ -f "$HOME/.cargo/env" ]] && path=("$HOME/.cargo/env" "$path") # Rust
+[[ -f "$HOME/.cargo/env" ]] && path=("$HOME/.cargo/env" $path) # Rust
 
 ZSH_THEME='nicoulaj'
 
