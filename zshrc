@@ -9,7 +9,7 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 [[ -f "$HOME/.zshenv" ]] && source "$HOME/.zshenv" # Not sourced on login
 
-[[ -d "$HOME/.zsh" ]] || mkdir "$HOME/.zsh"
+mkdir -p "$HOME/.zsh"
 
 [[ -d "$ZSH" ]] \
     || git clone https://github.com/robbyrussell/oh-my-zsh.git "$ZSH"
