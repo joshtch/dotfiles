@@ -123,6 +123,14 @@ if s:has_plugin('syntastic')
     let g:syntastic_auto_loc_list = 0
     let g:syntastic_filetype_map = { 'latex': 'tex' }
     let g:syntastic_stl_format = '[%E{Err: %fe #%e}]'
+
+    " Add shellcheck to the list of syntastic checkers
+    let g:syntastic_bash_checkers = ['shellcheck']
+    let g:syntastic_dash_checkers = ['shellcheck']
+    let g:syntastic_ksh_checkers  = ['shellcheck']
+    let g:syntastic_sh_checkers   = ['shellcheck']
+    let g:syntastic_zsh_checkers  = ['shellcheck']
+
     let g:syntastic_list_height = 5
     let g:syntastic_error_symbol = '✗'
     let g:syntastic_warning_symbol = '⚠'
