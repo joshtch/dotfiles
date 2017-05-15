@@ -310,3 +310,18 @@ alias gcal='gcalcli'
 alias venvactive='source venv/bin/activate'
 alias dockerstop='docker ps -q -a | xargs docker rm'
 alias dockerclear='docker images | awk '"'"'$2 == "^<none>" {print $3}'"'"' | xargs docker rmi'
+function hubdl() {
+    url='https://api.github.com/repos/'
+    if [ $# -eq 1 ]; then
+        url="https://api.github.com/repos/$1/releases/latest"
+    elif [ $# -eq 2 ]; then
+        url="https://api.github.com/repos/$1/$2/releases/latest"
+    else
+        echo "$0: Download latest release of software from Github."
+        echo "Usage:"
+        echo "    $0 User_Name/Repo_Name"
+        echo "    $0 User_Name Repo_Name"
+        return 1
+    fi
+    curl -O "$(curl -s "$url" | grep 'browser_' | cut -d\" -f4)"
+}
