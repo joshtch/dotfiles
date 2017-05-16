@@ -227,6 +227,11 @@ endfunction
 " Fly through buffers
 nnoremap <Leader>b :<C-U>ls<cr>:<C-U>b<Space>
 
+" Always go down with n & up with N -- this avoids confusion if you resume
+" a search later
+nnoremap n /<C-U><CR>
+nnoremap N ?<C-U><CR>
+
 " Evaluate floating point math in place - ("math after" and "math replace")
 nnoremap <Leader>ma yyp^y$V:!perl -e '$x = <C-R>"; print $x'<CR>-y0j0P
 vnoremap <Leader>ma yo<Esc>p^y$V:!perl -e '$x = <C-R>"; print $x'<CR>-y0j0P
