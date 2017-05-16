@@ -30,7 +30,9 @@ fi
 
 ZSH_THEME='nicoulaj'
 
-plugins=(autoenv copybuffer docker extract globalias history pip python safe-paste systemadmin urltools web-search zsh-navigation-tools)
+plugins=(copybuffer docker extract globalias history pip python safe-paste systemadmin urltools web-search zsh-navigation-tools)
+[[ -x "${commands[autoenv]}" ]] && plugins+=autoenv
+[[ -x "${commands[git]}" ]] && plugins+=git
 [[ -x "${commands[tmux]}" ]] && plugins+=tmux
 
 autoload is-at-least && is-at-least "$ZSH_VERSION" 4.2 || plugins+=history-substring-search
