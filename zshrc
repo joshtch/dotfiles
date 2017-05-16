@@ -24,7 +24,6 @@ if [[ -x "${commands[git]}" ]]; then
 
     [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]] \
         || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
 
     [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]] \
         || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
