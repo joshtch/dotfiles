@@ -13,29 +13,41 @@ mkdir -p "$HOME/.zsh"
 
 if [[ -x "${commands[git]}" ]]; then
     plugins+=git
-    [[ -d "$ZSH" ]] \
-        || git clone https://github.com/robbyrussell/oh-my-zsh.git "$ZSH"
 
-    [[ -d "$HOME/.zsh/syntax-highlighting" ]] \
-        || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh/syntax-highlighting"
+    typeset -AU shell_plugins
+    shell_plugins=( \
+    "$ZSH"                                'https://github.com/robbyrussell/oh-my-zsh.git' \
+    "$HOME/.zsh/syntax-highlighting"      'https://github.com/zsh-users/zsh-syntax-highlighting.git' \
+    "$HOME/.zsh/history-substring-search" 'https://github.com/zsh-users/zsh-history-substring-search.git' \
+    "$HOME/.tmux/plugins/tpm"             'https://github.com/tmux-plugins/tpm' \
+    "$DFS"                                'https://github.com/joshtch/dotfiles')
 
-    [[ -d "$HOME/.zsh/history-substring-search" ]] \
-        || git clone https://github.com/zsh-users/zsh-history-substring-search.git "$HOME/.zsh/history-substring-search"
+    for plugin_dir in "${(@k)shell_plugins}"; do
+        if ! [[ -d "$plugin_dir" ]]; then
+            git clone "${shell_plugins[$plugin_dir]}" "$plugin_dir"
+        fi
+    done
 
-    [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]] \
-        || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-    [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]] \
-        || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    function update_plugins() {
+        for plugin_dir in "${(@k)git_plugins}"; do
+            if ! [[ -d "$plugin_dir" ]]; then
+                git clone "${shell_plugins[$plugin_dir]}" "$plugin_dir"
+            else
+                cd "$plugin_dir"
+                git pull
+                cd -
+            fi
+        done
+    }
 fi
-
-[[ -f "$HOME/.cargo/env" ]] && path=("$HOME/.cargo/env" $path) # Rust
 
 ZSH_THEME='nicoulaj'
 
 plugins=(copybuffer docker extract globalias history pip python safe-paste systemadmin urltools web-search zsh-navigation-tools)
 [[ -x "${commands[autoenv]}" ]] && plugins+=autoenv
 [[ -x "${commands[git]}" ]] && plugins+=git
+[[ -x "${commands[rustc]}" ]] && plugins+=rust \
+    && [[ -f "$HOME/.cargo/env" ]] && path+="$HOME/.cargo/env"
 [[ -x "${commands[tmux]}" ]] && plugins+=tmux \
     && [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]] \
         || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
