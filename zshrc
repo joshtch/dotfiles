@@ -41,6 +41,8 @@ if [[ -x "${commands[git]}" ]]; then
     }
 fi
 
+[[ -f "$HOME/.cargo/env" ]] && path=("$HOME/.cargo/env" $path) # Rust
+
 ZSH_THEME='nicoulaj'
 
 plugins=(copybuffer docker extract globalias history pip python safe-paste systemadmin urltools web-search zsh-navigation-tools)
