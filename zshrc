@@ -54,8 +54,6 @@ plugins=(copybuffer docker extract globalias history pip python safe-paste syste
     && [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]] \
         || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-autoload is-at-least && is-at-least "$ZSH_VERSION" 4.2 || plugins+=history-substring-search
-
 plugins+=ssh-agent
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
@@ -80,5 +78,6 @@ source "$ZSH/oh-my-zsh.sh"
 
 [[ -d "$HOME/.zsh/syntax-highlighting" ]] && \
     source "$HOME/.zsh/syntax-highlighting/zsh-syntax-highlighting.zsh"
-[[ -d "$HOME/.zsh/history-substring-search" ]] && \
-    source "$HOME/.zsh/history-substring-search/zsh-history-substring-search.zsh"
+autoload is-at-least && is-at-least "$ZSH_VERSION" 4.2 || \
+    ( [[ -d "$HOME/.zsh/history-substring-search" ]] && \
+    source "$HOME/.zsh/history-substring-search/zsh-history-substring-search.zsh" )
