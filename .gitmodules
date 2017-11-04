@@ -10,3 +10,6 @@
 [submodule "rhythm.css"]
 	path = rhythm.css
 	url = https://github.com/Rykka/rhythm.css.git
+[submodule "RokuCast"]
+	path = RokuCast
+	url = https://github.com/pranav-prakash/RokuCast
