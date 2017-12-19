@@ -1,0 +1,19 @@
+mas_rm () {
+  item="$1"
+  if [ -d "$item" ] || [ -f "$item" ]; then
+    echo "Trashing $item"
+    item="/Applications/${item}.app"
+    if test ! "$(which trash)"; then
+      echo "Warning: \`trash\` not found. Using \`trash\` with this program \
+        is highly recommended. Install it with \`brew install trash\`."
+
+      # Trash not found, so try moving it to trash instead
+      echo "Attempting \`mv\` of $item to $HOME/.Trash/"
+      mv -i "$item" "$HOME/.Trash"
+    else
+      trash "$item"
+    fi
+  fi
+}
+
+mas_rm "$@"
