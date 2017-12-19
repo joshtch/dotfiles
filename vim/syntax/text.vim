@@ -2,8 +2,9 @@
 " text files. (Must have `syntax on`)
 " Vim syntax file
 " Language: text
-" Maintainer: Chris Penner
-" Latest Revision: 14 May 2015
+" Creator: Chris Penner
+" Last Modified By: Josh Howe
+" Latest Revision: 15 Dec 2017
 " From https://gist.github.com/ChrisPenner/f81959a62d93e39ce7fd
 
 if exists("b:current_syntax")
