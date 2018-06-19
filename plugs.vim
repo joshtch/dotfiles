@@ -70,7 +70,9 @@ Plug 'tyru/open-browser.vim', Cond(!has('nvim'), { 'on' : [
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-abolish', { 'on' : [ 'Subvert', 'Abolish', '<Plug>Coerce' ] }
 "Plug 'tpope/vim-vinegar', { 'for': 'netrw' }
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'w0rp/ale'
     \| Plug 'dbakker/vim-lint', { 'for' : 'vim' }
 "Plug 'Yggdroot/indentLine'
 Plug 'zweifisch/pipe2eval'
@@ -116,6 +118,7 @@ Plug 'mrsipan/vim-rst', { 'for' : 'rst' }
 "Plug 'sophacles/vim-processing', { 'for' : 'processing' }
 Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': 'pandoc' }
 Plug 'justinmk/vim-syntax-extra', { 'for': [ 'c', 'yacc', 'lex' ] }
+Plug 'vim-scripts/txt.vim'
 
 " }}}
 " Language Specific Extras: {{{
@@ -161,10 +164,7 @@ Plug 'chrisbra/NrrwRgn'
 "Plug 'ntpeters/vim-better-whitespace'
 "Plug '~/vim-spacetrails'
 "Plug 'vim-scripts/utl.vim'
-Plug 'mattn/calendar-vim', { 'on' : [
-            \   'Calendar', 'CalendarT', 'CalendarH', 'CalendarVR',
-            \   '<Plug>CalendarV', '<Plug>CalendarH', '<Plug>CalendarT'
-            \  ] }
+Plug 'itchyny/calendar.vim', { 'on' : [ 'Calendar', '<Plug>(calendar)' ] }
 Plug 'tpope/vim-speeddating', { 'on' : [
             \   '<Plug>SpeedDatingUp', '<Plug>SpeedDatingDown',
             \   '<Plug>SpeedDatingNowUTC', '<Plug>SpeedDatingNowLocal',

@@ -134,19 +134,44 @@ fi
 if [[ "$(uname)" == 'Darwin' ]]; then
     alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
     alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-    alias man='_() { echo $1; man -M $(brew --prefix)/opt/coreutils/libexec/gnuman $1 1>/dev/null 2>&1; if [ "$?" -eq 0 ]; then man -M $(brew --prefix)/opt/coreutils/libexec/gnuman $1; else man $1; fi }; _'
+
+    function man() {
+        echo "$1"
+        "${commands[man]}" -M "$(brew --prefix)/opt/coreutils/libexec/gnuman" "$1" 1>/dev/null 2>&1
+        if [ "$?" -eq 0 ]; then
+            "${commands[man]}" -M "$(brew --prefix)/opt/coreutils/libexec/gnuman" "$1"
+        else
+            "${commands[man]}" "$1"
+        fi
+    }
+
     alias rm='trash'
     if [[ -x '/Applications/MacVim.app/Contents/MacOS/Vim' ]]; then
         alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
     fi
 
     alias gif='echo "mplayer -ao null -loop 0 -ss 0:11:22 -endpos 5 file.avi";
-    echo "mplayer -ao null -ss 0:11:22 -endpos 5 file.avi -vo jpeg:outdir=somedir"'
+               echo "mplayer -ao null -ss 0:11:22 -endpos 5 file.avi -vo jpeg:outdir=somedir"'
 
     DefineApps () {
         export T=$(mktemp /tmp/$PPID''XXXXXX) ;
         find "$@" '(' -type d -or -type l ')' -name '*.app' -prune -print0 2>/dev/null |\
-            xargs -0 python -c 'import os,sys,re,distutils.spawn;os.chdir("/usr/bin")'$'\n''def orApp(c):'$'\n'' if not distutils.spawn.find_executable(c): return c'$'\n'' elif not distutils.spawn.find_executable(c+"-app"): return c+"-app"'$'\n\n''def getF(Command):'$'\n'' if "." in Command or "-" in Command: return lambda App: "alias \""+Command+"\"=\"open -W -a \\\""+App+"\\\"\""'$'\n'' else: return lambda App:Command+" () { open -W -a \""+App+"\" \"$@\" ; } ; export -f "+Command'$'\n\n''print "\n".join((lambda Command:getF(orApp(Command))(App))(Command=re.sub("[^a-z0-9._-]","",re.sub(".*/","",App)[:-4].replace(" ","-").lower())) for App in sys.argv[1:])' >> $T ; . $T ; rm $T ; unset T; } 2>/dev/null 1>/dev/null
+            xargs -0 python -c '
+import os,sys,re,distutils.spawn
+os.chdir("/usr/bin")
+def orApp(c):
+    if not distutils.spawn.find_executable(c):
+        return c
+    elif not distutils.spawn.find_executable(c+"-app"):
+        return c+"-app"
+def getF(Command):
+    if "." in Command or "-" in Command:
+        return lambda App: "alias \""+Command+"\"=\"open -a \\\""+App+"\\\"\""
+    else:
+        return lambda App:Command+" () { open -a \""+App+"\" \"$@\" ; }; export -f "+Command
+
+print "\n".join((lambda Command:getF(orApp(Command))(App))(Command=re.sub("[^a-z0-9._-]","",re.sub(".*/","",App)[:-4].replace(" ","-").lower())) for App in sys.argv[1:])
+' >> $T ; . $T ; rm $T ; unset T; } 2>/dev/null 1>/dev/null
     DefineApps ~/Applications /Applications /usr/local/Cellar/emacs 2>/dev/null 1>/dev/null
     if declare -F xcode >/dev/null; then
         DefineApps "$(declare|grep -i '^ *open.*/Xcode.app'|head -1|sed -e 's/[^"]*"//' -e 's/".*//')/Contents/Applications" 2>/dev/null 1>/dev/null;
@@ -167,6 +192,7 @@ function ssht(){
 }
 
 alias gcal='gcalcli'
+
 alias venvactive='source venv/bin/activate'
 function venv () {
     if ! [[ -d './venv' || -d './.venv' ]]; then
@@ -175,6 +201,7 @@ function venv () {
     fi
     source venv/bin/activate
 }
+
 alias dockerstop='docker ps -q -a | xargs docker rm'
 alias dockerclear='docker images | awk '"'"'$2 == "^<none>" {print $3}'"'"' | xargs docker rmi'
 function hubdl() {
@@ -200,6 +227,8 @@ function nn() {
     mkdir -p "${note_dir}"
     vim "${note_dir}/${topic}/${note_name}${timestamp}.${2:-adoc}"
 }
+
+alias httpserve='nohup python -c "import BaseHTTPServer as bhs, SimpleHTTPServer as shs; bhs.HTTPServer(("127.0.0.1", 8888), shs.SimpleHTTPRequestHandler).serve_forever()" & disown'
 
 [[ "$SHELL" =~ 'zsh' ]] || return # For portability with bash
 

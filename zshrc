@@ -52,7 +52,6 @@ plugins+=(
     alias-tips #expand-ealias #globalias
     copybuffer
     deer
-    docker docker-aliases
     extract
     history
     pip python
@@ -68,18 +67,29 @@ plugins+=(
     && [[ -f "$HOME/.cargo/env" ]] && path+="$HOME/.cargo/env"
 [[ -x "${commands[tmux]}" ]] && plugins+=tmux
 [[ -x "${commands[pass]}" ]] && plugins+=pass
+[[ -x "${commands[yarn]}" ]] && plugins+=yarn
+[[ -x "${commands[yarn]}" ]] && plugins+=docker && plugins+=docker-aliases
+
+[[ -e "${/usr/local/opt/resty/share/resty/resty}" ]] && \
+    source /usr/local/opt/resty/share/resty/resty
 
 plugins+=ssh-agent
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 if [[ `uname` == 'Darwin' ]]; then
-    ITERM2_INTEGRATION="${HOME}/.iterm2_shell_integration.zsh"
-    [[ -f "$ITERM2_INTEGRATION" ]] || \
-        curl -L https://iterm2.com/misc/zsh_startup.in -o "$ITERM2_INTEGRATION"
-    source "$ITERM2_INTEGRATION"
+    if [ "$TERM_PROGRAM" = 'iTerm.app' ]; then
+        ITERM2_INTEGRATION="${HOME}/.iterm2_shell_integration.zsh"
+        (
+            [[ -f "$ITERM2_INTEGRATION" ]] || \
+                curl -L https://iterm2.com/misc/zsh_startup.in -o "$ITERM2_INTEGRATION"
+        ) && source "$ITERM2_INTEGRATION"
+    fi
 
     plugins+=osx
-    [[ -x "${commands[brew]}" ]] && plugins+=brew
+    [[ -x "${commands[brew]}" ]] && plugins+=brew && \
+        if brew command command-not-found-init > /dev/null 2>&1; then \
+            eval "$(brew command-not-found-init)"; fi
+
 fi
 
 source "$ZSH/oh-my-zsh.sh"
@@ -93,4 +103,6 @@ source "$ZSH/oh-my-zsh.sh"
 [[ -d "$HOME/.zsh/history-substring-search" ]] && \
     source "$HOME/.zsh/history-substring-search/zsh-history-substring-search.zsh"
 
+# This freezes Zsh's terminal state, so flow control works as normal after
+# terminal apps crash
 ttyctl -f

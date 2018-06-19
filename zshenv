@@ -11,10 +11,13 @@ export DFS="$HOME/dotfiles"
 export HOMEBREW_BREWFILE="$DFS/Brewfile"
 export KEYTIMEOUT=1
 export VIM_APP_DIR="/Applications"
+export GPG_TTY="$(tty)"
 
 eval `/usr/libexec/path_helper -s`
 typeset -U path
 path=(
+    "/usr/local/opt/python@2/bin"
+    "$HOME/.local/bin"
     "$HOME/bin"
     "$HOME/local/bin"
     "$DFS/bin"
@@ -24,11 +27,33 @@ path=(
     "/usr/local/sbin"
     "${path[@]}"
 )
+[ -x "/usr/local/opt/go/libexec/bin/go" ] && \
+    path+=/usr/local/opt/go/libexec/bin
+[ -x "/usr/local/opt/ctags-exuberant/bin/ctags" ] && \
+    path+=/usr/local/opt/ctags-exuberant/bin
+export PATH
 
+typeset -U fpath
 fpath=(
     "$DFS/zsh/functions"
     "${fpath[@]}"
 )
+export FPATH
+
+typeset -U manpath
+manpath=(
+    "$HOME/.local/share/man"
+    "${manpath[@]}"
+)
+export MANPATH
+
+typeset -U infopath
+infopath=(
+    "$HOME/.local/share/info"
+    "$HOME/share/info"
+    "${infopath[@]}"
+)
+export INFOPATH
 
 # Pipe2Eval custom tmp directory -- only necessary for macOS
 export PIP2EVAL_TMP_FILE_PATH=/tmp/shms
@@ -63,3 +88,15 @@ export RLWRAP_HOME="$HOME/.rlwrap/"
 [[ -x "${command[pyenv]}" ]] && [[ -x "${command[pyenv-virtualenv-init}" ]] \
     && eval "$(pyenv init -)" \
     && eval "$(pyenv virtualenv-init -)"
+
+# Instructions for default builds with GNU Make
+typeset -U makefiles
+for file in "$DFS/Makefile_defaults/"*.mk; do
+    makefiles+=("$file")
+done
+typeset -T MAKEFILES makefiles ' '
+export MAKEFILES
+unsetopt nullglob
+
+[ -x "${commands[go]}" ] && \
+    export GOPATH="${GOPATH:-$HOME/go}"

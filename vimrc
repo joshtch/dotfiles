@@ -1,5 +1,5 @@
 " vimrc
-" vim:set ft=vim tw=80 sw=4 et fen fdm=marker fmr=\ {{{,\ }}} :
+" vim:set ft=vim tw=95 sw=4 et fen fdm=marker fmr=\ {{{,\ }}} :
 
 " Set leader character {{{
 " This should be set before loading plugins because some plugins incorrectly
@@ -41,9 +41,9 @@ set smarttab        " Tab inserts shiftwidth spaces, backspace removes that many
 set shiftround                       " Round indents to multiple of 'shiftwidth'
 set t_ut=                    " Clear using background color -- fix tmux coloring
 set mouse=a ttymouse=xterm2                                      " Mouse support
-set nowrap linebreak textwidth=80 " Text wrapping: break line along spaces @~80c
+set nowrap linebreak textwidth=95 " Text wrapping: break line along spaces @~95c
 set encoding=utf-8 fileformats=unix,dos,mac         " Supported document formats
-set diffopt=filler,vertical,foldcolumn:2                               " Vimdiff
+set diffopt=filler,vertical,foldcolumn:2,iwhite                        " Vimdiff
 set scrolloff=4 sidescrolloff=0                           " Scrolling boundaries
 set number norelativenumber                                       " Line numbers
 set autowrite                       " Automatically save file when focus is lost
@@ -56,7 +56,7 @@ set noshowmode         " Don't show -- INSERT -- or whatever in the command line
 set noerrorbells novisualbell                               " No annoying alerts
 set viminfo='20,\"50,:10,/10,%,n~/.viminfo    " Remember things between sessions
 set sessionoptions=blank,buffers,curdir,help,options,winsize,tabpages
-set winwidth=87   " Minimum split width -- 80 + 6 for number + sign/fold columns
+set winwidth=101  " Minimum split width -- 95 + 6 for number + sign/fold columns
 set nojoinspaces          " Don't add extra spaces after .?! when joining with J
 set equalalways         " Make current split be always at least "textwidth" wide
 set cryptmethod=blowfish               " Use slightly less insecure cryptography
@@ -205,16 +205,17 @@ elseif has("autocmd") " Highlight text that's over our limit
         autocmd!
         autocmd BufEnter,BufWrite *
                     \ execute 'match OverLength /\%>'
-                    \ . (&textwidth == 0 ? 80 : &textwidth)
+                    \ . (&textwidth == 0 ? 95 : &textwidth)
                     \ . 'v.\+/'
     augroup END
 endif
 
 " }}}
 " Set up undo, backup, and undo file directories {{{
-" Use this command in CLI once in a while to clear out unnecessary undo files:
-" undodir="$HOME/.vim/tmp/undo" find "$undodir" -depth 1 -type f | sed s;^\${undodir};;" | \
-"    ( while read -r file; do test -f "${file//%//}" || rm "${file}"; done )
+" Use this command in Zsh once in a while to clear out unnecessary undo files:
+" undodir="$HOME/.vim/tmp/undo" && find "$undodir" -mindepth 1 -type f | \
+"    cut -c $(( ${#undodir}+2 ))- | \
+"    ( while read -r file; do test -f "${file//\%//}" || rm "${undodir}/${file}"; done )
 set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
@@ -332,7 +333,7 @@ endif
 " }}}
 " }}}
 " Mappings  {{{
-" Mapping to show which lines exceed textwidth/80 columns {{{
+" Mapping to show which lines exceed textwidth/95 columns {{{
 exe 'nnoremap <silent> <Leader>n /\%>'
             \ . (&textwidth == 0 ? 81 : (&textwidth + 1))
             \ . 'v.\+<cr>'
@@ -363,10 +364,23 @@ nnoremap gK i<CR><Esc>kg_
 nnoremap gb :<C-U>ls<CR>:<C-U>b<Space>
 
 " }}}
-" Always go down with n & up with N -- this avoids confusion if you resume {{{
-" a search later
-nnoremap n /<C-U><CR>
-nnoremap N ?<C-U><CR>
+" Use <leader>? to toggle between always going down with n & up with N {{{
+" or the default behavior
+if !exists('g:next_direction_fixed')
+    let g:next_direction_fixed = 1
+endif
+function! s:Toggle_n_N_behavior() abort
+    if g:next_direction_fixed
+        nunmap n
+        nunmap N
+        let g:next_direction_fixed = 0
+    else
+        nnoremap n /<C-U><CR>
+        nnoremap N ?<C-U><CR>
+        let g:next_direction_fixed = 1
+    fi
+endfunction
+nnoremap <Leader>? :<C-U>call <SID>Toggle_n_N_behavior()<CR>
 
 " }}}
 " Keymaps to evaluate floating point math with Perl {{{
@@ -503,6 +517,11 @@ nnoremap <silent> H :<C-U>execute 'keepjumps normal!' v:count1 . '{'<CR>
  noremap { ^
  noremap } $
 
+" From https://redd.it/458buq
+" Have { and } land on beginning/end of paragraphs instead of on empty lines
+nnoremap <expr> ^ len(getline(line('.')-1)) > 0 ? '{+' : '{-'
+nnoremap <expr> $ len(getline(line('.')+1)) > 0 ? '}-' : '}+'
+
 " }}}
 " Auto fold lines matching last search pattern {{{
 " Only works with marker & manual folding
@@ -583,15 +602,16 @@ augroup filetype_commands
     au FileType make setlocal ts=8 sts=8 sw=8 noet
     au FileType yaml setlocal ts=2 sts=2 sw=2 et
 
-    au FileType html,css setlocal omnifunc=htmlcomplete#CompleteTags
+    au FileType html,css setlocal ts=2 sts=2 sw=2 et
+                \ omnifunc=htmlcomplete#CompleteTags
                 \| iabbrev </ </<C-x><C-o>
     au FileType sml setlocal makeprg="mosmlc %"
     au FileType c,cpp,javascript,slang setlocal cindent fo+=r
     au FileType javascript,javascript.jsx setlocal ts=2 sts=2 sw=2 et
     au FileType actionscript,asciidoc,autohotkey,b,c,cpp,cs,d,go,java,javascript,cocoa,php,pli,rust,scala,sass,sql,swift,prolog,css
-                \ setlocal comments-=s1:/*,mb:*,ex:*/ comments+=s:/*,mb:\ *,ex:\ */ comments+=fb:*
+                \ setlocal comments-=s1:/*,mb:*,ex:*/ comments+=s:/*,mb:\ *,ex:\ */,fb:*
 
-    au FileType asciidoc set makeprg=make
+    au FileType asciidoc set makeprg=make\ %:r:S.html
 
     au FileType vim set fen fdm=marker fmr=\ {{{,\ }}}
 
@@ -603,6 +623,47 @@ augroup filetype_commands
 
     " Treat .rss files as XML
     autocmd BufNewFile,BufRead *.rss setfiletype xml
+
+    " When no filetype is given use "text" by default
+    au BufRead,BufNewFile * setfiletype text
+
+    au BufRead,BufNewFile *.{vhd,vhdl} setfiletype=vhdl
+    au FileType vhdl setlocal comments=:--
+
+    au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+augroup END
+
+" Set some nice defaults for txt files
+" hattip to /u/ghost-in-a-shell @ redd.it/4lvaok
+function! s:PlainText() abort
+    " Formatting
+    setl comments=
+    setl commentstring=>\ %s
+    setl spell
+    setl wrap
+    setl textwidth=95
+    setl formatoptions+=tcoqnl1j
+    setl linebreak
+    setl breakindent
+    "setl &showbreak = '└ '
+    " Better indention/ hierarchy
+    setl formatlistpat=^\\s*                    " Optional leading whitespace
+    setl formatlistpat+=[                       " Start class
+    setl formatlistpat+=\\[({]\\?               " |  Optionally match opening punctuation
+    setl formatlistpat+=\\(                     " |  Start group
+    setl formatlistpat+=[0-9]\\+                " |  |  A number
+    setl formatlistpat+=\\\|[iIvVxXlLcCdDmM]\\+ " |  |  Roman numerals
+    setl formatlistpat+=\\\|[a-zA-Z]            " |  |  A single letter
+    setl formatlistpat+=\\)                     " |  End group
+    setl formatlistpat+=[\\]:.)}                " |  Closing punctuation
+    setl formatlistpat+=]                       " End class
+    setl formatlistpat+=\\s\\+                  " One or more spaces
+    setl formatlistpat+=\\\|^\\s*[-–+o*]\\s\\+  " Or ASCII style bullet points
+endfunction
+
+augroup txt_defaults
+    autocmd!
+    autocmd FileType text call <SID>PlainText()
 augroup END
 
 " }}}
@@ -657,7 +718,7 @@ function! s:StripWhitespace() abort
     call setpos('.',pos)
 endfunction
 
-let g:trailing_ws_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
+let g:trailing_ws_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'calendar']
 
 function! s:AutoEnableWS() abort
     if index(g:trailing_ws_blacklist, &ft) == -1

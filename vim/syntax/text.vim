@@ -20,7 +20,7 @@ syn match beginSentence "\<[A-Z][a-z]*\('[a-z]\+\)\?\>"
 "
 let b:current_syntax = "text"
 
-hi def link beginSentence       Constant
+hi def link beginSentence       Todo
 " Choose other options to get a different colour:
 " Valid options: Comment Constant Function Keyword Operator PreProc Repeat
 " Special Statement Type Typedef

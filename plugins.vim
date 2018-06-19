@@ -48,6 +48,23 @@ if s:has_plugin('vim-abolish')
 endif
 
 " }}}
+" Ale: {{{
+if s:has_plugin('ale')
+    "let g:ale_javascript_eslint_executable = 'yarn eslint'
+    "let g:ale_javascript_eslint_options = '--fix'
+endif
+
+" }}}
+" Async Run: {{{
+if s:has_plugin('asyncrun.vim')
+    augroup AsyncRun
+        autocmd!
+        autocmd BufWritePost *.js,*.jsx AsyncRun -post=checktime 
+                    \ ./node_modules/.bin/eslint --fix %
+    augroup END
+endif
+
+" }}}
 " Better Whitespace: highlight trailing whitespace {{{
 if s:has_plugin('vim-better-whitespace')
     nmap <Leader>cws :<C-U>StripWhitespace<CR>
@@ -57,6 +74,20 @@ if s:has_plugin('vim-better-whitespace')
         autocmd!
         autocmd FileType python,javascript execute 'StripWhitespace'
     augroup END
+endif
+
+" }}}
+" Calendar: use 
+if s:has_plugin('calendar.vim')
+    let g:calendar_first_day = 'monday'
+    let g:calendar_clock_12hour = 1
+    let g:calendar_cyclic_view = 1
+    let g:calendar_google_calendar = 1
+    let g:calendar_google_task = 1
+    let g:calendar_keys = { 
+                \'goto_next_month': 'L', 'goto_prev_month': 'H',
+                \'goto_next_year':  'J', 'goto_prev_year':  'K' }
+    nmap gc <Plug>(calendar)
 endif
 
 " }}}
