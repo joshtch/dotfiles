@@ -136,6 +136,8 @@ if s:has_plugin('syntastic')
     let g:syntastic_warning_symbol = '⚠'
     let g:syntastic_c_check_header = 1
     "let g:syntastic_auto_refresh_includes = 1
+    let g:syntastic_cpp_config_file = '.syntastic_cpp_config'
+    let g:syntastic_c_config_file = '.syntastic_c_config'
 endif
 
 " Tmux Settings:
@@ -165,7 +167,7 @@ if s:has_plugin('tabular')
         let c = nr2char(getchar())
         execute "'[,']Tabularize/".c
     endfunction
-    nnoremap <silent> <Leader>t :set opfunc=<SID>tabularize_op<Enter>g@
+    nnoremap <silent> <Leader>t :set opfunc=<SID>tabularize_op<CR>g@
     command! AlignSpaces Tab /\s\+\zs/l1r0
 endif
 
