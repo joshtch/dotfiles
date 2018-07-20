@@ -12,69 +12,68 @@ if filereadable(expand('~/dotfiles/plugs.vim')) &&
 endif
 filetype plugin indent on
 
-set backspace=indent,eol,start                      " Allow backspacing anywhere
-set splitbelow splitright                 " Split windows below and to the right
-set wildmenu wildmode=list:longest,full                 " Cmdline tab completion
-set wildignore=*.o,*~,*.pyc,*.obj,*.a,*.lib,*.elf        " Ignore non-text files
-set wildignore+=*.swp,*~,._* backup noswapfile                 " Remove swapfile
-set updatecount=0 nobackup nowritebackup         " Disable temp and backup files
-set showcmd showmode cmdheight=1 shortmess=atIfilmnrxoOT    " Cmd bar appearance
-set infercase complete-=i completeopt=longest,menuone        " Insert completion
-set showmatch matchtime=1                                 " Parentheses matching
-set nrformats=hex,alpha                     " Accepted bases for <C-A> and <C-X>
-set hidden                                 " Allow modified buffers to be hidden
-set incsearch hlsearch magic wrapscan                          " Search settings
-set comments-=s1:/*,mb:*,ex:*/                        " /* Make C-style comments
-set comments+=s:/*,mb:\ *,ex:\ */                     "  * wrap like this
-set comments+=fb:*                                    "  */
-set ignorecase smartcase " Search case matching: ignore case except if caps used
-set ruler                        " Show comma-separated line and column location
-set tabstop=4                     " Number of spaces that a tab char displays as
-set softtabstop=4             " Number of spaces <Tab>/backspace inserts/removes
-set shiftwidth=4                     " Number of spaces to increment >>, <<, etc
-set expandtab                                          " Change <Tab>s to spaces
-set smarttab        " Tab inserts shiftwidth spaces, backspace removes that many
-set shiftround                       " Round indents to multiple of 'shiftwidth'
-set shell=/bin/sh                                                " Default shell
-set t_ut=                    " Clear using background color -- fix tmux coloring
-set mouse=a ttymouse=xterm2                                      " Mouse support
-set nowrap linebreak textwidth=80 " Text wrapping: break line along spaces @~80c
-set encoding=utf8 fileformats=unix,dos,mac          " Supported document formats
-set foldmethod=manual foldnestmax=3 nofoldenable foldcolumn=0            " Folds
-set diffopt=filler,vertical,foldcolumn:2                               " Vimdiff
-set scrolloff=4 sidescrolloff=0                           " Scrolling boundaries
-set number norelativenumber                                       " Line numbers
-set autowrite                       " Automatically save file when focus is lost
-set copyindent autoindent          " Imitate indenting of previous line's indent
-set ttyfast                                            " See :help slow-terminal
-set switchbuf=useopen               " Switch to open buffer instead of reopening
-set viewoptions=folds,options,cursor,unix,slash                     " Appearance
-set laststatus=2                                    " Always display status line
+set backspace=indent,eol,start
+set splitbelow splitright
+set wildmenu wildmode=list:longest,full
+set wildignore=*.o,*~,*.pyc,*.obj,*.a,*.lib,*.elf,.git*,*.swp,*~,._*,*.bak
+set backup noswapfile updatecount=0 autowrite
+set showcmd showmode cmdheight=1 shortmess=atIfilmnrxoOT
+set laststatus=2 ruler
 set noshowmode         " Don't show -- INSERT -- or whatever in the command line
-set noerrorbells novisualbell                               " No annoying alerts
-set viminfo='20,\"50,:10,/10,%,n~/.viminfo    " Remember things between sessions
+set infercase complete-=i completeopt=longest,menuone
+set showmatch matchtime=1
+set nrformats=hex,alpha
+set hidden
+set incsearch hlsearch magic wrapscan ignorecase smartcase
+set tabstop=8 softtabstop=4 expandtab smarttab
+set shiftwidth=4 shiftround copyindent autoindent
+set shell=/bin/sh
+set t_ut=                                                    " Fix tmux coloring
+set mouse=a ttymouse=xterm2
+set nowrap linebreak textwidth=80
+set encoding=utf8 fileformats=unix,dos,mac
+set foldmethod=manual foldnestmax=3 nofoldenable foldcolumn=0
+set diffopt=filler,vertical,iwhite,hiddenoff
+set scrolloff=4 sidescrolloff=1
+set number norelativenumber
+set ttyfast                                            " See :help slow-terminal
+set switchbuf=useopen,vsplit
+set viewoptions=folds,options,cursor,unix,slash
+set noerrorbells novisualbell
+set viminfo='20,\"50,:10,/10,%,n~/.viminfo
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
-set winwidth=86   " Minimum split width -- 80 + 6 for number + sign/fold columns
-set nojoinspaces          " Don't add extra spaces after .?! when joining with J
+set winwidth=86                          " 80 + 6 for number + sign/fold columns
+set nojoinspaces                  " Don't add extra space after .?! when using J
 set equalalways         " Make current split be always at least "textwidth" wide
-set cryptmethod=blowfish               " Use slightly less insecure cryptography
-set path=.,**        " Make :find, :sfind, :vert sfind search parent directories
-if exists('+breakindent') | set breakindent | endif       " Indent wrapped lines
+set cryptmethod=blowfish
+set path=.,**
+if exists('+breakindent') | set breakindent | endif
 
 " Syntax Highlighting:
-syntax enable                                      " Turn on syntax highlighting
-syntax sync minlines=512             " Update syntax highlighting for more lines
-set synmaxcol=512                            " Don't syntax highlight long lines
+syntax enable
+syntax sync minlines=512
+set synmaxcol=512
 " Default paren match highting is too distracting
 highlight! link MatchParen Comment
+" Remove underlining from closed folds
+highlight Folded term=bold cterm=bold
+" Hide comments
+function! HideCommentsByFolding()
+    setlocal foldtext=repeat('\ ',9999)
+    setlocal foldminlines=0
+    setlocal foldmethod=expr
+    setlocal foldexpr=getline(v:lnum)=~'^\\s*\\(//\\\|$\\)'
+    setlocal foldlevel=0 foldenable
+    highlight Folded cterm=bold term=bold gui=bold ctermbg=NONE guibg=NONE
+endfunction
 
 " Highlight VCS conflict markers
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+match ErrorMsg '^\(<\|=\|>\||\)\{7\}\([^=].\+\)\?$'
 
 set autoread          " Reread a file detected to have been modified outside Vim
 augroup AutoReading
     autocmd!
-    autocmd CursorHold,CursorHoldI * checktime
+    autocmd CursorHold,CursorHoldI * if getcmdpos() == 0 | checktime | endif
 augroup END
 
 augroup Resize                    " Make splits equal size, unless in focus mode
@@ -135,11 +134,9 @@ elseif has("autocmd") " Highlight text that's over our limit
                     \ . 'v.\+/'
     augroup END
 endif
-exe 'nnoremap <silent> <Leader>n /\%>'
-            \ . (&textwidth == 0 ? 81 : (&textwidth + 1))
+exe 'nnoremap <silent> <Leader>n /\%>' . (&textwidth ? (&textwidth + 1) : 81)
             \ . 'v.\+<cr>'
-exe 'nnoremap <silent> <Leader>N ?\%>'
-            \ . (&textwidth == 0 ? 81 : (&textwidth + 1))
+exe 'nnoremap <silent> <Leader>N ?\%>' . (&textwidth ? (&textwidth + 1) : 81)
             \ . 'v.\+<cr>'
 
 set undodir=~/.vim/tmp/undo//     " undo files
@@ -335,10 +332,12 @@ if has("autocmd")
         au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
         au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-        au FileType html,css       setlocal ts=8 omnifunc=htmlcomplete#CompleteTags
+        au FileType html,css setlocal ts=8
+                    \ omnifunc=htmlcomplete#CompleteTags
                     \| iabbrev </ </<C-x><C-o>
-        au FileType sml        setlocal makeprg="mosmlc %"
+        au FileType sml setlocal makeprg="mosmlc %"
         au FileType c,cpp,javascript,slang setlocal cindent fo+=r
+                    \ com-=s1:/*,mb:*,ex:*/ com+=s:/*,mb:\ *,ex:\ */,fb:*
         au FileType javascript,html,xhtml,css,php setlocal sw=2 ts=2 fdm=indent
         "au BufWrite *.js,*.html,*.css,*.php exec "silent! !open '" . expand('%') ."'"
         au FileType crontab setlocal backupcopy=yes
@@ -354,6 +353,12 @@ if has("autocmd")
 
         " Treat .rss files as XML
         autocmd BufNewFile,BufRead *.rss setfiletype xml
+
+        autocmd FileType python setlocal ts=4 sts=4 sw=4 et
+        autocmd FileType ruby   setlocal ts=2 sts=2 sw=2 et
+        autocmd FileType vhdl   setlocal commentstring=--%s
+                    \ makeprg=vlib\ work\;\ vcom\ %
+                    \ errorformat=**\ Error:\ %f(%l):\ %m
     augroup END
 endif
 
@@ -384,6 +389,9 @@ nnoremap <silent> L :<C-U>execute 'keepjumps normal!' v:count1 . '}'<CR>
 nnoremap <silent> H :<C-U>execute 'keepjumps normal!' v:count1 . '{'<CR>
 noremap { ^
 noremap } $
+
+" Type 'cd' to change vim's working directory to that of the current buffer
+nnoremap cd :cd %:h<CR>
 
 nnoremap <silent> <Leader><Leader> :let &scrolloff=999-&scrolloff<CR>
 augroup CenteringReadOnly
@@ -523,8 +531,8 @@ function! DoWordMotion(motion)
         echoerr "motion not recognized"
     endif
 endfunction
-onoremap <silent> w :<C-U>call DoWordMotion('w')<CR>
-onoremap <silent> W :<C-U>call DoWordMotion('W')<CR>
+onoremap <silent> w :<C-U>silent! call DoWordMotion('w')<CR>
+onoremap <silent> W :<C-U>silent! call DoWordMotion('W')<CR>
 " }}}
 
 " Hex Mode Toggling: {{{
