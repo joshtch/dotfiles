@@ -33,13 +33,13 @@ Plug 'unblevable/quick-scope'
 Plug 'jaxbot/browserlink.vim', { 'for' : [ 'htm_', 'html', 'html4', 'htmlm4' ] }
 "Plug 'SirVer/ultisnips'
     "\| Plug 'honza/vim-snippets'
-Plug 'majutsushi/tagbar', { 'for' : [
-            \ 'ant', 'asm', 'asp', 'awk', 'basic', 'beta', 'c',
-            \ 'cpp', 'csharp', 'cobol', 'bat', 'eiffel', 'erlang', 'flex',
-            \ 'fortran', 'html', 'java', 'javascript', 'lisp', 'lua', 'make',
-            \ 'matlab', 'ocaml', 'pascal', 'perl', 'php', 'python', 'rexx',
-            \ 'ruby', 'scheme', 'sh', 'slang', 'sml', 'sql', 'tcl', 'tex', 'vb',
-            \ 'vera', 'verilog', 'vhdl', 'vim', 'yacc' ] }
+"Plug 'majutsushi/tagbar', { 'for' : [
+            "\ 'ant', 'asm', 'asp', 'awk', 'basic', 'beta', 'c',
+            "\ 'cpp', 'csharp', 'cobol', 'bat', 'eiffel', 'erlang', 'flex',
+            "\ 'fortran', 'html', 'java', 'javascript', 'lisp', 'lua', 'make',
+            "\ 'matlab', 'ocaml', 'pascal', 'perl', 'php', 'python', 'rexx',
+            "\ 'ruby', 'scheme', 'sh', 'slang', 'sml', 'sql', 'tcl', 'tex', 'vb',
+            "\ 'vera', 'verilog', 'vhdl', 'vim', 'yacc' ] }
 Plug 'tpope/vim-dispatch', { 'on' : [
             \ 'Make', 'Copen', 'Dispatch', 'FocusDispatch', 'Start' ] }
 Plug 'tpope/vim-fugitive'
@@ -111,6 +111,8 @@ Plug 'sophacles/vim-processing', { 'for' : 'processing' }
 Plug 'Rykka/InstantRst', { 'for' : 'rst' }
 Plug 'mrsipan/vim-rst', { 'for' : 'rst' }
 Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
+Plug 'sheerun/vim-polyglot'
+Plug 'justinmk/vim-syntax-extra', { 'for' : [ 'c', 'yacc', 'lex' ] }
 
 " Vim Functionality Extending:
 Plug 'ciaranm/securemodelines'
