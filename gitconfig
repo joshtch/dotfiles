@@ -1,8 +1,9 @@
 # Aliases for common git commands. E.g., enter "git d" for "git diff"
 # These settings live in the ~/.gitconfig file.
 [user]
-	name = joshtch
+	name = Josh Howe
 	email = howejosh@gmail.com
+	signingkey = CC2A6F1A87914E7D2E8A72DEF2028A576FE39554
 
 [core]
 	editor = "vim -f"
@@ -43,3 +44,7 @@
 	smudge = git-lfs smudge %f
 	required = true
 	clean = git-lfs clean %f
+[gpg]
+	program = gpg
+[commit]
+	gpgsign = true

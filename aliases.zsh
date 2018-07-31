@@ -1,5 +1,9 @@
-# Copy last command to clipboard
-alias pbget='fc -ln -1 | pbcopy'
+# vi: fm=marker sw=4 ts=4 et si
+
+if [[ `uname` == 'Darwin' ]]; then
+    # Copy last command to clipboard
+    alias pbget='fc -ln -1 | pbcopy'
+fi
 
 # Basic directory operations
 alias -- -='cd -'
@@ -60,36 +64,29 @@ fi
 # Show ten most used commands
 alias history-stat="fc -l 1 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 alias hgrep='history | grep'
-alias psgrep='ps aux | grep'
+alias psgrep='ps aux | grep -v "e4a8704f594b025627f40f9d5107ec90" | grep'
 
 # Portably colorize ls
 if "${commands[ls]}" --color -d /dev/null &>/dev/null; then
     # Using GNU ls
     alias ls="${commands[ls]} --color=auto -H -F"
-
 elif /usr/gnu/bin/ls --color=auto /dev/null &>/dev/null; then
     # GNU ls in /usr/gnu/bin/ls but not default (Solaris)
     alias ls="/usr/gnu/bin/ls --color=auto -H -F"
-
 elif [[ -x "${commands[brew]}" ]] \
     && "$(brew --prefix coreutils)"/libexec/gnubin/ls --color=auto /dev/null &>/dev/null; then
     # GNU ls installed with homebrew coreutils (OSX)
     alias ls='$(brew --prefix coreutils)/libexec/gnubin/ls --color=auto -H -F'
-
 elif "${commands[ls]}" -G -d /dev/null &>/dev/null; then
     # BSD ls
     alias ls='${commands[ls]} -G -H -F'
 fi
-
-if [[ -x "${commands[dircolors]}" ]] \
-    && ([[ -d "$HOME/.zsh/dircolors-solarized" ]] \
-    || git clone https://github.com/seebi/dircolors-solarized.git "$HOME/.zsh/dircolors-solarized"); then
-    eval `dircolors "$HOME/.zsh/dircolors-solarized/dircolors.ansi-universal"`
-fi
+[[ -f "$HOME/.zsh/dircolors-solarized/dircolors.ansi-universal" ]] \
+    && eval `dircolors "$HOME/.zsh/dircolors-solarized/dircolors.ansi-universal"`
 
 # Restart Tor session with password
 # Refer to http://pundirtech.com/data-scraping-series-2-1-rotating-your-tor-ip-address-php-or-linux/
-rtor-pwd () {
+rtor-passwd () {
     echo "Password: "
     read -s PASS
     echo -e "AUTHENTICATE \"$PASS\"\r\nsignal NEWNYM\r\nQUIT" | nc 127.0.0.1 9051
@@ -110,7 +107,7 @@ elif [[ -x "${commands[m]}" ]]; then
     alias tree='m dir tree'
 fi
 
-if [[ -d ~/dotfiles ]]; then
+if [[ -d "$DFS" ]] || [[ -d "$HOME/dotfiles" ]]; then
     alias vv='vim ~/dotfiles/vimrc'
     alias aa='vim ~/dotfiles/aliases.zsh; source ~/dotfiles/aliases.zsh'
     alias tt='vim ~/dotfiles/tmux.conf'
@@ -129,24 +126,52 @@ alias grep='grep --color=auto'
 alias j='jobs -l'
 alias r='fc -e -'
 alias c='clear && ls'
-alias x='exit'
+
+if [[ -x "${commands[nvim]}" ]]; then
+    alias vim='nvim'
+fi
 
 if [[ "$(uname)" == 'Darwin' ]]; then
     alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
     alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-    alias man='_() { echo $1; man -M $(brew --prefix)/opt/coreutils/libexec/gnuman $1 1>/dev/null 2>&1; if [ "$?" -eq 0 ]; then man -M $(brew --prefix)/opt/coreutils/libexec/gnuman $1; else man $1; fi }; _'
+
+    function man() {
+        echo "$1"
+        "${commands[man]}" -M "$(brew --prefix)/opt/coreutils/libexec/gnuman" "$1" 1>/dev/null 2>&1
+        if [ "$?" -eq 0 ]; then
+            "${commands[man]}" -M "$(brew --prefix)/opt/coreutils/libexec/gnuman" "$1"
+        else
+            "${commands[man]}" "$1"
+        fi
+    }
+
     alias rm='trash'
     if [[ -x '/Applications/MacVim.app/Contents/MacOS/Vim' ]]; then
         alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
     fi
 
     alias gif='echo "mplayer -ao null -loop 0 -ss 0:11:22 -endpos 5 file.avi";
-    echo "mplayer -ao null -ss 0:11:22 -endpos 5 file.avi -vo jpeg:outdir=somedir"'
+               echo "mplayer -ao null -ss 0:11:22 -endpos 5 file.avi -vo jpeg:outdir=somedir"'
 
     DefineApps () {
         export T=$(mktemp /tmp/$PPID''XXXXXX) ;
         find "$@" '(' -type d -or -type l ')' -name '*.app' -prune -print0 2>/dev/null |\
-            xargs -0 python -c 'import os,sys,re,distutils.spawn;os.chdir("/usr/bin")'$'\n''def orApp(c):'$'\n'' if not distutils.spawn.find_executable(c): return c'$'\n'' elif not distutils.spawn.find_executable(c+"-app"): return c+"-app"'$'\n\n''def getF(Command):'$'\n'' if "." in Command or "-" in Command: return lambda App: "alias \""+Command+"\"=\"open -W -a \\\""+App+"\\\"\""'$'\n'' else: return lambda App:Command+" () { open -W -a \""+App+"\" \"$@\" ; } ; export -f "+Command'$'\n\n''print "\n".join((lambda Command:getF(orApp(Command))(App))(Command=re.sub("[^a-z0-9._-]","",re.sub(".*/","",App)[:-4].replace(" ","-").lower())) for App in sys.argv[1:])' >> $T ; . $T ; rm $T ; unset T; } 2>/dev/null 1>/dev/null
+            xargs -0 python -c '
+import os,sys,re,distutils.spawn
+os.chdir("/usr/bin")
+def orApp(c):
+    if not distutils.spawn.find_executable(c):
+        return c
+    elif not distutils.spawn.find_executable(c+"-app"):
+        return c+"-app"
+def getF(Command):
+    if "." in Command or "-" in Command:
+        return lambda App: "alias \""+Command+"\"=\"open -a \\\""+App+"\\\"\""
+    else:
+        return lambda App:Command+" () { open -a \""+App+"\" \"$@\" ; }; export -f "+Command
+
+print "\n".join((lambda Command:getF(orApp(Command))(App))(Command=re.sub("[^a-z0-9._-]","",re.sub(".*/","",App)[:-4].replace(" ","-").lower())) for App in sys.argv[1:])
+' >> $T ; . $T ; rm $T ; unset T; } 2>/dev/null 1>/dev/null
     DefineApps ~/Applications /Applications /usr/local/Cellar/emacs 2>/dev/null 1>/dev/null
     if declare -F xcode >/dev/null; then
         DefineApps "$(declare|grep -i '^ *open.*/Xcode.app'|head -1|sed -e 's/[^"]*"//' -e 's/".*//')/Contents/Applications" 2>/dev/null 1>/dev/null;
@@ -165,6 +190,45 @@ fi
 function ssht(){
     ssh $* -t 'tmux a || tmux || zsh'
 }
+
+alias gcal='gcalcli'
+
+alias venvactive='source venv/bin/activate'
+function venv () {
+    if ! [[ -d './venv' || -d './.venv' ]]; then
+        echo 'No virtualenv at ./venv or ./.venv; creating new virtualenv at ./venv'
+        virtualenv venv
+    fi
+    source venv/bin/activate
+}
+
+alias dockerstop='docker ps -q -a | xargs docker rm'
+alias dockerclear='docker images | awk '"'"'$2 == "^<none>" {print $3}'"'"' | xargs docker rmi'
+function hubdl() {
+    if [ $# -eq 2 ]; then
+        url="https://api.github.com/repos/$1/$2/releases/latest"
+        curl -O "$(curl -s "$url" | grep 'browser_' | cut -d\" -f4)"
+    else
+        echo "$0: Download latest release of software from Github."
+        echo "Usage:"
+        echo "    $0 User_Name Repo_Name"
+        return 1
+    fi
+}
+
+function nn() {
+    note_name=
+    note_dir="$HOME/notes"
+    timestamp="$(date +%Y-%m-%d)"
+    if (( $# > 0 )); then
+        topic="$1"
+        note_name="${1}-"
+    fi
+    mkdir -p "${note_dir}"
+    vim "${note_dir}/${topic}/${note_name}${timestamp}.${2:-adoc}"
+}
+
+alias httpserve='nohup python -c "import BaseHTTPServer as bhs, SimpleHTTPServer as shs; bhs.HTTPServer(("127.0.0.1", 8888), shs.SimpleHTTPRequestHandler).serve_forever()" & disown'
 
 [[ "$SHELL" =~ 'zsh' ]] || return # For portability with bash
 
@@ -201,7 +265,7 @@ bindkey '' down-line-or-history-beginning-search
 
 # zsh is able to auto-do some kungfoo
 # depends on the SUFFIX :)
-if [ ${ZSH_VERSION//\./} -ge 420 ]; then
+if [[ ${ZSH_VERSION} > 4.20 ]]; then
     # open browser on urls
     _browser_fts=(htm html de org net com at cx nl se dk dk php)
     for ft in $_browser_fts ; do alias -s $ft=$BROWSER ; done
@@ -257,6 +321,7 @@ bindkey ' ' magic-space
 # when using sudo, complete commands in root's path even if not available to user
 zstyle ':completion:*:sudo::' environ PATH="/sbin:/usr/sbin:$PATH" HOME="/root"
 
+# Magic-abbrev -- auto-expand special abbreviations {{{
 # From http://zshwiki.org/home/examples/zleiab
 setopt extended_glob
 typeset -Ag abbreviations
@@ -293,35 +358,33 @@ zle -N no-magic-abbrev-expand
 bindkey " " magic-abbrev-expand
 bindkey "^x " no-magic-abbrev-expand
 bindkey -M isearch " " self-insert
+# -- End magic-abbrev -- }}}
 
-function nn() {
-    note_name=
-    note_dir=~/course\ notes
-    timestamp="$(date +%m-%d-%y)"
-    if (( $# > 0 )); then
-        topic="$1"
-        note_name="${1}-"
-    fi
-    vim "${note_dir}/${topic}/${note_name}${timestamp}.md"
+# Globalias: Autoexpand on space {{{
+globalias() {
+   zle _expand_alias
+   zle expand-word
+   zle self-insert
 }
+zle -N globalias
 
-alias tg="sh -c 'cd ~/tg && bin/telegram-cli'"
-alias gcal='gcalcli'
-alias venvactive='source venv/bin/activate'
-alias dockerstop='docker ps -q -a | xargs docker rm'
-alias dockerclear='docker images | awk '"'"'$2 == "^<none>" {print $3}'"'"' | xargs docker rmi'
-function hubdl() {
-    url='https://api.github.com/repos/'
-    if [ $# -eq 1 ]; then
-        url="https://api.github.com/repos/$1/releases/latest"
-    elif [ $# -eq 2 ]; then
-        url="https://api.github.com/repos/$1/$2/releases/latest"
-    else
-        echo "$0: Download latest release of software from Github."
-        echo "Usage:"
-        echo "    $0 User_Name/Repo_Name"
-        echo "    $0 User_Name Repo_Name"
-        return 1
-    fi
-    curl -O "$(curl -s "$url" | grep 'browser_' | cut -d\" -f4)"
-}
+# ctrl-space expands all aliases, including global
+bindkey -M emacs "^ " globalias
+bindkey -M viins "^ " globalias
+
+# space to make a normal space
+bindkey -M emacs " " magic-space
+bindkey -M viins " " magic-space
+
+# normal space during searches
+bindkey -M isearch " " magic-space
+# -- end of globalias -- }}}
+
+# Only show past commands matching current line up to current cursor position {{{
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+[[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]"   up-line-or-beginning-search
+[[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
+
+# }}}

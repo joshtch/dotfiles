@@ -4,7 +4,7 @@
 export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 export DFS="${DFS:-$HOME/dotfiles}"
 export KEYTIMEOUT=1
-export HOMEBREW_BREWFILE="$HOME/dotfiles/Brewfile"
+export HOMEBREW_BREWFILE="$DFS/Brewfile"
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 [[ -f "$HOME/.zshenv" ]] && source "$HOME/.zshenv" # Not sourced on login
@@ -13,49 +13,83 @@ mkdir -p "$HOME/.zsh"
 
 if [[ -x "${commands[git]}" ]]; then
     plugins+=git
-    [[ -d "$ZSH" ]] \
-        || git clone https://github.com/robbyrussell/oh-my-zsh.git "$ZSH"
 
-    [[ -d "$HOME/.zsh/syntax-highlighting" ]] \
-        || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh/syntax-highlighting"
+    typeset -AU github_repos
+    github_repos=(
+    # Local Destination                            # Github Page
+    "$DFS"                                         'joshtch/dotfiles'
+    "$HOME/.tmux/plugins/tpm"                      'tmux-plugins/tpm'
+    "$HOME/.zsh/dircolors-solarized"               'seebi/dircolors-solarized'
+    "$HOME/.zsh/history-substring-search"          'zsh-users/zsh-history-substring-search'
+    "$HOME/.zsh/syntax-highlighting"               'zsh-users/zsh-syntax-highlighting'
+    "$ZSH"                                         'robbyrussell/oh-my-zsh'
+    "$ZSH/custom/plugins/alias-tips"               'djui/alias-tips'
+    "$ZSH/custom/plugins/deer"                     'Vifon/deer'
+    "$ZSH/custom/plugins/docker-aliases"           'webyneter/docker-aliases'
+    "$ZSH/custom/plugins/zsh-completions"          'zsh-users/zsh-completions'
+    #"$ZSH/custom/plugins/expand-ealias.plugin.zsh" 'zigius/expand-ealias.plugin.zsh'
+    "$ZSH/custom/plugins/zsh-auto-virtualenv"      'tek/zsh-auto-virtualenv'
+    )
 
-    [[ -d "$HOME/.zsh/history-substring-search" ]] \
-        || git clone https://github.com/zsh-users/zsh-history-substring-search.git "$HOME/.zsh/history-substring-search"
+    github_url="https://github.com"
+    for plugin_dir in "${(@k)github_repos}"; do
+        if ! [[ -d "$plugin_dir" ]]; then
+            git clone --recursive "$github_url/${github_repos[$plugin_dir]}" "$plugin_dir"
+        fi
+    done
 
-    [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]] \
-        || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-    [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]] \
-        || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    function update_plugins() {
+        for plugin_dir in "${(@k)git_plugins}"; do
+            ( cd "$plugin_dir" && git pull --recurse-submodules=yes ) ||
+                git clone --recursive "${github_repos[$plugin_dir]}" "$plugin_dir"
+        done
+    }
 fi
-
-[[ -f "$HOME/.cargo/env" ]] && path=("$HOME/.cargo/env" $path) # Rust
 
 ZSH_THEME='nicoulaj'
 
-plugins=(copybuffer docker extract globalias history pip python safe-paste systemadmin urltools web-search zsh-navigation-tools)
+plugins+=(
+    alias-tips #expand-ealias #globalias
+    copybuffer
+    deer
+    extract
+    history
+    pip python
+    safe-paste
+    systemadmin
+    urltools web-search
+    zsh-navigation-tools zsh-completions
+)
+#plugins+=(adb nmap ruby singlechar sudo systemadmin xcode zsh-auto-virtualenv)
 [[ -x "${commands[autoenv]}" ]] && plugins+=autoenv
 [[ -x "${commands[git]}" ]] && plugins+=git
-[[ -x "${commands[tmux]}" ]] && plugins+=tmux \
-    && [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]] \
-        || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+[[ -x "${commands[rustc]}" ]] && plugins+=rust \
+    && [[ -f "$HOME/.cargo/env" ]] && path+="$HOME/.cargo/env"
+[[ -x "${commands[tmux]}" ]] && plugins+=tmux
+[[ -x "${commands[pass]}" ]] && plugins+=pass
+[[ -x "${commands[yarn]}" ]] && plugins+=yarn
+[[ -x "${commands[yarn]}" ]] && plugins+=docker && plugins+=docker-aliases
 
-autoload is-at-least && is-at-least "$ZSH_VERSION" 4.2 || plugins+=history-substring-search
+[[ -e "${/usr/local/opt/resty/share/resty/resty}" ]] && \
+    source /usr/local/opt/resty/share/resty/resty
 
 plugins+=ssh-agent
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 if [[ `uname` == 'Darwin' ]]; then
-    plugins+=osx
-    source ~/.iterm2_shell_integration.`basename $SHELL`
-    if [[ -x "${commands[brew]}" ]]; then
-        plugins+=brew
-
-        # Autoenv for mac
-        if [[ -f "/usr/local/opt/autoenv/activate.sh" ]]; then
-            source /usr/local/opt/autoenv/activate.sh
-        fi
+    if [ "$TERM_PROGRAM" = 'iTerm.app' ]; then
+        ITERM2_INTEGRATION="${HOME}/.iterm2_shell_integration.zsh"
+        (
+            [[ -f "$ITERM2_INTEGRATION" ]] || \
+                curl -L https://iterm2.com/misc/zsh_startup.in -o "$ITERM2_INTEGRATION"
+        ) && source "$ITERM2_INTEGRATION"
     fi
+
+    plugins+=osx
+    [[ -x "${commands[brew]}" ]] && plugins+=brew && \
+        if brew command command-not-found-init > /dev/null 2>&1; then \
+            eval "$(brew command-not-found-init)"; fi
+
 fi
 
 source "$ZSH/oh-my-zsh.sh"
@@ -68,3 +102,7 @@ source "$ZSH/oh-my-zsh.sh"
     source "$HOME/.zsh/syntax-highlighting/zsh-syntax-highlighting.zsh"
 [[ -d "$HOME/.zsh/history-substring-search" ]] && \
     source "$HOME/.zsh/history-substring-search/zsh-history-substring-search.zsh"
+
+# This freezes Zsh's terminal state, so flow control works as normal after
+# terminal apps crash
+ttyctl -f

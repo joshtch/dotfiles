@@ -1,8 +1,12 @@
+" vim:set ft=vim tw=80 sw=4 et fen fdm=marker fmr=\ {{{,\ }}} :
+
+" s:has_plugin function {{{
 function! s:has_plugin(name)
     return has_key(g:plugs, a:name)
 endfunction
 
-" Airline: custom statusline
+" }}}
+" Airline: custom statusline {{{
 if s:has_plugin('vim-airline')
     set lazyredraw
     set t_Co=256
@@ -37,17 +41,92 @@ if s:has_plugin('vim-airline')
     endif
 endif
 
-" Capslock: enable capslock from within vim
+" }}}
+" Abolish: {{{
+if s:has_plugin('vim-abolish')
+    nmap cr <Plug>Coerce
+endif
+
+" }}}
+" Ale: {{{
+if s:has_plugin('ale')
+    "let g:ale_javascript_eslint_executable = 'yarn eslint'
+    "let g:ale_javascript_eslint_options = '--fix'
+endif
+
+" }}}
+" Async Run: {{{
+if s:has_plugin('asyncrun.vim')
+    augroup AsyncRun
+        autocmd!
+        autocmd BufWritePost *.js,*.jsx AsyncRun -post=checktime 
+                    \ ./node_modules/.bin/eslint --fix %
+    augroup END
+endif
+
+" }}}
+" Better Whitespace: highlight trailing whitespace {{{
+if s:has_plugin('vim-better-whitespace')
+    nmap <Leader>cws :<C-U>StripWhitespace<CR>
+    let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown' ]
+    let g:current_line_whitespace_disabled_soft = 1
+    augroup BetterWhitespaceGrp
+        autocmd!
+        autocmd FileType python,javascript execute 'StripWhitespace'
+    augroup END
+endif
+
+" }}}
+" BufKill: Delete buffers without closing the window {{{ 
+if s:has_plugin('bufkill.vim')
+    nmap <Leader>bb    <Plug>BufKillBack
+    nmap <Leader>!bb   <Plug>BufKillBangBack
+    nmap <Leader>bf    <Plug>BufKillForward
+    nmap <Leader>!bf   <Plug>BufKillBangForward
+    nmap <Leader>bun   <Plug>BufKillBun
+    nmap <Leader>!bun  <Plug>BufKillBangBun
+    nmap <Leader>bd    <Plug>BufKillBd
+    nmap <Leader>!bd   <Plug>BufKillBangBd
+    nmap <Leader>bw    <Plug>BufKillBw
+    nmap <Leader>!bw   <Plug>BufKillBangBw
+    nmap <Leader>bundo <Plug>BufKillUndo
+    nmap <Leader>ba    <Plug>BufKillAlt
+    nmap <Leader>!ba   <Plug>BufKillBangAlt
+endif
+
+" }}}
+" Calendar: {{{
+if s:has_plugin('calendar.vim')
+    let g:calendar_first_day = 'monday'
+    let g:calendar_clock_12hour = 1
+    let g:calendar_cyclic_view = 1
+    let g:calendar_google_calendar = 1
+    let g:calendar_google_task = 1
+    let g:calendar_keys = { 
+                \'goto_next_month': 'L', 'goto_prev_month': 'H',
+                \'goto_next_year':  'J', 'goto_prev_year':  'K' }
+    nmap gc <Plug>(calendar)
+endif
+
+" }}}
+" Capslock: enable capslock from within vim {{{
 if s:has_plugin('vim-capslock')
     imap <C-g>u <Plug>CapsLockToggle
 endif
 
-" Dispatch:
+" }}}
+" Dispatch: {{{
 if s:has_plugin('vim-dispatch')
     nnoremap <leader>m :Dispatch<CR>
+    augroup Dispatch
+        autocmd!
+        " Automatically attempt to build .rst, .md, .adoc files
+        autocmd BufWritePost *.rst,*.md,*.adoc silent! redraw | Dispatch
+    augroup END
 endif
 
-" Exchange:
+" }}}
+" Exchange: {{{
 if s:has_plugin('vim-exchange')
     nmap cx <Plug>(Exchange)
     vmap X <Plug>(Exchange)
@@ -55,13 +134,15 @@ if s:has_plugin('vim-exchange')
     nmap cxx <Plug>(ExchangeLine)
 endif
 
-" Focus: Force display of a single buffer for focused editing
+" }}}
+" Focus: Force display of a single buffer for focused editing {{{
 if s:has_plugin('focus.vim')
     nmap <silent> <Leader>f <Plug>FocusModeToggle
     let g:focus_use_default_mapping = 0
 endif
 
-" Fugitive: Awesome git plugin for vim
+" }}}
+" Fugitive: Awesome git plugin for vim {{{
 if s:has_plugin('vim-fugitive')
     nnoremap <Leader>ga :<C-u>Git add %<CR><CR>
     nnoremap <Leader>gb :<C-u>Gblame<CR>
@@ -72,37 +153,68 @@ if s:has_plugin('vim-fugitive')
     nnoremap <Leader>gs :<C-u>Git status -sb<CR>
 endif
 
-" NERDCommenter:
+" }}}
+" IndentLine: Indent guide marks {{{
+if s:has_plugin('indentLine')
+    let g:indentLine_fileTypeExclude = ['haskell']
+    let g:indentLine_char = '┆'
+endif
+
+" }}}
+" NERDCommenter: {{{
 if s:has_plugin('nerdcommenter')
     let NERDMenuMode = 0
 endif
 
-" Niceblock:
+" }}}
+" Niceblock: {{{
 if s:has_plugin('vim-niceblock')
     vmap I <Plug>(niceblock-I)
     vmap A <Plug>(niceblock-A)
 endif
 
-" Open Browser: Open a URL in the default browser
+" }}}
+" Open Browser: Open a URL in the default browser {{{
 if s:has_plugin('open-browser.vim')
     map gl <Plug>(openbrowser-open)
     map gs <Plug>(openbrowser-search)
-    map gb <Plug>(openbrowser-smart-search)
-    noremap <Leader>ob :<C-u>OpenBrowserSmartSearch<Space>
+    map gz <Plug>(openbrowser-smart-search)
+    noremap <Leader>ob :<C-u>call openbrowser#smart_search()<Left>
+    "augroup OpenBrowserOnWrite
+        "autocmd!
+        "au BufWrite *.{js,html,css,php}
+                    "\execute "silent! call openbrowser#open(expand('%:p'))\<CR>"
+        "au BufWrite *.{rst,md,markdown,ad,adoc,asciidoc}
+                    "\if filereadable(expand('%:r'). '.html')
+                    "\| execute 'silent! call openbrowser#open('.expand('%:r').'.html)'
+                    "\| endif
+    "augroup END
 endif
 
-" Quick Scope: highlight target characters to use to jump to a word with f/F/t/T
+" }}}
+" Prettier: prettify javascript, jsx, css, scss files {{{
+if s:has_plugin('vim-prettier')
+    if v:version >= 8
+        let g:prettier#exec_cmd_async = 1
+    endif
+    let g:prettier#config#parser = 'flow'
+endif
+
+" }}}
+" Quick Scope: highlight target characters to use to jump to a word with f/F/t/T {{{
 if s:has_plugin('quick-scope')
     let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 endif
 
-" Secure Modelines: fix security of modelines without disabling them altogether
+" }}}
+" Secure Modelines: fix security of modelines without disabling them altogether {{{
 if s:has_plugin('securemodelines')
+    " Disable warning on startup
     set modelines=0
-    set secure
 endif
 
-" Solarized: colorscheme
+" }}}
+" Solarized: colorscheme {{{
 if v:version >= 702 && s:has_plugin('vim-colors-solarized')
     syntax enable
     let g:solarized_menu=0
@@ -116,7 +228,8 @@ if v:version >= 702 && s:has_plugin('vim-colors-solarized')
     colorscheme solarized
 endif
 
-" Syntastic: Real-time syntax checking
+" }}}
+" Syntastic: Real-time syntax checking {{{
 if s:has_plugin('syntastic')
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
@@ -140,7 +253,8 @@ if s:has_plugin('syntastic')
     let g:syntastic_c_config_file = '.syntastic_c_config'
 endif
 
-" Tmux Settings:
+" }}}
+" Tmux Settings: {{{
 if exists('$TMUX')
     " VimTmuxNavigator: Seamlessly navigate vim and tmux splits
     if s:has_plugin('vim-tmux-navigator')
@@ -153,7 +267,8 @@ if exists('$TMUX')
     endif
 endif
 
-" Tabular: Character alignment
+" }}}
+" Tabular: Character alignment {{{
 if s:has_plugin('tabular')
     nnoremap <Leader>a= :Tabularize /=<CR>
     xnoremap <Leader>a= :Tabularize /=<CR>
@@ -161,7 +276,7 @@ if s:has_plugin('tabular')
     xnoremap <Leader>a: :Tabularize /:\zs<CR>
 
     " Tabular operator function
-    " Operations have the form <MAPPING> <TEXTOBJECT> <ALIGNMENT CHAR>
+    " Operations have the form <MAPPING> <TEXTOBJECT> <ALIGNMENT_CHAR>
     " For example, to align a paragraph along '=' chars, do <Leader>tip=
     function! s:tabularize_op(type, ...)
         let c = nr2char(getchar())
@@ -171,7 +286,8 @@ if s:has_plugin('tabular')
     command! AlignSpaces Tab /\s\+\zs/l1r0
 endif
 
-" Unite: Unified interface for file, buffer, yankstack, etc. management
+" }}}
+" Unite: Unified interface for file, buffer, yankstack, etc. management {{{
 if s:has_plugin('unite.vim')
     let g:unite_source_history_yank_enable = 1
     call unite#filters#matcher_default#use(['matcher_fuzzy'])
@@ -199,7 +315,8 @@ if s:has_plugin('unite.vim')
     endif
 endif
 
-" Vinegar: netrw improvements
+" }}}
+" Vinegar: netrw improvements {{{
 if s:has_plugin('vim-vinegar')
     function! ToggleVExplorer()
         if exists("t:expl_buf_num")
@@ -224,8 +341,11 @@ if s:has_plugin('vim-vinegar')
     noremap <silent> <C-e> :<C-u>call ToggleVExplorer()<CR>
 endif
 
-" YouCompleteMe:
+" }}}
+" YouCompleteMe: {{{
 if s:has_plugin('YouCompleteMe')
     let g:ycm_enable_diagnostic_signs = 0
     let g:ycm_filetype_specific_completion_to_disable = {'scheme': 1 }
 endif
+
+" }}}

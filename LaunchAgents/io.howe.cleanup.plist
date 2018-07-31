@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>io.howe.cleanup</string>
+
+        <key>ProgramArguments</key>
+        <string>~/dotfiles/bin/wipe_inactive_vim_undofiles</string>
+
+        <key>StartCalendarInterval</key>
+        <dict>
+            <key>Minute</key> <integer>53</integer>
+            <key>Hour</key>   <integer>2</integer>
+            <key>Day</key>    <integer>28</integer>
+            <!-- <key>Month</key>  <integer>*</integer>
+                 <key>Year</key>   <integer>*</integer> -->
+        </dict>
+    </dict>
+</plist>
