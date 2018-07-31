@@ -50,7 +50,7 @@ set number norelativenumber                                       " Line numbers
 set autowrite                       " Automatically save file when focus is lost
 set copyindent autoindent          " Imitate indenting of previous line's indent
 set ttyfast                                            " See :help slow-terminal
-set switchbuf=useopen,vsplit    " Switching buffers, use open window if possible
+set switchbuf=useopen           " Switching buffers, use open window if possible
 set viewoptions=cursor,folds,slash,unix " Buffer options to remember with mkview
 set laststatus=2                                    " Always display status line
 set noshowmode         " Don't show -- INSERT -- or whatever in the command line
