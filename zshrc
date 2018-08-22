@@ -1,15 +1,10 @@
 # zshrc
 # vim:set ft=zsh et ts=4 sw=4:
 
-export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
-export DFS="${DFS:-$HOME/dotfiles}"
-export KEYTIMEOUT=1
-export HOMEBREW_BREWFILE="$DFS/Brewfile"
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
 [[ -f "$HOME/.zshenv" ]] && source "$HOME/.zshenv" # Not sourced on login
 
-mkdir -p "$HOME/.zsh"
+export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
+export DFS="${DFS:-$HOME/dotfiles}"
 
 if [[ -x "${commands[git]}" ]]; then
     plugins+=git
@@ -19,10 +14,10 @@ if [[ -x "${commands[git]}" ]]; then
     # Local Destination                            # Github Page
     "$DFS"                                         'joshtch/dotfiles'
     "$HOME/.tmux/plugins/tpm"                      'tmux-plugins/tpm'
-    "$HOME/.zsh/dircolors-solarized"               'seebi/dircolors-solarized'
-    "$HOME/.zsh/history-substring-search"          'zsh-users/zsh-history-substring-search'
-    "$HOME/.zsh/syntax-highlighting"               'zsh-users/zsh-syntax-highlighting'
     "$ZSH"                                         'robbyrussell/oh-my-zsh'
+    "$ZSH/custom/dircolors-solarized"              'seebi/dircolors-solarized'
+    "$ZSH/custom/history-substring-search"         'zsh-users/zsh-history-substring-search'
+    "$ZSH/custom/syntax-highlighting"              'zsh-users/zsh-syntax-highlighting'
     "$ZSH/custom/plugins/alias-tips"               'djui/alias-tips'
     "$ZSH/custom/plugins/deer"                     'Vifon/deer'
     "$ZSH/custom/plugins/docker-aliases"           'webyneter/docker-aliases'
@@ -32,16 +27,16 @@ if [[ -x "${commands[git]}" ]]; then
     )
 
     github_url="https://github.com"
-    for plugin_dir in "${(@k)github_repos}"; do
+    for plugin_dir in ${(@ko)github_repos}; do
         if ! [[ -d "$plugin_dir" ]]; then
-            git clone --recursive "$github_url/${github_repos[$plugin_dir]}" "$plugin_dir"
+            git clone -q --depth=1 --recursive "${github_url}/${github_repos[$plugin_dir]}" "${plugin_dir}"
         fi
     done
 
     function update_plugins() {
         for plugin_dir in "${(@k)git_plugins}"; do
-            ( cd "$plugin_dir" && git pull --recurse-submodules=yes ) ||
-                git clone --recursive "${github_repos[$plugin_dir]}" "$plugin_dir"
+            ( cd "${plugin_dir}" && git pull -q --recurse-submodules=yes ) ||
+                git clone -q --depth=1 --recursive "${github_repos[$plugin_dir]}" "${plugin_dir}"
         done
     }
 fi
@@ -98,10 +93,10 @@ source "$ZSH/oh-my-zsh.sh"
 
 [[ -f "$HOME/.localrc.zsh" ]] && source "$HOME/.localrc.zsh"
 
-[[ -d "$HOME/.zsh/syntax-highlighting" ]] && \
-    source "$HOME/.zsh/syntax-highlighting/zsh-syntax-highlighting.zsh"
-[[ -d "$HOME/.zsh/history-substring-search" ]] && \
-    source "$HOME/.zsh/history-substring-search/zsh-history-substring-search.zsh"
+[[ -d "$ZSH/custom/syntax-highlighting" ]] && \
+    source "$ZSH/custom/syntax-highlighting/zsh-syntax-highlighting.zsh"
+[[ -d "$ZSH/custom/history-substring-search" ]] && \
+    source "$ZSH/custom/history-substring-search/zsh-history-substring-search.zsh"
 
 # This freezes Zsh's terminal state, so flow control works as normal after
 # terminal apps crash

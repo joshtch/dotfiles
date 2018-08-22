@@ -17,9 +17,9 @@ eval `/usr/libexec/path_helper -s`
 typeset -U path
 path=(
     "/usr/local/opt/python@2/bin"
-    "$HOME/.local/bin"
     "$HOME/bin"
     "$HOME/local/bin"
+    "$HOME/.local/bin"
     "$DFS/bin"
     "/usr/local/opt/coreutils/libexec/gnubin"
     "/opt/X11/bin"
@@ -43,6 +43,10 @@ export FPATH
 typeset -U manpath
 manpath=(
     "$HOME/.local/share/man"
+    "/usr/sup/man"
+    "/usr/sup/share/man"
+    "/usr/sup/provide/man"
+    "/usr/share/man"
     "${manpath[@]}"
 )
 export MANPATH
@@ -70,9 +74,6 @@ export _NROFF_U=1
 
 # for lesspipe.sh
 export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
-
-# Use less as pager if no pager set
-export PAGER="${commands[less]:-$PAGER}"
 
 # Location of UEFI BIOS kernel (OVMF) for QEMU
 export OVMF_BIOS="$HOME/tools/OVMF.fd"

@@ -4,11 +4,15 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
       \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" If plugins not yet installed, auto-run plugin installation and setup on startup {{{
+let s:plugdir = $MYTMP . '/bundle/'
+if !isdirectory(s:plugdir)
   augroup InstallVimPlug
       autocmd!
     autocmd VimEnter * PlugInstall | source $MYVIMRC
   augroup END
 endif
+call plug#begin(s:plugdir)
 
 " }}}
 " Conditional Activation helper function for Plug {{{
@@ -21,8 +25,6 @@ endfunction
 
 " }}}
 " Plug Plugins: {{{
-call plug#begin('~/.vim/bundle/')
-
 " Appearance: {{{
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-airline/vim-airline'

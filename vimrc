@@ -70,6 +70,10 @@ silent! setglobal tags-=./tags tags-=./tags; tags^=./tags;
 set history=1000 tabpagemax=50
 set viminfo^=!
 set sessionoptions-=options
+set display^=uhex              " Show unprintable characters hexadecimal as <xx>
+silent! set emoji     " Show emoji characters as full width, multibyte character
+set nofixeol                             " Do not insert an <EOL> if none exists
+set noexrc secure    " Do not load .vimrc, .exrc or .gvimrc in current directory
 
 " }}}
 " Folding {{{
@@ -227,13 +231,15 @@ endif
 " undodir="$HOME/.vim/tmp/undo" && find "$undodir" -mindepth 1 -type f | \
 "    cut -c $(( ${#undodir}+2 ))- | \
 "    ( while read -r file; do test -f "${file//\%//}" || rm "${undodir}/${file}"; done )
-set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 
 " Make those folders automatically if they don't already exist.
-if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
+if has('persistent_undo')
+    set undodir=~/.vim/tmp/undo//     " undo files
+    if !isdirectory(expand(&undodir))
+        call mkdir(expand(&undodir), "p")
+    endif
 endif
 if !isdirectory(expand(&backupdir))
     call mkdir(expand(&backupdir), "p")
@@ -268,7 +274,6 @@ if has('gui_running')
     set guicursor=a:blinkon0,i:ver1
     set guifont=PowerlineSymbols
 else "Terminal
-    set timeout
     " Remove small delay between pressing Esc and entering Normal mode.
     set timeout ttimeout ttimeoutlen=-1
     augroup FastEscape
@@ -276,11 +281,6 @@ else "Terminal
         autocmd InsertEnter * set timeoutlen=0
         autocmd InsertLeave * set timeoutlen=1000
     augroup END
-endif
-
-if !has('nvim') && &ttimeoutlen == -1
-    set ttimeout
-    set ttimeoutlen=100
 endif
 
 " }}}
