@@ -6,27 +6,45 @@ export EDITOR="${commands[vim]}"
 export PAGER="${commands[less]}"
 
 export ZDOTDIR="${ZDOTDIR:-$HOME}"
-export ZSH="$HOME/.oh-my-zsh"
-export DFS="$HOME/dotfiles"
+export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
+export DFS="${DFS:-$HOME/dotfiles}"
 export HOMEBREW_BREWFILE="$DFS/Brewfile"
 export KEYTIMEOUT=1
 export VIM_APP_DIR="/Applications"
 export GPG_TTY="$(tty)"
+export GLIBC_VERSION="$(ldd --version | awk '{print $NF; exit}')"
 
 eval `/usr/libexec/path_helper -s`
 typeset -U path
+if [ "x$(uname)" = "xDarwin" ]; then
+    path=(
+        "/usr/local/opt/python@2/bin"
+        "/usr/local/opt/coreutils/libexec/gnubin"
+        "/opt/X11/bin"
+        "${path[@]}"
+    )
+elif [ "x$(uname)" = "xLinux" ]; then
+    path=(
+        "/usr/lib64/qt-3.3/bin"
+        "/opt/puppetlabs/bin"
+        "${path[@]}"
+    )
+fi
 path=(
-    "/usr/local/opt/python@2/bin"
     "$HOME/bin"
     "$HOME/local/bin"
     "$HOME/.local/bin"
     "$DFS/bin"
-    "/usr/local/opt/coreutils/libexec/gnubin"
-    "/opt/X11/bin"
+    "${path[@]}"
     "/usr/local/bin"
     "/usr/local/sbin"
-    "${path[@]}"
+    "/usr/sup/bin"
+    "/bin"
+    "/usr/bin"
+    "/usr/cots/bin"
 )
+export PATH
+
 [ -x "/usr/local/opt/go/libexec/bin/go" ] && \
     path+=/usr/local/opt/go/libexec/bin
 [ -x "/usr/local/opt/ctags-exuberant/bin/ctags" ] && \
